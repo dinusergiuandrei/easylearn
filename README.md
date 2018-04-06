@@ -30,6 +30,7 @@ The application will start at the port specified in the **application.properties
 
 
 ### Documentation
+* Angular and Spring example: https://spring.io/guides/gs/consuming-rest-angularjs/
 * Gradle tutorial: http://www.vogella.com/tutorials/Gradle/article.html
 * Gradle: https://gradle.org/docs/
 * Spring: http://www.vogella.com/tutorials/web.html (the Spring section)
