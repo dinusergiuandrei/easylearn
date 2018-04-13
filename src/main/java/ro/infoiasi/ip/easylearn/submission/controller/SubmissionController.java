@@ -8,28 +8,34 @@ import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import java.util.List;
 
 //curl localhost:8100/submit -d'{"id":"123"}' -H content-type:application/json
-// dependency injection -- service
+// dependency injection -- submissionService
 
 
 @RestController
 public class SubmissionController {
-    private SubmissionService service;
+    private SubmissionService submissionService;
 
-    public SubmissionController(SubmissionService service) {
-
-        this.service = service;
+    public SubmissionController(SubmissionService submissionService) {
+        this.submissionService = submissionService;
     }
 
     @RequestMapping(path = "/submissions", method = RequestMethod.GET)
     @ResponseBody
     public List<Submission> submissions() {
-        return null;
+        return submissionService.findAll();
+    }
+
+    @RequestMapping(path = "/submissions/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public Submission submissions(@PathVariable Long id) {
+        return submissionService.findById(id);
     }
 
     @RequestMapping(path = "/submit", method = RequestMethod.POST)
     @ResponseBody
     public SubmissionResponse submit(@RequestBody Submission submission) {
-
-        return service.submit(submission);
+        return submissionService.submit(submission);
     }
+
+
 }
