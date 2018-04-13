@@ -1,4 +1,4 @@
-package ro.infoiasi.ip.easylearn.submission;
+package ro.infoiasi.ip.easylearn.submission.model;
 
 
 // de hotarat modelul pentru raspuns

@@ -1,6 +1,8 @@
-package ro.infoiasi.ip.easylearn.submission;
+package ro.infoiasi.ip.easylearn.submission.service;
 
 import org.springframework.stereotype.Service;
+import ro.infoiasi.ip.easylearn.submission.model.Submission;
+import ro.infoiasi.ip.easylearn.submission.model.SubmissionResponse;
 
 
 @Service
