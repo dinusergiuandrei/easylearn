@@ -22,6 +22,8 @@ public class SubmissionService {
         submission.state = "waiting";
         submissionRepository.save(submission);
 
+        //TODO:
+
         SubmissionResponse response = new SubmissionResponse();
         response.result = "Processed sumbission with id: " + submission.id;
 

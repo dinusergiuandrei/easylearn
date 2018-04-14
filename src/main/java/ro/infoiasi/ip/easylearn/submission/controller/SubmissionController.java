@@ -7,7 +7,6 @@ import ro.infoiasi.ip.easylearn.submission.model.Submission;
 
 import java.util.List;
 
-//curl localhost:8100/submit -d'{"id":"123"}' -H content-type:application/json
 // dependency injection -- submissionService
 
 
@@ -36,6 +35,5 @@ public class SubmissionController {
     public SubmissionResponse submit(@RequestBody Submission submission) {
         return submissionService.submit(submission);
     }
-
 
 }

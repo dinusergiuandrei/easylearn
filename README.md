@@ -5,6 +5,10 @@ You can use the IDE of your choice. Whenever submitting changes to the repositor
 
 ### Project structure
 
+### Prerequisites
+1. Make sure you have the jdk installed on your system.
+2. If you receive a "Gradle does not find tools.jar" or similar error, than make sure that the JAVA_HOME path variable is set to the location of your jdk installation: https://stackoverflow.com/questions/11345193/gradle-does-not-find-tools-jar (example for Windows); only follow the instructions from the first screen capure.
+
 ### Development workflow
 0. The first time you should clone the project locally. This step should be skipped in future iterations.
 1. Pull the latest version from github locally before adding any other code. This should be done each time.
