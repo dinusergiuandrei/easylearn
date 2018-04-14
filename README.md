@@ -29,8 +29,8 @@ In order to **build** the project, position yourself in the root directory of th
 In order to **run** the project, position yourself in the root directory of the project and use the following command depending on your operating system:
 * Windows: **gradlew.bat bootRun**
 * Linux: **./gradlew bootRun**
-
-The application will start at the port specified in the **application.properties** file, which is located in the resources folder. The current application port is set to 8100. After starting the project access it: http://localhost:8100/
+* The application will start at the port specified in the **application.properties** file, which is located in the resources folder. The current application port is set to 8100. After starting the project access it: http://localhost:8100/
+* The HTTP API exposed by the application can be accessed manually at the following endpoint: http://localhost:8100/swagger-ui.html
 
 
 ### Documentation
