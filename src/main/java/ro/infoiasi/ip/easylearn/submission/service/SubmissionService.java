@@ -1,6 +1,9 @@
 package ro.infoiasi.ip.easylearn.submission.service;
 
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
+import ro.infoiasi.ip.easylearn.execution.SubmissionRunner;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionResponse;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
@@ -13,19 +16,22 @@ import java.util.List;
 @Service
 public class SubmissionService {
     private SubmissionRepository submissionRepository;
+    private JmsTemplate jmsTemplate;
 
-    public SubmissionService(SubmissionRepository submissionRepository) {
+    public SubmissionService(SubmissionRepository submissionRepository, JmsTemplate jmsTemplate) {
         this.submissionRepository = submissionRepository;
+        this.jmsTemplate = jmsTemplate;
     }
 
     public SubmissionResponse submit(Submission submission){
         submission.state = "waiting";
-        submissionRepository.save(submission);
+        Long id = submissionRepository.save(submission);
 
-        //TODO:
+        //TODO: send submission for processing (Queue)
+        jmsTemplate.convertAndSend("submissionQueue", id);
 
         SubmissionResponse response = new SubmissionResponse();
-        response.result = "Processed sumbission with id: " + submission.id;
+        response.result = "Processed submission http://localhost:8100/submissions/" + id;
 
         return response;
     }

@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public interface SubmissionRepository {
-    void save(Submission submission);
+    Long save(Submission submission);
     Submission findById(Long id);
     List<Submission> findAll();
     List<Submission> findByState(String state);

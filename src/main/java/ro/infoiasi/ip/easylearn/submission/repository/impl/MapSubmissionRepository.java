@@ -9,14 +9,18 @@ import java.util.*;
 @Repository
 public class MapSubmissionRepository implements SubmissionRepository{
     private Map<Long, Submission> submissions;
+    private Long id = 1L;
 
     public MapSubmissionRepository() {
         this.submissions = new HashMap <>();
     }
 
     @Override
-    public void save(Submission submission) {
+    public Long save(Submission submission) {
+        submission.id = this.id++;
         submissions.put(submission.id, submission);
+
+        return submission.id;
     }
 
     @Override

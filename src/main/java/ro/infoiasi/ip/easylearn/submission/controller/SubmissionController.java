@@ -10,6 +10,7 @@ import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import java.util.List;
 
 // dependency injection -- submissionService
+// Source: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
 
 
 @RestController

@@ -9,4 +9,15 @@ public class Submission {
 
     // waiting, evaluating, completed
     public String state;
+
+    @Override
+    public String toString() {
+        return "Submission{" +
+                "id=" + id +
+                ", problemId=" + problemId +
+                ", language='" + language + '\'' +
+                ", sourceCode='" + sourceCode + '\'' +
+                ", state='" + state + '\'' +
+                '}';
+    }
 }
