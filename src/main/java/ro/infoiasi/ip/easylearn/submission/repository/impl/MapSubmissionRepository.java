@@ -17,10 +17,10 @@ public class MapSubmissionRepository implements SubmissionRepository{
 
     @Override
     public Long save(Submission submission) {
-        submission.id = this.id++;
-        submissions.put(submission.id, submission);
+        submission.setId(this.id++);
+        submissions.put(submission.getId(), submission);
 
-        return submission.id;
+        return submission.getId();
     }
 
     @Override
@@ -38,7 +38,7 @@ public class MapSubmissionRepository implements SubmissionRepository{
         List<Submission> filteredSubmissions = new LinkedList <>();
 
         for(Submission submission : findAll()){
-            if(submission.state.equals(state)){
+            if(submission.getState().equals(state)){
                 filteredSubmissions.add(submission);
             }
         }
