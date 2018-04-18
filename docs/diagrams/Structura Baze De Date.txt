@@ -1,0 +1,8 @@
+Users(userID number, nume varchar, prenume varchar, email varchar, parola varchar)
+
+Categorii(catID number, nume varchar)
+
+Probleme(problemID number, authorID number, title varchar, descriere varchar, cerinta varchar, date_intrare varchar, date_iesire varchar, restrictii varchar, dificultate integer, categorie number,
+tip_date varchar, exemplu_intrare varchar, exemplu_iesire varchar, in_file varchar, out_file varchar, max_memory integer, max_time real)
+
+Teste(problemID number, input varchar, expected_output varchar)
