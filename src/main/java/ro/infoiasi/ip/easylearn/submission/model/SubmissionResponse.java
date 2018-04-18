@@ -9,6 +9,7 @@ public class SubmissionResponse {
     }
 
     public SubmissionResponse(Long id) {
+
         this.result = "Processed submission http://localhost:8100/submissions/" + id;
     }
 }
