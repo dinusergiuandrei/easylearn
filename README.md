@@ -10,6 +10,13 @@ You can use the IDE of your choice. Whenever submitting changes to the repositor
 2. If you receive a "Gradle does not find tools.jar" or similar error, than make sure that the JAVA_HOME path variable is set to the location of your jdk installation: https://stackoverflow.com/questions/11345193/gradle-does-not-find-tools-jar (example for Windows); only follow the instructions from the first screen capture.
 
 ### Importing the project in IntelliJ IDEA
+1. Open Intellij IDEA
+2. File -> Open
+3. Navigate to the base directory of the project/repository
+4. Select the build.gradle file from this directory and then OK
+5. Select Open as Project
+6. Check the **Use auto-import** option
+7. If you receive an error that specifies that the project is already created in the directory, delete the directory/repository and clone the repository again. **This will delete any changes that were made locally and were not pushed to GitHub, you will loose them.**
 
 ### Development workflow
 0. The first time you should clone the project locally. This step should be skipped in future iterations.
