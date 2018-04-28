@@ -1,30 +1,77 @@
 package ro.infoiasi.ip.easylearn.Compiler;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import ro.infoiasi.ip.easylearn.compiler.Compiler;
+import ro.infoiasi.ip.easylearn.compiler.CompilerParameters;
+import ro.infoiasi.ip.easylearn.compiler.Output;
 
-/**
- * Do not test. Compiler behaviour is not yet resolved.
- */
+import java.security.AccessControlException;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class CompilerTest {
-    public static String helloWorldSourcePath = "sample/sources/java/HelloWorld.java";
-    //public static String helloWorldOutputPath = "sample/run_output/java/output_file.txt";
+    //todo: find out why projectRootPath is not "."
 
-    public static String fileWriterSourcePath = "sample/sources/java/FileWriter.java";
-    public static String fileWriterOutputPath = "sample/run_output/java/output_file.txt";
+    private static Compiler compiler;
 
+    private static CompilerParameters helloWorldParameters;
 
-    Compiler compiler;
+    private static CompilerParameters fileWriterParameters;
 
-    //@Before
-    public void run(){
-        this.compiler = new Compiler();
-        //compiler.loadSecurityManager();
+    @Before
+    public void setUp() {
+        compiler = new Compiler();
+
+        helloWorldParameters = new CompilerParameters(
+                "sample/sources/java/HelloWorld.java",
+                "sample/compile_output/java",
+                "",
+                "../../",
+                10L,
+                TimeUnit.SECONDS
+        );
+
+        fileWriterParameters = new CompilerParameters(
+                "sample/sources/java/FileWriter.java",
+                "sample/compile_output/java",
+                "",
+                "../../",
+                10L,
+                TimeUnit.SECONDS
+        );
     }
 
-    //@Test
-    public void runTest(){
-        compiler.compileAndRun(helloWorldSourcePath);
+    @Test
+    public void helloWorldTest() {
+        Output output = compiler.compileAndRun(helloWorldParameters);
+        System.out.println(output);
+        Assert.assertEquals(output.getOutput().trim(), "Hello World!");
+    }
+
+    @Test
+    public void writeTest() {
+        try {
+            compiler
+                    .getSecurityManager()
+                    .checkWrite(
+                            fileWriterParameters.getProjectRootPath()
+                                    + fileWriterParameters.getCompileOutputPath()
+                    );
+            Output output = compiler.compileAndRun(fileWriterParameters);
+        } catch (AccessControlException e) {
+            String message
+                    = e.getMessage()
+                    .replace("(", "")
+                    .replace("\"", "");
+            String expectedRegex = "(access denied java.io.FilePermission )(.*)( write)";
+            Pattern p = Pattern.compile(expectedRegex);
+            Matcher matcher = p.matcher(message);
+            Assert.assertTrue(matcher.find());
+            return;
+        }
+        Assert.fail();
     }
 }

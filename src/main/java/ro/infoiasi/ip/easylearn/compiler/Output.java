@@ -1,5 +1,4 @@
 package ro.infoiasi.ip.easylearn.compiler;
-
 public class Output {
     private String error;
 
@@ -9,20 +8,26 @@ public class Output {
 
     private Integer exitValue;
 
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (this.output != null && this.output.length() > 0) {
+            stringBuilder.append(this.output);
+        }
+        if (this.error != null && this.error.length() > 0) {
+            stringBuilder.append("Run error: \n").append(this.error);
+        }
+        stringBuilder.append("Exit value: ").append(this.exitValue);
+
+        return stringBuilder.toString();
+    }
+
     Integer getExitValue() {
         return exitValue;
     }
 
     void setExitValue(Integer exitValue) {
         this.exitValue = exitValue;
-    }
-
-    Boolean getSuccess() {
-        return success;
-    }
-
-    void setSuccess(Boolean success) {
-        this.success = success;
     }
 
     String getError() {
@@ -33,7 +38,7 @@ public class Output {
         this.error = error;
     }
 
-    String getOutput() {
+    public String getOutput() {
         return output;
     }
 
@@ -41,3 +46,4 @@ public class Output {
         this.output = output;
     }
 }
+

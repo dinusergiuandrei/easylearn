@@ -1,84 +1,82 @@
 package ro.infoiasi.ip.easylearn.compiler;
 
 import java.io.*;
+import java.util.concurrent.TimeUnit;
 
-/**
- * Do not use yet. Path issues.
- */
+import static ro.infoiasi.ip.easylearn.utils.Strings.extractClassNameFromSourcePath;
+import static ro.infoiasi.ip.easylearn.utils.Strings.getStringFromInputStream;
+
 public class Compiler {
 
     private SecurityManager securityManager;
 
-    private Output compileOutput;
+    public Output compileAndRun(CompilerParameters parameters) {
 
-    private Output runOutput;
-
-    public void compileAndRun(String sourcePath) {
-
-        String inputStream = null;
+        Output compileOutput;
+        Output runOutput;
 
         try {
-            compileOutput = compile(sourcePath);
-            if (compileOutput.getSuccess()) {
-                runOutput = run(this.extractClassNameFromSourcePath(sourcePath), inputStream);
-            }
-            this.displayResults();
+            compileOutput = compile(parameters);
         } catch (Exception e) {
-            e.printStackTrace();
+            Output errorOutput = new Output();
+            errorOutput.setError(e.getMessage());
+            return errorOutput;
         }
-    }
 
-    private void displayResults() {
-        if(compileOutput!=null) {
-            System.out.println("Compile output: " + (compileOutput.getOutput()));
-            System.out.println("Compile error: \n" + (this.compileOutput.getError()));
-            System.out.println("Compiled: " + this.compileOutput.getSuccess());
-        }
-        if(runOutput!=null) {
-            System.out.println();
-            System.out.println("Run output: \n" + runOutput.getOutput());
-            System.out.println("Run error: \n" + runOutput.getError());
-            System.out.println("Exit value: \n" + runOutput.getExitValue());
-        }
-    }
-
-    private Output compile(String mainFile) throws Exception {
-        String command = "javac " + mainFile;
-        Process process = Runtime.getRuntime().exec(command);
-        process.waitFor();
-
-        Output compileOutput = new Output();
-        compileOutput.setError(getStringFromInputStream(process.getErrorStream()));
-        compileOutput.setOutput(getStringFromInputStream(process.getInputStream()));
-        compileOutput.setExitValue(process.exitValue());
         if (compileOutput.getExitValue() == 0) {
-            compileOutput.setSuccess(true);
+            try {
+                runOutput = run(parameters);
+            } catch (Exception e) {
+                Output errorOutput = new Output();
+                errorOutput.setError(e.getMessage());
+                return errorOutput;
+            }
+            return runOutput;
         } else {
-            compileOutput.setSuccess(false);
+            return compileOutput;
         }
-
-        return compileOutput;
     }
 
-    private Output run(String mainFile, String input) throws Exception {
-        String command = "java " + mainFile;
+    private Output compile(CompilerParameters parameters) throws Exception {
+        String command
+                = "javac -d "
+                + parameters.getProjectRootPath()
+                + parameters.getCompileOutputPath() + " "
+                + parameters.getProjectRootPath()
+                + parameters.getSourcePath();
+
         Process process = Runtime.getRuntime().exec(command);
 
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-        writer.write(input);
-        writer.flush();
+        return getProcessOutput(process, parameters.getTimeout(), parameters.getTimeUnit());
+    }
 
-        process.waitFor();
+    private Output run(CompilerParameters parameters) throws Exception {
+        String className = extractClassNameFromSourcePath(parameters.getSourcePath());
+
+        String command
+                = "java -cp "
+                + parameters.getProjectRootPath()
+                + parameters.getCompileOutputPath() + " "
+                + className;
+
+        Process process = Runtime.getRuntime().exec(command);
+
+        if (parameters.getKeyboardInput() != null && parameters.getKeyboardInput().length() > 0) {
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+            writer.write(parameters.getKeyboardInput());
+            writer.flush();
+        }
+
+        return getProcessOutput(process, parameters.getTimeout(), parameters.getTimeUnit());
+    }
+
+    private Output getProcessOutput(Process process, Long timeout, TimeUnit timeUnit) throws Exception {
+        process.waitFor(timeout, timeUnit);
 
         Output runOutput = new Output();
         runOutput.setError(getStringFromInputStream(process.getErrorStream()));
         runOutput.setOutput(getStringFromInputStream(process.getInputStream()));
         runOutput.setExitValue(process.exitValue());
-        if (runOutput.getExitValue() == 0) {
-            runOutput.setSuccess(true);
-        } else {
-            runOutput.setSuccess(false);
-        }
 
         return runOutput;
     }
@@ -87,38 +85,12 @@ public class Compiler {
         SecurityManager securityManager = new SecurityManager();
         System.setSecurityManager(securityManager);
         this.securityManager = System.getSecurityManager();
-
-        //security.checkRead(sourcePath);
-        //security.checkWrite(outputPath);
     }
 
-    private String extractClassNameFromSourcePath(String sourcePath) {
-        if (sourcePath.endsWith(".java")) {
-            return sourcePath.substring(0, sourcePath.length() - 5);
-        } else {
-            System.err.println("Source path does not point to a java file: " + sourcePath);
+    public SecurityManager getSecurityManager() {
+        if (this.securityManager == null) {
+            this.loadSecurityManager();
         }
-        return null;
-    }
-
-    private static String getStringFromInputStream(InputStream ins) throws Exception {
-        StringBuilder s = new StringBuilder();
-        String line;
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(ins));
-        while ((line = in.readLine()) != null) {
-            s.append(line);
-            s.append('\n');
-        }
-
-        return s.toString();
-    }
-
-    public Output getCompileOutput() {
-        return compileOutput;
-    }
-
-    public Output getRunOutput() {
-        return runOutput;
+        return securityManager;
     }
 }
