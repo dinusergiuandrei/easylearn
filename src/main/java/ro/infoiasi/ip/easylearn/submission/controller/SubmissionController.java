@@ -39,7 +39,7 @@ public class SubmissionController {
 
     @RequestMapping(path = "/submit", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value = "Send a submission for processing")
+    @ApiOperation(value = "Send a submission for processing. If the request contains special characters, copy Example Value model in: https://jsoneditoronline.org/, select the key icon to repair the JSON, then paste the result in swagger.")
     public SubmissionResponse submit(@RequestBody Submission submission) {
         return submissionService.submit(submission);
     }
