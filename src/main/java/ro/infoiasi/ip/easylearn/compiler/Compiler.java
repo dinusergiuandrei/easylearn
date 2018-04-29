@@ -45,7 +45,6 @@ public class Compiler {
                 + parameters.getProjectRootPath()
                 + parameters.getSourcePath();
 
-        System.out.println(command);
         Process process = Runtime.getRuntime().exec(command);
 
         return getProcessOutput(process, parameters.getTimeout(), parameters.getTimeUnit());
