@@ -35,7 +35,7 @@ public class CompilerTest {
         );
 
         fileWriterParameters = new CompilerParameters(
-                "sample/sources/java/FileWriter.java",
+                "ro/infoiasi/ip/easylearn/compiler/FileWriter.java",
                 "sample/compile_output/java",
                 "",
                 "../../",
