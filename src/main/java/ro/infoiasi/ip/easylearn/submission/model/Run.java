@@ -1,13 +1,15 @@
 package ro.infoiasi.ip.easylearn.submission.model;
 
 
+import ro.infoiasi.ip.easylearn.utils.RunState;
+
 public class Run {
     private Long id;
     private Long submissionId;
     private Long runTimeMs;
     private Long memoryBytes;
     // fail, success
-    private String status;
+    private RunState status;
 
     public Run() {
     }
@@ -44,11 +46,11 @@ public class Run {
         this.memoryBytes = memoryBytes;
     }
 
-    public String getStatus() {
+    public RunState getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(RunState status) {
         this.status = status;
     }
 }

@@ -9,60 +9,85 @@ import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
-import ro.infoiasi.ip.easylearn.submission.repository.impl.MapRunRepository;
+import ro.infoiasi.ip.easylearn.utils.RunState;
 import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
-import static java.lang.Thread.sleep;
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Component
 public class SubmissionRunner {
     private SubmissionRepository submissionRepository;
     private RunRepository runRepository;
+    private Compiler compiler;
 
     public SubmissionRunner(SubmissionRepository submissionRepository, RunRepository runRepository) {
         this.submissionRepository = submissionRepository;
         this.runRepository = runRepository;
+        this.compiler = new Compiler();
     }
 
     @JmsListener(destination = "submissionQueue", containerFactory = "jmsListenerContainerFactory")
     public void run(Long submissionId) throws Exception {
-        sleep(1000);
         System.out.println("Running submission with id: " + submissionId);
         Submission submission = submissionRepository.findById(submissionId);
+        submission.setState(SubmissionState.Running);
         System.out.println("Running submission: " + submission);
 
-        submission.setState(SubmissionState.Running);
+        String filename = generateSourceCodeMainClassPath(submission);
+        addSubmissionSourceCodeToFile(submission, filename);
 
-        PrintWriter writer = new PrintWriter("sandbox/sample/sources/java/Main.java");
-        writer.write(submission.getSourceCode());
+        CompilerParameters compilerParameters = new CompilerParameters(filename, "sandbox/sample/generated/java/", "", 1000L, MILLISECONDS);
 
-        writer.flush();
-        writer.close();
+        Output compileOutput = compiler.compile(compilerParameters);
 
-        CompilerParameters compilerParameters =
-                new CompilerParameters("sandbox/sample/sources/java/Main.java", "sandbox/sample/generated/java/", "", 1000L, MILLISECONDS);
+        if (compiledWithSuccess(compileOutput)) {
+//            for(Test test : tests) {
+                // TODO: run for each test and compare results
+                Run run = new Run();
+                run.setSubmissionId(submission.getId());
+                run.setRunTimeMs(10L);
+                run.setMemoryBytes(10L);
 
-        Output compileOutput = this.compileAndRun(compilerParameters);
+                // TODO: run() must receive testInput
+                Output runOutput = compiler.run(compilerParameters);
+//                compareOutput(runOutput, testOutput);
+                run.setStatus(runWithSuccess(runOutput) ? RunState.Success : RunState.Failed);
 
-        // TODO: save to database the result of the compilation
-        submission.setState(SubmissionState.getSubmissionStateFromOutput(compileOutput));
-        submission.setResult(compileOutput.toString());
+                runRepository.save(run);
+//            }
 
-        // obtain test list, run for each test, obtain info and add them to RunRepository
-
-        Run run = new Run();
-        run.setSubmissionId(submission.getId());
-        run.setRunTimeMs(10L);
-        run.setMemoryBytes(10L);
-        run.setStatus("success");
-
-        runRepository.save(run);
+            submission.setState(SubmissionState.Completed);
+        } else {
+            submission.setState(SubmissionState.CompilationFailed);
+        }
     }
 
-    private Output compileAndRun(CompilerParameters compilerParameters){
+    // TODO: language cases
+    private String generateSourceCodeMainClassPath(Submission submission) {
+        return "sandbox/sample/sources/java/Main.java";
+    }
+
+    // TODO: implement it
+    private boolean runWithSuccess(Output runOutput) {
+
+        return runOutput.getExitValue() == 0;
+    }
+
+    private boolean compiledWithSuccess(Output compileOutput) {
+        return compileOutput.getExitValue() == 0;
+    }
+
+    private void addSubmissionSourceCodeToFile(Submission submission, String filename) throws FileNotFoundException {
+        PrintWriter writer = new PrintWriter(filename);
+        writer.write(submission.getSourceCode());
+        writer.flush();
+        writer.close();
+    }
+
+    private Output compileAndRun(CompilerParameters compilerParameters) {
         Compiler compiler = new Compiler();
 
         //compiler.getSecurityManager().check ...
