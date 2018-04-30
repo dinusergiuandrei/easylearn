@@ -6,7 +6,7 @@ public class Submission {
     private Long problemId;
     private String language;
     private String sourceCode;
-    // waiting, evaluating, completed
+    // waiting, evaluating, compilation failed, completed
     private String state;
 
     public Long getId() {
@@ -47,6 +47,16 @@ public class Submission {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public static Submission constructSubmissionFrom(SubmissionRequest submissionRequest) {
+        Submission submission = new Submission();
+        submission.setProblemId(submissionRequest.getProblemId());
+        submission.setLanguage(submissionRequest.getLanguage());
+        submission.setSourceCode(submissionRequest.getSourceCode());
+        submission.setState("waiting");
+
+        return submission;
     }
 
     @Override

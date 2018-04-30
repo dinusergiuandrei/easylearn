@@ -5,6 +5,7 @@ import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
 import ro.infoiasi.ip.easylearn.execution.SubmissionRunner;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
+import ro.infoiasi.ip.easylearn.submission.model.SubmissionRequest;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionResponse;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.impl.MapSubmissionRepository;
@@ -26,13 +27,13 @@ public class SubmissionService {
         this.submissionValidator = submissionValidator;
     }
 
-    public SubmissionResponse submit(Submission submission){
-        submissionValidator.validate(submission);
+    public SubmissionResponse submit(SubmissionRequest submissionRequest){
+        submissionValidator.validate(submissionRequest);
 
-        submission.setState("waiting");
+        Submission submission = Submission.constructSubmissionFrom(submissionRequest);
         Long id = submissionRepository.save(submission);
 
-        // Send the id of the submission to be processed by the execution module.
+        // Send the id of the submissionRequest to be processed by the execution module.
         jmsTemplate.convertAndSend("submissionQueue", id);
 
         return new SubmissionResponse(id);

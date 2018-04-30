@@ -3,6 +3,7 @@ package ro.infoiasi.ip.easylearn.submission.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
+import ro.infoiasi.ip.easylearn.submission.model.SubmissionRequest;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionResponse;
 import ro.infoiasi.ip.easylearn.submission.service.SubmissionService;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
@@ -40,8 +41,8 @@ public class SubmissionController {
     @RequestMapping(path = "/submit", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Send a submission for processing. If the request contains special characters, copy Example Value model in: https://jsoneditoronline.org/, select the key icon to repair the JSON, then paste the result in swagger.")
-    public SubmissionResponse submit(@RequestBody Submission submission) {
-        return submissionService.submit(submission);
+    public SubmissionResponse submit(@RequestBody SubmissionRequest submissionRequest) {
+        return submissionService.submit(submissionRequest);
     }
 
 }

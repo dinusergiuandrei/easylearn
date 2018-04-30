@@ -16,7 +16,6 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 @Component
 public class SubmissionRunner {
     private SubmissionRepository submissionRepository;
-    private Compiler compiler;
 
     public SubmissionRunner(SubmissionRepository submissionRepository) {
         this.submissionRepository = submissionRepository;
@@ -42,9 +41,8 @@ public class SubmissionRunner {
         Compiler compiler = new Compiler();
         Output compileOutput = compiler.compileAndRun(compilerParameters);
 
-        // save to database the result of the compilation
+        // TODO: save to database the result of the compilation
         submission.setState(compileOutput.toString());
 
     }
-
 }

@@ -1,6 +1,5 @@
-class Main {
+class Main{
     public static void main(String[] args) {
-  
-int n = 1 + 2;       System.out.println(n);
+        System.out.println("Hello World!");
     }
 }
