@@ -6,15 +6,13 @@ public class CompilerParameters {
     private String sourcePath;
     private String compileOutputPath;
     private String keyboardInput;
-    private String projectRootPath;
     private Long timeout;
     private TimeUnit timeUnit;
 
-    public CompilerParameters(String sourcePath, String compileOutputPath, String keyboardInput, String projectRootPath, Long timeout, TimeUnit timeUnit) {
+    public CompilerParameters(String sourcePath, String compileOutputPath, String keyboardInput, Long timeout, TimeUnit timeUnit) {
         this.sourcePath = sourcePath;
         this.compileOutputPath = compileOutputPath;
         this.keyboardInput = keyboardInput;
-        this.projectRootPath = projectRootPath;
         this.timeout = timeout;
         this.timeUnit = timeUnit;
     }
@@ -29,10 +27,6 @@ public class CompilerParameters {
 
     public String getKeyboardInput() {
         return keyboardInput;
-    }
-
-    public String getProjectRootPath() {
-        return projectRootPath;
     }
 
     public Long getTimeout() {

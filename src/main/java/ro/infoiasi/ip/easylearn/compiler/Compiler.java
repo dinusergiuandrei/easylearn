@@ -37,12 +37,10 @@ public class Compiler {
         }
     }
 
-    private Output compile(CompilerParameters parameters) throws Exception {
+    public Output compile(CompilerParameters parameters) throws Exception {
         String command
                 = "javac -d "
-                + parameters.getProjectRootPath()
                 + parameters.getCompileOutputPath() + " "
-                + parameters.getProjectRootPath()
                 + parameters.getSourcePath();
 
         Process process = Runtime.getRuntime().exec(command);
@@ -50,12 +48,11 @@ public class Compiler {
         return getProcessOutput(process, parameters.getTimeout(), parameters.getTimeUnit());
     }
 
-    private Output run(CompilerParameters parameters) throws Exception {
+    public Output run(CompilerParameters parameters) throws Exception {
         String className = extractClassNameFromSourcePath(parameters.getSourcePath());
 
         String command
                 = "java -cp "
-                + parameters.getProjectRootPath()
                 + parameters.getCompileOutputPath() + " "
                 + className;
 

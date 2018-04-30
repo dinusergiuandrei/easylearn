@@ -10,6 +10,7 @@ import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.impl.MapRunRepository;
+import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
 import java.io.*;
 
@@ -33,6 +34,7 @@ public class SubmissionRunner {
         Submission submission = submissionRepository.findById(submissionId);
         System.out.println("Running submission: " + submission);
 
+        submission.setState(SubmissionState.Running);
 
         PrintWriter writer = new PrintWriter("sandbox/sample/sources/java/Main.java");
         writer.write(submission.getSourceCode());
@@ -41,13 +43,14 @@ public class SubmissionRunner {
         writer.close();
 
         CompilerParameters compilerParameters =
-                new CompilerParameters("sandbox/sample/sources/java/Main.java", "sandbox/sample/generated/java/", "", "", 1000L, MILLISECONDS);
+                new CompilerParameters("sandbox/sample/sources/java/Main.java", "sandbox/sample/generated/java/", "", 1000L, MILLISECONDS);
 
-        Compiler compiler = new Compiler();
-        Output compileOutput = compiler.compileAndRun(compilerParameters);
+        Output compileOutput = this.compileAndRun(compilerParameters);
 
         // TODO: save to database the result of the compilation
-        submission.setState(compileOutput.toString());
+        submission.setState(SubmissionState.getSubmissionStateFromOutput(compileOutput));
+        submission.setResult(compileOutput.toString());
+
         // obtain test list, run for each test, obtain info and add them to RunRepository
 
         Run run = new Run();
@@ -57,5 +60,35 @@ public class SubmissionRunner {
         run.setStatus("success");
 
         runRepository.save(run);
+    }
+
+    private Output compileAndRun(CompilerParameters compilerParameters){
+        Compiler compiler = new Compiler();
+
+        //compiler.getSecurityManager().check ...
+
+        Output compileOutput;
+        Output runOutput;
+
+        try {
+            compileOutput = compiler.compile(compilerParameters);
+        } catch (Exception e) {
+            Output errorOutput = new Output();
+            errorOutput.setError(e.getMessage());
+            return errorOutput;
+        }
+
+        if (compileOutput.getExitValue() == 0) {
+            try {
+                runOutput = compiler.run(compilerParameters);
+            } catch (Exception e) {
+                Output errorOutput = new Output();
+                errorOutput.setError(e.getMessage());
+                return errorOutput;
+            }
+            return runOutput;
+        } else {
+            return compileOutput;
+        }
     }
 }

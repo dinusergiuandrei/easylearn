@@ -22,7 +22,7 @@ public class Output {
         return stringBuilder.toString();
     }
 
-    Integer getExitValue() {
+    public Integer getExitValue() {
         return exitValue;
     }
 
@@ -30,11 +30,11 @@ public class Output {
         this.exitValue = exitValue;
     }
 
-    String getError() {
+    public String getError() {
         return error;
     }
 
-    void setError(String error) {
+    public void setError(String error) {
         this.error = error;
     }
 

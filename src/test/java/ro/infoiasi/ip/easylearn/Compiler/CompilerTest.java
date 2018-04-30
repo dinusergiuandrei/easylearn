@@ -16,13 +16,13 @@ import java.util.regex.Pattern;
 
 @SpringBootTest
 public class CompilerTest {
-    //todo: find out why projectRootPath is not "."
-
     private static Compiler compiler;
 
     private static CompilerParameters helloWorldParameters;
 
     private static CompilerParameters fileWriterParameters;
+
+    private static String runOutputPath = "sandbox/sample/run_output/java/output_file.txt";
 
     @Before
     public void setUp() {
@@ -32,7 +32,6 @@ public class CompilerTest {
                 "sandbox/sample/sources/java/HelloWorld.java",
                 "sandbox/sample/generated/java",
                 "",
-                "",
                 10L,
                 TimeUnit.SECONDS
         );
@@ -40,7 +39,6 @@ public class CompilerTest {
         fileWriterParameters = new CompilerParameters(
                 "sandbox/sample/sources/java/FileWriter.java",
                 "sandbox/sample/generated/java",
-                "",
                 "",
                 10L,
                 TimeUnit.SECONDS
@@ -50,21 +48,16 @@ public class CompilerTest {
     @Test
     public void helloWorldTest() {
         Output output = compiler.compileAndRun(helloWorldParameters);
-        System.out.println(output);
         Assert.assertEquals("Hello World!", output.getOutput().trim());
     }
 
-    @Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
+    //@Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
     @Test
     public void writeTest() {
         try {
             compiler
                     .getSecurityManager()
-                    .checkWrite(
-                            fileWriterParameters.getProjectRootPath()
-                                    + fileWriterParameters.getCompileOutputPath()
-                    );
-            Assert.fail();
+                    .checkWrite(runOutputPath);
             Output output = compiler.compileAndRun(fileWriterParameters);
         } catch (AccessControlException e) {
             String message

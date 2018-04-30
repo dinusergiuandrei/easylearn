@@ -50,3 +50,23 @@ In order to **run** the project, position yourself in the root directory of the 
 * Java: http://www.vogella.com/tutorials/java.html
 * Tools: http://www.vogella.com/tutorials/technology.html
 * General tutorials: http://www.vogella.com/tutorials/
+
+### Troubleshooting
+Setting the working directory:
+
+    1.Open the "Run/Debug Configurations" menu. 
+    (To open "Run/Debug Configurations" window, 
+    click the drop down menu left of the "Run" button 
+    in Intellij and select "Edit configurations...");
+    2.Select from the list on the right the target.
+    3.Set the "Working directory: " as the local 
+    ABSOLUTE path of the project root.
+
+If the CompilerTest fails with: "Run error: 
+javac: file not found: <path>":
+
+    1.Check that you do have the files and directories 
+    at the paths specified in the @SetUp.
+    2.If you do have them, change the working directory of the test
+    following the steps in "Selecting the working directory".
+    

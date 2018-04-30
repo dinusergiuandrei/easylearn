@@ -1,9 +1,11 @@
 package ro.infoiasi.ip.easylearn.submission.model;
 
 
+import ro.infoiasi.ip.easylearn.utils.Language;
+
 public class SubmissionRequest {
     private Long problemId;
-    private String language;
+    private Language language;
     private String sourceCode;
 
     public Long getProblemId() {
@@ -14,11 +16,11 @@ public class SubmissionRequest {
         this.problemId = problemId;
     }
 
-    public String getLanguage() {
+    public Language getLanguage() {
         return language;
     }
 
-    public void setLanguage(String language) {
+    public void setLanguage(Language language) {
         this.language = language;
     }
 
