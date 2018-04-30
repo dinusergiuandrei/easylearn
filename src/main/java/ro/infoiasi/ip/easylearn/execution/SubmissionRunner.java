@@ -5,8 +5,11 @@ import org.springframework.stereotype.Component;
 import ro.infoiasi.ip.easylearn.compiler.Compiler;
 import ro.infoiasi.ip.easylearn.compiler.CompilerParameters;
 import ro.infoiasi.ip.easylearn.compiler.Output;
+import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
+import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
+import ro.infoiasi.ip.easylearn.submission.repository.impl.MapRunRepository;
 
 import java.io.*;
 
@@ -16,9 +19,11 @@ import static java.util.concurrent.TimeUnit.MILLISECONDS;
 @Component
 public class SubmissionRunner {
     private SubmissionRepository submissionRepository;
+    private RunRepository runRepository;
 
-    public SubmissionRunner(SubmissionRepository submissionRepository) {
+    public SubmissionRunner(SubmissionRepository submissionRepository, RunRepository runRepository) {
         this.submissionRepository = submissionRepository;
+        this.runRepository = runRepository;
     }
 
     @JmsListener(destination = "submissionQueue", containerFactory = "jmsListenerContainerFactory")
@@ -43,6 +48,14 @@ public class SubmissionRunner {
 
         // TODO: save to database the result of the compilation
         submission.setState(compileOutput.toString());
+        // obtain test list, run for each test, obtain info and add them to RunRepository
 
+        Run run = new Run();
+        run.setSubmissionId(submission.getId());
+        run.setRunTimeMs(10L);
+        run.setMemoryBytes(10L);
+        run.setStatus("success");
+
+        runRepository.save(run);
     }
 }

@@ -1,28 +1,28 @@
 package ro.infoiasi.ip.easylearn.submission.service;
 
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
-import ro.infoiasi.ip.easylearn.execution.SubmissionRunner;
+import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionRequest;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionResponse;
+import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
-import ro.infoiasi.ip.easylearn.submission.repository.impl.MapSubmissionRepository;
 import ro.infoiasi.ip.easylearn.submission.validation.SubmissionValidator;
 
-import java.util.LinkedList;
 import java.util.List;
 
 
 @Service
 public class SubmissionService {
     private SubmissionRepository submissionRepository;
+    private RunRepository runRepository;
     private JmsTemplate jmsTemplate;
     private SubmissionValidator submissionValidator;
 
-    public SubmissionService(SubmissionRepository submissionRepository, JmsTemplate jmsTemplate, SubmissionValidator submissionValidator) {
+    public SubmissionService(SubmissionRepository submissionRepository, RunRepository runRepository, JmsTemplate jmsTemplate, SubmissionValidator submissionValidator) {
         this.submissionRepository = submissionRepository;
+        this.runRepository = runRepository;
         this.jmsTemplate = jmsTemplate;
         this.submissionValidator = submissionValidator;
     }
@@ -40,12 +40,22 @@ public class SubmissionService {
     }
 
     public List <Submission> findAll() {
+        List<Submission> submissions = submissionRepository.findAll();
 
-        return submissionRepository.findAll();
+        for(Submission submission : submissions){
+            List<Run> runs = runRepository.findBySubmissionId(submission.getId());
+            submission.setRuns(runs);
+        }
+
+        return submissions;
     }
 
     public Submission findById(Long id) {
+        Submission submission = submissionRepository.findById(id);
+        List<Run> runs = runRepository.findBySubmissionId(id);
 
-        return submissionRepository.findById(id);
+        submission.setRuns(runs);
+
+        return submission;
     }
 }

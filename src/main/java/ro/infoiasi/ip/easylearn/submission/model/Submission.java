@@ -1,6 +1,8 @@
 package ro.infoiasi.ip.easylearn.submission.model;
 
 
+import java.util.List;
+
 public class Submission {
     private Long id;
     private Long problemId;
@@ -8,6 +10,15 @@ public class Submission {
     private String sourceCode;
     // waiting, evaluating, compilation failed, completed
     private String state;
+    private List<Run> runs;
+
+    public List <Run> getRuns() {
+        return runs;
+    }
+
+    public void setRuns(List <Run> runs) {
+        this.runs = runs;
+    }
 
     public Long getId() {
         return id;
