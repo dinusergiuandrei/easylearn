@@ -1,10 +1,12 @@
 package ro.infoiasi.ip.easylearn.execution;
 
+import org.aspectj.weaver.ast.Test;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import ro.infoiasi.ip.easylearn.compiler.Compiler;
 import ro.infoiasi.ip.easylearn.compiler.CompilerParameters;
 import ro.infoiasi.ip.easylearn.compiler.Output;
+import ro.infoiasi.ip.easylearn.management.model.ProblemTest;
 import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
@@ -14,6 +16,9 @@ import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
@@ -44,8 +49,12 @@ public class SubmissionRunner {
         Output compileOutput = compiler.compile(compilerParameters);
 
         if (compiledWithSuccess(compileOutput)) {
-//            for(Test test : tests) {
-                // TODO: run for each test and compare results
+//            List<ProblemTest> test = problemTestRepository.findById(submission.getProblemId());
+            ProblemTest problemTest = new ProblemTest(1L, 1L, "", "Hello World!\n");
+            ProblemTest problemTest2 = new ProblemTest(1L, 1L, "", "Hello World not good");
+            List<ProblemTest> tests = Arrays.asList(problemTest, problemTest2);
+
+            for(ProblemTest test : tests) {
                 Run run = new Run();
                 run.setSubmissionId(submission.getId());
                 run.setRunTimeMs(10L);
@@ -53,11 +62,14 @@ public class SubmissionRunner {
 
                 // TODO: run() must receive testInput
                 Output runOutput = compiler.run(compilerParameters);
-//                compareOutput(runOutput, testOutput);
-                run.setStatus(runWithSuccess(runOutput) ? RunState.Success : RunState.Failed);
 
+                if (runOutput.getOutput().equals(test.getExpectedOutput())) {
+                    run.setStatus(RunState.Success);
+                } else {
+                    run.setStatus(RunState.Failed);
+                }
                 runRepository.save(run);
-//            }
+            }
 
             submission.setState(SubmissionState.Completed);
         } else {
@@ -72,7 +84,6 @@ public class SubmissionRunner {
 
     // TODO: implement it
     private boolean runWithSuccess(Output runOutput) {
-
         return runOutput.getExitValue() == 0;
     }
 
