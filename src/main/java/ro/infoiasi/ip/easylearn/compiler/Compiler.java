@@ -10,33 +10,6 @@ public class Compiler {
 
     private SecurityManager securityManager;
 
-    public Output compileAndRun(CompilerParameters parameters) {
-
-        Output compileOutput;
-        Output runOutput;
-
-        try {
-            compileOutput = compile(parameters);
-        } catch (Exception e) {
-            Output errorOutput = new Output();
-            errorOutput.setError(e.getMessage());
-            return errorOutput;
-        }
-
-        if (compileOutput.getExitValue() == 0) {
-            try {
-                runOutput = run(parameters);
-            } catch (Exception e) {
-                Output errorOutput = new Output();
-                errorOutput.setError(e.getMessage());
-                return errorOutput;
-            }
-            return runOutput;
-        } else {
-            return compileOutput;
-        }
-    }
-
     public Output compile(CompilerParameters parameters) throws Exception {
         String command
                 = "javac -d "

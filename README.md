@@ -23,7 +23,7 @@ You can use the IDE of your choice. Whenever submitting changes to the repositor
 1. Pull the latest version from github locally before adding any other code. This should be done each time.
 2. Add the code to the project.
 3. Build the project to make sure that your changes are successfully integrated (see the next section). If any errors are displayed you should resolve them.
-4. If the build is successfull, then run the project (see the next section).
+4. If the build is successful, then run the project (see the next section).
 5. Test your changes manually (e.g., verify that the changes work as expected on the endpoint, UI, etc).
 6. If your changes work as expected make a new commit that includes the files.
 7. Pull locally any changes that might be submitted to the repository in the meantime and merge them manually if necessary (most of the times git will handle them automatically).
@@ -62,7 +62,7 @@ Setting the working directory:
     3.Set the "Working directory: " as the local 
     ABSOLUTE path of the project root.
 
-If the CompilerTest fails with: "Run error: 
+If the CompilerTest fails with: "Run error:
 javac: file not found: <path>":
 
     1.Check that you do have the files and directories 

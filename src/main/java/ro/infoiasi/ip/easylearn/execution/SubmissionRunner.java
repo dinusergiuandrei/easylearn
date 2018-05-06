@@ -98,33 +98,21 @@ public class SubmissionRunner {
         writer.close();
     }
 
-    private Output compileAndRun(CompilerParameters compilerParameters) {
-        Compiler compiler = new Compiler();
-
+    private Output compileAndRun(Compiler compiler, CompilerParameters compilerParameters) {
         //compiler.getSecurityManager().check ...
 
-        Output compileOutput;
-        Output runOutput;
-
         try {
-            compileOutput = compiler.compile(compilerParameters);
+            Output compileOutput = compiler.compile(compilerParameters);
+            if (compileOutput.getExitValue() == 0) {
+                Output runOutput = compiler.run(compilerParameters);
+                return runOutput;
+            } else {
+                return compileOutput;
+            }
         } catch (Exception e) {
             Output errorOutput = new Output();
             errorOutput.setError(e.getMessage());
             return errorOutput;
-        }
-
-        if (compileOutput.getExitValue() == 0) {
-            try {
-                runOutput = compiler.run(compilerParameters);
-            } catch (Exception e) {
-                Output errorOutput = new Output();
-                errorOutput.setError(e.getMessage());
-                return errorOutput;
-            }
-            return runOutput;
-        } else {
-            return compileOutput;
         }
     }
 }

@@ -4,8 +4,6 @@ public class Output {
 
     private String output;
 
-    private Boolean success;
-
     private Integer exitValue;
 
     @Override

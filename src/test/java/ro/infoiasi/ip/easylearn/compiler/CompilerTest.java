@@ -1,4 +1,4 @@
-package ro.infoiasi.ip.easylearn.Compiler;
+package ro.infoiasi.ip.easylearn.compiler;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -47,18 +47,18 @@ public class CompilerTest {
 
     @Test
     public void helloWorldTest() {
-        Output output = compiler.compileAndRun(helloWorldParameters);
+        Output output = compileAndRun(helloWorldParameters);
         Assert.assertEquals("Hello World!", output.getOutput().trim());
     }
 
-    @Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
+    //@Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
     @Test
     public void writeTest() {
         try {
             compiler
                     .getSecurityManager()
                     .checkWrite(runOutputPath);
-            Output output = compiler.compileAndRun(fileWriterParameters);
+            compileAndRun(fileWriterParameters);
         } catch (AccessControlException e) {
             String message
                     = e.getMessage()
@@ -71,5 +71,21 @@ public class CompilerTest {
             return;
         }
         Assert.fail();
+    }
+
+    public Output compileAndRun(CompilerParameters parameters) {
+        try {
+            Output compileOutput = compiler.compile(parameters);
+            if (compileOutput.getExitValue() == 0) {
+                Output runOutput = compiler.run(parameters);
+                return runOutput;
+            } else {
+                return compileOutput;
+            }
+        } catch (Exception e) {
+            Output errorOutput = new Output();
+            errorOutput.setError(e.getMessage());
+            return errorOutput;
+        }
     }
 }
