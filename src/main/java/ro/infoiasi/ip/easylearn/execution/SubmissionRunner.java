@@ -14,6 +14,7 @@ import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 import ro.infoiasi.ip.easylearn.utils.RunState;
 import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -96,23 +97,5 @@ public class SubmissionRunner {
         writer.write(submission.getSourceCode());
         writer.flush();
         writer.close();
-    }
-
-    private Output compileAndRun(Compiler compiler, CompilerParameters compilerParameters) {
-        //compiler.getSecurityManager().check ...
-
-        try {
-            Output compileOutput = compiler.compile(compilerParameters);
-            if (compileOutput.getExitValue() == 0) {
-                Output runOutput = compiler.run(compilerParameters);
-                return runOutput;
-            } else {
-                return compileOutput;
-            }
-        } catch (Exception e) {
-            Output errorOutput = new Output();
-            errorOutput.setError(e.getMessage());
-            return errorOutput;
-        }
     }
 }

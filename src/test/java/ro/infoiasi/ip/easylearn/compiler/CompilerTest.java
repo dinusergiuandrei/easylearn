@@ -54,7 +54,6 @@ public class CompilerTest {
     //@Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
     @Test
     public void writeTest() {
-        /*
 		try {
             compiler
                     .getSecurityManager()
@@ -72,15 +71,13 @@ public class CompilerTest {
             return;
         }
         Assert.fail();
-		*/
     }
 
     public Output compileAndRun(CompilerParameters parameters) {
         try {
             Output compileOutput = compiler.compile(parameters);
             if (compileOutput.getExitValue() == 0) {
-                Output runOutput = compiler.run(parameters);
-                return runOutput;
+                return compiler.run(parameters);
             } else {
                 return compileOutput;
             }
