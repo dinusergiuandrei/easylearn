@@ -3,11 +3,11 @@ package ro.infoiasi.ip.easylearn.utils;
 import ro.infoiasi.ip.easylearn.compiler.Output;
 
 public enum SubmissionState {
-    Waiting("waiting"),
-    Running("running"),
-    CompilationFailed("compilationFailed"),
-    Failed("failed"),
-    Completed("completed");
+    Waiting("Waiting"),
+    Running("Running"),
+    CompilationFailed("CompilationFailed"),
+    Failed("Failed"),
+    Completed("Completed");
 
     String value;
 

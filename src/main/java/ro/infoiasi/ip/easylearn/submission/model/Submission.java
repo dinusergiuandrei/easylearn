@@ -14,6 +14,9 @@ public class Submission {
     private List<Run> runs;
     private String result;
 
+    public Submission() {
+    }
+
     public Submission(Long problemId, Language language, String sourceCode) {
         this.problemId = problemId;
         this.language = language;

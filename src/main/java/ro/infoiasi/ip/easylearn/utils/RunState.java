@@ -1,8 +1,8 @@
 package ro.infoiasi.ip.easylearn.utils;
 
 public enum RunState {
-    Failed("failed"),
-    Success("success");
+    Failed("Failed"),
+    Success("Success");
     String value;
 
     RunState(String value) {
