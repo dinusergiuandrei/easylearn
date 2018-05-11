@@ -1,12 +1,11 @@
 package ro.infoiasi.ip.easylearn.execution;
 
-import org.aspectj.weaver.ast.Test;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import ro.infoiasi.ip.easylearn.compiler.Compiler;
 import ro.infoiasi.ip.easylearn.compiler.CompilerParameters;
 import ro.infoiasi.ip.easylearn.compiler.Output;
-import ro.infoiasi.ip.easylearn.management.model.ProblemTest;
+import ro.infoiasi.ip.easylearn.user.model.ProblemTest;
 import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
@@ -14,11 +13,9 @@ import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 import ro.infoiasi.ip.easylearn.utils.RunState;
 import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
-import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import static java.util.concurrent.TimeUnit.MILLISECONDS;
