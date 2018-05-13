@@ -1,6 +1,7 @@
 package ro.infoiasi.ip.easylearn.submission.model;
 
 
+import ro.infoiasi.ip.easylearn.compiler.Output;
 import ro.infoiasi.ip.easylearn.utils.RunState;
 
 public class Run {
@@ -8,7 +9,6 @@ public class Run {
     private Long submissionId;
     private Long runTimeMs;
     private Long memoryBytes;
-    // fail, success
     private RunState status;
 
     public Run() {
@@ -53,4 +53,5 @@ public class Run {
     public void setStatus(RunState status) {
         this.status = status;
     }
+
 }

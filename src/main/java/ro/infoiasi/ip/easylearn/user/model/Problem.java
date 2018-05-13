@@ -1,5 +1,6 @@
 package ro.infoiasi.ip.easylearn.user.model;
 
+//todo: translate in english
 public class Problem {
 
     private long problemID;
