@@ -1,4 +1,4 @@
-package ro.infoiasi.ip.easylearn.user.model;
+package ro.infoiasi.ip.easylearn.SubmissionTest.model;
 
 public class SubmissionTest {
 

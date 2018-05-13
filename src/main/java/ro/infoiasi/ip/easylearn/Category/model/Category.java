@@ -1,4 +1,4 @@
-package ro.infoiasi.ip.easylearn.user.model;
+package ro.infoiasi.ip.easylearn.Category.model;
 
 public class Category {
 
