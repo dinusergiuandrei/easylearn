@@ -1,9 +1,17 @@
 package ro.infoiasi.ip.easylearn.compiler;
 
+import ro.infoiasi.ip.easylearn.submission.model.Submission;
+import ro.infoiasi.ip.easylearn.utils.Language;
+
 import java.io.*;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import static ro.infoiasi.ip.easylearn.utils.Strings.extractClassNameFromSourcePath;
 import static ro.infoiasi.ip.easylearn.utils.Strings.getStringFromInputStream;
 
 public class Compiler {
@@ -11,38 +19,78 @@ public class Compiler {
     private SecurityManager securityManager;
 
     public Output compile(CompilerParameters parameters) throws Exception {
-        String command
-                = "javac -d "
-                + parameters.getCompileOutputPath() + " "
-                + parameters.getSourcePath();
+        String command = null;
 
-        Process process = Runtime.getRuntime().exec(command);
+        Language language = parameters.getLanguage();
 
-        return getProcessOutput(process, parameters.getTimeout(), parameters.getTimeUnit());
-    }
-
-    public Output run(CompilerParameters parameters) throws Exception {
-        String className = extractClassNameFromSourcePath(parameters.getSourcePath());
-
-        String command
-                = "java -cp "
-                + parameters.getCompileOutputPath() + " "
-                + className;
-
-        Process process = Runtime.getRuntime().exec(command);
-
-        if (parameters.getKeyboardInput() != null && parameters.getKeyboardInput().length() > 0) {
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
-            writer.write(parameters.getKeyboardInput());
-            writer.flush();
+        for (SourceFile sourceFile : parameters.getSourceCodes()) {
+            addSourceToFile(sourceFile.getContent(), parameters.getCompileOutputPath() + System.getProperty("file.separator") + sourceFile.getTitle());
         }
 
-        return getProcessOutput(process, parameters.getTimeout(), parameters.getTimeUnit());
+        switch (language) {
+            case Java:
+                command = "javac -d " + parameters.getCompileOutputPath() + " " + parameters.getCompileOutputPath() + System.getProperty("file.separator") + "*.java";
+                break;
+        }
+
+        Process process = Runtime.getRuntime().exec(command);
+
+        return getProcessOutput(process);
+    }
+
+    public Output run(SourceFile mainClass, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
+
+        Language language = compilerParameters.getLanguage();
+
+        String command = null;
+
+        switch (language) {
+            case Java:
+                String title = null;
+                if(mainClass.getTitle().endsWith(".java")){
+                    title = mainClass.getTitle().substring(0, mainClass.getTitle().length() - 5);
+                }
+                command = "java -cp " + compilerParameters.getCompileOutputPath() + " " + title;
+                break;
+        }
+
+        Process process = Runtime.getRuntime().exec(command);
+
+        addKeyboardInput(process, runParameters.getKeyboardInput());
+
+        return getProcessOutput(process, runParameters.getTimeout(), runParameters.getTimeUnit());
+    }
+
+    private void addSourceToFile(String source, String filename) {
+        try {
+            PrintWriter writer = new PrintWriter(filename);
+            writer.write(source);
+            writer.flush();
+            writer.close();
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void addKeyboardInput(Process process, String input) throws IOException {
+        if (input != null && input.length() > 0) {
+            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+            writer.write(input);
+            writer.flush();
+        }
+    }
+
+    private Output getProcessOutput(Process process) throws Exception {
+        process.waitFor();
+        return getProcessRunOutput(process);
     }
 
     private Output getProcessOutput(Process process, Long timeout, TimeUnit timeUnit) throws Exception {
         process.waitFor(timeout, timeUnit);
+        return getProcessRunOutput(process);
+    }
 
+    private Output getProcessRunOutput(Process process) throws Exception {
         Output runOutput = new Output();
         runOutput.setError(getStringFromInputStream(process.getErrorStream()));
         runOutput.setOutput(getStringFromInputStream(process.getInputStream()));

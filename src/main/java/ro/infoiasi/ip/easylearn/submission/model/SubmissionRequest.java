@@ -1,12 +1,20 @@
 package ro.infoiasi.ip.easylearn.submission.model;
 
 
+import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 import ro.infoiasi.ip.easylearn.utils.Language;
+
+import java.util.List;
 
 public class SubmissionRequest {
     private Long problemId;
     private Language language;
-    private String sourceCode;
+    private List<SourceFile> sources;
+    private SourceFile mainSource;
+
+    public SourceFile getMainSource() {
+        return mainSource;
+    }
 
     public Long getProblemId() {
         return problemId;
@@ -24,12 +32,12 @@ public class SubmissionRequest {
         this.language = language;
     }
 
-    public String getSourceCode() {
-        return sourceCode;
+    public List<SourceFile> getSources() {
+        return sources;
     }
 
-    public void setSourceCode(String sourceCode) {
-        this.sourceCode = sourceCode;
+    public void setSources(List<SourceFile> sources) {
+        this.sources = sources;
     }
 
     @Override
@@ -37,7 +45,7 @@ public class SubmissionRequest {
         return "SubmissionRequest{" +
                 "problemId=" + problemId +
                 ", language='" + language + '\'' +
-                ", sourceCode='" + sourceCode + '\'' +
+                ", sources='" + sources + '\'' +
                 '}';
     }
 }

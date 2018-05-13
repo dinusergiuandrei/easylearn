@@ -1,39 +1,29 @@
 package ro.infoiasi.ip.easylearn.compiler;
 
-import java.util.concurrent.TimeUnit;
+import ro.infoiasi.ip.easylearn.utils.Language;
+
+import java.util.List;
 
 public class CompilerParameters {
-    private String sourcePath;
+    private List<SourceFile> sourceCodes;
     private String compileOutputPath;
-    private String keyboardInput;
-    private Long timeout;
-    private TimeUnit timeUnit;
+    private Language language;
 
-    public CompilerParameters(String sourcePath, String compileOutputPath, String keyboardInput, Long timeout, TimeUnit timeUnit) {
-        this.sourcePath = sourcePath;
+    public CompilerParameters(Language language, List<SourceFile> sourceCodes, String compileOutputPath) {
+        this.language = language;
+        this.sourceCodes = sourceCodes;
         this.compileOutputPath = compileOutputPath;
-        this.keyboardInput = keyboardInput;
-        this.timeout = timeout;
-        this.timeUnit = timeUnit;
     }
 
-    public String getSourcePath() {
-        return sourcePath;
+    public List<SourceFile> getSourceCodes() {
+        return sourceCodes;
     }
 
     public String getCompileOutputPath() {
         return compileOutputPath;
     }
 
-    public String getKeyboardInput() {
-        return keyboardInput;
-    }
-
-    public Long getTimeout() {
-        return timeout;
-    }
-
-    public TimeUnit getTimeUnit() {
-        return timeUnit;
+    public Language getLanguage() {
+        return language;
     }
 }

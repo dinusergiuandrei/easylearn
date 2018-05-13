@@ -1,5 +1,7 @@
 package ro.infoiasi.ip.easylearn.ProblemTest.model;
 
+import java.util.Objects;
+
 public class ProblemTest {
     private Long id;
     private Long problemId;
@@ -44,5 +46,11 @@ public class ProblemTest {
 
     public void setExpectedOutput(String expectedOutput) {
         this.expectedOutput = expectedOutput;
+    }
+
+    public Boolean isValidOutput(String realOutput){
+        String trimmedRealOutput = realOutput.trim();
+        String trimmedExpectedOutput = this.expectedOutput.trim();
+        return Objects.equals(trimmedExpectedOutput, trimmedRealOutput);
     }
 }

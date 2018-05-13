@@ -1,5 +1,6 @@
 package ro.infoiasi.ip.easylearn.submission.model;
 
+import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 import ro.infoiasi.ip.easylearn.utils.Language;
 import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
@@ -9,7 +10,8 @@ public class Submission {
     private Long id;
     private Long problemId;
     private Language language;
-    private String sourceCode;
+    private List<SourceFile> sources;
+    private SourceFile mainSource;
     private SubmissionState state;
     private List<Run> runs;
     private String result;
@@ -17,11 +19,12 @@ public class Submission {
     public Submission() {
     }
 
-    public Submission(Long problemId, Language language, String sourceCode) {
+    public Submission(Long problemId, Language language, List<SourceFile> sources, SourceFile mainSource) {
         this.problemId = problemId;
         this.language = language;
-        this.sourceCode = sourceCode;
+        this.sources = sources;
         this.state = SubmissionState.Waiting;
+        this.mainSource = mainSource;
     }
 
     public String getResult() {
@@ -64,12 +67,12 @@ public class Submission {
         this.language = language;
     }
 
-    public String getSourceCode() {
-        return sourceCode;
+    public List<SourceFile> getSources() {
+        return sources;
     }
 
-    public void setSourceCode(String sourceCode) {
-        this.sourceCode = sourceCode;
+    public void setSources(List<SourceFile> sources) {
+        this.sources = sources;
     }
 
     public SubmissionState getState() {
@@ -80,11 +83,16 @@ public class Submission {
         this.state = state;
     }
 
+    public SourceFile getMainSource() {
+        return mainSource;
+    }
+
     public static Submission constructSubmissionFrom(SubmissionRequest submissionRequest) {
         return new Submission(
                 submissionRequest.getProblemId(),
                 submissionRequest.getLanguage(),
-                submissionRequest.getSourceCode()
+                submissionRequest.getSources(),
+                submissionRequest.getMainSource()
         );
     }
 
@@ -94,7 +102,7 @@ public class Submission {
                 "id=" + id +
                 ", problemId=" + problemId +
                 ", language='" + language + '\'' +
-                ", sourceCode='" + sourceCode + '\'' +
+                ", sources='" + sources + '\'' +
                 ", state='" + state + '\'' +
                 '}';
     }
