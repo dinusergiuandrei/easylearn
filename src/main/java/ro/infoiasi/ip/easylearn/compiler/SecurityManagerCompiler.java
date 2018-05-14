@@ -2,66 +2,69 @@ package ro.infoiasi.ip.easylearn.compiler;
 
 import ro.infoiasi.ip.easylearn.utils.Language;
 
-import java.io.File;
-
+import static ro.infoiasi.ip.easylearn.utils.FileManager.*;
+import static ro.infoiasi.ip.easylearn.utils.ProcessManager.*;
 
 public class SecurityManagerCompiler extends Compiler {
     private SecurityManager securityManager;
 
+    @Override
     public Output compile(CompilerParameters parameters) throws Exception {
         String command = null;
 
-        Language language = parameters.getLanguage();
+        createDirectory(parameters.getRootDirectoryPath());
 
-        if(!new File(parameters.getCompileOutputPath()).exists()){
-            this.setUpRootDirectory(parameters.getCompileOutputPath());
-        }
+        addSourcesToFile(parameters.getSourceCodes(), parameters.getRootDirectoryPath());
 
-        for (SourceFile sourceFile : parameters.getSourceCodes()) {
-            addSourceToFile(sourceFile.getContent(), parameters.getCompileOutputPath() + System.getProperty("file.separator") + sourceFile.getTitle());
-        }
-
-        switch (language) {
+        switch (parameters.getLanguage()) {
             case Java:
-                command = "javac " + parameters.getCompileOutputPath() + System.getProperty("file.separator") + "*.java";
+                command = getJavaCompileCommand(parameters.getRootDirectoryPath());
+                break;
+            case Cpp:
+                command = getCppCompileCommandMultipleSources(parameters.getSourceCodes(), parameters.getRootDirectoryPath());
                 break;
         }
 
-        Process process = Runtime.getRuntime().exec(command);
+        Process process = runCommand(getCurrentWorkingDirectory(), command);
 
         return getProcessOutput(process);
     }
 
-    public Output run(SourceFile mainClass, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
-
-        Language language = compilerParameters.getLanguage();
+    @Override
+    public Output run(SourceFile mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
 
         String command = null;
 
+        Language language = compilerParameters.getLanguage();
+
         switch (language) {
             case Java:
-                String title = null;
-                if(mainClass.getTitle().endsWith(".java")){
-                    title = mainClass.getTitle().substring(0, mainClass.getTitle().length() - 5);
-                }
-                command = "java -cp " + compilerParameters.getCompileOutputPath() + " " + title;
+                command = getJavaRunCommand(compilerParameters.getRootDirectoryPath(), mainSource);
+                break;
+            case Cpp:
+                command = getCppRunCommand(compilerParameters.getRootDirectoryPath(), mainSource);
                 break;
         }
 
-        Process process = Runtime.getRuntime().exec(command);
+        Process process = runCommand(getCurrentWorkingDirectory(), command);
 
         addKeyboardInput(process, runParameters.getKeyboardInput());
 
         return getProcessOutput(process, runParameters.getTimeout(), runParameters.getTimeUnit());
     }
 
-    public void loadSecurityManager() {
+    @Override
+    public void setUpSecurity() {
+        loadSecurityManager();
+    }
+
+    private void loadSecurityManager() {
         SecurityManager securityManager = new SecurityManager();
         System.setSecurityManager(securityManager);
         this.securityManager = System.getSecurityManager();
     }
 
-    public SecurityManager getSecurityManager() {
+    SecurityManager getSecurityManager() {
         if (this.securityManager == null) {
             this.loadSecurityManager();
         }

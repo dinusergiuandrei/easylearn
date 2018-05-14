@@ -6,21 +6,21 @@ import java.util.List;
 
 public class CompilerParameters {
     private List<SourceFile> sourceCodes;
-    private String compileOutputPath;
+    private String rootDirectoryPath;
     private Language language;
 
-    public CompilerParameters(Language language, List<SourceFile> sourceCodes, String compileOutputPath) {
+    public CompilerParameters(Language language, List<SourceFile> sourceCodes, String rootDirectoryPath) {
         this.language = language;
         this.sourceCodes = sourceCodes;
-        this.compileOutputPath = compileOutputPath;
+        this.rootDirectoryPath = rootDirectoryPath;
     }
 
     public List<SourceFile> getSourceCodes() {
         return sourceCodes;
     }
 
-    public String getCompileOutputPath() {
-        return compileOutputPath;
+    public String getRootDirectoryPath() {
+        return rootDirectoryPath;
     }
 
     public Language getLanguage() {

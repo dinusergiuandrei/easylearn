@@ -24,7 +24,7 @@ public class Output {
         return exitValue;
     }
 
-    void setExitValue(Integer exitValue) {
+    public void setExitValue(Integer exitValue) {
         this.exitValue = exitValue;
     }
 
@@ -40,7 +40,7 @@ public class Output {
         return output;
     }
 
-    void setOutput(String output) {
+    public void setOutput(String output) {
         this.output = output;
     }
 }
