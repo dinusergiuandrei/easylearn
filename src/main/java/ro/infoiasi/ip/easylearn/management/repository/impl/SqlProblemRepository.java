@@ -59,7 +59,7 @@ public class SqlProblemRepository implements ProblemRepository {
         	if(jdbcTemplate == null)
         		System.out.println("NULL TEMPLATE");
         	
-	        jdbcTemplate.update("INSERT INTO probleme VALUES (" + P.getValuesString() + ")");
+	        jdbcTemplate.update("INSERT INTO probleme VALUES (" + P.toValuesString() + ")");
 			return true;
 	    }
     	catch(Exception e)
@@ -101,6 +101,35 @@ public class SqlProblemRepository implements ProblemRepository {
     	try
     	{
 	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme where authorID=" + authorid, new BeanPropertyRowMapper<>(Problem.class));
+	        return problems;
+	    }
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    		return null;
+    	}
+    }
+    
+    public List<Problem> findSolved(int userID)
+    {
+    	try
+    	{
+	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme p where (select count(*) from submissions s where s.problemID = p.problemID and s.score = 100 and s.userID = " + Integer.toString(userID) + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
+	        return problems;
+	    }
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    		return null;
+    	}
+    }
+    
+
+    public List<Problem> findAttempted(int userID)
+    {
+    	try
+    	{
+    		List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme p where (select count(*) from submissions s where s.problemID = p.problemID and s.userID = " + Integer.toString(userID) + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
 	        return problems;
 	    }
     	catch(Exception e)
