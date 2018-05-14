@@ -10,4 +10,6 @@ public interface UserRepository {
     List<User> findAll();
     Integer getTotalUsers();
     boolean register(User user);
+    String getLastId();
+    boolean login(String email, String password);
 }

@@ -75,7 +75,7 @@ public class SqlProblemRepository implements ProblemRepository {
     	if(jdbcTemplate == null)
     		System.out.println("NULL TEMPLATE");
     	
-    	Long id = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM probleme", Long.class);
+    	Long id = jdbcTemplate.queryForObject("SELECT MAX(problemID) FROM probleme", Long.class);
     	
     	return id;
     }

@@ -2,10 +2,13 @@ package ro.infoiasi.ip.easylearn.user.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import net.minidev.json.JSONObject;
+
 import org.springframework.web.bind.annotation.*;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionRequest;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionResponse;
 import ro.infoiasi.ip.easylearn.submission.service.SubmissionService;
+import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
@@ -36,19 +39,36 @@ public class UserController {
 
     @RequestMapping(path = "/users/testNumberOfUsers", method = RequestMethod.GET)
     @ResponseBody
-    public String getTotalNumberOfUsers(){return u.getTotalUsers()+" users";}
+    public String getTotalNumberOfUsers(){return u.getLastId()+" users";}
 
     @RequestMapping(path = "/users/register", method = RequestMethod.GET)
     @ResponseBody
-    public boolean registerUser(/*User user*/){
+    public boolean registerUser(@RequestBody User jsonUser){
+        return u.register(jsonUser);
+    }
+    
+    @RequestMapping(path = "/users/registerTest", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean registerUser(){
         User user = new User();
         user.setParola("sa5ke");
         user.setNume("Ionescu");
         user.setPrenume("Vlad");
-        user.setEmail("iones_vl@mymail.com");
-        //user.setEmail("dan@man.com");
-        user.setUserID("4");
+        user.setEmail("iones_vls@mymail.com");
+        user.setUserID(u.getLastId());
         return u.register(user);
     }
 
+    @RequestMapping(path = "/users/login/email={email};password={password}", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean login(@PathVariable String email, @PathVariable String password)
+    {
+    	return u.login(email,password);
+    }
+    
+    @RequestMapping(path = "/users/loginTest", method = RequestMethod.GET)
+    @ResponseBody
+    public boolean login(){
+        return u.login("dan@man.com","danmanx");
+    }
 }
