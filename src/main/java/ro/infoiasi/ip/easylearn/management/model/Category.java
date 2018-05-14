@@ -5,6 +5,7 @@ public class Category {
     private long categoryId;
     private String nume;
 
+    public Category() {};
     public Category(long categoryId, String nume) {
         super();
         this.categoryId = categoryId;
