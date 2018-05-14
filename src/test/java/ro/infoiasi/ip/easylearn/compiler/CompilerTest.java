@@ -32,6 +32,10 @@ public class CompilerTest {
 
     private static RunParameters multipleFilesRunParameters;
 
+    private static CompilerParameters cppHelloWorldCompileParameters;
+
+    private static RunParameters cppHelloWorldRunParameters;
+
     private static String runOutputPath;
 
     @Before
@@ -43,6 +47,8 @@ public class CompilerTest {
         setUpFileWriter();
 
         setUpMultipleFiles();
+
+        setUpCppHelloWorld();
     }
 
     private void setUpHelloWorld() throws IOException {
@@ -57,7 +63,6 @@ public class CompilerTest {
                         "}"
         );
 
-        compiler.setUpRootDirectory(rootDirectoryPath);
 
         List<SourceFile> helloWorldSources = new LinkedList<>();
 
@@ -97,7 +102,6 @@ public class CompilerTest {
 
         fileWriterSources.add(fileWriterSourceFile);
 
-        compiler.setUpRootDirectory(rootDirectoryPath);
         fileWriterCompileParameters = new CompilerParameters(
                 Language.Java,
                 fileWriterSources,
@@ -141,7 +145,6 @@ public class CompilerTest {
         multipleSources.add(main);
         multipleSources.add(a);
 
-        compiler.setUpRootDirectory(rootDirectoryPath);
         multipleFilesCompileParameters = new CompilerParameters(
                 Language.Java,
                 multipleSources,
@@ -149,6 +152,38 @@ public class CompilerTest {
         );
 
         multipleFilesRunParameters = new RunParameters(
+                "",
+                10L,
+                TimeUnit.SECONDS
+        );
+    }
+
+    private void setUpCppHelloWorld() throws IOException{
+        String rootDirectoryPath = "sandbox/4";
+
+        SourceFile helloWorldSourceFile = new SourceFile(
+                "main.cpp",
+                "#include <iostream>\n" +
+                        "using namespace std;\n" +
+                        "\n" +
+                        "int main() \n" +
+                        "{\n" +
+                        "    cout << \"Hello World! from c++\";\n" +
+                        "    return 0;\n" +
+                        "}"
+        );
+
+        List<SourceFile> helloWorldSources = new LinkedList<>();
+
+        helloWorldSources.add(helloWorldSourceFile);
+
+        cppHelloWorldCompileParameters = new CompilerParameters(
+                Language.Cpp,
+                helloWorldSources,
+                rootDirectoryPath
+        );
+
+        cppHelloWorldRunParameters = new RunParameters(
                 "",
                 10L,
                 TimeUnit.SECONDS
@@ -170,7 +205,7 @@ public class CompilerTest {
         Assert.assertEquals(expected, output.getOutput().trim());
     }
 
-    @Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
+    //@Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
     @Test
     public void writeTest() {
         try {
@@ -191,7 +226,14 @@ public class CompilerTest {
         Assert.fail();
     }
 
-    public Output compileAndRun(SourceFile mainSource, CompilerParameters compilerParameters, RunParameters runParameters) {
+    @Test
+    public void cppHelloWorldTest(){
+        Output output = compileAndRun(cppHelloWorldCompileParameters.getSourceCodes().get(0), cppHelloWorldCompileParameters, cppHelloWorldRunParameters);
+        System.out.println(output.getError());
+        Assert.assertEquals("Hello World! from c++", output.getOutput().trim());
+    }
+
+    private Output compileAndRun(SourceFile mainSource, CompilerParameters compilerParameters, RunParameters runParameters) {
         try {
             Output compileOutput = compiler.compile(compilerParameters);
             if (compileOutput.getExitValue() == 0) {

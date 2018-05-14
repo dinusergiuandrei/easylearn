@@ -10,4 +10,9 @@ public class SandBoxIECompiler extends Compiler{
     public Output run(SourceFile mainClass, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
         return null;
     }
+
+    @Override
+    public void setUpSecurity() {
+
+    }
 }
