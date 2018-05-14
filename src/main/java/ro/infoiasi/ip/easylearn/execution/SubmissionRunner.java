@@ -2,11 +2,11 @@ package ro.infoiasi.ip.easylearn.execution;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
+import ro.infoiasi.ip.easylearn.management.model.ProblemTest;
 import ro.infoiasi.ip.easylearn.compiler.Compiler;
 import ro.infoiasi.ip.easylearn.compiler.CompilerParameters;
 import ro.infoiasi.ip.easylearn.compiler.Output;
 import ro.infoiasi.ip.easylearn.compiler.RunParameters;
-import ro.infoiasi.ip.easylearn.user.model.ProblemTest;
 import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
@@ -15,17 +15,10 @@ import ro.infoiasi.ip.easylearn.utils.RunState;
 import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.management.MemoryType;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
-import static java.util.concurrent.TimeUnit.MILLISECONDS;
 
 @Component
 public class SubmissionRunner {

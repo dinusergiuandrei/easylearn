@@ -1,4 +1,4 @@
-package ro.infoiasi.ip.easylearn.Problem.model;
+package ro.infoiasi.ip.easylearn.management.model;
 
 //todo: translate in english
 public class Problem {

@@ -1,4 +1,4 @@
-package ro.infoiasi.ip.easylearn.ProblemTest.model;
+package ro.infoiasi.ip.easylearn.management.model;
 
 import java.util.Objects;
 

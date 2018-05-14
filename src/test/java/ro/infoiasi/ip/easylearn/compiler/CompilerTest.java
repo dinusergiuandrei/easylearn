@@ -2,6 +2,7 @@ package ro.infoiasi.ip.easylearn.compiler;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import ro.infoiasi.ip.easylearn.utils.Language;
@@ -160,7 +161,7 @@ public class CompilerTest {
         Assert.assertEquals(expected, output.getOutput().trim());
     }
 
-    //@Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
+    @Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
     @Test
     public void writeTest() {
         try {
