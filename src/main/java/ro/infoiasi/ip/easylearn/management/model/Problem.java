@@ -21,12 +21,13 @@ public class Problem {
     private long max_memory;
     private double max_time;
 
+    public Problem() {};
+    
     public Problem(long problemID, long authorID, String titlu, String descriere, String cerinta, String date_intrare,
                    String date_iesire, String restrictii, int dificultate, int categorie, String tip_date,
                    String exemplu_intrare, String exemplu_iesire, String input_file, String output_file, long max_memory,
                    double max_time) {
 
-        super();
         this.problemID = problemID;
         this.authorID = authorID;
         this.titlu = titlu;
@@ -182,5 +183,29 @@ public class Problem {
         this.max_time = max_time;
     }
 
+    public String getValuesString()
+    {
+    	StringBuilder S = new StringBuilder(1000);
+        
+    	S.append(Long.toString(problemID)); S.append(",");
+    	S.append(Long.toString(authorID)); S.append(",");
+    	S.append("'"); S.append(titlu); S.append("'"); S.append(",");
+    	S.append("'"); S.append(descriere); S.append("'"); S.append(",");
+    	S.append("'"); S.append(cerinta); S.append("'"); S.append(",");
+    	S.append("'"); S.append(date_intrare); S.append("'"); S.append(",");
+    	S.append("'"); S.append(date_iesire); S.append("'"); S.append(",");
+    	S.append("'"); S.append(restrictii); S.append("'"); S.append(",");
+    	S.append(Long.toString(dificultate)); S.append(",");
+    	S.append(Long.toString(categorie)); S.append(",");
+    	S.append("'"); S.append(tip_date); S.append("'"); S.append(",");
+    	S.append("'"); S.append(exemplu_intrare); S.append("'"); S.append(",");
+    	S.append("'"); S.append(exemplu_iesire); S.append("'"); S.append(",");
+    	S.append("'"); S.append(input_file); S.append("'"); S.append(",");
+    	S.append("'"); S.append(output_file); S.append("'"); S.append(",");
+    	S.append(Long.toString(max_memory)); S.append(",");
+    	S.append(Double.toString(max_memory));
+    	
+    	return S.toString();
+    }
 }
 
