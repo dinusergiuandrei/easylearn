@@ -1,67 +1,21 @@
 package ro.infoiasi.ip.easylearn.compiler;
 
-import ro.infoiasi.ip.easylearn.submission.model.Submission;
-import ro.infoiasi.ip.easylearn.utils.Language;
-
 import java.io.*;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static ro.infoiasi.ip.easylearn.utils.Strings.getStringFromInputStream;
 
-public class Compiler {
+public abstract class Compiler {
 
-    private SecurityManager securityManager;
+    public abstract Output compile(CompilerParameters parameters) throws Exception;
 
-    public Output compile(CompilerParameters parameters) throws Exception {
-        String command = null;
+    public abstract Output run(SourceFile mainClass, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception;
 
-        Language language = parameters.getLanguage();
-
-        for (SourceFile sourceFile : parameters.getSourceCodes()) {
-            addSourceToFile(sourceFile.getContent(), parameters.getCompileOutputPath() + System.getProperty("file.separator") + sourceFile.getTitle());
-        }
-
-        switch (language) {
-            case Java:
-                command = "javac -d " + parameters.getCompileOutputPath() + " " + parameters.getCompileOutputPath() + System.getProperty("file.separator") + "*.java";
-                break;
-        }
-
-        Process process = Runtime.getRuntime().exec(command);
-
-        return getProcessOutput(process);
+    public void setUpRootDirectory(String rootDirectoryPath) throws IOException {
+        new File(rootDirectoryPath).mkdir();
     }
 
-    public Output run(SourceFile mainClass, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
-
-        Language language = compilerParameters.getLanguage();
-
-        String command = null;
-
-        switch (language) {
-            case Java:
-                String title = null;
-                if(mainClass.getTitle().endsWith(".java")){
-                    title = mainClass.getTitle().substring(0, mainClass.getTitle().length() - 5);
-                }
-                command = "java -cp " + compilerParameters.getCompileOutputPath() + " " + title;
-                break;
-        }
-
-        Process process = Runtime.getRuntime().exec(command);
-
-        addKeyboardInput(process, runParameters.getKeyboardInput());
-
-        return getProcessOutput(process, runParameters.getTimeout(), runParameters.getTimeUnit());
-    }
-
-    private void addSourceToFile(String source, String filename) {
+    void addSourceToFile(String source, String filename) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             writer.write(source);
@@ -72,7 +26,7 @@ public class Compiler {
         }
     }
 
-    private void addKeyboardInput(Process process, String input) throws IOException {
+    void addKeyboardInput(Process process, String input) throws IOException {
         if (input != null && input.length() > 0) {
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
             writer.write(input);
@@ -80,12 +34,12 @@ public class Compiler {
         }
     }
 
-    private Output getProcessOutput(Process process) throws Exception {
+    Output getProcessOutput(Process process) throws Exception {
         process.waitFor();
         return getProcessRunOutput(process);
     }
 
-    private Output getProcessOutput(Process process, Long timeout, TimeUnit timeUnit) throws Exception {
+    Output getProcessOutput(Process process, Long timeout, TimeUnit timeUnit) throws Exception {
         process.waitFor(timeout, timeUnit);
         return getProcessRunOutput(process);
     }
@@ -97,18 +51,5 @@ public class Compiler {
         runOutput.setExitValue(process.exitValue());
 
         return runOutput;
-    }
-
-    public void loadSecurityManager() {
-        SecurityManager securityManager = new SecurityManager();
-        System.setSecurityManager(securityManager);
-        this.securityManager = System.getSecurityManager();
-    }
-
-    public SecurityManager getSecurityManager() {
-        if (this.securityManager == null) {
-            this.loadSecurityManager();
-        }
-        return securityManager;
     }
 }

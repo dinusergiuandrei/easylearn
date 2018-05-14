@@ -2,11 +2,9 @@ package ro.infoiasi.ip.easylearn.execution;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
-import ro.infoiasi.ip.easylearn.management.model.ProblemTest;
+import ro.infoiasi.ip.easylearn.compiler.*;
 import ro.infoiasi.ip.easylearn.compiler.Compiler;
-import ro.infoiasi.ip.easylearn.compiler.CompilerParameters;
-import ro.infoiasi.ip.easylearn.compiler.Output;
-import ro.infoiasi.ip.easylearn.compiler.RunParameters;
+import ro.infoiasi.ip.easylearn.management.model.ProblemTest;
 import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
@@ -29,7 +27,7 @@ public class SubmissionRunner {
     public SubmissionRunner(SubmissionRepository submissionRepository, RunRepository runRepository) {
         this.submissionRepository = submissionRepository;
         this.runRepository = runRepository;
-        this.compiler = new Compiler();
+        this.compiler = new SecurityManagerCompiler();
     }
 
     @JmsListener(destination = "submissionQueue", containerFactory = "jmsListenerContainerFactory")
@@ -37,12 +35,15 @@ public class SubmissionRunner {
 
         Submission submission = initializeSubmission(submissionId);
 
-        File rootDirectory = generateRootDirectoryForSubmission(submissionId);
+        //File rootDirectory = generateRootDirectoryForSubmission(submissionId);
+
+        String rootDirectoryPath = "sandbox/"+submissionId;
+        compiler.setUpRootDirectory(rootDirectoryPath);
 
         CompilerParameters compilerParameters = new CompilerParameters(
                 submission.getLanguage(),
                 submission.getSources(),
-                rootDirectory.getPath()
+                rootDirectoryPath
         );
 
         Output compileOutput = compiler.compile(compilerParameters);
