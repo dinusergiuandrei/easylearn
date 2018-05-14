@@ -8,4 +8,6 @@ public interface UserRepository {
     Long save(User submission);
     User findById(Long id);
     List<User> findAll();
+    Integer getTotalUsers();
+    boolean register(User user);
 }

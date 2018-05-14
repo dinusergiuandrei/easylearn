@@ -8,6 +8,8 @@ public class ProblemTest {
     private String input;
     private String expectedOutput;
 
+    public ProblemTest(){};
+
     public ProblemTest(Long id, Long problemId, String input, String expectedOutput) {
         this.id = id;
         this.problemId = problemId;
