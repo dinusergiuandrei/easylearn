@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import ro.infoiasi.ip.easylearn.utils.Language;
 
 import java.io.File;
+import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.regex.Pattern;
 
 @SpringBootTest
 public class CompilerTest {
-    private static Compiler compiler;
+    private static SecurityManagerCompiler compiler;
 
     private static CompilerParameters helloWorldCompileParameters;
 
@@ -34,8 +35,8 @@ public class CompilerTest {
     private static String runOutputPath;
 
     @Before
-    public void setUp() {
-        compiler = new Compiler();
+    public void setUp() throws IOException {
+        compiler = new SecurityManagerCompiler();
 
         setUpHelloWorld();
 
@@ -44,7 +45,9 @@ public class CompilerTest {
         setUpMultipleFiles();
     }
 
-    private void setUpHelloWorld() {
+    private void setUpHelloWorld() throws IOException {
+        String rootDirectoryPath = "sandbox/1";
+
         SourceFile helloWorldSourceFile = new SourceFile(
                 "HelloWorld.java",
                 "class HelloWorld {\n" +
@@ -54,6 +57,8 @@ public class CompilerTest {
                         "}"
         );
 
+        compiler.setUpRootDirectory(rootDirectoryPath);
+
         List<SourceFile> helloWorldSources = new LinkedList<>();
 
         helloWorldSources.add(helloWorldSourceFile);
@@ -61,7 +66,7 @@ public class CompilerTest {
         helloWorldCompileParameters = new CompilerParameters(
                 Language.Java,
                 helloWorldSources,
-                "sandbox/1"
+                rootDirectoryPath
         );
 
         helloWorldRunParameters = new RunParameters(
@@ -71,7 +76,9 @@ public class CompilerTest {
         );
     }
 
-    private void setUpFileWriter() {
+    private void setUpFileWriter() throws IOException {
+        String rootDirectoryPath = "sandbox/2";
+
         SourceFile fileWriterSourceFile = new SourceFile(
                 "FileWriter.java",
                 "import java.io.*;\n" +
@@ -90,11 +97,11 @@ public class CompilerTest {
 
         fileWriterSources.add(fileWriterSourceFile);
 
-        new File("sandbox/2").mkdir();
+        compiler.setUpRootDirectory(rootDirectoryPath);
         fileWriterCompileParameters = new CompilerParameters(
                 Language.Java,
                 fileWriterSources,
-                "sandbox/2"
+                rootDirectoryPath
         );
 
         fileWriterRunParameters = new RunParameters(
@@ -106,7 +113,9 @@ public class CompilerTest {
         runOutputPath = "sandbox/2/output_file.txt";
     }
 
-    private void setUpMultipleFiles() {
+    private void setUpMultipleFiles() throws IOException {
+        String rootDirectoryPath = "sandbox/3";
+
         SourceFile main = new SourceFile(
                 "Main.java",
                 "public class Main {\n" +
@@ -132,11 +141,11 @@ public class CompilerTest {
         multipleSources.add(main);
         multipleSources.add(a);
 
-        new File("sandbox/3").mkdir();
+        compiler.setUpRootDirectory(rootDirectoryPath);
         multipleFilesCompileParameters = new CompilerParameters(
                 Language.Java,
                 multipleSources,
-                "sandbox/3"
+                rootDirectoryPath
         );
 
         multipleFilesRunParameters = new RunParameters(
