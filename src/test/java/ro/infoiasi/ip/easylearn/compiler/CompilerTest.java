@@ -36,6 +36,10 @@ public class CompilerTest {
 
     private static RunParameters cppHelloWorldRunParameters;
 
+    private static CompilerParameters pythonCompileParameters;
+
+    private static RunParameters pythonRunParameters;
+
     private static String runOutputPath;
 
     @Before
@@ -49,6 +53,8 @@ public class CompilerTest {
         setUpMultipleFiles();
 
         setUpCppHelloWorld();
+
+        setUpPythonHelloWorld();
     }
 
     private void setUpHelloWorld() throws IOException {
@@ -190,8 +196,33 @@ public class CompilerTest {
         );
     }
 
+    private void setUpPythonHelloWorld() throws IOException{
+        String rootDirectoryPath = "sandbox/5";
+
+        SourceFile helloWorldSourceFile = new SourceFile(
+                "main.py",
+                "print('Hello World from Python')"
+        );
+
+        List<SourceFile> helloWorldSources = new LinkedList<>();
+
+        helloWorldSources.add(helloWorldSourceFile);
+
+        pythonCompileParameters = new CompilerParameters(
+                Language.Python,
+                helloWorldSources,
+                rootDirectoryPath
+        );
+
+        pythonRunParameters = new RunParameters(
+                "",
+                10L,
+                TimeUnit.SECONDS
+        );
+    }
+
     @Test
-    public void helloWorldTest() {
+    public void javaHelloWorldTest() {
         Output output = compileAndRun(helloWorldCompileParameters.getSourceCodes().get(0), helloWorldCompileParameters, helloWorldRunParameters);
         System.out.println(output.getError());
         Assert.assertEquals("Hello World!", output.getOutput().trim());
@@ -231,6 +262,17 @@ public class CompilerTest {
         Output output = compileAndRun(cppHelloWorldCompileParameters.getSourceCodes().get(0), cppHelloWorldCompileParameters, cppHelloWorldRunParameters);
         System.out.println(output.getError());
         Assert.assertEquals("Hello World! from c++", output.getOutput().trim());
+    }
+
+    @Test
+    public void pythonHelloWorldTest(){
+        Output output = compileAndRun(
+                pythonCompileParameters.getSourceCodes().get(0),
+                pythonCompileParameters,
+                pythonRunParameters
+        );
+        System.out.println(output.getError());
+        Assert.assertEquals("Hello World from Python", output.getOutput().trim());
     }
 
     private Output compileAndRun(SourceFile mainSource, CompilerParameters compilerParameters, RunParameters runParameters) {

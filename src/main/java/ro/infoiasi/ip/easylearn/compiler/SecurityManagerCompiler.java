@@ -1,5 +1,6 @@
 package ro.infoiasi.ip.easylearn.compiler;
 
+import ro.infoiasi.ip.easylearn.utils.CommandBuilder.CommandBuilder;
 import ro.infoiasi.ip.easylearn.utils.Language;
 
 import static ro.infoiasi.ip.easylearn.utils.FileManager.*;
@@ -10,21 +11,21 @@ public class SecurityManagerCompiler extends Compiler {
 
     @Override
     public Output compile(CompilerParameters parameters) throws Exception {
-        String command = null;
 
         createDirectory(parameters.getRootDirectoryPath());
 
         addSourcesToFile(parameters.getSourceCodes(), parameters.getRootDirectoryPath());
 
-        switch (parameters.getLanguage()) {
-            case Java:
-                command = getJavaCompileCommand(parameters.getRootDirectoryPath());
-                break;
-            case Cpp:
-                command = getCppCompileCommandMultipleSources(parameters.getSourceCodes(), parameters.getRootDirectoryPath());
-                break;
-        }
+        String command = parameters
+                .getLanguage()
+                .getCommandBuilder()
+                .buildCompileCommand(
+                        parameters.getSourceCodes(),
+                        parameters.getRootDirectoryPath());
 
+        if (command == null || command.length() == 0) {
+            return Output.getSuccessOutput();
+        }
         Process process = runCommand(getCurrentWorkingDirectory(), command);
 
         return getProcessOutput(process);
@@ -33,18 +34,13 @@ public class SecurityManagerCompiler extends Compiler {
     @Override
     public Output run(SourceFile mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
 
-        String command = null;
-
-        Language language = compilerParameters.getLanguage();
-
-        switch (language) {
-            case Java:
-                command = getJavaRunCommand(compilerParameters.getRootDirectoryPath(), mainSource);
-                break;
-            case Cpp:
-                command = getCppRunCommand(compilerParameters.getRootDirectoryPath(), mainSource);
-                break;
-        }
+        String command = compilerParameters
+                .getLanguage()
+                .getCommandBuilder()
+                .buildRunCommand(
+                        compilerParameters.getRootDirectoryPath(),
+                        mainSource
+                );
 
         Process process = runCommand(getCurrentWorkingDirectory(), command);
 
