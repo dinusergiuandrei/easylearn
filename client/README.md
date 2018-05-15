@@ -4,7 +4,9 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Prerequisites
 1. Install Node.js for your operating system https://nodejs.org/en/download/.
-2. Install Angular CLI by typing in console `npm install -g @angular/cli`.
+2. Clone the repository with `git clone https://github.com/dinusergiuandrei/easylearn.git`.
+3. Go to the Client folder: `cd .\client\`.
+4. Install dependendcies with `npm install`.
 
 ## Development server
 
