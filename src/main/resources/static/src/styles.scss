@@ -1,28 +1,46 @@
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
+# Angular Material
 # Normalize
 # Variables
 # Typography
 # Layout
 --------------------------------------------------------------*/
 
+
+/*--------------------------------------------------------------
+# Angular Material
+--------------------------------------------------------------*/
+
+@import '~@angular/material/theming';
+@include mat-core();
+$my-app-primary: mat-palette($mat-grey, 600);
+$my-app-accent: mat-palette($mat-red, 500, 900, A100);
+$my-app-warn: mat-palette($mat-red);
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);
+
 /*--------------------------------------------------------------
 # Normalize
 --------------------------------------------------------------*/
+
 @import '/assets/sass/normalize';
 
 /*--------------------------------------------------------------
 # Variables
 --------------------------------------------------------------*/
+
 @import '/assets/sass/variables-site/variables-site';
 
 /*--------------------------------------------------------------
 # Typography
 --------------------------------------------------------------*/
+
 @import '/assets/sass/typography/typography';
 
 /*--------------------------------------------------------------
 # Layout
 --------------------------------------------------------------*/
+
 @import '/assets/sass/layout/layout';
