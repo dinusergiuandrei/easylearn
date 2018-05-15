@@ -236,7 +236,7 @@ public class CompilerTest {
         Assert.assertEquals(expected, output.getOutput().trim());
     }
 
-    //@Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
+    @Ignore("Gradle hangs when a test accesses the security manager: https://github.com/gradle/gradle/issues/3526")
     @Test
     public void writeTest() {
         try {
