@@ -183,7 +183,7 @@ public class Problem {
         this.max_time = max_time;
     }
 
-    public String getValuesString()
+    public String toValuesString()
     {
     	StringBuilder S = new StringBuilder(1000);
         

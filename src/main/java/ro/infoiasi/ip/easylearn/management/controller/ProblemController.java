@@ -29,7 +29,7 @@ public class ProblemController {
     
     @RequestMapping(path = "/problems", method = RequestMethod.GET)
     @ResponseBody
-    public List<Problem> allProblems() {
+    public List<Problem> getAllProblems() {
     	List<Problem> P = p.findAll();
     	
         return P;
@@ -37,7 +37,7 @@ public class ProblemController {
 
     @RequestMapping(path = "/problems/id={id}", method = RequestMethod.GET)
     @ResponseBody
-    public Problem problems(@PathVariable Long id) {
+    public Problem getProblemById(@PathVariable Long id) {
     	Problem P = p.findById(id);
     	
     	if (P==null)
@@ -48,16 +48,32 @@ public class ProblemController {
     
     @RequestMapping(path = "/problems/cat={cat_id}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Problem> categoryProblems(@PathVariable int cat_id) {
+    public List<Problem> getProblemsByCategory(@PathVariable int cat_id) {
     	List<Problem> P = p.findByCategory(cat_id);
     	
         return P;
     }
     
-    @RequestMapping(path = "/problems/auth={auth_id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/problems/author={author_id}", method = RequestMethod.GET)
     @ResponseBody
-    public List<Problem> authorProblems(@PathVariable int auth_id) {
-    	List<Problem> P = p.findByAuthor(auth_id);
+    public List<Problem> getProblemsByAuthor(@PathVariable int author_id) {
+    	List<Problem> P = p.findByAuthor(author_id);
+    	
+        return P;
+    }
+    
+    @RequestMapping(path = "/problems/solved/user={user_id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Problem> getSolvedProblems(@PathVariable int user_id) {
+    	List<Problem> P = p.findSolved(user_id);
+    	
+        return P;
+    }
+    
+    @RequestMapping(path = "/problems/attempted/user={user_id}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Problem> getAttemptedProblems(@PathVariable int user_id) {
+    	List<Problem> P = p.findAttempted(user_id);
     	
         return P;
     }
@@ -66,6 +82,8 @@ public class ProblemController {
     @ResponseBody
     public boolean addProblem(@RequestBody Problem jsonProblem) 
     {
+    	//datele vor fi preluate prin json, mai putin id-ul noii probleme
+    	jsonProblem.setProblemID(p.getLastID()+1);
         return p.add(jsonProblem);
     }
     

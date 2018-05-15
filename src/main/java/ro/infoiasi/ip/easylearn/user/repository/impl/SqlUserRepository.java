@@ -82,6 +82,23 @@ public class SqlUserRepository implements UserRepository {
            return false;
        }
     }
+    
+    @Override
+    public String getLastId()
+    {
+    	String id = jdbcTemplate.queryForObject("SELECT MAX(userID) + 1 FROM users", String.class);
+
+        return id;
+    }
+    
+    @Override
+    public boolean login(String email, String password)
+    {
+    	String query = "SELECT COUNT(*) FROM users WHERE email='" + email + "' AND parola='" + password + "'";
+        int total = jdbcTemplate.queryForObject(query, Integer.class);
+        
+    	return total==1;
+    }
 }
 
 

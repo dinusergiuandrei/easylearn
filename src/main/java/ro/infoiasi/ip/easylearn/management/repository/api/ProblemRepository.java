@@ -14,4 +14,6 @@ public interface ProblemRepository {
     List<Problem> findAll();
     List<Problem> findByCategory(int catid);
     List<Problem> findByAuthor(int authorid);
+    List<Problem> findSolved(int userID);
+    List<Problem> findAttempted(int userID);
 }
