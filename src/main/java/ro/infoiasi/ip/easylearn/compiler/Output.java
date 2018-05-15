@@ -6,6 +6,12 @@ public class Output {
 
     private Integer exitValue;
 
+    public static Output getSuccessOutput(){
+        Output output  = new Output();
+        output.setExitValue(0);
+        return output;
+    }
+
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();

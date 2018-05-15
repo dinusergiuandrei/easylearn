@@ -45,7 +45,9 @@ public class SubmissionRunner {
                 rootDirectoryPath
         );
 
+        System.out.println("Compiling...");
         Output compileOutput = compiler.compile(compilerParameters);
+        System.out.println("Compiling completed.");
 
         if (compiledWithSuccess(compileOutput)) {
 //            Problem problem = ... . findById(submission.getProblemId());

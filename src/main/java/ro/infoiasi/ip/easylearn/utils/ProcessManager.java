@@ -31,54 +31,6 @@ public abstract class ProcessManager {
         return processBuilder.start();
     }
 
-    public static String getCppRunCommand(String parentDirectory, SourceFile mainSource){
-        String cppTitle = removePathEnd(mainSource.getTitle());
-        return parentDirectory + getFilePathSeparator() + cppTitle + ".exe";
-    }
-
-    public static String getCppCompileCommandMultipleSources(List<SourceFile> sources, String rootDirectory){
-        StringBuilder commandBuilder = new StringBuilder();
-
-        for (int sourceIndex = 0; sourceIndex < sources.size() - 1; ++sourceIndex) {
-            SourceFile sourceFile = sources.get(sourceIndex);
-
-            commandBuilder
-                    .append(getCppCompileCommandSingleSource(sourceFile, rootDirectory))
-                    .append(" & ");
-        }
-
-        SourceFile lastSourceFile = sources.get(sources.size() - 1);
-
-        commandBuilder.append(getCppCompileCommandSingleSource(lastSourceFile, rootDirectory));
-
-        return commandBuilder.toString();
-    }
-
-    public static String getCppCompileCommandSingleSource(SourceFile sourceFile, String rootDirectory){
-        StringBuilder commandBuilder = new StringBuilder();
-        String cppTitle = removePathEnd(sourceFile.getTitle());
-        commandBuilder
-                .append("g++ ")
-                .append(rootDirectory)
-                .append(getFilePathSeparator())
-                .append(sourceFile.getTitle())
-                .append(" -o ")
-                .append(rootDirectory)
-                .append(getFilePathSeparator())
-                .append(cppTitle)
-                .append(".exe ");
-        return commandBuilder.toString();
-    }
-
-    public static String getJavaCompileCommand(String parentDirectory){
-        return "javac " + parentDirectory + getFilePathSeparator() + "*.java";
-    }
-
-    public static String getJavaRunCommand(String parentDirectory, SourceFile mainSource){
-        String javaTitle = removePathEnd(mainSource.getTitle());
-        return "java -cp " + parentDirectory + " " + javaTitle;
-    }
-
     public static String removePathEnd(String path){
         return path.substring(0, path.indexOf('.'));
     }
