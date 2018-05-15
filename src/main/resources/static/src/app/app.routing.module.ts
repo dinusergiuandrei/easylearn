@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LandingComponent } from './components/public/landing/landing.component';
+import { LandingComponent } from './components/pages/landing/landing.component';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';

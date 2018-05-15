@@ -2,15 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatAutocomplete,
+  MatAutocompleteModule
 } from '@angular/material';
 
 @NgModule({
-  imports: [
-    CommonModule
-  ],
+  imports: [ CommonModule ],
   exports: [
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatAutocompleteModule
   ]
 })
 export class MaterialModule { }
