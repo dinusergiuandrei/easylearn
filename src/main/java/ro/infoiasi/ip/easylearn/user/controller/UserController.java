@@ -1,20 +1,9 @@
 package ro.infoiasi.ip.easylearn.user.controller;
 
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import net.minidev.json.JSONObject;
-
 import org.springframework.web.bind.annotation.*;
-import ro.infoiasi.ip.easylearn.submission.model.SubmissionRequest;
-import ro.infoiasi.ip.easylearn.submission.model.SubmissionResponse;
-import ro.infoiasi.ip.easylearn.submission.service.SubmissionService;
-import ro.infoiasi.ip.easylearn.management.model.Problem;
-import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
-import ro.infoiasi.ip.easylearn.user.repository.impl.SqlUserRepository;
-
-import java.util.List;
 
 // dependency injection -- submissionService
 // Source: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
@@ -26,9 +15,8 @@ public class UserController {
 
     UserRepository u;
 
-    public UserController( UserRepository u)
-    {
-        this.u=u;
+    public UserController(UserRepository u) {
+        this.u = u;
     }
 
     @RequestMapping(path = "/users/id={id}", method = RequestMethod.GET)
@@ -39,17 +27,19 @@ public class UserController {
 
     @RequestMapping(path = "/users/testNumberOfUsers", method = RequestMethod.GET)
     @ResponseBody
-    public String getTotalNumberOfUsers(){return u.getLastId()+" users";}
+    public String getTotalNumberOfUsers() {
+        return u.getLastId() + " users";
+    }
 
     @RequestMapping(path = "/users/register", method = RequestMethod.GET)
     @ResponseBody
-    public boolean registerUser(@RequestBody User jsonUser){
+    public boolean registerUser(@RequestBody User jsonUser) {
         return u.register(jsonUser);
     }
-    
+
     @RequestMapping(path = "/users/registerTest", method = RequestMethod.GET)
     @ResponseBody
-    public boolean registerUser(){
+    public boolean registerUser() {
         User user = new User();
         user.setParola("sa5ke");
         user.setNume("Ionescu");
@@ -61,14 +51,13 @@ public class UserController {
 
     @RequestMapping(path = "/users/login/email={email};password={password}", method = RequestMethod.GET)
     @ResponseBody
-    public boolean login(@PathVariable String email, @PathVariable String password)
-    {
-    	return u.login(email,password);
+    public boolean login(@PathVariable String email, @PathVariable String password) {
+        return u.login(email, password);
     }
-    
+
     @RequestMapping(path = "/users/loginTest", method = RequestMethod.GET)
     @ResponseBody
-    public boolean login(){
-        return u.login("dan@man.com","danmanx");
+    public boolean login() {
+        return u.login("dan@man.com", "danmanx");
     }
 }
