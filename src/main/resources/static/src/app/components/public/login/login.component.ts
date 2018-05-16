@@ -12,25 +12,54 @@ import { LoadingScreenService } from '../../../services/loading-screen.service';
 export class LoginComponent implements OnInit {
 
   user: FormGroup;
-  loading = false;
+
   constructor(
     private formBuilder: FormBuilder,
-    private screen: LoadingScreenService,
     private router: Router,
-  ) {
-    this.user = this.formBuilder.group({
-      username: [
-        '',
-        [Validators.required, Validators.email]
-      ],
-      password: [
-        '',
-        [Validators.required, Validators.minLength(6), Validators.maxLength(32)]
-      ]
-    });
+    // private notification: NotificationService
+  ) { }
+
+  login() {
+    // this.auth.login(this.user.value).subscribe(
+    //   res => {
+    //     this.notification.push({
+    //       message: 'You logged in successfully',
+    //       type: 'success'
+    //     });
+    //     res.username = this.user.value.username;
+    //     this.auth.setSession(res);
+    //     this.router.navigate([
+    //       `/${res.data.UserPermission.permission}/profile`
+    //     ]);
+    //   },
+    //   err => {
+    //     const message = err.error.response;
+    //     this.notification.push({
+    //       message: 'Login Failed! Check again your email or password.',
+    //       type: 'error'
+    //     });
+    //   }
+    // );
   }
 
   ngOnInit() {
+    this.user = this.formBuilder.group({
+      email: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.email
+        ])
+      ],
+      password: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(32)
+        ])
+      ]
+    });
   }
 
 }

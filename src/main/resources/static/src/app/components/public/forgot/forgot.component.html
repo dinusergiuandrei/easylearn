@@ -1,3 +1,17 @@
-<p>
-  forgot works!
-</p>
+<form class="sign" [formGroup]="user">
+  <mat-form-field>
+    <input type="email" matInput placeholder="E-mail" required formControlName="email" />
+    <mat-error *ngIf="user.get('email').hasError('email') && !user.get('email').hasError('required')">
+      Type a valid e-mail address!
+    </mat-error>
+    <mat-error *ngIf="user.get('email').hasError('required')">
+      E-mail is <strong>required</strong>!
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<button class="btn btn-orange btn-full" [disabled]="!user.valid">Resetează parola</button>
+<hr />
+<button class="btn btn-red btn-full" routerLink="/login">
+  <i class="material-icons md-18">close</i>Anulează
+</button>

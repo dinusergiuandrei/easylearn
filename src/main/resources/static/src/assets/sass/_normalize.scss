@@ -12,4 +12,4 @@ ul, li { list-style: none; }
 
 .btn { &:active, &:focus { box-shadow: none !important; } }
 
-:focus { outline: none; }
+:focus { outline: none !important; }
