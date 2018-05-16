@@ -6,7 +6,9 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatAutocomplete,
-  MatAutocompleteModule
+  MatAutocompleteModule,
+  MatRadioButton,
+  MatRadioModule
 } from '@angular/material';
 
 @NgModule({
@@ -15,7 +17,8 @@ import {
     MatProgressSpinnerModule,
     MatFormFieldModule,
     MatInputModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatRadioModule
   ]
 })
 export class MaterialModule { }

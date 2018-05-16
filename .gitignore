@@ -49,4 +49,7 @@ nbdist/
 .nb-gradle/
 
 
+# Duplicate files
+bin/main/static/
+
 .metadata

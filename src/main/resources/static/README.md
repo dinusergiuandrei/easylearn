@@ -1,6 +1,12 @@
-# Static
+# easylearn Client
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.
+
+## Prerequisites
+1. Install Node.js for your operating system https://nodejs.org/en/download/.
+2. Clone the repository with `git clone https://github.com/dinusergiuandrei/easylearn.git`.
+3. Go to this folder: `cd .\src\main\resources\static\`.
+4. Install dependencies with `npm install`.
 
 ## Development server
 

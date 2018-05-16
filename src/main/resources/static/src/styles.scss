@@ -15,11 +15,11 @@
 
 @import '~@angular/material/theming';
 @include mat-core();
-$my-app-primary: mat-palette($mat-grey, 600);
-$my-app-accent: mat-palette($mat-red, 500, 900, A100);
-$my-app-warn: mat-palette($mat-red);
-$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
-@include angular-material-theme($my-app-theme);
+$easylearn-primary: mat-palette($mat-grey, 600);
+$easylearn-accent: mat-palette($mat-red, 500, 900, A100);
+$easylearn-warn: mat-palette($mat-red);
+$easylearn-theme: mat-light-theme($easylearn-primary, $easylearn-accent, $easylearn-warn);
+@include angular-material-theme($easylearn-theme);
 
 /*--------------------------------------------------------------
 # Normalize

@@ -11,10 +11,11 @@ import { LoadingScreenComponent } from './shared/components/loading-screen/loadi
 import { LoadingScreenService } from './services/loading-screen.service';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { LandingComponent } from './components/pages/landing/landing.component';
+import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';
+import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RegisterComponent } from './components/public/register/register.compone
     LoadingScreenComponent,
     NavbarComponent,
     FooterComponent,
-    LandingComponent,
+    HomeComponent,
+    AboutUsComponent,
     LoginComponent,
     ForgotComponent,
     RegisterComponent

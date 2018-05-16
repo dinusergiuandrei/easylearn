@@ -1,3 +1,59 @@
-<p>
-  register works!
-</p>
+<form class="sign" [formGroup]="user">
+
+  <!-- Firstname -->
+  <mat-form-field>
+    <input type="text" matInput required placeholder="Firstname" formControlName="firstname">
+    <mat-error *ngIf="user.get('firstname').hasError('required')">
+      Firstname is <strong>required</strong>!
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Lastname -->
+  <mat-form-field>
+    <input type="text" matInput required placeholder="Lastname" formControlName="lastname">
+    <mat-error *ngIf="user.get('lastname').hasError('required')">
+      Lastname is <strong>required</strong>!
+    </mat-error>
+  </mat-form-field>
+
+  <!-- E-mail -->
+  <mat-form-field>
+    <input type="email" matInput required placeholder="E-mail" formControlName="email">
+    <mat-error *ngIf="user.get('email').hasError('email') && !user.get('email').hasError('required')">
+      Type a valid e-mail address!
+    </mat-error>
+    <mat-error *ngIf="user.get('email').hasError('required')">
+      E-mail is <strong>required</strong>!
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Authentication level -->
+  <mat-radio-group class="auth-level" formControlName="access">
+    <mat-radio-button value="student">Student</mat-radio-button>
+    <mat-radio-button value="teacher">Teacher</mat-radio-button>
+  </mat-radio-group>
+
+  <!-- Password -->
+  <mat-form-field>
+    <input type="password" matInput required placeholder="Parola" formControlName="password" maxlength="32"/>
+    <mat-error *ngIf="user.get('password').hasError('minlength') || user.get('password').hasError('maxlength') ">
+      Your password should be between 6 and 32 characters!
+    </mat-error>
+    <mat-error *ngIf="user.get('password').hasError('required')">
+      Password is <strong>required</strong>!
+    </mat-error>
+  </mat-form-field>
+
+  <!-- Confirm password -->
+  <mat-form-field>
+    <input type="password" matInput required placeholder="Reintrodu parola" formControlName="repassword" maxlength="32"/>
+    <mat-error *ngIf="user.get('password').value !== user.get('repassword').value">
+      Passwords don't match!
+    </mat-error>
+    <mat-error *ngIf="user.get('repassword').hasError('required')">
+      Retyping password is <strong>required</strong>!
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<button class="btn btn-blue btn-full" (click)="register()" [disabled]="!user.valid">Sign up</button>

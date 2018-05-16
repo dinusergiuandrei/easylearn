@@ -1,18 +1,14 @@
-<div class="container-sign">
-    <h2>Log in</h2>
+<form class="sign" [formGroup]="user">
+  <mat-form-field>
+    <input type="email" matInput placeholder="E-mail" [required]="true" formControlName="username" />
+  </mat-form-field>
+  <mat-form-field>
+    <input type="password" matInput placeholder="Password" [required]="true" formControlName="password" />
+  </mat-form-field>
+</form>
 
-    <form class="sign" [formGroup]="user">
-        <mat-form-field>
-            <input type="email" matInput placeholder="E-mail" [required]="true" formControlName="username" />
-        </mat-form-field>
-        <mat-form-field>
-            <input type="password" matInput placeholder="Password" [required]="true" formControlName="password" />
-        </mat-form-field>
-    </form>
-
-    <button class="btn btn-green btn-full" [disabled]="!user.valid" (click)="login()">Log in</button>
-    <p class="forget-pass" routerLink="/forgot">I forgot my password</p>
-    <hr />
-    <h2>You dont't have an account?</h2>
-    <button class="btn btn-blue btn-full" routerLink="/register">Create account</button>
-</div>
+<button class="btn btn-green btn-full" [disabled]="!user.valid" (click)="login()">Log in</button>
+<p class="forget-pass" routerLink="/forgot">I forgot my password</p>
+<hr />
+<h2>You don't have an account?</h2>
+<button class="btn btn-blue btn-full" routerLink="/register">Create account</button>
