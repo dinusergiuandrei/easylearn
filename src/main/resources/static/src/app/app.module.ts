@@ -16,6 +16,7 @@ import { LoginComponent } from './components/public/login/login.component';
 import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
+import { SignComponent } from './components/public/sign/sign.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { AboutUsComponent } from './components/pages/about-us/about-us.component
     AboutUsComponent,
     LoginComponent,
     ForgotComponent,
-    RegisterComponent
+    RegisterComponent,
+    SignComponent
   ],
   imports: [
     BrowserModule,

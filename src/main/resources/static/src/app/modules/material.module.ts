@@ -5,10 +5,10 @@ import {
   MatProgressSpinnerModule,
   MatFormFieldModule,
   MatInputModule,
-  MatAutocomplete,
   MatAutocompleteModule,
-  MatRadioButton,
-  MatRadioModule
+  MatRadioModule,
+  MatTabsModule,
+  MatButtonModule
 } from '@angular/material';
 
 @NgModule({
@@ -18,7 +18,9 @@ import {
     MatFormFieldModule,
     MatInputModule,
     MatAutocompleteModule,
-    MatRadioModule
+    MatRadioModule,
+    MatTabsModule,
+    MatButtonModule
   ]
 })
 export class MaterialModule { }
