@@ -1,0 +1,42 @@
+@import '../../../../assets/sass/variables/_variables';
+
+.sign {
+    &-wrapper {
+        @extend %flex-row;
+    }
+    &-container {
+        @extend %flex-column;
+        width: 300px;
+        background-color: $color-container;
+    }
+    &-tabs {
+        @extend %flex-row;
+        li {
+            padding: 10px 0;
+            width: 50%;
+            text-align: center;
+            text-transform: uppercase;
+            transition: $transition-general;
+            cursor: pointer;
+            &:not(.active) {
+                background-color: $color-background;
+                &:hover { background-color: $color-container; }
+            }
+            &.active { cursor: default; }
+        }
+    }
+    &-content {
+        @extend %flex-column;
+        padding: $container-padding;
+    }
+    &-text {
+        padding-left: $container-padding;
+        border-left: 1px solid $color-divider;
+    }
+}
+
+@media (max-width: 575px) {
+    .sign {
+        &-text { display: none; }
+    }
+}

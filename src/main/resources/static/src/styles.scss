@@ -1,25 +1,11 @@
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
-# Angular Material
 # Normalize
 # Variables
 # Typography
 # Layout
 --------------------------------------------------------------*/
-
-
-/*--------------------------------------------------------------
-# Angular Material
---------------------------------------------------------------*/
-
-@import '~@angular/material/theming';
-@include mat-core();
-$easylearn-primary: mat-palette($mat-teal, 400, A400, A700);
-$easylearn-accent: mat-palette($mat-deep-purple, 900, A400, A100);
-$easylearn-warn: mat-palette($mat-red);
-$easylearn-theme: mat-light-theme($easylearn-primary, $easylearn-accent, $easylearn-warn);
-@include angular-material-theme($easylearn-theme);
 
 /*--------------------------------------------------------------
 # Normalize
@@ -31,7 +17,7 @@ $easylearn-theme: mat-light-theme($easylearn-primary, $easylearn-accent, $easyle
 # Variables
 --------------------------------------------------------------*/
 
-@import '/assets/sass/variables-site/variables-site';
+@import '/assets/sass/variables/variables';
 
 /*--------------------------------------------------------------
 # Typography

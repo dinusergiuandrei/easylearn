@@ -1,3 +1,16 @@
+// Angular Material
+@import '~@angular/material/theming';
+@include mat-core();
+$easylearn-primary: mat-palette($mat-teal, 400, A400, A700);
+$easylearn-accent: mat-palette($mat-deep-purple, A400, A100, 900);
+$easylearn-warn: mat-palette($mat-red);
+$easylearn-theme: mat-light-theme($easylearn-primary, $easylearn-accent, $easylearn-warn);
+@include angular-material-theme($easylearn-theme);
+
+// Custom Colors
+$color-primary: rgb(38, 166, 154);
+$color-secondary: rgb(101, 31, 255);
+
 $color-red: rgb(235, 42, 79);
 $color-red-gradient: linear-gradient(90deg, rgb(235, 42, 79), rgb(248, 64, 101));
 

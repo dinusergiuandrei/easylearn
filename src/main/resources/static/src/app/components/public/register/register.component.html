@@ -2,17 +2,17 @@
 
   <!-- Firstname -->
   <mat-form-field>
-    <input type="text" matInput required placeholder="Firstname" formControlName="firstname">
+    <input type="text" matInput required placeholder="First Name" formControlName="firstname">
     <mat-error *ngIf="user.get('firstname').hasError('required')">
-      Firstname is <strong>required</strong>!
+      First Name is <strong>required</strong>!
     </mat-error>
   </mat-form-field>
 
   <!-- Lastname -->
   <mat-form-field>
-    <input type="text" matInput required placeholder="Lastname" formControlName="lastname">
+    <input type="text" matInput required placeholder="Last Name" formControlName="lastname">
     <mat-error *ngIf="user.get('lastname').hasError('required')">
-      Lastname is <strong>required</strong>!
+      Last Name is <strong>required</strong>!
     </mat-error>
   </mat-form-field>
 

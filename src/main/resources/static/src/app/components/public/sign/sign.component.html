@@ -1,15 +1,39 @@
-<div class="container-sign">
-  <div class="card">
-    <ul class="card-tabs">
-      <li class="tab">
-        <a mat-button routerLink='/login' routerLinkActive='active'>Sign In</a>
-      </li>
-      <li class="tab">
-        <a mat-button routerLink='/register' routerLinkActive='active'>Sign Up</a>
-      </li>
+<!-- If path is specific -->
+<div class="sign-wrapeer" *ngIf="currentPath === '/login' || currentPath === '/register' || currentPath === '/forgot'">
+  <div class="sign-container">
+    <ul class="sign-tabs" *ngIf="currentPath === '/login' || currentPath === '/register'">
+      <li routerLink='/login' routerLinkActive='active'>Sign in</li>
+      <li routerLink='/register' routerLinkActive='active'>Sign up</li>
     </ul>
-    <div class="card-content">
+    <div class="sign-content">
       <router-outlet></router-outlet>
     </div>
+  </div>
+
+  <div class="sign-text">
+    <div *ngIf="currentPath === '/login'">
+      <h2>You don't have an accout?</h2>
+      <h2>Go <a routerLink='/register'>sign up</a>!</h2>
+    </div>
+    <div *ngIf="currentPath === '/register'">
+      <h2>You have an accout?</h2>
+      <h2>Go <a routerLink='/login'>sign in</a>!</h2>
+    </div>
+    <div *ngIf="currentPath === '/forgot'">
+      <h2>You remembered your password?</h2>
+      <h2>Go <a routerLink='/login'>sign in</a> if you have an account <br/> or <a routerLink='/register'>sign up</a> if you don't!</h2>
+    </div>
+  </div>
+</div>
+
+<!-- If path isn't specific -->
+<div class="sign-container" *ngIf="currentPath !== '/login' && currentPath !== '/register' && currentPath !== '/forgot'">
+  <ul class="sign-tabs">
+    <li (click)="switchComp(false)" #login>Sign in</li>
+    <li (click)="switchComp(true)" #register>Sign up</li>
+  </ul>
+  <div class="sign-content">
+    <app-login *ngIf="!showReg"></app-login>
+    <app-register *ngIf="showReg"></app-register>
   </div>
 </div>
