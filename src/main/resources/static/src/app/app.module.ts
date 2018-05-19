@@ -7,8 +7,11 @@ import { MaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 
-import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
+// Services
 import { LoadingScreenService } from './services/loading-screen.service';
+
+// Components
+import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HomeComponent } from './components/pages/home/home.component';
@@ -17,6 +20,7 @@ import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 import { SignComponent } from './components/public/sign/sign.component';
+import { Error404Component } from './components/pages/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import { SignComponent } from './components/public/sign/sign.component';
     LoginComponent,
     ForgotComponent,
     RegisterComponent,
-    SignComponent
+    SignComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,
