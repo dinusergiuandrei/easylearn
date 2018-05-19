@@ -8,7 +8,7 @@ import ro.infoiasi.ip.easylearn.management.repository.api.TestRepository;
 import java.util.List;
 
 @RestController
-@Api (value="test",description ="text1")
+@Api (value="test",description ="Operations pertaining to the manipulations of tests")
 public class TestController {
     TestRepository t;
 

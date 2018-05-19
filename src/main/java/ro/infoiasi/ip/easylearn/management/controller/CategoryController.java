@@ -13,7 +13,7 @@ import ro.infoiasi.ip.easylearn.management.repository.api.CategoryRepository;
 import java.util.List;
 
 @RestController
-@Api(value = "category", description = "text1")
+@Api(value = "category", description = "Operations pertaining to the manipulations of categories")
 public class CategoryController {
     CategoryRepository c;
 
