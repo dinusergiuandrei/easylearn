@@ -1,12 +1,19 @@
 @import '../../../../assets/sass/variables/_variables';
 
+:host { display: flex; }
+
 .sign {
     &-wrapper {
+        width: 100vw;
+        height: 100vh;
         @extend %flex-row;
+        justify-content: center;
     }
     &-container {
         @extend %flex-column;
-        width: 300px;
+        min-width: 350px;
+        max-width: 400px;
+        align-self: center;
         background-color: $color-container;
     }
     &-tabs {
@@ -20,7 +27,7 @@
             cursor: pointer;
             &:not(.active) {
                 background-color: $color-background;
-                &:hover { background-color: $color-container; }
+                &:hover { background-color: $color-hover; }
             }
             &.active { cursor: default; }
         }
@@ -29,8 +36,15 @@
         @extend %flex-column;
         padding: $container-padding;
     }
+    ::ng-deep &-form {
+        @extend %flex-column;
+    }
     &-text {
+        margin-left: $container-padding;
         padding-left: $container-padding;
+        display: flex;
+        flex-grow: .2;
+        align-self: center;
         border-left: 1px solid $color-divider;
     }
 }
