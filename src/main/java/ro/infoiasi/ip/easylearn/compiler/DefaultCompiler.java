@@ -34,6 +34,17 @@ public class DefaultCompiler extends Compiler{
         return getProcessOutput(process);
     }
 
+    public Output run(String command, String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception{
+
+        Process process = runCommand(command);
+
+        addKeyboardInput(process, runParameters.getKeyboardInput());
+
+        Output output = getProcessOutput(process, runParameters.getTimeout(), runParameters.getTimeUnit());
+
+        return output;
+    }
+
     @Override
     public Output run(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
 
@@ -45,13 +56,7 @@ public class DefaultCompiler extends Compiler{
                         mainSource
                 );
 
-        Process process = runCommand(command);
-
-        addKeyboardInput(process, runParameters.getKeyboardInput());
-
-        Output output = getProcessOutput(process, runParameters.getTimeout(), runParameters.getTimeUnit());
-
-        return output;
+        return run(command, mainSource, compilerParameters, runParameters);
     }
 
     @Override

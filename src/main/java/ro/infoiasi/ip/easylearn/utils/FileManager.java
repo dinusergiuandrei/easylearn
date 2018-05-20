@@ -22,6 +22,14 @@ public abstract class FileManager {
         return false;
     }
 
+    public static Boolean createFile(String filePath) throws IOException {
+
+        File f = new File(filePath);
+
+        f.getParentFile().mkdirs();
+        return f.createNewFile();
+    }
+
     public static void addSourcesToDirectory(Collection<SourceFile> sources, String rootDirectory){
         for (SourceFile sourceFile : sources) {
             addSourceToFile(sourceFile.getContent(), rootDirectory + getFilePathSeparator() + sourceFile.getTitle());

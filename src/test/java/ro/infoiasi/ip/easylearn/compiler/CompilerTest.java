@@ -7,6 +7,8 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import ro.infoiasi.ip.easylearn.utils.Language;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.LinkedList;
@@ -37,7 +39,9 @@ public class CompilerTest {
     private static CompilerParameters pythonFileWriterCompileParameters;
     private static RunParameters pythonFileWriterRunParameters;
 
-    private static String runOutputPath;
+    private static String javaFileWriterOutputPath;
+
+    private static String pythonFileWriterOutputPath;
 
     @Before
     public void setUp() throws IOException {
@@ -119,7 +123,7 @@ public class CompilerTest {
                 TimeUnit.SECONDS
         );
 
-        runOutputPath = "sandbox/2/output_file.txt";
+        javaFileWriterOutputPath = "sandbox/2/output_file.txt";
     }
 
     private void setUpMultipleFiles() throws IOException {
@@ -223,9 +227,11 @@ public class CompilerTest {
     private void setUpPythonFileWriter() throws IOException{
         String rootDirectoryPath = "sandbox/6";
 
+        pythonFileWriterOutputPath = rootDirectoryPath + "/output/text";
+
         SourceFile fileWriterSourceFile = new SourceFile(
                 "main.py",
-                "file = open(\"testfile.txt\",\"w\") \n" +
+                "file = open(\"" + pythonFileWriterOutputPath + "\",\"w\") \n" +
                         " \n" +
                         "file.write(\"Hello World\\n\") \n" +
                         "file.write(\"This is our new text file\\n\") \n" +
@@ -250,6 +256,7 @@ public class CompilerTest {
                 10L,
                 TimeUnit.SECONDS
         );
+
     }
 
     @Test
@@ -271,7 +278,7 @@ public class CompilerTest {
     @Test
     public void writeTest() {
         try {
-            compiler.getSecurityManager().checkWrite(runOutputPath);
+            compiler.getSecurityManager().checkWrite(javaFileWriterOutputPath);
             Output output = compileAndRun(fileWriterCompileParameters.getSourceCodes().get(0).getTitle(), fileWriterCompileParameters, fileWriterRunParameters);
             System.out.println(output.toString());
         } catch (AccessControlException e) {
@@ -307,14 +314,20 @@ public class CompilerTest {
     }
 
     @Test
-    public void pythonFileWriteTest(){
+    public void pythonFileWriteTest() throws IOException {
         Output output = compileAndRun(
                 pythonFileWriterCompileParameters.getSourceCodes().get(0).getTitle(),
                 pythonFileWriterCompileParameters,
                 pythonFileWriterRunParameters
         );
         System.out.println(output.getError());
-        //Assert.assertEquals("Hello World from Python", output.getOutput().trim());
+        String real = getTextFromFile(pythonFileWriterOutputPath);
+
+        Assert.assertEquals("", output.getOutput().trim());
+        Assert.assertEquals("Hello World\n" +
+                "This is our new text file\n" +
+                "and this is another line.\n" +
+                "Why? Because we can.\n", real);
     }
 
     private Output compileAndRun(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) {
@@ -329,6 +342,22 @@ public class CompilerTest {
             Output errorOutput = new Output();
             errorOutput.setError(e.getMessage());
             return errorOutput;
+        }
+    }
+
+    public static String getTextFromFile(String filePath) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        try {
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = reader.readLine();
+
+            while (line != null) {
+                stringBuilder.append(line).append("\n");
+                line = reader.readLine();
+            }
+            return stringBuilder.toString();
+        } finally {
+            reader.close();
         }
     }
 }

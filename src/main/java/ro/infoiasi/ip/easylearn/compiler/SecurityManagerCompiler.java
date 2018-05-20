@@ -62,7 +62,7 @@ public class SecurityManagerCompiler extends Compiler {
         return output;
     }
 
-    private Output runWithProcessCall(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception{
+    private Output runWithProcessCall(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
         String command = compilerParameters
                 .getLanguage()
                 .getCommandBuilder()
@@ -80,6 +80,12 @@ public class SecurityManagerCompiler extends Compiler {
     }
 
     private Output runWithIntermediateProgram(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
+        String outputDirectoryPath = compilerParameters.getRootDirectoryPath() + getFilePathSeparator() + "output";
+        createDirectory(outputDirectoryPath);
+
+        createFile(outputDirectoryPath+"/output");
+        createFile(outputDirectoryPath+"/error");
+
         String command = compilerParameters
                 .getLanguage()
                 .getCommandBuilder()
@@ -88,47 +94,30 @@ public class SecurityManagerCompiler extends Compiler {
                         mainSource
                 );
 
-        String cleanCommand = command.replace("\\", "/"); // "start " + command.replace(...) ?
+        String cleanCommand;
+        //cleanCommand = "Start.exe " + command.replace("\\", "/"); //for sand box ie
+        cleanCommand = command.replace("\\", "/");
 
-        String outputDirectoryPath = compilerParameters.getRootDirectoryPath()+getFilePathSeparator()+"output";
+        List<SourceFile> containerSourceFiles = buildSourceFiles(cleanCommand, runParameters.getKeyboardInput(),
+                runParameters.getTimeout(), runParameters.getTimeUnit(), outputDirectoryPath);
 
-        createDirectory(outputDirectoryPath);
-
-        List<SourceFile> containerSourceFiles = new LinkedList<>();
-
-        String mainContainerProgramString = buildMainContainerProgramString(
-                cleanCommand, runParameters.getKeyboardInput(),
-                runParameters.getTimeout(), runParameters.getTimeUnit(),
-                compilerParameters.getRootDirectoryPath() + "/output"
-        );
-
-        containerSourceFiles.add(new SourceFile ("Main.java", mainContainerProgramString));
-        containerSourceFiles.add(new SourceFile("Output.java", buildOutputFileString()));
-        containerSourceFiles.add(new SourceFile("SourceFile.java", buildSourceFileString()));
-        containerSourceFiles.add(new SourceFile("FileManager.java", buildFileManagerString()));
-        containerSourceFiles.add(new SourceFile("ProcessManager.java", buildProcessManagerString()));
-
-        Compiler defaultCompiler = new DefaultCompiler();
+        DefaultCompiler defaultCompiler = new DefaultCompiler();
 
         CompilerParameters containerCompilerParameters = new CompilerParameters(
-                Language.Java,
-                containerSourceFiles,
+                Language.Java, containerSourceFiles,
                 compilerParameters.getRootDirectoryPath()
         );
 
-        RunParameters containerRunParameters = new RunParameters(
-                "",
-                runParameters.getTimeout(),
-                runParameters.getTimeUnit()
-        );
+        RunParameters containerRunParameters =
+                new RunParameters("", runParameters.getTimeout(), runParameters.getTimeUnit());
 
         Output defaultCompilerOutput = defaultCompiler.compile(containerCompilerParameters);
 
-        if(defaultCompilerOutput.getExitValue()!=0){
+        if (defaultCompilerOutput.getExitValue() != 0) {
             System.out.println(defaultCompilerOutput.getError());
         }
 
-        defaultCompiler.run("Main.java", containerCompilerParameters, containerRunParameters);
+        defaultCompiler.run(cleanCommand, "Main.java", containerCompilerParameters, containerRunParameters);
 
         return collectOutput(outputDirectoryPath);
     }
@@ -148,57 +137,92 @@ public class SecurityManagerCompiler extends Compiler {
         return output;
     }
 
-    @Override
-    public void setUpSecurity() {
-        loadSecurityManager();
-    }
+    private List<SourceFile> buildSourceFiles(String command, String input, Long timeout, TimeUnit timeUnit, String outputPath) {
+        List<SourceFile> containerSourceFiles = new LinkedList<>();
+        String mainContainerProgramString = buildMainContainerProgramString(
+                command, input,
+                timeout, timeUnit,
+                outputPath
+        );
 
-    private void loadSecurityManager() {
-        SecurityManager securityManager = new SecurityManager();
-        System.setSecurityManager(securityManager);
-        this.securityManager = System.getSecurityManager();
-    }
+        containerSourceFiles.add(new SourceFile("Main.java", mainContainerProgramString));
+        containerSourceFiles.add(new SourceFile("Output.java", buildOutputFileString()));
 
-    public void discardSecurityManager() {
-        this.securityManager = null;
-        System.setSecurityManager(this.securityManager);
-    }
-
-    SecurityManager getSecurityManager() {
-        if (this.securityManager == null) {
-            this.loadSecurityManager();
-        }
-
-        return securityManager;
+        return containerSourceFiles;
     }
 
     private String buildMainContainerProgramString(String command, String input, Long timeout, TimeUnit timeUnit, String outputPath) {
-        return "import java.io.BufferedWriter;\n"
-                + "import java.io.IOException;\n"
-                + "import java.io.OutputStreamWriter;\n"
-                + "import java.util.concurrent.TimeUnit;\n"
-                + "import java.io.PrintWriter;\n"
-                + "import java.util.concurrent.TimeUnit;\n\n"
-                + "public class Main {\n"
-                + "   public static void main(String args[]) throws Exception {\n"
-                + "     //SecurityManager securityManager = new SecurityManager();"
-                + "     //securityManager.checkExec(\"<<ALL FILES>>\");\n"
-                + "     //System.setSecurityManager(new SecurityManager());\n"
-                + "     Process process = Runtime.getRuntime().exec(\"" + command + "\");\n"
-                + "     ProcessManager.addKeyboardInput(process, \"" + input + "\");\n"
-                + "     Output output = ProcessManager.getProcessOutput(process, " + timeout + "L,  TimeUnit.MILLISECONDS );\n"
-                + "     PrintWriter writer = new PrintWriter(\"" + outputPath+ "/error" + "\", \"UTF-8\");\n"
-                + "     writer.println(output.getError());\n"
-                + "     writer.close();\n"
-                + "     writer = new PrintWriter(\"" + outputPath+ "/output" + "\", \"UTF-8\");\n"
-                + "     writer.println(output.getOutput());\n"
-                + "     writer.close();\n"
-                + "     //System.setSecurityManager(null);\n"
-                + "   }\n"
-                + "}\n";
+        return "import java.io.BufferedWriter;\n" +
+                "import java.io.IOException;\n" +
+                "import java.io.OutputStreamWriter;\n" +
+                "import java.util.concurrent.TimeUnit;\n" +
+                "import java.io.PrintWriter;\n" +
+                "import java.io.BufferedWriter;\n" +
+                "import java.io.IOException;\n" +
+                "import java.io.OutputStreamWriter;\n" +
+                "import java.util.concurrent.TimeUnit;\n" +
+                "import java.io.BufferedReader;\n" +
+                "import java.io.InputStream;\n" +
+                "import java.io.InputStreamReader;\n" +
+                "import java.util.concurrent.TimeUnit;\n\n" +
+                "public class Main {\n" +
+                "   public static void main(String args[]) throws Exception {\n" +
+                "     //SecurityManager securityManager = new SecurityManager();" +
+                "     //securityManager.checkExec(\"<<ALL FILES>>\");\n" +
+                "     //System.setSecurityManager(new SecurityManager());\n" +
+                "     Process process = Runtime.getRuntime().exec(\"" + command + "\");\n" +
+                "     addKeyboardInput(process, \"" + input + "\");\n" +
+                "     Output output = getProcessOutput(process, " + timeout + "L,  TimeUnit.MILLISECONDS );\n" +
+                "     PrintWriter writer = new PrintWriter(\"" + outputPath + "/error" + "\", \"UTF-8\");\n" +
+                "     writer.println(output.getError());\n" +
+                "     writer.close();\n" +
+                "     writer = new PrintWriter(\"" + outputPath + "/output" + "\", \"UTF-8\");\n" +
+                "     writer.println(output.getOutput());\n" +
+                "     writer.close();\n" +
+                "       System.out.println(output.toString());\n" +
+                "     //System.setSecurityManager(null);\n" +
+                "   }\n" +
+                "   public static String getStringFromInputStream(InputStream ins) throws Exception {\n" +
+                "        StringBuilder s = new StringBuilder();\n" +
+                "        String line;\n" +
+                "        BufferedReader in = new BufferedReader(\n" +
+                "                new InputStreamReader(ins));\n" +
+                "        while ((line = in.readLine()) != null) {\n" +
+                "            s.append(line);\n" +
+                "            s.append('\\n');\n" +
+                "        }\n" +
+                "        return s.toString();\n" +
+                "    }\n" +
+                "    public static Output getProcessOutput(Process process) throws Exception {\n" +
+                "        process.waitFor();\n" +
+                "        return getProcessRunOutput(process);\n" +
+                "    }\n" +
+                "\n" +
+                "    public static Output getProcessOutput(Process process, Long timeout, TimeUnit timeUnit) throws Exception {\n" +
+                "        process.waitFor(timeout, timeUnit);\n" +
+                "        return getProcessRunOutput(process);\n" +
+                "    }\n" +
+                "\n" +
+                "    private static Output getProcessRunOutput(Process process) throws Exception {\n" +
+                "        Output runOutput = new Output();\n" +
+                "        runOutput.setError(getStringFromInputStream(process.getErrorStream()));\n" +
+                "        runOutput.setOutput(getStringFromInputStream(process.getInputStream()));\n" +
+                "        runOutput.setExitValue(process.exitValue());\n" +
+                "\n" +
+                "        return runOutput;\n" +
+                "    }\n" +
+                "    public static void addKeyboardInput(Process process, String input) throws IOException {\n" +
+                "        if (input != null && input.length() > 0) {\n" +
+                "            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));\n" +
+                "            writer.write(input);\n" +
+                "            writer.flush();\n" +
+                "        }\n" +
+                "    }\n" +
+                "\n" +
+                "}\n";
     }
 
-    private String buildOutputFileString(){
+    private String buildOutputFileString() {
         return "public class Output {\n" +
                 "    private String error;\n" +
                 "\n" +
@@ -252,147 +276,27 @@ public class SecurityManagerCompiler extends Compiler {
                 "}";
     }
 
-    private String buildSourceFileString(){
-        return "\n" +
-                "public class SourceFile {\n" +
-                "    private String title;\n" +
-                "\n" +
-                "    private String content;\n" +
-                "\n" +
-                "    public SourceFile(String title, String content) {\n" +
-                "        this.title = title;\n" +
-                "        this.content = content;\n" +
-                "    }\n" +
-                "\n" +
-                "    public String getTitle() {\n" +
-                "        return title;\n" +
-                "    }\n" +
-                "\n" +
-                "    public String getContent() {\n" +
-                "        return content;\n" +
-                "    }\n" +
-                "\n" +
-                "    public void setTitle(String title) {\n" +
-                "        this.title = title;\n" +
-                "    }\n" +
-                "\n" +
-                "    public void setContent(String content) {\n" +
-                "        this.content = content;\n" +
-                "    }\n" +
-                "}";
+    @Override
+    public void setUpSecurity() {
+        loadSecurityManager();
     }
 
-    private String buildFileManagerString(){
-        return "\n" +
-                "import java.io.File;\n" +
-                "import java.io.FileNotFoundException;\n" +
-                "import java.io.PrintWriter;\n" +
-                "import java.util.Collection;\n" +
-                "\n" +
-                "public abstract class FileManager {\n" +
-                "    public static String getCurrentWorkingDirectory(){\n" +
-                "        return System.getProperty(\"user.dir\");\n" +
-                "    }\n" +
-                "\n" +
-                "    public static String getFilePathSeparator(){\n" +
-                "        return \"/\";\n" +
-                "        //return System.getProperty(\"file.separator\");\n" +
-                "    }\n" +
-                "\n" +
-                "    public static Boolean createDirectory(String directoryPath){\n" +
-                "        File directory = new File(directoryPath);\n" +
-                "        if(!directory.exists())\n" +
-                "            return new File(directoryPath).mkdir();\n" +
-                "        return false;\n" +
-                "    }\n" +
-                "\n" +
-                "    public static void addSourcesToDirectory(Collection<SourceFile> sources, String rootDirectory){\n" +
-                "        for (SourceFile sourceFile : sources) {\n" +
-                "            addSourceToFile(sourceFile.getContent(), rootDirectory + getFilePathSeparator() + sourceFile.getTitle());\n" +
-                "        }\n" +
-                "    }\n" +
-                "\n" +
-                "    public static void addSourceToFile(String source, String filename) {\n" +
-                "        try {\n" +
-                "            PrintWriter writer = new PrintWriter(filename);\n" +
-                "            writer.write(source);\n" +
-                "            writer.flush();\n" +
-                "            writer.close();\n" +
-                "        } catch (FileNotFoundException e) {\n" +
-                "            System.out.println(e.getMessage());\n" +
-                "        }\n" +
-                "    }\n" +
-                "}";
+    private void loadSecurityManager() {
+        SecurityManager securityManager = new SecurityManager();
+        System.setSecurityManager(securityManager);
+        this.securityManager = System.getSecurityManager();
     }
 
-    private String buildProcessManagerString(){
-        return "\n" +
-                "import java.io.BufferedWriter;\n" +
-                "import java.io.IOException;\n" +
-                "import java.io.OutputStreamWriter;\n" +
-                "import java.util.concurrent.TimeUnit;\n" +
-                "import java.io.BufferedReader;\n" +
-                "import java.io.InputStream;\n" +
-                "import java.io.InputStreamReader;" +
-                "\n" +
-                "\n" +
-                "public abstract class ProcessManager {\n" +
-                "\n" +
-                "    public static Process runCommand(String command) throws IOException {\n" +
-                "        return runCommandRuntime(command);\n" +
-                "    }\n" +
-                "\n" +
-                "    private static Process runCommandRuntime(String command) throws IOException {\n" +
-                "        return Runtime.getRuntime().exec(command);\n" +
-                "    }\n" +
-                "\n" +
-                "    public static String removePathEnd(String path){\n" +
-                "        return path.substring(0, path.indexOf('.'));\n" +
-                "    }\n" +
-                "\n" +
-                "    public static void addKeyboardInput(Process process, String input) throws IOException {\n" +
-                "        if (input != null && input.length() > 0) {\n" +
-                "            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));\n" +
-                "            writer.write(input);\n" +
-                "            writer.flush();\n" +
-                "        }\n" +
-                "    }\n" +
-                "\n" +
-                "    public static Output getProcessOutput(Process process) throws Exception {\n" +
-                "        process.waitFor();\n" +
-                "        return getProcessRunOutput(process);\n" +
-                "    }\n" +
-                "\n" +
-                "    public static Output getProcessOutput(Process process, Long timeout, TimeUnit timeUnit) throws Exception {\n" +
-                "        process.waitFor(timeout, timeUnit);\n" +
-                "        return getProcessRunOutput(process);\n" +
-                "    }\n" +
-                "\n" +
-                "    private static Output getProcessRunOutput(Process process) throws Exception {\n" +
-                "        Output runOutput = new Output();\n" +
-                "        runOutput.setError(getStringFromInputStream(process.getErrorStream()));\n" +
-                "        runOutput.setOutput(getStringFromInputStream(process.getInputStream()));\n" +
-                "        runOutput.setExitValue(process.exitValue());\n" +
-                "\n" +
-                "        return runOutput;\n" +
-                "    }\n" +
-                "public static String getStringFromInputStream(InputStream ins) throws Exception {\n" +
-                "        StringBuilder s = new StringBuilder();\n" +
-                "        String line;\n" +
-                "        BufferedReader in = new BufferedReader(\n" +
-                "                new InputStreamReader(ins));\n" +
-                "        while ((line = in.readLine()) != null) {\n" +
-                "            s.append(line);\n" +
-                "            s.append('\\n');\n" +
-                "        }\n" +
-                "        return s.toString();\n" +
-                "    }" +
-                "}";
+    public void discardSecurityManager() {
+        this.securityManager = null;
+        System.setSecurityManager(this.securityManager);
     }
 
-    private void addMainProgramToFile(String file, String fileName, String rootDirectory){
-        List<SourceFile> sourceFiles = new LinkedList<>();
-        sourceFiles.add(new SourceFile(fileName, file));
-        addSourcesToDirectory(sourceFiles, rootDirectory);
+    SecurityManager getSecurityManager() {
+        if (this.securityManager == null) {
+            this.loadSecurityManager();
+        }
+
+        return securityManager;
     }
 }
