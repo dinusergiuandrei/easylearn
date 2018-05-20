@@ -10,6 +10,12 @@ public class SourceFile {
         this.content = content;
     }
 
+    public SourceFile()
+    {
+        this.title = "";
+        this.content ="";
+    }
+
     public String getTitle() {
         return title;
     }
