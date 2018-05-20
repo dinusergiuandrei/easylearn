@@ -7,6 +7,7 @@ import ro.infoiasi.ip.easylearn.utils.RunState;
 public class Run {
     private Long id;
     private Long submissionId;
+    private Long testId;
     private Long runTimeMs;
     private Long memoryBytes;
     private RunState status;
@@ -20,6 +21,14 @@ public class Run {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getTestId() {
+        return testId;
+    }
+
+    public void setTestId(Long testId) {
+        this.testId = testId;
     }
 
     public Long getSubmissionId() {

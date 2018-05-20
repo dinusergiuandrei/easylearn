@@ -7,7 +7,7 @@ public class SandBoxIECompiler extends Compiler{
     }
 
     @Override
-    public Output run(SourceFile mainClass, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
+    public Output run(String mainClass, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
         return null;
     }
 

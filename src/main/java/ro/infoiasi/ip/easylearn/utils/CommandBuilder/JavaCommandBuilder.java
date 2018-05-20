@@ -14,8 +14,8 @@ public class JavaCommandBuilder implements CommandBuilder {
     }
 
     @Override
-    public String buildRunCommand(String rootDirectoryPath, SourceFile mainSource) {
-        String javaTitle = removePathEnd(mainSource.getTitle());
+    public String buildRunCommand(String rootDirectoryPath, String mainSource) {
+        String javaTitle = removePathEnd(mainSource);
         return "java -cp " + rootDirectoryPath + " " + javaTitle;
     }
 }

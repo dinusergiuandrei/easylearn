@@ -14,10 +14,10 @@ public class PythonCommandBuilder implements CommandBuilder {
     }
 
     @Override
-    public String buildRunCommand(String rootDirectoryPath, SourceFile mainSource) {
+    public String buildRunCommand(String rootDirectoryPath, String mainSource) {
         return "python "
                 + getCurrentWorkingDirectory()
                 + getFilePathSeparator() + rootDirectoryPath
-                + getFilePathSeparator() + mainSource.getTitle();
+                + getFilePathSeparator() + mainSource;
     }
 }

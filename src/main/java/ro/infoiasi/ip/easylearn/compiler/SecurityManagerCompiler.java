@@ -32,7 +32,7 @@ public class SecurityManagerCompiler extends Compiler {
     }
 
     @Override
-    public Output run(SourceFile mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
+    public Output run(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
 
         String command = compilerParameters
                 .getLanguage()

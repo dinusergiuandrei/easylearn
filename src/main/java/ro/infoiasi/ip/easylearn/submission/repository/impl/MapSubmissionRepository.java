@@ -6,7 +6,7 @@ import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 
 import java.util.*;
 
-@Repository
+//@Repository
 public class MapSubmissionRepository implements SubmissionRepository{
     private Map<Long, Submission> submissions;
     private Long id = 1L;
@@ -44,5 +44,10 @@ public class MapSubmissionRepository implements SubmissionRepository{
         }
 
         return filteredSubmissions;
+    }
+
+    @Override
+    public Long update(Submission submission) {
+        return null;
     }
 }

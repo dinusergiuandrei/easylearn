@@ -9,4 +9,5 @@ public interface SubmissionRepository {
     Submission findById(Long id);
     List<Submission> findAll();
     List<Submission> findByState(String state);
+    Long update(Submission submission);
 }
