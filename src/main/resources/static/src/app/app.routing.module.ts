@@ -5,7 +5,9 @@ import { LoginComponent } from './components/public/login/login.component';
 import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';
 import { SignComponent } from './components/public/sign/sign.component';
+import {TopComponent} from './components/pages/top/top.component';
 import { Error404Component } from './components/pages/error404/error404.component';
+import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,7 +17,9 @@ const routes: Routes = [
     children: [{ path: '', component: ForgotComponent }] },
   { path: 'register', component: SignComponent,
     children: [{ path: '', component: RegisterComponent }] },
-  { path: '404', component: Error404Component }
+  { path: 'top', component: TopComponent},
+  { path: '404', component: Error404Component },
+  { path: 'about-us', component: AboutUsComponent }
 ];
 
 @NgModule({

@@ -1,3 +1,71 @@
-<p>
-  about-us works!
-</p>
+<div class="aboutus-body">
+  <div class="aboutus-body-header">
+    <div class="aboutus-body-header-title">
+      {{header.title}}
+    </div>
+    <div class="aboutus-body-header-subtitle">
+      {{header.subtitle}}
+    </div>
+  </div>
+  <div class="aboutus-body-content">
+    <div class="aboutus-body-content-left">
+      <div class="aboutus-body-content-left-title">
+        {{content.title_left}}
+      </div>
+      <div class="aboutus-body-content-left-content">
+        {{content.content_left}}
+      </div>
+    </div>
+    <div class="aboutus-body-content-right">
+      <div class="aboutus-body-content-right-title">
+        {{content.title_right}}
+      </div>
+      <div class="aboutus-body-content-right-content">
+        {{content.content_right}}
+      </div>
+    </div>
+  </div>
+  <div class="aboutus-body-team">
+    <div class="aboutus-body-team-title">
+      {{team.title}}
+    </div>
+    <div class="aboutus-body-team-members">
+      <div class="aboutus-body-team-members-person" *ngFor="let member of team.members">
+        <div class="aboutus-body-team-members-person-photo">
+          <img [src]="member.photo">
+        </div>
+        <div class="aboutus-body-team-members-person-name">{{member.name}}</div>
+        <div class="aboutus-body-team-members-person-role">{{member.role}}</div>
+      </div>
+    </div>
+  </div>
+  <div class="aboutus-body-technologies">
+    <div class="aboutus-body-technologies-title">
+      {{technologies.title}}
+    </div>
+    <div class="aboutus-body-technologies-content">
+      <div class="aboutus-body-technologies-content-small">
+        <img src="../../../../assets/images/technologies/html.png">
+      </div>
+      <div class="aboutus-body-technologies-content-small">
+        <img src="../../../../assets/images/technologies/css.png">
+      </div>
+      <div class="aboutus-body-technologies-content-small">
+        <img src="../../../../assets/images/technologies/sass.png">
+      </div>
+      <div class="aboutus-body-technologies-content-small">
+        <img src="../../../../assets/images/technologies/js.png">
+      </div>
+      <div class="aboutus-body-technologies-content-small">
+        <img src="../../../../assets/images/technologies/angular.png">
+      </div>
+      <div class="aboutus-body-technologies-content-big">
+        <img src="../../../../assets/images/technologies/spring.png">
+      </div>
+      <div class="aboutus-body-technologies-content-small">
+        <img src="../../../../assets/images/technologies/java.png">
+      </div>
+    </div>
+  </div>
+</div>
+

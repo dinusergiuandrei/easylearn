@@ -16,10 +16,15 @@ public class RunMapper implements RowMapper<Run> {
         Run run = new Run();
 
         run.setId(resultSet.getLong("id"));
-        // must check if the column names are correct
-        run.setSubmissionId(resultSet.getLong("submission_id"));
-        run.setMemoryBytes(resultSet.getLong("memory_bytes"));
-        run.setRunTimeMs(resultSet.getLong("run_time_ms"));
+
+        run.setSubmissionId(resultSet.getLong("submissionID"));
+
+        run.setTestId(resultSet.getLong("testID"));
+
+        run.setRunTimeMs(resultSet.getLong("runTimeMS"));
+
+        run.setMemoryBytes(resultSet.getLong("memoryBytes"));
+
         run.setStatus(RunState.valueOf(resultSet.getString("status")));
 
         return run;

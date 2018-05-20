@@ -8,11 +8,24 @@ import java.util.List;
 
 public class SubmissionRequest {
     private Long problemId;
+    private Long userID;
     private Language language;
     private List<SourceFile> sources;
-    private SourceFile mainSource;
+    private String mainSource;
 
-    public SourceFile getMainSource() {
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
+
+    public void setMainSource(String mainSource) {
+        this.mainSource = mainSource;
+    }
+
+    public String getMainSource() {
         return mainSource;
     }
 

@@ -1,0 +1,44 @@
+div {
+  background-color: rgb(255, 255, 255);
+}
+
+div.Row {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-spacing: 10px;
+}
+
+div.Column {
+  display: table-cell;
+}
+
+h2 {
+  padding-left: 10%;
+}
+
+table {
+  margin-left: auto;
+  width: 80%
+}
+
+tr {
+  text-align: center;
+  vertical-align: middle;
+}
+
+div.line {
+  display: table-cell;
+  content: "";
+  margin-left: auto;
+  margin-right: 650px;
+  border-top: 1px solid rgb(0, 0, 0);
+  width: 210px;
+  transform: rotate(45deg);
+  transform-origin: 0% 0%;
+  background-color: transparent;
+}
+
+p {
+  margin-left: 20px;
+}

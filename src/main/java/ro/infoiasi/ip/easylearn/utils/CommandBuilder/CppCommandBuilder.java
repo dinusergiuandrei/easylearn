@@ -28,8 +28,8 @@ public class CppCommandBuilder implements CommandBuilder {
     }
 
     @Override
-    public String buildRunCommand(String rootDirectoryPath, SourceFile mainSource) {
-        String cppTitle = removePathEnd(mainSource.getTitle());
+    public String buildRunCommand(String rootDirectoryPath, String mainSource) {
+        String cppTitle = removePathEnd(mainSource);
         return rootDirectoryPath + getFilePathSeparator() + cppTitle + ".exe";
     }
 

@@ -1,6 +1,8 @@
 package ro.infoiasi.ip.easylearn.submission.repository.utils;
 
 import org.glassfish.jersey.server.filter.HttpMethodOverrideFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 import ro.infoiasi.ip.easylearn.compiler.SourceFile;
@@ -15,25 +17,35 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SubmissionMapper implements RowMapper<Submission> {
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     @Nullable
     @Override
     public Submission mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Submission submission = new Submission();
-        submission.setId(resultSet.getLong("id"));
-        submission.setProblemId(resultSet.getLong("problemId"));
-        //TODO : implement according to database specification
-        submission.setLanguage(Language.valueOf(resultSet.getString("language")));
 
-        List<SourceFile> sources = new LinkedList<>();
-        sources.add((SourceFile) resultSet.getObject("sources"));
-        submission.setSources(sources);
+        submission.setId(resultSet.getLong("submissionID"));
+
+        submission.setUserId(resultSet.getLong("userID"));
+
+        submission.setProblemId(resultSet.getLong("problemId"));
+
+        submission.setMainSource(resultSet.getString("main_file"));
+
+        submission.setLanguage(Language.valueOf(resultSet.getString("lang")));
+
+        submission.setDate(resultSet.getDate("submitted_at"));
 
         submission.setState(SubmissionState.valueOf(resultSet.getString("submissionState")));
 
-        submission.setResult(resultSet.getString("result"));
+        String mysql;
+        mysql = "SELECT * FROM submissionsCode where submissionID='" + submission.getId() + "'";
+        List<SourceFile> sources = jdbcTemplate.query(mysql, new SourceFileMapper());
+        submission.setSources(sources);
 
-        List<Run> runs = new LinkedList<>();
-        runs.add((Run)resultSet.getObject("runs"));
+        mysql = "SELECT * FROM submissiontests where submissionID='" + submission.getId() + "'";
+        List<Run> runs = jdbcTemplate.query(mysql, new RunMapper());
         submission.setRuns(runs);
 
         return submission;

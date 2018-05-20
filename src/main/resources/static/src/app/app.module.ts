@@ -14,13 +14,15 @@ import { LoadingScreenService } from './services/loading-screen.service';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
+import { Error404Component } from './components/pages/error404/error404.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/public/login/login.component';
 import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 import { SignComponent } from './components/public/sign/sign.component';
-import { Error404Component } from './components/pages/error404/error404.component';
+import { TopComponent } from './components/pages/top/top.component';
+import { TestimonialsComponent } from './components/public/testimonials/testimonials.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,9 @@ import { Error404Component } from './components/pages/error404/error404.componen
     ForgotComponent,
     RegisterComponent,
     SignComponent,
-    Error404Component
+    TopComponent,
+    Error404Component,
+    TestimonialsComponent,
   ],
   imports: [
     BrowserModule,

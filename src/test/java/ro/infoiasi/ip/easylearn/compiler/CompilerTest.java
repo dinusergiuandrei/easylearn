@@ -7,7 +7,8 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import ro.infoiasi.ip.easylearn.utils.Language;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.LinkedList;
@@ -21,26 +22,26 @@ public class CompilerTest {
     private static SecurityManagerCompiler compiler;
 
     private static CompilerParameters helloWorldCompileParameters;
-
     private static RunParameters helloWorldRunParameters;
 
     private static CompilerParameters fileWriterCompileParameters;
-
     private static RunParameters fileWriterRunParameters;
 
     private static CompilerParameters multipleFilesCompileParameters;
-
     private static RunParameters multipleFilesRunParameters;
 
     private static CompilerParameters cppHelloWorldCompileParameters;
-
     private static RunParameters cppHelloWorldRunParameters;
 
-    private static CompilerParameters pythonCompileParameters;
+    private static CompilerParameters pythonHelloWorldCompileParameters;
+    private static RunParameters pythonHelloWorldRunParameters;
 
-    private static RunParameters pythonRunParameters;
+    private static CompilerParameters pythonFileWriterCompileParameters;
+    private static RunParameters pythonFileWriterRunParameters;
 
-    private static String runOutputPath;
+    private static String javaFileWriterOutputPath;
+
+    private static String pythonFileWriterOutputPath;
 
     @Before
     public void setUp() throws IOException {
@@ -55,6 +56,8 @@ public class CompilerTest {
         setUpCppHelloWorld();
 
         setUpPythonHelloWorld();
+
+        setUpPythonFileWriter();
     }
 
     private void setUpHelloWorld() throws IOException {
@@ -120,7 +123,7 @@ public class CompilerTest {
                 TimeUnit.SECONDS
         );
 
-        runOutputPath = "sandbox/2/output_file.txt";
+        javaFileWriterOutputPath = "sandbox/2/output_file.txt";
     }
 
     private void setUpMultipleFiles() throws IOException {
@@ -208,29 +211,64 @@ public class CompilerTest {
 
         helloWorldSources.add(helloWorldSourceFile);
 
-        pythonCompileParameters = new CompilerParameters(
+        pythonHelloWorldCompileParameters = new CompilerParameters(
                 Language.Python,
                 helloWorldSources,
                 rootDirectoryPath
         );
 
-        pythonRunParameters = new RunParameters(
+        pythonHelloWorldRunParameters = new RunParameters(
                 "",
                 10L,
                 TimeUnit.SECONDS
         );
     }
 
+    private void setUpPythonFileWriter() throws IOException{
+        String rootDirectoryPath = "sandbox/6";
+
+        pythonFileWriterOutputPath = rootDirectoryPath + "/output/text";
+
+        SourceFile fileWriterSourceFile = new SourceFile(
+                "main.py",
+                "file = open(\"" + pythonFileWriterOutputPath + "\",\"w\") \n" +
+                        " \n" +
+                        "file.write(\"Hello World\\n\") \n" +
+                        "file.write(\"This is our new text file\\n\") \n" +
+                        "file.write(\"and this is another line.\\n\") \n" +
+                        "file.write(\"Why? Because we can.\\n\") \n" +
+                        " \n" +
+                        "file.close() "
+        );
+
+        List<SourceFile> fileWriterSources = new LinkedList<>();
+
+        fileWriterSources.add(fileWriterSourceFile);
+
+        pythonFileWriterCompileParameters = new CompilerParameters(
+                Language.Python,
+                fileWriterSources,
+                rootDirectoryPath
+        );
+
+        pythonFileWriterRunParameters = new RunParameters(
+                "",
+                10L,
+                TimeUnit.SECONDS
+        );
+
+    }
+
     @Test
     public void javaHelloWorldTest() {
-        Output output = compileAndRun(helloWorldCompileParameters.getSourceCodes().get(0), helloWorldCompileParameters, helloWorldRunParameters);
+        Output output = compileAndRun(helloWorldCompileParameters.getSourceCodes().get(0).getTitle(), helloWorldCompileParameters, helloWorldRunParameters);
         System.out.println(output.getError());
         Assert.assertEquals("Hello World!", output.getOutput().trim());
     }
 
     @Test
     public void multipleJavaFilesTest(){
-        Output output = compileAndRun(multipleFilesCompileParameters.getSourceCodes().get(0), multipleFilesCompileParameters, multipleFilesRunParameters);
+        Output output = compileAndRun(multipleFilesCompileParameters.getSourceCodes().get(0).getTitle(), multipleFilesCompileParameters, multipleFilesRunParameters);
         System.out.println(output.getError());
         String expected = "Hello from main\nHello from A";
         Assert.assertEquals(expected, output.getOutput().trim());
@@ -240,8 +278,8 @@ public class CompilerTest {
     @Test
     public void writeTest() {
         try {
-            compiler.getSecurityManager().checkWrite(runOutputPath);
-            Output output = compileAndRun(fileWriterCompileParameters.getSourceCodes().get(0), fileWriterCompileParameters, fileWriterRunParameters);
+            compiler.getSecurityManager().checkWrite(javaFileWriterOutputPath);
+            Output output = compileAndRun(fileWriterCompileParameters.getSourceCodes().get(0).getTitle(), fileWriterCompileParameters, fileWriterRunParameters);
             System.out.println(output.toString());
         } catch (AccessControlException e) {
             String message
@@ -259,7 +297,7 @@ public class CompilerTest {
 
     @Test
     public void cppHelloWorldTest(){
-        Output output = compileAndRun(cppHelloWorldCompileParameters.getSourceCodes().get(0), cppHelloWorldCompileParameters, cppHelloWorldRunParameters);
+        Output output = compileAndRun(cppHelloWorldCompileParameters.getSourceCodes().get(0).getTitle(), cppHelloWorldCompileParameters, cppHelloWorldRunParameters);
         System.out.println(output.getError());
         Assert.assertEquals("Hello World! from c++", output.getOutput().trim());
     }
@@ -267,15 +305,32 @@ public class CompilerTest {
     @Test
     public void pythonHelloWorldTest(){
         Output output = compileAndRun(
-                pythonCompileParameters.getSourceCodes().get(0),
-                pythonCompileParameters,
-                pythonRunParameters
+                pythonHelloWorldCompileParameters.getSourceCodes().get(0).getTitle(),
+                pythonHelloWorldCompileParameters,
+                pythonHelloWorldRunParameters
         );
         System.out.println(output.getError());
         Assert.assertEquals("Hello World from Python", output.getOutput().trim());
     }
 
-    private Output compileAndRun(SourceFile mainSource, CompilerParameters compilerParameters, RunParameters runParameters) {
+    @Test
+    public void pythonFileWriteTest() throws IOException {
+        Output output = compileAndRun(
+                pythonFileWriterCompileParameters.getSourceCodes().get(0).getTitle(),
+                pythonFileWriterCompileParameters,
+                pythonFileWriterRunParameters
+        );
+        System.out.println(output.getError());
+        String real = getTextFromFile(pythonFileWriterOutputPath);
+
+        Assert.assertEquals("", output.getOutput().trim());
+        Assert.assertEquals("Hello World\n" +
+                "This is our new text file\n" +
+                "and this is another line.\n" +
+                "Why? Because we can.\n", real);
+    }
+
+    private Output compileAndRun(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) {
         try {
             Output compileOutput = compiler.compile(compilerParameters);
             if (compileOutput.getExitValue() == 0) {
@@ -287,6 +342,22 @@ public class CompilerTest {
             Output errorOutput = new Output();
             errorOutput.setError(e.getMessage());
             return errorOutput;
+        }
+    }
+
+    public static String getTextFromFile(String filePath) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        try {
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = reader.readLine();
+
+            while (line != null) {
+                stringBuilder.append(line).append("\n");
+                line = reader.readLine();
+            }
+            return stringBuilder.toString();
+        } finally {
+            reader.close();
         }
     }
 }
