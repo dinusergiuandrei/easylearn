@@ -20,6 +20,7 @@ import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 import { SignComponent } from './components/public/sign/sign.component';
+import {TopComponent} from './components/public/top/top.component';
 import { Error404Component } from './components/pages/error404/error404.component';
 
 @NgModule({
@@ -34,7 +35,8 @@ import { Error404Component } from './components/pages/error404/error404.componen
     ForgotComponent,
     RegisterComponent,
     SignComponent,
-    Error404Component
+    TopComponent,
+    Error404Component,
   ],
   imports: [
     BrowserModule,
