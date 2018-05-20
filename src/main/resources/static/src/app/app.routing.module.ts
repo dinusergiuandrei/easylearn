@@ -5,7 +5,7 @@ import { LoginComponent } from './components/public/login/login.component';
 import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';
 import { SignComponent } from './components/public/sign/sign.component';
-
+import {TopComponent} from './components/public/top/top.component';
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'login', component: SignComponent,
@@ -13,7 +13,8 @@ const routes: Routes = [
   { path: 'forgot', component: SignComponent,
     children: [{ path: '', component: ForgotComponent }] },
   { path: 'register', component: SignComponent,
-    children: [{ path: '', component: RegisterComponent }] }
+    children: [{ path: '', component: RegisterComponent }] },
+  { path: 'top', component: TopComponent},
 ];
 
 @NgModule({

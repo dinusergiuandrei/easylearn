@@ -17,6 +17,7 @@ import { ForgotComponent } from './components/public/forgot/forgot.component';
 import { RegisterComponent } from './components/public/register/register.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 import { SignComponent } from './components/public/sign/sign.component';
+import {TopComponent} from './components/public/top/top.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { SignComponent } from './components/public/sign/sign.component';
     LoginComponent,
     ForgotComponent,
     RegisterComponent,
-    SignComponent
+    SignComponent,
+    TopComponent
   ],
   imports: [
     BrowserModule,
