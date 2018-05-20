@@ -1,4 +1,4 @@
-<form class="sign" [formGroup]="user">
+<form class="sign-form" [formGroup]="user">
   <mat-form-field>
     <input type="email" matInput placeholder="E-mail" required formControlName="email" />
     <mat-error *ngIf="user.get('email').hasError('email') && !user.get('email').hasError('required')">

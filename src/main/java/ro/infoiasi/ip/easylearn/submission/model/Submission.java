@@ -4,35 +4,52 @@ import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 import ro.infoiasi.ip.easylearn.utils.Language;
 import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Submission {
     private Long id;
     private Long problemId;
+    private Long userId;
     private Language language;
     private List<SourceFile> sources;
-    private SourceFile mainSource;
+    private String mainSource;
     private SubmissionState state;
     private List<Run> runs;
-    private String result;
+    private Date date;
 
-    public Submission() {
-    }
+    public Submission() {}
 
-    public Submission(Long problemId, Language language, List<SourceFile> sources, SourceFile mainSource) {
+    public Submission(Long problemId, Long userId, Language language, List<SourceFile> sources, String mainSource) {
         this.problemId = problemId;
         this.language = language;
         this.sources = sources;
         this.state = SubmissionState.Waiting;
         this.mainSource = mainSource;
+        this.date = new Date(); // current date and time
+        this.runs = new ArrayList<>();
+        this.userId = userId;
     }
 
-    public String getResult() {
-        return result;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setResult(String result) {
-        this.result = result;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setMainSource(String mainSource) {
+        this.mainSource = mainSource;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public List<Run> getRuns() {
@@ -83,13 +100,14 @@ public class Submission {
         this.state = state;
     }
 
-    public SourceFile getMainSource() {
+    public String getMainSource() {
         return mainSource;
     }
 
     public static Submission constructSubmissionFrom(SubmissionRequest submissionRequest) {
         return new Submission(
                 submissionRequest.getProblemId(),
+                submissionRequest.getUserID(),
                 submissionRequest.getLanguage(),
                 submissionRequest.getSources(),
                 submissionRequest.getMainSource()

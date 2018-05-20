@@ -10,6 +10,7 @@ export class SignComponent implements OnInit, AfterViewInit {
 
   @ViewChild('login') login;
   @ViewChild('register') register;
+
   currentPath: string;
   showReg: boolean;
 
@@ -32,7 +33,9 @@ export class SignComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    // this.login.nativeElement.classList.add('active');
+    if (this.login) {
+      this.login.nativeElement.classList.add('active');
+    }
   }
 
 }

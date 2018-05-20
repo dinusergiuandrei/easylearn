@@ -16,7 +16,7 @@ import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
 import ro.infoiasi.ip.easylearn.management.repository.impl.SqlProblemRepository;
 
 @RestController
-@Api(value = "problems", description = "text1")
+@Api(value = "problems", description = "Operations pertaining to the manipulations of problems")
 public class ProblemController {
 
 	ProblemRepository p;

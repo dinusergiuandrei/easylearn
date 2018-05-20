@@ -2,6 +2,7 @@ package ro.infoiasi.ip.easylearn.submission.service;
 
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
+import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionRequest;
@@ -29,9 +30,10 @@ public class SubmissionService {
 
     public SubmissionResponse submit(SubmissionRequest submissionRequest){
         submissionValidator.validate(submissionRequest);
-
         Submission submission = Submission.constructSubmissionFrom(submissionRequest);
+
         Long id = submissionRepository.save(submission);
+
 
         // Send the id of the submissionRequest to be processed by the execution module.
         jmsTemplate.convertAndSend("submissionQueue", id);

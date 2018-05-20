@@ -1,5 +1,5 @@
 <!-- If path is specific -->
-<div class="sign-wrapeer" *ngIf="currentPath === '/login' || currentPath === '/register' || currentPath === '/forgot'">
+<div class="sign-wrapper" *ngIf="currentPath === '/login' || currentPath === '/register' || currentPath === '/forgot'">
   <div class="sign-container">
     <ul class="sign-tabs" *ngIf="currentPath === '/login' || currentPath === '/register'">
       <li routerLink='/login' routerLinkActive='active'>Sign in</li>
@@ -12,16 +12,16 @@
 
   <div class="sign-text">
     <div *ngIf="currentPath === '/login'">
-      <h2>You don't have an accout?</h2>
-      <h2>Go <a routerLink='/register'>sign up</a>!</h2>
+      <h3>You don't have an accout?</h3>
+      <h3>Go <a routerLink='/register'>sign up</a>!</h3>
     </div>
     <div *ngIf="currentPath === '/register'">
-      <h2>You have an accout?</h2>
-      <h2>Go <a routerLink='/login'>sign in</a>!</h2>
+      <h3>You have an accout?</h3>
+      <h3>Go <a routerLink='/login'>sign in</a>!</h3>
     </div>
     <div *ngIf="currentPath === '/forgot'">
-      <h2>You remembered your password?</h2>
-      <h2>Go <a routerLink='/login'>sign in</a> if you have an account <br/> or <a routerLink='/register'>sign up</a> if you don't!</h2>
+      <h3>You remembered your password?</h3>
+      <h3>Go <a routerLink='/login'>sign in</a> if you have an account <br/> or <a routerLink='/register'>sign up</a> if you don't!</h3>
     </div>
   </div>
 </div>

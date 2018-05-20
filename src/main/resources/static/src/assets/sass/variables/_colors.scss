@@ -9,7 +9,9 @@ $easylearn-theme: mat-light-theme($easylearn-primary, $easylearn-accent, $easyle
 
 // Custom Colors
 $color-primary: rgb(38, 166, 154);
+$color-primary-gradient: linear-gradient(90deg, rgb(38, 166, 154), rgb(45, 192, 177));
 $color-secondary: rgb(101, 31, 255);
+$color-secondary-gradient: linear-gradient(90deg, rgb(101, 31, 255), rgb(116, 51, 255));
 
 $color-red: rgb(235, 42, 79);
 $color-red-gradient: linear-gradient(90deg, rgb(235, 42, 79), rgb(248, 64, 101));
@@ -27,10 +29,11 @@ $color-grey: rgb(181, 187, 197);
 $color-grey-gradient: linear-gradient(90deg, rgb(168, 173, 183), rgb(189, 194, 202));
 
 $color-text: rgb(102, 116, 137);         //#grey-blue
-$color-background: rgb(249, 249, 251);   //#pale-grey
-$color-container: rgb(255, 255, 255);   //#white
+$color-hover: rgb(244, 244, 244);
+$color-background: rgb(234, 234, 234);
+$color-container: rgb(255, 255, 255);
 
-$color-divider: rgb(227, 233, 240);
+$color-divider: rgb(202, 207, 214);
 
 // Shadows
 $shadow-general: 0 0 20px 0 rgba(181, 187, 197, .36);

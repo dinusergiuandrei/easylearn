@@ -59,6 +59,7 @@ public class SubmissionRunner {
             for (ProblemTest test : tests) {
                 Run run = new Run();
                 run.setSubmissionId(submissionId);
+                run.setTestId(test.getId());
                 run.setRunTimeMs(10L); // problem.getRuntime();
                 run.setMemoryBytes(10L); // problem.getMaxMemory();
 
@@ -70,13 +71,15 @@ public class SubmissionRunner {
                 } else {
                     run.setStatus(RunState.Failed);
                 }
-                runRepository.save(run);
+                //runRepository.save(run);
+                submission.getRuns().add(run);
             }
 
             submission.setState(SubmissionState.Completed);
         } else {
             submission.setState(SubmissionState.CompilationFailed);
         }
+        //submissionRepository.update(submission);
     }
 
     private boolean runWithSuccess(Output runOutput) {

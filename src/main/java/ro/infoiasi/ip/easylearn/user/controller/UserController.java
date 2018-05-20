@@ -10,7 +10,7 @@ import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
 
 
 @RestController
-@Api(value = "users", description = "text1")
+@Api(value = "users", description = "Operations pertaining to the manipulations of users")
 public class UserController {
 
     UserRepository u;

@@ -30,8 +30,6 @@ public class SubmissionMapper implements RowMapper<Submission> {
 
         submission.setState(SubmissionState.valueOf(resultSet.getString("submissionState")));
 
-        submission.setResult(resultSet.getString("result"));
-
         List<Run> runs = new LinkedList<>();
         runs.add((Run)resultSet.getObject("runs"));
         submission.setRuns(runs);

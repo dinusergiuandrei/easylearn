@@ -7,5 +7,5 @@ import java.util.List;
 public interface CommandBuilder {
     String buildCompileCommand(List<SourceFile> sources, String rootDirectoryPath);
 
-    String buildRunCommand(String rootDirectoryPath, SourceFile mainSource);
+    String buildRunCommand(String rootDirectoryPath, String mainSource);
 }
