@@ -10,7 +10,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
   templateUrl: './top.component.html',
 })
 export class TopComponent implements OnInit {
-  displayedColumns = ['id', 'name', 'languages', 'solutions', 'solved', 'source'];
+  displayedColumns = ['id', 'name', 'languages', 'solutions', 'solved', 'score'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -49,7 +49,7 @@ function createNewUser(id: number): UserData {
     languages: LANGUAGES[Math.round(Math.random() * (LANGUAGES.length - 1))],
     solutions: Math.round(Math.random() * 100).toString(),
     solved: Math.round(Math.random() * 100).toString(),
-    source: Math.round(Math.random() * 100).toString(),
+    score: Math.round(Math.random() * 100).toString(),
   };
 }
 
@@ -65,5 +65,5 @@ export interface UserData {
   languages: string;
   solutions: string;
   solved: string;
-  source: string;
+  score: string;
 }
