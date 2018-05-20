@@ -15,11 +15,14 @@ public class SourceFileMapper implements RowMapper<SourceFile> {
     public SourceFile mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         SourceFile source = new SourceFile();
 
-        source.setContent(resultSet.getString("sourceCode"));
+        source.setId(resultSet.getLong("id"));
+
+        source.setSubmissionID(resultSet.getLong("submissionID"));
 
         source.setTitle(resultSet.getString("class_name"));
 
+        source.setContent(resultSet.getString("sourceCode"));
+
         return source;
     }
-
 }

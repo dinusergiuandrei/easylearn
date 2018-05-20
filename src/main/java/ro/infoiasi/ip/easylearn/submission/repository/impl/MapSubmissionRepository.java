@@ -3,6 +3,7 @@ package ro.infoiasi.ip.easylearn.submission.repository.impl;
 import org.springframework.stereotype.Repository;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
+import ro.infoiasi.ip.easylearn.utils.RunState;
 
 import java.util.*;
 
@@ -34,16 +35,17 @@ public class MapSubmissionRepository implements SubmissionRepository{
     }
 
     @Override
-    public List <Submission> findByState(String state) {
-        List<Submission> filteredSubmissions = new LinkedList <>();
+    public List <Submission> findByState(RunState state) {
+//        List<Submission> filteredSubmissions = new LinkedList <>();
 
-        for(Submission submission : findAll()){
-            if(submission.getState().equals(state)){
-                filteredSubmissions.add(submission);
-            }
-        }
+//        for(Submission submission : findAll()){
+//            if(submission.getState().equals(state)){
+//                filteredSubmissions.add(submission);
+//            }
+//        }
 
-        return filteredSubmissions;
+//        return filteredSubmissions;
+        return null;
     }
 
     @Override

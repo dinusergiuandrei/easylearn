@@ -1,6 +1,8 @@
 package ro.infoiasi.ip.easylearn.submission.repository.utils;
 
 import org.glassfish.jersey.server.filter.HttpMethodOverrideFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.lang.Nullable;
 import ro.infoiasi.ip.easylearn.compiler.SourceFile;
@@ -15,6 +17,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SubmissionMapper implements RowMapper<Submission> {
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
     @Nullable
     @Override
     public Submission mapRow(ResultSet resultSet, int rowNum) throws SQLException {
@@ -34,8 +39,13 @@ public class SubmissionMapper implements RowMapper<Submission> {
 
         submission.setState(SubmissionState.valueOf(resultSet.getString("submissionState")));
 
-        List<Run> runs = new LinkedList<>();
-        runs.add((Run)resultSet.getObject("runs"));
+        String mysql;
+        mysql = "SELECT * FROM submissionsCode where submissionID='" + submission.getId() + "'";
+        List<SourceFile> sources = jdbcTemplate.query(mysql, new SourceFileMapper());
+        submission.setSources(sources);
+
+        mysql = "SELECT * FROM submissiontests where submissionID='" + submission.getId() + "'";
+        List<Run> runs = jdbcTemplate.query(mysql, new RunMapper());
         submission.setRuns(runs);
 
         return submission;

@@ -1,8 +1,9 @@
 package ro.infoiasi.ip.easylearn.compiler;
 
 public class SourceFile {
+    private Long id;
+    private Long submissionID;
     private String title;
-
     private String content;
 
     public SourceFile(String title, String content) {
@@ -14,6 +15,22 @@ public class SourceFile {
     {
         this.title = "";
         this.content ="";
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getSubmissionID() {
+        return submissionID;
+    }
+
+    public void setSubmissionID(Long submissionID) {
+        this.submissionID = submissionID;
     }
 
     public String getTitle() {
