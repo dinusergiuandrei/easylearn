@@ -2,9 +2,7 @@ package ro.infoiasi.ip.easylearn.utils;
 
 import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Collection;
 
 public abstract class FileManager {
@@ -13,7 +11,8 @@ public abstract class FileManager {
     }
 
     public static String getFilePathSeparator(){
-        return System.getProperty("file.separator");
+        return "/";
+        //return System.getProperty("file.separator");
     }
 
     public static Boolean createDirectory(String directoryPath){
@@ -23,7 +22,7 @@ public abstract class FileManager {
         return false;
     }
 
-    public static void addSourcesToFile(Collection<SourceFile> sources, String rootDirectory){
+    public static void addSourcesToDirectory(Collection<SourceFile> sources, String rootDirectory){
         for (SourceFile sourceFile : sources) {
             addSourceToFile(sourceFile.getContent(), rootDirectory + getFilePathSeparator() + sourceFile.getTitle());
         }
@@ -37,6 +36,22 @@ public abstract class FileManager {
             writer.close();
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    public static String getTextFromFile(String filePath) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        try {
+            StringBuilder stringBuilder = new StringBuilder();
+            String line = reader.readLine();
+
+            while (line != null) {
+                stringBuilder.append(line).append("\n");
+                line = reader.readLine();
+            }
+            return stringBuilder.toString();
+        } finally {
+            reader.close();
         }
     }
 }

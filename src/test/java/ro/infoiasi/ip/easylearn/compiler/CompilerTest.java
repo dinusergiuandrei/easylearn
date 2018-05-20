@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import ro.infoiasi.ip.easylearn.utils.Language;
 
-import java.io.File;
 import java.io.IOException;
 import java.security.AccessControlException;
 import java.util.LinkedList;
@@ -21,24 +20,22 @@ public class CompilerTest {
     private static SecurityManagerCompiler compiler;
 
     private static CompilerParameters helloWorldCompileParameters;
-
     private static RunParameters helloWorldRunParameters;
 
     private static CompilerParameters fileWriterCompileParameters;
-
     private static RunParameters fileWriterRunParameters;
 
     private static CompilerParameters multipleFilesCompileParameters;
-
     private static RunParameters multipleFilesRunParameters;
 
     private static CompilerParameters cppHelloWorldCompileParameters;
-
     private static RunParameters cppHelloWorldRunParameters;
 
-    private static CompilerParameters pythonCompileParameters;
+    private static CompilerParameters pythonHelloWorldCompileParameters;
+    private static RunParameters pythonHelloWorldRunParameters;
 
-    private static RunParameters pythonRunParameters;
+    private static CompilerParameters pythonFileWriterCompileParameters;
+    private static RunParameters pythonFileWriterRunParameters;
 
     private static String runOutputPath;
 
@@ -55,6 +52,8 @@ public class CompilerTest {
         setUpCppHelloWorld();
 
         setUpPythonHelloWorld();
+
+        setUpPythonFileWriter();
     }
 
     private void setUpHelloWorld() throws IOException {
@@ -208,13 +207,45 @@ public class CompilerTest {
 
         helloWorldSources.add(helloWorldSourceFile);
 
-        pythonCompileParameters = new CompilerParameters(
+        pythonHelloWorldCompileParameters = new CompilerParameters(
                 Language.Python,
                 helloWorldSources,
                 rootDirectoryPath
         );
 
-        pythonRunParameters = new RunParameters(
+        pythonHelloWorldRunParameters = new RunParameters(
+                "",
+                10L,
+                TimeUnit.SECONDS
+        );
+    }
+
+    private void setUpPythonFileWriter() throws IOException{
+        String rootDirectoryPath = "sandbox/6";
+
+        SourceFile fileWriterSourceFile = new SourceFile(
+                "main.py",
+                "file = open(\"testfile.txt\",\"w\") \n" +
+                        " \n" +
+                        "file.write(\"Hello World\\n\") \n" +
+                        "file.write(\"This is our new text file\\n\") \n" +
+                        "file.write(\"and this is another line.\\n\") \n" +
+                        "file.write(\"Why? Because we can.\\n\") \n" +
+                        " \n" +
+                        "file.close() "
+        );
+
+        List<SourceFile> fileWriterSources = new LinkedList<>();
+
+        fileWriterSources.add(fileWriterSourceFile);
+
+        pythonFileWriterCompileParameters = new CompilerParameters(
+                Language.Python,
+                fileWriterSources,
+                rootDirectoryPath
+        );
+
+        pythonFileWriterRunParameters = new RunParameters(
                 "",
                 10L,
                 TimeUnit.SECONDS
@@ -267,12 +298,23 @@ public class CompilerTest {
     @Test
     public void pythonHelloWorldTest(){
         Output output = compileAndRun(
-                pythonCompileParameters.getSourceCodes().get(0).getTitle(),
-                pythonCompileParameters,
-                pythonRunParameters
+                pythonHelloWorldCompileParameters.getSourceCodes().get(0).getTitle(),
+                pythonHelloWorldCompileParameters,
+                pythonHelloWorldRunParameters
         );
         System.out.println(output.getError());
         Assert.assertEquals("Hello World from Python", output.getOutput().trim());
+    }
+
+    @Test
+    public void pythonFileWriteTest(){
+        Output output = compileAndRun(
+                pythonFileWriterCompileParameters.getSourceCodes().get(0).getTitle(),
+                pythonFileWriterCompileParameters,
+                pythonFileWriterRunParameters
+        );
+        System.out.println(output.getError());
+        //Assert.assertEquals("Hello World from Python", output.getOutput().trim());
     }
 
     private Output compileAndRun(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) {
