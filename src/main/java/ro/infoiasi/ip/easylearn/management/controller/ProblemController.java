@@ -2,7 +2,6 @@ package ro.infoiasi.ip.easylearn.management.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,69 +12,67 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
-import ro.infoiasi.ip.easylearn.management.repository.impl.SqlProblemRepository;
 
 @RestController
 @Api(value = "problems", description = "Operations pertaining to the manipulations of problems")
 public class ProblemController {
 
-	ProblemRepository p;
+	ProblemRepository problemRepository;
 	
 
-    public ProblemController( ProblemRepository p)
-    {
-        this.p=p;
+    public ProblemController( ProblemRepository problemRepository) {
+        this.problemRepository = problemRepository;
     }
     
     @RequestMapping(path = "/problems", method = RequestMethod.GET)
     @ResponseBody
     public List<Problem> getAllProblems() {
-    	List<Problem> P = p.findAll();
+    	List<Problem> problems = problemRepository.findAll();
     	
-        return P;
+        return problems;
     }
 
     @RequestMapping(path = "/problems/id={id}", method = RequestMethod.GET)
     @ResponseBody
     public Problem getProblemById(@PathVariable Long id) {
-    	Problem P = p.findById(id);
+    	Problem problem = problemRepository.findById(id);
     	
-    	if (P==null)
-    		P = new Problem();
+    	if (problem==null)
+    		problem = new Problem();
     	
-        return P;
+        return problem;
     }
     
     @RequestMapping(path = "/problems/cat={cat_id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Problem> getProblemsByCategory(@PathVariable int cat_id) {
-    	List<Problem> P = p.findByCategory(cat_id);
+    	List<Problem> problems = problemRepository.findByCategory(cat_id);
     	
-        return P;
+        return problems;
     }
     
     @RequestMapping(path = "/problems/author={author_id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Problem> getProblemsByAuthor(@PathVariable int author_id) {
-    	List<Problem> P = p.findByAuthor(author_id);
+    	List<Problem> problems = problemRepository.findByAuthor(author_id);
     	
-        return P;
+        return problems;
     }
     
     @RequestMapping(path = "/problems/solved/user={user_id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Problem> getSolvedProblems(@PathVariable int user_id) {
-    	List<Problem> P = p.findSolved(user_id);
+    	List<Problem> problems = problemRepository.findSolved(user_id);
     	
-        return P;
+        return problems;
     }
     
     @RequestMapping(path = "/problems/attempted/user={user_id}", method = RequestMethod.GET)
     @ResponseBody
     public List<Problem> getAttemptedProblems(@PathVariable int user_id) {
-    	List<Problem> P = p.findAttempted(user_id);
+    	List<Problem> problems = problemRepository.findAttempted(user_id);
     	
-        return P;
+        return problems;
     }
     
     @RequestMapping(path = "/problems/add", method = RequestMethod.GET)
@@ -83,20 +80,20 @@ public class ProblemController {
     public boolean addProblem(@RequestBody Problem jsonProblem) 
     {
     	//datele vor fi preluate prin json, mai putin id-ul noii probleme
-    	jsonProblem.setProblemID(p.getLastID()+1);
-        return p.add(jsonProblem);
+    	jsonProblem.setProblemID(problemRepository.getLastID()+1);
+        return problemRepository.add(jsonProblem);
     }
     
     @RequestMapping(path = "/problems/populate", method = RequestMethod.GET)
     @ResponseBody
     public boolean populateTable() 
     {
-    	System.out.println("New ID: " + Long.toString(p.getLastID()+1));
+    	System.out.println("New ID: " + Long.toString(problemRepository.getLastID()+1));
     	
     	//problema de test
     	//datele vor fi preluate prin json
-    	Problem P = new Problem(p.getLastID()+1, 1, 
-    			"Camioane", "Problema Camioane", 
+    	Problem problem = new Problem(problemRepository.getLastID() + 1, 1,
+    			"Camioane", "Problema Camioane",
     			"O firma are doua tipuri de camioane: camioane de tipul 1, care pot transporta cate t1 tone de marfa pe zi, si camioane de tipul 2, care pot transporta cate t2 tone de marfa pe zi. \n Stiind ca firma are n camioane de tipul 1 si m camioane de tipul 2, cate tone de marfa pot transporta camioanele firmei in z zile.",
     			"Programul citeste de la tastatura numerele naturale t1 t2 n m z.",
                 "Programul va afisa pe ecran rezultatul.",
@@ -113,6 +110,6 @@ public class ProblemController {
                 1,
                 1);
     	
-        return p.add(P);
+        return problemRepository.add(problem);
     }
 }
