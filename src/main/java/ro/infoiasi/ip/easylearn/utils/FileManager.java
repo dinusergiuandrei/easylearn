@@ -32,7 +32,7 @@ public abstract class FileManager {
 
     public static void addSourcesToDirectory(Collection<SourceFile> sources, String rootDirectory){
         for (SourceFile sourceFile : sources) {
-            addSourceToFile(sourceFile.getContent(), rootDirectory + getFilePathSeparator() + sourceFile.getTitle());
+            addSourceToFile(sourceFile.getContent(), rootDirectory + getFilePathSeparator() + sourceFile.getFileName());
         }
     }
 

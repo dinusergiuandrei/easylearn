@@ -3,17 +3,16 @@ package ro.infoiasi.ip.easylearn.compiler;
 public class SourceFile {
     private Long id;
     private Long submissionID;
-    private String title;
+    private String fileName;
     private String content;
 
-    public SourceFile(String title, String content) {
-        this.title = title;
+    public SourceFile(String fileName, String content) {
+        this.fileName = fileName;
         this.content = content;
     }
 
-    public SourceFile()
-    {
-        this.title = "";
+    public SourceFile() {
+        this.fileName = "";
         this.content ="";
     }
 
@@ -33,16 +32,16 @@ public class SourceFile {
         this.submissionID = submissionID;
     }
 
-    public String getTitle() {
-        return title;
+    public String getFileName() {
+        return fileName;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public void setContent(String content) {

@@ -7,7 +7,7 @@ import ro.infoiasi.ip.easylearn.utils.RunState;
 
 import java.util.*;
 
-//@Repository
+@Repository
 public class MapSubmissionRepository implements SubmissionRepository{
     private Map<Long, Submission> submissions;
     private Long id = 1L;
@@ -36,16 +36,15 @@ public class MapSubmissionRepository implements SubmissionRepository{
 
     @Override
     public List <Submission> findByState(RunState state) {
-//        List<Submission> filteredSubmissions = new LinkedList <>();
+        List<Submission> filteredSubmissions = new LinkedList <>();
 
-//        for(Submission submission : findAll()){
-//            if(submission.getState().equals(state)){
-//                filteredSubmissions.add(submission);
-//            }
-//        }
+        for(Submission submission : findAll()){
+            if(submission.getState().equals(state)){
+                filteredSubmissions.add(submission);
+            }
+        }
 
-//        return filteredSubmissions;
-        return null;
+        return filteredSubmissions;
     }
 
     @Override

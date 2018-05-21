@@ -2,18 +2,16 @@ package ro.infoiasi.ip.easylearn.submission.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
 import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.utils.SubmissionMapper;
 import ro.infoiasi.ip.easylearn.utils.RunState;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Repository
+//@Repository
 public class MysqlSubmissionRepository implements SubmissionRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -40,7 +38,7 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
         for (SourceFile source : submission.getSources()) {
             jdbcTemplate.update("insert into submissionsCode values (NULL, ?,?,?)",
                     submission.getId(),
-                    source.getTitle(),
+                    source.getFileName(),
                     source.getContent());
 
             Long s_id = jdbcTemplate.queryForObject("select max(id) from submissionsCode;", Long.class);
@@ -70,10 +68,9 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
         return jdbcTemplate.query(mysql, new SubmissionMapper());
     }
 
+    // this is for changing submission state
     @Override
     public Long update(Submission submission) {
-
-
 
         return null;
     }
