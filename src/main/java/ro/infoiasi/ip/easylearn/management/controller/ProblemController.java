@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
 
@@ -23,9 +24,10 @@ public class ProblemController {
     public ProblemController( ProblemRepository problemRepository) {
         this.problemRepository = problemRepository;
     }
-    
+
     @RequestMapping(path = "/problems", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Returns all the problems in the database")
     public List<Problem> getAllProblems() {
     	List<Problem> problems = problemRepository.findAll();
     	
@@ -34,6 +36,7 @@ public class ProblemController {
 
     @RequestMapping(path = "/problems/id={id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Returns the problem with the specified id")
     public Problem getProblemById(@PathVariable Long id) {
     	Problem problem = problemRepository.findById(id);
     	
@@ -45,6 +48,7 @@ public class ProblemController {
     
     @RequestMapping(path = "/problems/cat={cat_id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Returns all the problems in the provided category")
     public List<Problem> getProblemsByCategory(@PathVariable int cat_id) {
     	List<Problem> problems = problemRepository.findByCategory(cat_id);
     	
@@ -53,6 +57,7 @@ public class ProblemController {
     
     @RequestMapping(path = "/problems/author={author_id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Returns all the problems posted by the author identified by the provided userID")
     public List<Problem> getProblemsByAuthor(@PathVariable int author_id) {
     	List<Problem> problems = problemRepository.findByAuthor(author_id);
     	
@@ -61,6 +66,7 @@ public class ProblemController {
     
     @RequestMapping(path = "/problems/solved/user={user_id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Returns all problems solved by the user identified by the provided userID")
     public List<Problem> getSolvedProblems(@PathVariable int user_id) {
     	List<Problem> problems = problemRepository.findSolved(user_id);
     	
@@ -69,6 +75,7 @@ public class ProblemController {
     
     @RequestMapping(path = "/problems/attempted/user={user_id}", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Returns all problems attempted by the user identified by the provided userID (at least one submission)")
     public List<Problem> getAttemptedProblems(@PathVariable int user_id) {
     	List<Problem> problems = problemRepository.findAttempted(user_id);
     	
@@ -77,6 +84,7 @@ public class ProblemController {
     
     @RequestMapping(path = "/problems/add", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Adds a new problem to the database")
     public boolean addProblem(@RequestBody Problem jsonProblem) 
     {
     	//datele vor fi preluate prin json, mai putin id-ul noii probleme
@@ -86,6 +94,7 @@ public class ProblemController {
     
     @RequestMapping(path = "/problems/populate", method = RequestMethod.GET)
     @ResponseBody
+    @ApiOperation(value = "Test method for inserting a dummy problem")
     public boolean populateTable() 
     {
     	System.out.println("New ID: " + Long.toString(problemRepository.getLastID()+1));

@@ -27,6 +27,7 @@ import { LatestComponent} from './components/public/latest/latest.component';
 import { YourlatestComponent } from './components/public/yourlatest/yourlatest.component';
 import { ProblemComponent } from './components/pages/problem/problem.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { SolutionsComponent } from './components/public/solutions/solutions.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
     LatestComponent,
     YourlatestComponent,
     ProblemComponent,
+    SolutionsComponent,
   ],
   imports: [
     BrowserModule,

@@ -22,8 +22,21 @@ public class SqlUserRepository implements UserRepository {
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public Long save(User submission) {
-        return null;
+    public boolean updateData(User user) {
+    	try
+    	{
+    		String query = "UPDATE users set nume=?, prenume=?, parola=? where email='" + user.getEmail() + "' OR userID='" + user.getUserID() + "'" ;
+            Object[] params = new Object[] {user.getNume() , user.getPrenume(), user.getParola() };
+            int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
+            jdbcTemplate.update(query, params, types);
+
+            return true;
+    	}
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    		return false;
+    	}
     }
 
     @Override
@@ -98,6 +111,27 @@ public class SqlUserRepository implements UserRepository {
         int total = jdbcTemplate.queryForObject(query, Integer.class);
         
     	return total==1;
+    }
+    
+    @Override
+    public int getScore(String userID)
+    {
+    	int score=0;
+    	
+    	try
+    	{
+            String query = "select max(score) from submissions group by problemID, userID having userID = '" + userID + "'";
+            List<Integer> score_list = jdbcTemplate.queryForList(query, Integer.class);
+            
+            for(int i=0;i<score_list.size();i++)
+            	score += score_list.get(i);
+        }
+    	catch (NullPointerException e)
+    	{
+        	System.out.println(e.getMessage());
+    	}
+
+        return score;
     }
 }
 
