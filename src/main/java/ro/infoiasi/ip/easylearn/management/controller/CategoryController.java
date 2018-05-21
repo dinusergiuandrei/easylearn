@@ -23,7 +23,7 @@ public class CategoryController {
         this.c = category;
     }
 
-    @RequestMapping(path = "/category/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/category/id={id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns the problem category with the provided id")
     public Category categories(@PathVariable Long id) {
@@ -36,7 +36,7 @@ public class CategoryController {
 
     }
 
-    @RequestMapping(path = "/category", method = RequestMethod.GET)
+    @RequestMapping(path = "/category/all", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns the all problem categories")
     public List<Category> allCategories(){

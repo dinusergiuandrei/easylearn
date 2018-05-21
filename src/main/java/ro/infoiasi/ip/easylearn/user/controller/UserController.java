@@ -85,4 +85,12 @@ public class UserController {
     {
     	return u.getScore(userID);
     }
+    
+    @RequestMapping(path = "/users/delete/userID={userID}", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "Get the user's total score")
+    public boolean deleteUser(@PathVariable String userID)
+    {
+    	return u.delete(userID);
+    }
 }

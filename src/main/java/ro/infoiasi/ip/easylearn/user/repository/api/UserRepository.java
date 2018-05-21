@@ -13,4 +13,5 @@ public interface UserRepository {
     String getLastId();
     boolean login(String email, String password);
     int getScore(String userID);
+    boolean delete(String userID);
 }

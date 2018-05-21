@@ -16,7 +16,7 @@ public class TestController {
 
     public TestController(TestRepository t){this.t=t;}
 
-    @RequestMapping(path = "/test/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/test/id={id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns the problem test with the specified id")
     public ProblemTest tests (@PathVariable Long id)
@@ -24,7 +24,7 @@ public class TestController {
         return t.findById(id);
     }
 
-    @RequestMapping(path = "/test", method = RequestMethod.GET)
+    @RequestMapping(path = "/test/all", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns all tests in the database")
     public List<ProblemTest> allTests (){
@@ -32,7 +32,7 @@ public class TestController {
         return listOfTest;
     }
     
-    @RequestMapping(path = "/problem?id={problemID}/tests", method = RequestMethod.GET)
+    @RequestMapping(path = "/problem_id={problemID}/tests", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns tests for the specified problem")
     public List<ProblemTest> allTestsForProblem (@PathVariable int problemID){

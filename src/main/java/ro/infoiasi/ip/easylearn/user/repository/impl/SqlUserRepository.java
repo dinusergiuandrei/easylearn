@@ -133,6 +133,23 @@ public class SqlUserRepository implements UserRepository {
 
         return score;
     }
+    
+    @Override
+    public boolean delete(String userID)
+    {
+    	try
+    	{
+            String query = "DELETE FROM USERS where userID='" + userID + "'";
+            jdbcTemplate.update(query);
+            
+            return true;
+        }
+    	catch (NullPointerException e)
+    	{
+        	System.out.println(e.getMessage());
+        	return false;
+    	}
+    }
 }
 
 

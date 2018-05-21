@@ -31,7 +31,6 @@ public class SqlSubmissionTestRepository implements SubmissionTestRepository {
         try
         {
             List<SubmissionTest> teste= jdbcTemplate.query("SELECT * FROM submissiontests", new BeanPropertyRowMapper<>(SubmissionTest.class));
-            System.out.println("No of tests: " + Integer.toString(teste.size()));
             return teste;
         }
         catch(Exception e)

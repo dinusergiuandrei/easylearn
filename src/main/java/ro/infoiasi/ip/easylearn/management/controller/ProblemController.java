@@ -25,7 +25,7 @@ public class ProblemController {
         this.problemRepository = problemRepository;
     }
 
-    @RequestMapping(path = "/problems", method = RequestMethod.GET)
+    @RequestMapping(path = "/problems/all", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns all the problems in the database")
     public List<Problem> getAllProblems() {
