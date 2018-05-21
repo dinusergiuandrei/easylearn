@@ -1,0 +1,54 @@
+<br>
+<h2>  Your latest problems added</h2>
+<br>
+  
+  <div class="latest__container mat-elevation-z8">
+  
+    <table mat-table [dataSource]="dataSource" matSort > 
+  
+      <ng-container matColumnDef="id"  >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row" > {{row.id}} </td>
+        <th></th>
+      </ng-container>
+      
+  
+      <ng-container matColumnDef="problems" >
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Problem </th>
+        <td mat-cell *matCellDef="let row"> {{row.problems}} </td>
+        <td></td>
+      </ng-container>
+  
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header > Description </th>
+        <td  mat-cell *matCellDef="let row"  class="latest-text-box " > <p>{{row.description}}<p> </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category </th>
+        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="timelimit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Time Limit </th>
+        <td mat-cell *matCellDef="let row"> {{row.timelimit}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="memorylimit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Memory Limit </th>
+        <td mat-cell *matCellDef="let row"> {{row.memorylimit}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="score">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Score</th>
+        <td mat-cell *matCellDef="let row"> {{row.score}} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  

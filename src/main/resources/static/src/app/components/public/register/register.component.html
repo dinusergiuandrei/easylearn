@@ -35,7 +35,7 @@
 
   <!-- Password -->
   <mat-form-field>
-    <input type="password" matInput required placeholder="Parola" formControlName="password" maxlength="32"/>
+    <input type="password" matInput required placeholder="Password" formControlName="password" maxlength="32"/>
     <mat-error *ngIf="user.get('password').hasError('minlength') || user.get('password').hasError('maxlength') ">
       Your password should be between 6 and 32 characters!
     </mat-error>
@@ -46,7 +46,7 @@
 
   <!-- Confirm password -->
   <mat-form-field>
-    <input type="password" matInput required placeholder="Reintrodu parola" formControlName="repassword" maxlength="32"/>
+    <input type="password" matInput required placeholder="Re-enter password" formControlName="repassword" maxlength="32"/>
     <mat-error *ngIf="user.get('password').value !== user.get('repassword').value">
       Passwords don't match!
     </mat-error>
