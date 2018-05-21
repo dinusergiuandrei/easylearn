@@ -10,28 +10,26 @@ import java.util.Arrays;
 
 @Component
 public class SubmissionValidator {
-    private final UserRepository userRepository;
 
-    public SubmissionValidator(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public SubmissionValidator() {
     }
 
-    public void validate(SubmissionRequest submissionRequest){
+    public void validate(SubmissionRequest submissionRequest) {
         System.out.println("Validating submissionRequest: " + submissionRequest);
 
-        if(submissionRequest.getProblemId() == null){
+        // TODO: also check in the db if exists
+        if (submissionRequest.getProblemId() == null) {
             throw new IllegalArgumentException("The problem id cannot be null");
         }
-
-        if(submissionRequest.getUserID() == null){
+        // TODO: also check in the db if exists
+        if (submissionRequest.getUserID() == null) {
             throw new IllegalArgumentException("The user id cannot be null");
         }
 
-        if(!Arrays.asList(Language.values()).contains(submissionRequest.getLanguage())){
-            throw new IllegalArgumentException("The submitted language is not valid");
-        }
+//        the language field will not be validated
+//       (beeing an Enum, the level of deserialization will check it)
 
-        if(Strings.isNullOrEmpty(submissionRequest.getMainSource())){
+        if (Strings.isNullOrEmpty(submissionRequest.getMainSource())) {
             throw new IllegalArgumentException("The main source is not valid");
         }
     }
