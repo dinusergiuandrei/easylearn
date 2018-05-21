@@ -32,19 +32,19 @@ public class SubmissionTestController {
         return listOfTest;
     }
     
-    @RequestMapping(path = "/submissionTest/problemID={problemID}", method = RequestMethod.GET)
+    @RequestMapping(path = "/submissionTest/submissionID={submissionID}", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "Returns submission tests for the specified problem")
-    public List<SubmissionTest> allTestsForProblem (@PathVariable int problemID){
-        List<SubmissionTest> listOfTest = t.findAllForProblem(problemID);
+    @ApiOperation(value = "Returns submission tests for the specified submission")
+    public List<SubmissionTest> allTestsForSubmission (@PathVariable int submissionID){
+        List<SubmissionTest> listOfTest = t.findAllForSubmission(submissionID);
         return listOfTest;
     }
     
-    @RequestMapping(path = "/submissionTest/submissionID={submissionID}", method = RequestMethod.GET)
+    @RequestMapping(path = "/submissionTest/submissionID={submissionID}/status={status}", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "Returns submission tests for the specified problem")
-    public List<SubmissionTest> allTestsForSubmission (@PathVariable int submissionID){
-        List<SubmissionTest> listOfTest = t.findAllForSubmission(submissionID);
+    @ApiOperation(value = "Returns passed/failed submission tests for the specified submission")
+    public List<SubmissionTest> passedTests (@PathVariable("submissionID") int submissionID, @PathVariable("status") String status){
+        List<SubmissionTest> listOfTest = t.findTestsForSubmissionByStatus(submissionID, status);
         return listOfTest;
     }
 }

@@ -8,6 +8,6 @@ public interface SubmissionTestRepository {
     Long save(SubmissionTest submission);
     SubmissionTest findById(Long id);
     List<SubmissionTest> findAll();
-    List<SubmissionTest> findAllForProblem(int problemID);
     List<SubmissionTest> findAllForSubmission(int submissionID);
+    List<SubmissionTest> findTestsForSubmissionByStatus(int submissionID, String status);
 }
