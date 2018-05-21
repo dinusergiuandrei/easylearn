@@ -28,6 +28,7 @@ import { YourlatestComponent } from './components/public/yourlatest/yourlatest.c
 import { ProblemComponent } from './components/pages/problem/problem.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { SolutionsComponent } from './components/public/solutions/solutions.component';
+import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { SolutionsComponent } from './components/public/solutions/solutions.comp
     YourlatestComponent,
     ProblemComponent,
     SolutionsComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

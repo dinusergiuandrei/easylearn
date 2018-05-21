@@ -9,6 +9,7 @@ import {TopComponent} from './components/pages/top/top.component';
 import { Error404Component } from './components/pages/error404/error404.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 import { ProblemComponent } from './components/pages/problem/problem.component';
+import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'top', component: TopComponent},
   { path: '404', component: Error404Component },
   { path: 'about-us', component: AboutUsComponent },
-  { path: 'problem', component: ProblemComponent }
+  { path: 'problem', component: ProblemComponent },
+  { path: 'user-profile', component: UserProfileComponent }
 ];
 
 @NgModule({
