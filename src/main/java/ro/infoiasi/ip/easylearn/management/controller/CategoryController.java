@@ -16,6 +16,7 @@ import java.util.List;
 @Api(value = "category", description = "Operations pertaining to the manipulations of categories")
 public class CategoryController {
     CategoryRepository c;
+    private Category category;
 
     public CategoryController(CategoryRepository category) {
         this.c = category;
@@ -24,13 +25,19 @@ public class CategoryController {
     @RequestMapping(path = "/category/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Category categories(@PathVariable Long id) {
-        return c.findById(id);
+        if (c.findById(id) == null){
+            category = new Category();
+            return  category;
+        }
+        else
+            return c.findById(id);
+
     }
 
     @RequestMapping(path = "/category", method = RequestMethod.GET)
     @ResponseBody
     public List<Category> allCategories(){
-        List<Category> C=c.findAll();
+        List<Category> C = c.findAll();
         return C;
     }
 

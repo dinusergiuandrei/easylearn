@@ -7,7 +7,7 @@ public class Category {
 
     public Category() {};
     public Category(long categoryId, String nume) {
-        super();
+        //super();
         this.categoryId = categoryId;
         this.nume = nume;
     }
