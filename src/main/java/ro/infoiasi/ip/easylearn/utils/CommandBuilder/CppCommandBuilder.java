@@ -36,12 +36,12 @@ public class CppCommandBuilder implements CommandBuilder {
 
     private static String getCppCompileCommandSingleSource(SourceFile sourceFile, String rootDirectory){
         StringBuilder commandBuilder = new StringBuilder();
-        String cppTitle = removePathEnd(sourceFile.getTitle());
+        String cppTitle = removePathEnd(sourceFile.getFileName());
         commandBuilder
                 .append("g++ ")
                 .append(rootDirectory)
                 .append(getFilePathSeparator())
-                .append(sourceFile.getTitle())
+                .append(sourceFile.getFileName())
                 .append(" -o ")
                 .append(rootDirectory)
                 .append(getFilePathSeparator())

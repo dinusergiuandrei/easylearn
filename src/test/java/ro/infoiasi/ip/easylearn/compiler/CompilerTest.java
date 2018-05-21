@@ -261,14 +261,14 @@ public class CompilerTest {
 
     @Test
     public void javaHelloWorldTest() {
-        Output output = compileAndRun(helloWorldCompileParameters.getSourceCodes().get(0).getTitle(), helloWorldCompileParameters, helloWorldRunParameters);
+        Output output = compileAndRun(helloWorldCompileParameters.getSourceCodes().get(0).getFileName(), helloWorldCompileParameters, helloWorldRunParameters);
         System.out.println(output.getError());
         Assert.assertEquals("Hello World!", output.getOutput().trim());
     }
 
     @Test
     public void multipleJavaFilesTest(){
-        Output output = compileAndRun(multipleFilesCompileParameters.getSourceCodes().get(0).getTitle(), multipleFilesCompileParameters, multipleFilesRunParameters);
+        Output output = compileAndRun(multipleFilesCompileParameters.getSourceCodes().get(0).getFileName(), multipleFilesCompileParameters, multipleFilesRunParameters);
         System.out.println(output.getError());
         String expected = "Hello from main\nHello from A";
         Assert.assertEquals(expected, output.getOutput().trim());
@@ -279,7 +279,7 @@ public class CompilerTest {
     public void writeTest() {
         try {
             compiler.getSecurityManager().checkWrite(javaFileWriterOutputPath);
-            Output output = compileAndRun(fileWriterCompileParameters.getSourceCodes().get(0).getTitle(), fileWriterCompileParameters, fileWriterRunParameters);
+            Output output = compileAndRun(fileWriterCompileParameters.getSourceCodes().get(0).getFileName(), fileWriterCompileParameters, fileWriterRunParameters);
             System.out.println(output.toString());
         } catch (AccessControlException e) {
             String message
@@ -297,7 +297,7 @@ public class CompilerTest {
 
     @Test
     public void cppHelloWorldTest(){
-        Output output = compileAndRun(cppHelloWorldCompileParameters.getSourceCodes().get(0).getTitle(), cppHelloWorldCompileParameters, cppHelloWorldRunParameters);
+        Output output = compileAndRun(cppHelloWorldCompileParameters.getSourceCodes().get(0).getFileName(), cppHelloWorldCompileParameters, cppHelloWorldRunParameters);
         System.out.println(output.getError());
         Assert.assertEquals("Hello World! from c++", output.getOutput().trim());
     }
@@ -305,7 +305,7 @@ public class CompilerTest {
     @Test
     public void pythonHelloWorldTest(){
         Output output = compileAndRun(
-                pythonHelloWorldCompileParameters.getSourceCodes().get(0).getTitle(),
+                pythonHelloWorldCompileParameters.getSourceCodes().get(0).getFileName(),
                 pythonHelloWorldCompileParameters,
                 pythonHelloWorldRunParameters
         );
@@ -316,7 +316,7 @@ public class CompilerTest {
     @Test
     public void pythonFileWriteTest() throws IOException {
         Output output = compileAndRun(
-                pythonFileWriterCompileParameters.getSourceCodes().get(0).getTitle(),
+                pythonFileWriterCompileParameters.getSourceCodes().get(0).getFileName(),
                 pythonFileWriterCompileParameters,
                 pythonFileWriterRunParameters
         );

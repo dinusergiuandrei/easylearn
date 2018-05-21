@@ -3,6 +3,7 @@ package ro.infoiasi.ip.easylearn.management.controller;
 import javafx.application.Application;
 import org.junit.Assert;
 import org.junit.Test;
+import ro.infoiasi.ip.easylearn.configuration.SQLConfiguration;
 import ro.infoiasi.ip.easylearn.management.model.Category;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ import static org.junit.Assert.*;
 
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = {SQLConfiguration.class})
 @Transactional
-@Rollback(true)
+@Rollback
 public class ProblemControllerTest {
 
     @Autowired
@@ -47,7 +48,7 @@ public class ProblemControllerTest {
     @Test
     public void testGetProblemByValidId() {
         Problem myProblem = new Problem(problemRepository.getLastID()+1,
-                "1",
+                1L,
                 "Eureni",
                 "Problema Eureni",
                 "Pentru cadourile pe care Moş Crăciun urmează să le cumpere copiilor cuminţi, Consiliul Polului Nord a alocat suma de S eureni. Ştiind că în comerţul polar se utilizează n+1 tipuri de bancnote de valori 1, e1, e2, e3,…, en şi faptul că Moşul trebuie să primească un număr minim de bancnote pentru suma aprobată, să se determine numărul de bancnote din fiecare tip utilizat în plata sumei şi numărul total de bancnote care i s-au alocat.",

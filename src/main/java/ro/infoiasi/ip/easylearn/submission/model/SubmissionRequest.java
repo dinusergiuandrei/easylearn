@@ -10,8 +10,8 @@ public class SubmissionRequest {
     private Long problemId;
     private Long userID;
     private Language language;
-    private List<SourceFile> sources;
     private String mainSource;
+    private List<SourceFile> sources;
 
     public Long getUserID() {
         return userID;
