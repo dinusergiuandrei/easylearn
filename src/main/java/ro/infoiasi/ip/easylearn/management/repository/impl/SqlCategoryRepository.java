@@ -16,6 +16,17 @@ public class SqlCategoryRepository implements CategoryRepository {
     JdbcTemplate jdbcTemplate;
 
     @Override
+    public Long getLastID()
+    {
+        if(jdbcTemplate == null)
+            System.out.println("NULL TEMPLATE");
+
+        Long id = jdbcTemplate.queryForObject("SELECT MAX(categoryID) FROM categorii", Long.class);
+
+        return id;
+    }
+
+    @Override
     public Long save(Category submission) {
         return null;
     }

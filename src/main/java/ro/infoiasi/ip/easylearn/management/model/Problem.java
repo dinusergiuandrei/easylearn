@@ -1,6 +1,7 @@
 package ro.infoiasi.ip.easylearn.management.model;
 
 //todo: translate in english
+// TODO: why authorId had String type?
 public class Problem {
 
     private long problemID;
@@ -188,7 +189,7 @@ public class Problem {
     	StringBuilder S = new StringBuilder(1000);
         
     	S.append(Long.toString(problemID)); S.append(",");
-    	S.append(Long.toString(authorID)); S.append(",");
+    	S.append(authorID); S.append(",");
     	S.append("'"); S.append(titlu); S.append("'"); S.append(",");
     	S.append("'"); S.append(descriere); S.append("'"); S.append(",");
     	S.append("'"); S.append(cerinta); S.append("'"); S.append(",");

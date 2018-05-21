@@ -23,6 +23,8 @@ import { AboutUsComponent } from './components/pages/about-us/about-us.component
 import { SignComponent } from './components/public/sign/sign.component';
 import { TopComponent } from './components/pages/top/top.component';
 import { TestimonialsComponent } from './components/public/testimonials/testimonials.component';
+import { LatestComponent} from './components/public/latest/latest.component';
+import { YourlatestComponent } from './components/public/yourlatest/yourlatest.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { TestimonialsComponent } from './components/public/testimonials/testimon
     TopComponent,
     Error404Component,
     TestimonialsComponent,
+    LatestComponent,
+    YourlatestComponent,
   ],
   imports: [
     BrowserModule,

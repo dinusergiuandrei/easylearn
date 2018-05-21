@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-//@Repository
+@Repository
 public class MapRunRepository implements RunRepository {
     private Map <Long, List <Run>> runs;
     private Long id;
