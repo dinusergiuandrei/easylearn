@@ -7,7 +7,8 @@ $nav-font-color: #ffffff;
   height: $nav-height;
   background: $nav-background;
   position: sticky;
-  top: 0px;
+	top: 0px;
+	z-index: 10;
 }
 // Logo and branding
 .brand {
