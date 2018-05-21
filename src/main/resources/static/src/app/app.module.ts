@@ -25,6 +25,8 @@ import { TopComponent } from './components/pages/top/top.component';
 import { TestimonialsComponent } from './components/public/testimonials/testimonials.component';
 import { LatestComponent} from './components/public/latest/latest.component';
 import { YourlatestComponent } from './components/public/yourlatest/yourlatest.component';
+import { ProblemComponent } from './components/pages/problem/problem.component';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { YourlatestComponent } from './components/public/yourlatest/yourlatest.c
     TestimonialsComponent,
     LatestComponent,
     YourlatestComponent,
+    ProblemComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { YourlatestComponent } from './components/public/yourlatest/yourlatest.c
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MonacoEditorModule.forRoot(),
   ],
   providers: [
     LoadingScreenService,

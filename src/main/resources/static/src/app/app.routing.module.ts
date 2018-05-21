@@ -8,6 +8,7 @@ import { SignComponent } from './components/public/sign/sign.component';
 import {TopComponent} from './components/pages/top/top.component';
 import { Error404Component } from './components/pages/error404/error404.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
+import { ProblemComponent } from './components/pages/problem/problem.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
     children: [{ path: '', component: RegisterComponent }] },
   { path: 'top', component: TopComponent},
   { path: '404', component: Error404Component },
-  { path: 'about-us', component: AboutUsComponent }
+  { path: 'about-us', component: AboutUsComponent },
+  { path: 'problem', component: ProblemComponent }
 ];
 
 @NgModule({
