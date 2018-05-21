@@ -1,0 +1,70 @@
+$nav-height: 70px;
+$nav-background: rgba(255,255,255,0);
+$nav-font-color: #ffffff;
+.navigation {
+  height: $nav-height;
+  background: $nav-background;
+  position: sticky;
+  top: 0px;
+  z-index: 10;
+}
+// Logo and branding
+.brand {
+  position: absolute;
+  float: left;
+  line-height: $nav-height;
+
+  img{
+      width: 170px;
+      margin-top: 17px;
+  }
+}
+// Container with no padding for navbar
+.nav-container {
+    margin-left: 12%;
+    margin-top: 1%;
+}
+
+.main-component{
+    width: 30%;
+    height: 60%;
+    
+    position: absolute;
+    margin-left: 20%;
+    margin-top: 3%;
+
+    h1{
+        color: rgb(6, 168, 159);
+        font-size: 60px;
+        font-weight: 700;
+    }
+    
+    h2{
+        color:rgb(41, 38, 99);
+        font-size: 32px;
+        font-weight: normal;
+    }
+    h4{
+        margin-top: 1.5em; 
+        color:rgb(41, 38, 99);
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    ul{
+        margin-top: 15px;
+    }
+
+    li{
+        font-size: 14px;
+        color:rgb(41, 38, 99);
+        font-weight: 500;
+    }
+
+    a{
+        color:rgb(6, 168, 159);
+        text-decoration: none;
+        font-weight: normal;
+    }
+
+}
