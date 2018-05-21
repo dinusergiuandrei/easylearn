@@ -1,0 +1,32 @@
+<div class="page">
+    <div class="dashboard-container">
+        <div class="buttons">
+            <img class="user-photo" src="../../../../assets/images/user_default.png">
+            <div class="account"><b>My Account</b></div>
+            <button id="edit" class="button-background">Edit Profile</button>
+            <button id="delete" class="button-background">Delete Account</button>
+            <div class="name"><b>{{user.name}}</b></div>
+        </div>
+        <div class="container">   
+            <div class="stats-container-background" id="social">
+                <div class="container-names">Social</div>
+                <div class="fields">Facebook</div>
+                <input type="text" name="facebook" [(ngModel)]="user.facebook" class="input" >
+                <div class="fields">LinkedIn</div>
+                <input type="text" name="linkedin" [(ngModel)]="user.linkedin" class="input">
+                <div class="fields">GitHub</div>
+                <input type="text" name="github" [(ngModel)]="user.github" class="input">
+            </div>
+            
+            <div class="stats-container-background" id="user">
+                <div class="container-names">User</div>
+                <div class="fields">Name</div>
+                <input type="text" name="name" [(ngModel)]="user.name" class="input">
+                <div class="fields">Email</div>
+                <input type="text" name="email" [(ngModel)]="user.email" class="input">
+                <div class="fields">Phone</div>
+                <input type="text" name="phone" [(ngModel)]="user.phone" class="input">
+            </div>
+        </div>
+    </div>
+</div>
