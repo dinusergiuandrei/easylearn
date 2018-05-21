@@ -1,11 +1,9 @@
 package ro.infoiasi.ip.easylearn.compiler;
 
+import ro.infoiasi.ip.easylearn.utils.FileManager;
 import ro.infoiasi.ip.easylearn.utils.Language;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -80,7 +78,8 @@ public class SecurityManagerCompiler extends Compiler {
     }
 
     private Output runWithIntermediateProgram(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
-        String outputDirectoryPath = compilerParameters.getRootDirectoryPath() + getFilePathSeparator() + "output";
+        String outputDirectoryPath = getCurrentWorkingDirectory() + "/" + compilerParameters.getRootDirectoryPath() + getFilePathSeparator() + "output";
+        outputDirectoryPath = outputDirectoryPath.replace("\\", "/");
         createDirectory(outputDirectoryPath);
 
         createFile(outputDirectoryPath+"/output");
@@ -117,9 +116,15 @@ public class SecurityManagerCompiler extends Compiler {
             System.out.println(defaultCompilerOutput.getError());
         }
 
-        defaultCompiler.run(cleanCommand, "Main.java", containerCompilerParameters, containerRunParameters);
+        defaultCompilerOutput = defaultCompiler.run(cleanCommand, "Main.java", containerCompilerParameters, containerRunParameters);
 
-        return collectOutput(outputDirectoryPath);
+        if (defaultCompilerOutput.getExitValue() != 0) {
+            System.out.println(defaultCompilerOutput.getError());
+        }
+
+        //return collectOutput(outputDirectoryPath);
+        //return Output.getOutputFromMessage(defaultCompilerOutput.getOutput());
+        return defaultCompilerOutput;
     }
 
     private Output collectOutput(String outputDirectoryPath) throws IOException {
@@ -164,6 +169,7 @@ public class SecurityManagerCompiler extends Compiler {
                 "import java.io.BufferedReader;\n" +
                 "import java.io.InputStream;\n" +
                 "import java.io.InputStreamReader;\n" +
+                "import java.io.*;\n" +
                 "import java.util.concurrent.TimeUnit;\n\n" +
                 "public class Main {\n" +
                 "   public static void main(String args[]) throws Exception {\n" +
@@ -173,13 +179,15 @@ public class SecurityManagerCompiler extends Compiler {
                 "     Process process = Runtime.getRuntime().exec(\"" + command + "\");\n" +
                 "     addKeyboardInput(process, \"" + input + "\");\n" +
                 "     Output output = getProcessOutput(process, " + timeout + "L,  TimeUnit.MILLISECONDS );\n" +
-                "     PrintWriter writer = new PrintWriter(\"" + outputPath + "/error" + "\", \"UTF-8\");\n" +
+                "     FileWriter fileWriter = new FileWriter(\"" + outputPath + "/error" + "\");" +
+                "     PrintWriter writer = new PrintWriter(fileWriter);\n" +
                 "     writer.println(output.getError());\n" +
                 "     writer.close();\n" +
-                "     writer = new PrintWriter(\"" + outputPath + "/output" + "\", \"UTF-8\");\n" +
+                "     fileWriter = new FileWriter(\"" + outputPath + "/output" + "\");" +
+                "     writer = new PrintWriter(fileWriter);\n" +
                 "     writer.println(output.getOutput());\n" +
                 "     writer.close();\n" +
-                "       System.out.println(output.toString());\n" +
+                "     System.out.println(output.toString());\n" +
                 "     //System.setSecurityManager(null);\n" +
                 "   }\n" +
                 "   public static String getStringFromInputStream(InputStream ins) throws Exception {\n" +

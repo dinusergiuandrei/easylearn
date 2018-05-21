@@ -4,6 +4,7 @@ import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 
 import java.util.List;
 
+import static ro.infoiasi.ip.easylearn.utils.FileManager.getCurrentWorkingDirectory;
 import static ro.infoiasi.ip.easylearn.utils.FileManager.getFilePathSeparator;
 import static ro.infoiasi.ip.easylearn.utils.ProcessManager.removePathEnd;
 
@@ -16,6 +17,6 @@ public class JavaCommandBuilder implements CommandBuilder {
     @Override
     public String buildRunCommand(String rootDirectoryPath, String mainSource) {
         String javaTitle = removePathEnd(mainSource);
-        return "java -cp " + rootDirectoryPath + " " + javaTitle;
+        return "java -cp " + getCurrentWorkingDirectory()+"/"+ rootDirectoryPath + " " + javaTitle;
     }
 }

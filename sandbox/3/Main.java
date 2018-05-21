@@ -10,22 +10,23 @@ import java.util.concurrent.TimeUnit;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
    public static void main(String args[]) throws Exception {
      //SecurityManager securityManager = new SecurityManager();     //securityManager.checkExec("<<ALL FILES>>");
      //System.setSecurityManager(new SecurityManager());
-     Process process = Runtime.getRuntime().exec("java -cp sandbox/3/sources Main");
+     Process process = Runtime.getRuntime().exec("java -cp E:/Projects/easylearn/sandbox/3/sources Main");
      addKeyboardInput(process, "");
      Output output = getProcessOutput(process, 10L,  TimeUnit.MILLISECONDS );
-     PrintWriter writer = new PrintWriter("sandbox/3/output/error", "UTF-8");
+     FileWriter fileWriter = new FileWriter("E:/Projects/easylearn/sandbox/3/output/error");     PrintWriter writer = new PrintWriter(fileWriter);
      writer.println(output.getError());
      writer.close();
-     writer = new PrintWriter("sandbox/3/output/output", "UTF-8");
+     fileWriter = new FileWriter("E:/Projects/easylearn/sandbox/3/output/output");     writer = new PrintWriter(fileWriter);
      writer.println(output.getOutput());
      writer.close();
-       System.out.println(output.toString());
+     System.out.println(output.toString());
      //System.setSecurityManager(null);
    }
    public static String getStringFromInputStream(InputStream ins) throws Exception {

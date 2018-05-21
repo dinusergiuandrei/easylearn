@@ -26,6 +26,34 @@ public class Output {
         return stringBuilder.toString();
     }
 
+    public static Output getOutputFromMessage(String message){
+        String errorTag = "Run error: ";
+        String exitValueTag = "Exit value: ";
+        if(message.startsWith(exitValueTag)){
+            Output output = new Output();
+            Integer exitValue = Integer.parseInt(message.substring(12).trim());
+            output.setExitValue(exitValue);
+            return output;
+        }
+        if(message.startsWith(errorTag)){
+            Output output = new Output();
+            Integer errorStartIndex = message.indexOf(errorTag);
+            Integer exitValueIndex = message.indexOf(exitValueTag);
+            String errorMessage =  message.substring(errorStartIndex + errorTag.length(), exitValueIndex).trim();
+            Integer exitValue = Integer.parseInt(message.substring(exitValueIndex + exitValueTag.length()).trim());
+            output.setError(errorMessage);
+            output.setExitValue(exitValue);
+            return output;
+        }
+        Output output = new Output();
+        Integer exitValueIndex = message.indexOf(exitValueTag);
+        String outputMessage = message.substring(0, exitValueIndex).trim();
+        Integer exitValue = Integer.parseInt(message.substring(exitValueIndex + exitValueTag.length()).trim());
+        output.setOutput(outputMessage);
+        output.setExitValue(exitValue);
+        return output;
+    }
+
     public Integer getExitValue() {
         return exitValue;
     }
