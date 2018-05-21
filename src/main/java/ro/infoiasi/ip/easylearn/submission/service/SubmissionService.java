@@ -54,9 +54,8 @@ public class SubmissionService {
 
     public Submission findById(Long id) {
         Submission submission = submissionRepository.findById(id);
-        List<Run> runs = runRepository.findBySubmissionId(id);
-
-        submission.setRuns(runs);
+//        List<Run> runs = runRepository.findBySubmissionId(id);
+//        submission.setRuns(runs);
 
         return submission;
     }

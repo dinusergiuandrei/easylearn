@@ -7,7 +7,7 @@ import ro.infoiasi.ip.easylearn.utils.RunState;
 
 import java.util.*;
 
-@Repository
+//@Repository
 public class MapSubmissionRepository implements SubmissionRepository{
     private Map<Long, Submission> submissions;
     private Long id = 1L;

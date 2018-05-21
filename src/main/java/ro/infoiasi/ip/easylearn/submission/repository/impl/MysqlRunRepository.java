@@ -9,7 +9,7 @@ import ro.infoiasi.ip.easylearn.submission.repository.utils.RunMapper;
 
 import java.util.List;
 
-//@Repository
+@Repository
 public class MysqlRunRepository implements RunRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;

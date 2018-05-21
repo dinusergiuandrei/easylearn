@@ -35,9 +35,10 @@ public class SubmissionRunner {
 
         Submission submission = initializeSubmission(submissionId);
 
-        //File rootDirectory = generateRootDirectoryForSubmission(submissionId);
+        File rootDirectory = generateRootDirectoryForSubmission(submissionId);
+        String rootDirectoryPath = rootDirectory.toString();
 
-        String rootDirectoryPath = "sandbox/"+submissionId;
+//        String rootDirectoryPath = "sandbox/"+submissionId;
 
         CompilerParameters compilerParameters = new CompilerParameters(
                 submission.getLanguage(),

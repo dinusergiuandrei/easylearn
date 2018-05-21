@@ -2,6 +2,7 @@ package ro.infoiasi.ip.easylearn.submission.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
@@ -11,7 +12,7 @@ import ro.infoiasi.ip.easylearn.utils.RunState;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-//@Repository
+@Repository
 public class MysqlSubmissionRepository implements SubmissionRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
@@ -53,7 +54,7 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
     public Submission findById(Long id) {
         String mysql = "SELECT * FROM submissions where submissionID='" + id + "'";
         List<Submission> submission = jdbcTemplate.query(mysql, new SubmissionMapper());
-        return submission.get(1);
+        return submission.get(0);
     }
 
     @Override
