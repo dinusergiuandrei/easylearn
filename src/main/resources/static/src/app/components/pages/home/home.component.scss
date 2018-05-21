@@ -1,0 +1,18 @@
+@import '../../../../assets/scss/variables/_variables';
+
+.hero {
+    &-header {
+        @extend %flex-row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    &-text {
+        align-self: center;
+    }
+}
+
+@media (max-width: 575px) {
+    .hero {
+        &-header { flex-direction: column; }
+    }
+}

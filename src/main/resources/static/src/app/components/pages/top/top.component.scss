@@ -3,21 +3,14 @@
   width: 100%;
 }
 
-.top-profiles
-{
-  &__container
-  {
+.top-profiles {
+  &__container {
     display: flex;
     flex-direction: column;
-    min-width: 300px;
-    max-height: 500px;
-    overflow: auto;
   }
 
-  &__header
-  {
+  &__header {
     min-height: 64px;
     padding: 8px 24px 0;
   }
-
 }
