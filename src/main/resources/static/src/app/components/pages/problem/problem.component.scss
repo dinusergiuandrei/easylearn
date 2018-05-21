@@ -1,0 +1,51 @@
+.problem-wrapper {
+    margin: 0 50px;
+    padding-top: 50px;
+
+    .grid {
+        display: flex;
+
+        .col-1 {
+            padding-right: 25px;
+        }
+
+        .col-2 {
+            width: 35%;
+        }
+    }
+
+    .problem-details {
+        .row {
+            height: 50px;
+
+            h3 {
+                float: left;
+                line-height: 50px;
+                margin: 0;
+            }
+    
+            span {
+                float: right;
+                line-height: 50px;
+            }
+        }
+    }
+
+    .problem-description {
+        border: 1px solid gray;
+        padding: 25px;
+        margin-bottom: 50px;
+    }
+
+    .editor {
+        margin-bottom: 50px;
+    }
+
+    .editor-container {
+        height: 450px;
+
+        .editor-container {
+            height: 450px;
+        }
+    }
+}
