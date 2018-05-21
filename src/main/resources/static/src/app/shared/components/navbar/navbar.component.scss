@@ -1,10 +1,234 @@
+// Navigation Variables
+$breakpoint: 799px;
+$nav-height: 70px;
+$nav-background: #ffffff;
+$nav-font-color: #ffffff;
+.navigation {
+  height: $nav-height;
+  background: $nav-background;
+  position: sticky;
+  top: 0px;
+}
+// Logo and branding
+.brand {
+  position: absolute;
+  float: left;
+  line-height: $nav-height;
+
+  img{
+      width: 170px;
+      margin-top: 17px;
+  }
+}
+// Container with no padding for navbar
+.nav-container {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+// Navigation 
 nav {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    align-content: center;
+ float:right;
+ 
+}
+.nav-dropdown {
+  position: absolute;
+  display: none;
+  z-index: 1;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+.nav-mobile {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: $nav-background;
+  height: $nav-height;
+  width: $nav-height;
+}
+@media only screen and (max-width: 798px) {
+  // Hamburger nav visible on mobile only
+  .nav-mobile {
+    display: block;
+  }
+  .nav__buttons{
+    display: none;
+  }
+  nav {
+   width: 100%;
+    padding: $nav-height 0 15px;
+  }
+  .nav-dropdown {
+    position: static;
+  }
+}
+@media screen and (min-width: $breakpoint) {
+  .nav__buttons {
+    display: block;
+  }
+}
+#nav-toggle {
+  position: absolute;
+  left: 18px;
+  top: 22px;
+  cursor: pointer;
+  padding: 10px 35px 16px 0px;
+  span,
+  span:before,
+  span:after {
+    cursor: pointer;
+    border-radius: 1px;
+    height: 5px;
+    width: 35px;
+    background: $nav-font-color;
+    position: absolute;
+    display: block;
+    content: '';
+    transition: all 300ms ease-in-out;
+  }
+  span:before {
+    top: -10px;
+  }
+  span:after {
+    bottom: -10px;
+  }
+  &.active span {
+    background-color: transparent;
+    &:before,
+    &:after {
+      top: 0;
+    }
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
 }
 
-.logo {
-    max-width: 125px;
+/* Mixins */
+@mixin gradientBg($direction, $startColor, $endColor) {
+	background: $startColor;
+	background: -moz-linear-gradient($direction,  $startColor 0%, $endColor 80%,$endColor 100%);
+	background: -webkit-linear-gradient($direction,  $startColor 0%, $endColor 80%,$endColor 100%);
+	background: linear-gradient($direction,  $startColor 0%, $endColor 80%,$endColor 100%);
 }
+
+/* bg shortcodes */
+.bg-gradient1 span,
+.bg-gradient1:before {
+	@include gradientBg(180deg, rgb(6, 168, 159), rgb(41, 38, 99));
+}
+
+
+a {
+	text-decoration: none;
+  
+	&:hover,
+	&:focus,
+	&:active {
+	  text-decoration: none;
+  }
+}
+
+/* fancy Button */
+.fancy-button {
+	display: inline-block;
+	margin: 12px;
+	font-family: 'Heebo', Helvetica, Arial, sans-serif;
+	font-weight: 500;
+	font-size: 16px;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	line-height: 12px;
+	color: #ffffff;
+	position: relative;
+	
+
+	
+	&:before {
+		content: '';
+		display: inline-block;
+		height: 40px;
+		position: absolute;
+		bottom: -1px;
+		left: 10px;
+		right: 10px;
+		z-index: -1;
+		border-radius: 2em;
+		filter: blur(14px) brightness(0.9);
+		transform-style: preserve-3d;
+		transition: all 0.3s ease-out;
+	}
+	i {
+		margin-top: -2px;
+		font-size: 1.265em;
+		vertical-align: middle;
+	}
+	span {
+		display: inline-block;
+		padding: 16px 20px;
+		border-radius: 50em;
+		position: relative;
+		z-index: 2;
+		will-change: transform, filter;
+		transform-style: preserve-3d;
+		transition: all 0.3s ease-out;
+	}
+	&:focus{
+		color: #ffffff;
+	}
+	&:hover {
+		color: #ffffff;
+		
+		span {
+			filter: brightness(.9) contrast(1.2);
+			transform: scale(0.96);
+		}
+		&:before {
+			bottom: 3px;
+			filter: blur(6px) brightness(0.8);
+		}
+	}
+	&:active span {
+			filter: brightness(.75) contrast(1.7);
+		}
+	&.pop-onhover {
+		span {
+			border-radius: 4px;
+		}
+		&:before {
+			opacity: 0;
+			bottom: 10px;
+		}
+		&:hover {
+			&:before {
+				bottom: -7px;
+				opacity: 1;
+				filter: blur(16px);
+			}
+			span {
+				// transform: scale(1.03);
+				transform: scale(1);
+			}
+			&:active {
+				span {
+					filter: brightness(1) contrast(1);
+					transform: scale(1);
+					transition: all 0.2s ease-out;
+				}
+				&:before {
+					bottom: 0;
+					filter: blur(5px) brightness(0.85);
+					transition: all 0.2s ease-out;
+				}
+			}
+		}
+	}
+}
+
+.pop-onhover.bg-gradient3 span:hover{
+		@include gradientBg(120deg, #B9AEF0, #ADA1EB);
+}
+
+
