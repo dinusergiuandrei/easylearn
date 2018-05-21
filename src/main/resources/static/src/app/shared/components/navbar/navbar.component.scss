@@ -52,10 +52,12 @@ nav {
   }
   .nav__buttons{
     display: none;
+    background: #ffffff;
   }
   nav {
    width: 100%;
     padding: $nav-height 0 15px;
+
   }
   .nav-dropdown {
     position: static;
@@ -227,8 +229,5 @@ a {
 	}
 }
 
-.pop-onhover.bg-gradient3 span:hover{
-		@include gradientBg(120deg, #B9AEF0, #ADA1EB);
-}
 
 
