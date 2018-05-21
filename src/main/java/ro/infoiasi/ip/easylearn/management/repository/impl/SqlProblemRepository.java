@@ -81,7 +81,7 @@ public class SqlProblemRepository implements ProblemRepository {
     }
 
     @Override
-    public List<Problem> findByCategory(int catid)
+    public List<Problem> findByCategory(long catid)
     {
     	try
     	{
@@ -96,7 +96,7 @@ public class SqlProblemRepository implements ProblemRepository {
     }
     
     @Override
-    public List<Problem> findByAuthor(int authorid)
+    public List<Problem> findByAuthor(String authorid)
     {
     	try
     	{

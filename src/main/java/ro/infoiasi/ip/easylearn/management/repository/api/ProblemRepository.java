@@ -13,8 +13,8 @@ public interface ProblemRepository {
 	
 	Problem findById(Long id);
     List<Problem> findAll();
-    List<Problem> findByCategory(int catid);
-    List<Problem> findByAuthor(int authorid);
+    List<Problem> findByCategory(long catid);
+    List<Problem> findByAuthor(String authorid);
     List<Problem> findSolved(int userID);
     List<Problem> findAttempted(int userID);
 }

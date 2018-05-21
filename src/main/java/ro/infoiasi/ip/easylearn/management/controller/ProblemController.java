@@ -49,7 +49,7 @@ public class ProblemController {
     @RequestMapping(path = "/problems/cat={cat_id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns all the problems in the provided category")
-    public List<Problem> getProblemsByCategory(@PathVariable int cat_id) {
+    public List<Problem> getProblemsByCategory(@PathVariable long cat_id) {
     	List<Problem> problems = problemRepository.findByCategory(cat_id);
     	
         return problems;
@@ -58,7 +58,7 @@ public class ProblemController {
     @RequestMapping(path = "/problems/author={author_id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns all the problems posted by the author identified by the provided userID")
-    public List<Problem> getProblemsByAuthor(@PathVariable int author_id) {
+    public List<Problem> getProblemsByAuthor(@PathVariable String author_id) {
     	List<Problem> problems = problemRepository.findByAuthor(author_id);
     	
         return problems;
