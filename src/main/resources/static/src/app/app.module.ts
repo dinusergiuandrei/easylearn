@@ -25,6 +25,7 @@ import { TopComponent } from './components/pages/top/top.component';
 import { TestimonialsComponent } from './components/public/testimonials/testimonials.component';
 import { LatestComponent} from './components/public/latest/latest.component';
 import { YourlatestComponent } from './components/public/yourlatest/yourlatest.component';
+import { SolutionsComponent } from './components/public/solutions/solutions.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { YourlatestComponent } from './components/public/yourlatest/yourlatest.c
     TestimonialsComponent,
     LatestComponent,
     YourlatestComponent,
+    SolutionsComponent,
   ],
   imports: [
     BrowserModule,
