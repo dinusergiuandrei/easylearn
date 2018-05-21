@@ -5,7 +5,7 @@ package ro.infoiasi.ip.easylearn.management.model;
 public class Problem {
 
     private long problemID;
-    private long authorID;
+    private String authorID;
     private String titlu;
     private String descriere;
     private String cerinta;
@@ -13,7 +13,7 @@ public class Problem {
     private String date_iesire;
     private String restrictii;
     private int dificultate;
-    private int categorie;
+    private long categorie;
     private String tip_date;
     private String exemplu_intrare;
     private String exemplu_iesire;
@@ -24,8 +24,8 @@ public class Problem {
 
     public Problem() {};
     
-    public Problem(long problemID, long authorID, String titlu, String descriere, String cerinta, String date_intrare,
-                   String date_iesire, String restrictii, int dificultate, int categorie, String tip_date,
+    public Problem(long problemID, String authorID, String titlu, String descriere, String cerinta, String date_intrare,
+                   String date_iesire, String restrictii, int dificultate, long categorie, String tip_date,
                    String exemplu_intrare, String exemplu_iesire, String input_file, String output_file, long max_memory,
                    double max_time) {
 
@@ -56,11 +56,11 @@ public class Problem {
         this.problemID = problemID;
     }
 
-    public long getAuthorID() {
+    public String getAuthorID() {
         return authorID;
     }
 
-    public void setAuthorID(long authorID) {
+    public void setAuthorID(String authorID) {
         this.authorID = authorID;
     }
 
@@ -120,11 +120,11 @@ public class Problem {
         this.dificultate = dificultate;
     }
 
-    public int getCategorie() {
+    public long getCategorie() {
         return categorie;
     }
 
-    public void setCategorie(int categorie) {
+    public void setCategorie(long categorie) {
         this.categorie = categorie;
     }
 

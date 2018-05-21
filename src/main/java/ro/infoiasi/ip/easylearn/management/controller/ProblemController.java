@@ -101,7 +101,7 @@ public class ProblemController {
     	
     	//problema de test
     	//datele vor fi preluate prin json
-    	Problem problem = new Problem(problemRepository.getLastID() + 1, 1,
+    	Problem problem = new Problem(problemRepository.getLastID() + 1, "1",
     			"Camioane", "Problema Camioane",
     			"O firma are doua tipuri de camioane: camioane de tipul 1, care pot transporta cate t1 tone de marfa pe zi, si camioane de tipul 2, care pot transporta cate t2 tone de marfa pe zi. \n Stiind ca firma are n camioane de tipul 1 si m camioane de tipul 2, cate tone de marfa pot transporta camioanele firmei in z zile.",
     			"Programul citeste de la tastatura numerele naturale t1 t2 n m z.",
