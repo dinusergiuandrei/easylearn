@@ -29,6 +29,8 @@ import { ProblemComponent } from './components/pages/problem/problem.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { SolutionsComponent } from './components/public/solutions/solutions.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { CategoriesComponent } from './components/public/categories/categories.component';
+
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { UserProfileComponent } from './components/pages/user-profile/user-profi
     NavbarComponent,
     FooterComponent,
     HomeComponent,
+    CategoriesComponent,
     AboutUsComponent,
     LoginComponent,
     ForgotComponent,

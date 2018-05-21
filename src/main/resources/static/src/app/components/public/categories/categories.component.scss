@@ -1,0 +1,24 @@
+div {
+  background: rgb(255, 255, 255);
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0px 20px;
+}
+
+.flex-container-item {
+  padding: 20px;
+  font-size: 30px;
+}
+
+img {
+  height: 64px;
+}
+
+h2 {
+  margin-left: 15%;
+}
