@@ -89,62 +89,53 @@ public class ProblemTestTest {
 
     @Test
     public void getId(){
-        Problem myProblem = new Problem(problemRepository.getLastID()+1,
-                1,
-                "Eureni",
-                "Problema Eureni",
-                "Pentru cadourile pe care Moş Crăciun urmează să le cumpere copiilor cuminţi, Consiliul Polului Nord a alocat suma de S eureni. Ştiind că în comerţul polar se utilizează n+1 tipuri de bancnote de valori 1, e1, e2, e3,…, en şi faptul că Moşul trebuie să primească un număr minim de bancnote pentru suma aprobată, să se determine numărul de bancnote din fiecare tip utilizat în plata sumei şi numărul total de bancnote care i s-au alocat.",
-                "Fișierul de intrare eureni.in conține pe prima linie numerele S n e.",
-                "Pe ultima linie se va scrie numai numărul total de bancnote folosite.",
-                "1 < S < 2 000 000 000\n" +
-                        "1 < n < 10\n" +
-                        "1 < e < 10",
-                1,
-                1,
-                "fisier",
-                "107 4 5",
-                "25 4\n" +
-                        "5 1\n" +
-                        "1 2\n" +
-                        "7\n",
-                "eureni.in",
-                "eureni.out",
-                1,
-                1);
+        ProblemTest myProBlemTest = new ProblemTest();
+        Random rand = new Random();
 
-        String query = "INSERT INTO probleme (problemID, authorID, titlu, descriere, cerinta, date_intrare, date_iesire, restrictii, dificultate, categorie, tip_date, exemplu_intrare, exemplu_iesire, input_file, output_file, max_memory, max_time) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-        Object[] params = new Object[] {myProblem.getProblemID(), myProblem.getAuthorID(), myProblem.getTitlu(), myProblem.getDescriere(), myProblem.getCerinta(), myProblem.getDate_intrare(),
-                myProblem.getDate_iesire(), myProblem.getRestrictii(), myProblem.getDificultate(), myProblem.getCategorie(),
-                myProblem.getTip_date(), myProblem.getExemplu_intrare(), myProblem.getExemplu_iesire(), myProblem.getInput_file(),
-                myProblem.getOutput_file(), myProblem.getMax_memory(),myProblem.getMax_time()};
-        int[] types = new int[] { Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
-                Types.VARCHAR, Types.VARCHAR,Types.INTEGER,
-                Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
-                Types.INTEGER, Types.DOUBLE };
+        long id = rand.nextInt(150) + 1;
 
-        int row = jdbcTemplate.update(query, params, types);
+        myProBlemTest.setId(id);
 
+        final long getid = myProBlemTest.getId();
 
+        Assert.assertEquals(id, getid);
+    }
 
-        long id = 10;
-        long problemId = myProblem.getProblemID();
-        String output = "Output12345";
-        String expOutput = "Expected Output";
-        ProblemTest myTestProblem = new ProblemTest(id, problemId, output, expOutput);
+    @Test
+    public void getProblemID(){
+        ProblemTest myProBlemTest = new ProblemTest();
+        Random rand = new Random();
 
-        String testequery = "INSERT INTO teste(testID, problemID, input, expected_output) values(?,?,?,?);";
-        Object[] testeparams = new Object[]{myTestProblem.getId(), myTestProblem.getProblemId(), myTestProblem.getInput(), myTestProblem.getExpectedOutput()};
-        int[] testetypes = new int[]{Types.INTEGER, Types.INTEGER, Types.VARCHAR, Types.VARCHAR};
-        int testerow = jdbcTemplate.update(testequery, testeparams, testetypes);
+        long id = rand.nextInt(150) + 1;
 
-        ProblemTest problemTestById = new ProblemTest();
-        problemTestById = testController.tests(myTestProblem.getId());
-        problemTestById.setId(myTestProblem.getId());
+        myProBlemTest.setProblemId(id);
 
-        Assert.assertEquals(myTestProblem.getId() + myTestProblem.getProblemId() + myTestProblem.getInput() +
-                myTestProblem.getExpectedOutput(), problemTestById.getId() + problemTestById.getProblemId()+
-                problemTestById.getInput() +
-                problemTestById.getExpectedOutput());
+        final long getid = myProBlemTest.getProblemId();
 
+        Assert.assertEquals(id, getid);
+    }
+
+    @Test
+    public void getInput(){
+        ProblemTest myProBlemTest = new ProblemTest();
+        String input = "Input0123";
+
+        myProBlemTest.setInput(input);
+
+        final String getinput = myProBlemTest.getInput();
+
+        Assert.assertEquals(input, getinput);
+    }
+
+    @Test
+    public void getExpectedOutput(){
+        ProblemTest myProBlemTest = new ProblemTest();
+        String output = "Expected Output1230";
+
+        myProBlemTest.setExpectedOutput(output);
+
+        final String getoutput = myProBlemTest.getExpectedOutput();
+
+        Assert.assertEquals(output, getoutput);
     }
 }
