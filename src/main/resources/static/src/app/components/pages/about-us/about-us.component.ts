@@ -6,29 +6,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about-us.component.scss']
 })
 export class AboutUsComponent implements OnInit {
-
-  public header;
-  public content;
   public team;
-  public technologies;
 
   constructor() { }
 
   ngOnInit() {
-    this.header = {
-      title: "Have you heard about easylearn?",
-      subtitle: "Meet the people behind the largest IT learning platform and find more about our mission"
-    }
-    this.content = {
-      title_left: "About Easylearn",
-      content_left: `Easylearn is an education company. But not one in the way you might think. We're committed to building the best learning experience inside and out, making Easylearn the best place for our team to learn, teach, and create the online learning experience of the future.
-      Education is old. The current public school system in the US dates back to the 19th century and wasn't designed to scale the way it has. Lots of companies are working to "disrupt" education by changing the way things work in the classroom and by bringing the classroom online.`,
-      title_right: "Our mission",
-      content_right: `We're not one of those companies. We are rethinking education from the bottom up. The web has rethought nearly everything - commerce, social networking, healthcare, and more. We are building the education the world needs - the first truly net native education. We take more cues from Facebook and Zynga in creating an engaging educational experience than we do from the classroom.
-      Education is broken. Come help us build the education the world deserves.`
-    }
     this.team = {
-      title: "Our team",
       members: [
         {
           photo: "../../../../assets/images/team/andro_bianca.jpg",
@@ -141,9 +124,6 @@ export class AboutUsComponent implements OnInit {
           role: "Front-end"
         }
       ]
-    }
-    this.technologies = {
-      title: "Used technologies"
     }
   }
 }
