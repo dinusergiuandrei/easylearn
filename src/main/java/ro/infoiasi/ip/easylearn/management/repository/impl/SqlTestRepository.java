@@ -18,6 +18,17 @@ public class SqlTestRepository implements TestRepository {
         return null;
     }
 
+     @Override
+     public Long getLastID()
+     {
+         if(jdbcTemplate == null)
+             System.out.println("NULL TEMPLATE");
+
+         Long id = jdbcTemplate.queryForObject("SELECT MAX(testID) FROM teste", Long.class);
+
+         return id;
+     }
+
     @Override
     public ProblemTest findById(Long id) {
         List<ProblemTest> test= jdbcTemplate.query("SELECT * FROM teste where testID="+id+"", new BeanPropertyRowMapper<>(ProblemTest.class));
