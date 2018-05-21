@@ -7,10 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  logoPath: string;
+
+  logo: { name: string; path: string; };
 
   constructor() {
-    this.logoPath = '../../../../assets/images/easylearn.png';
+    this.logo = {
+      name: 'easylearn',
+      path: '../../../../assets/images/easylearn.png'
+    };
   }
 
   ngOnInit() {}
