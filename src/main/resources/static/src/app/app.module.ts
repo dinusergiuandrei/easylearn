@@ -30,6 +30,7 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { SolutionsComponent } from './components/public/solutions/solutions.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 import { CategoriesComponent } from './components/public/categories/categories.component';
+import {ProblemtestComponent} from './components/public/problemtest/problemtest.component'
 
 
 @NgModule({
@@ -52,7 +53,9 @@ import { CategoriesComponent } from './components/public/categories/categories.c
     YourlatestComponent,
     ProblemComponent,
     SolutionsComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ProblemtestComponent
+
   ],
   imports: [
     BrowserModule,
