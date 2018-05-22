@@ -84,14 +84,15 @@ public class ProblemControllerTest {
         Category category = createAndInsertNewCategory(10, "hardcore");
 
         Problem testProblem1 = createTestProblemFor(category.getCategoryId());
+        insertProblemInDB(testProblem1);
+
         Problem testProblem2 = createTestProblemFor(category.getCategoryId());
+        insertProblemInDB(testProblem2);
+
         Problem testProblem3 = createTestProblemFor(category.getCategoryId());
+        insertProblemInDB(testProblem3);
 
         String expectedString = testProblem1.toValuesString() + testProblem2.toValuesString() + testProblem3.toValuesString();
-
-        insertProblemInDB(testProblem1);
-        insertProblemInDB(testProblem2);
-        insertProblemInDB(testProblem3);
 
         List<Problem> methodRersult = problemControllerToTest.getProblemsByCategory(category.getCategoryId());
 
@@ -124,14 +125,13 @@ public class ProblemControllerTest {
     public void testGetProblemsByValidAuthor() {
         String authorId = "thisIsAnAuthorId";
         Problem testProblem1 = createTestProblemFor(authorId);
+        insertProblemInDB(testProblem1);
         Problem testProblem2 = createTestProblemFor(authorId);
+        insertProblemInDB(testProblem2);
         Problem testProblem3 = createTestProblemFor(authorId);
+        insertProblemInDB(testProblem3);
 
         String expectedResult = testProblem1.toValuesString() + testProblem2.toValuesString() + testProblem3.toValuesString();
-
-        insertProblemInDB(testProblem1);
-        insertProblemInDB(testProblem2);
-        insertProblemInDB(testProblem3);
 
         List<Problem> methodResult = problemControllerToTest.getProblemsByAuthor(authorId);
         String actualResult = "";
@@ -205,7 +205,7 @@ public class ProblemControllerTest {
                 "1 < S < 2 000 000\n" +
                         "1 < n < 10\n",
                 1,
-                10,
+                categoryID,
                 "fisier",
                 "107 4 5",
                 "25 4\n" +
@@ -259,7 +259,7 @@ public class ProblemControllerTest {
         Category category = new Category(categoryID, categoryName);
 
         String catQuery = "INSERT INTO categorii(categoryID, nume) VALUES(?,?)";
-        Object catParams = new Object[]{category.getCategoryId(), category.getNume()};
+        Object[] catParams = new Object[]{category.getCategoryId(), category.getNume()};
         int[] catTypes = new int[]{Types.INTEGER, Types.VARCHAR};
 
         int catRow = jdbcTemplate.update(catQuery, catParams, catTypes);
