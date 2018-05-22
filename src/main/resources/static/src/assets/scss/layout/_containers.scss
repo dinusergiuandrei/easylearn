@@ -1,0 +1,7 @@
+.container { 
+    padding: $container-spacing 2*$container-spacing;
+}
+
+@media (max-width: 575px) {
+    .container { padding: $container-padding; }
+}
