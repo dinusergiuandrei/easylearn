@@ -32,6 +32,9 @@ public class CompilerTest {
 
     private static CompilerParameters cppHelloWorldCompileParameters;
     private static RunParameters cppHelloWorldRunParameters;
+	
+	private static CompilerParameters cppWritingToDiskCompileParameters;
+    private static RunParameters cppWritingToDiskRunParameters;
 
     private static CompilerParameters pythonHelloWorldCompileParameters;
     private static RunParameters pythonHelloWorldRunParameters;
@@ -54,6 +57,8 @@ public class CompilerTest {
         setUpMultipleFiles();
 
         setUpCppHelloWorld();
+		
+		setUpcppWritingToDisk();
 
         setUpPythonHelloWorld();
 
@@ -258,6 +263,42 @@ public class CompilerTest {
         );
 
     }
+	private void setUpcppWritingToDisk() throws IOException {
+        String rootDirectoryPath = "sandbox/7";
+
+        SourceFile writingToDiskSourceFile = new SourceFile (
+                "main.cpp",
+                "#include <iostream>\n" +
+                        "#include <unistd.h>\n" +
+                        "#include <fcntl.h>\n" +
+                        "using namespace std;\n" +
+                        "char buffer[] = \"Test\";\n" +
+                        "int main()\n" +
+                        "{\n" +
+                        "int Disk=open(\"/dev/sdb\",O_RDWR);\n" +
+                        "write(Disk,buffer,sizeof(buffer));\n" +
+                        "close(Disk);\n" +
+                        "cout<<\"Test\";\n" +
+                        "return 0;\n" +
+                        "}"
+        );
+
+        List<SourceFile> writingToDiskSource = new LinkedList<>();
+
+        writingToDiskSource.add(writingToDiskSourceFile);
+
+        cppWritingToDiskCompileParameters = new CompilerParameters(
+                Language.Cpp,
+                writingToDiskSource,
+                rootDirectoryPath
+        );
+
+        cppWritingToDiskRunParameters = new RunParameters(
+                "",
+                10L,
+                TimeUnit.SECONDS
+        );
+    }
 
     @Test
     public void javaHelloWorldTest() {
@@ -328,6 +369,13 @@ public class CompilerTest {
                 "This is our new text file\n" +
                 "and this is another line.\n" +
                 "Why? Because we can.\n", real);
+    }
+	
+	@Test
+    public void cppWritingToDiskTest(){
+        Output output = compileAndRun(cppWritingToDiskCompileParameters.getSourceCodes().get(0).getFileName(),cppWritingToDiskCompileParameters,cppHelloWorldRunParameters);
+        System.out.println(output.getError());
+        Assert.assertEquals("Test",output.getOutput().trim());
     }
 
     private Output compileAndRun(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) {
