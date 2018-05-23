@@ -13,23 +13,43 @@ public class Submission {
     private Long problemId;
     private Long userId;
     private Language language;
-    private List<SourceFile> sources;
+    private List <SourceFile> sources;
     private String mainSource;
     private SubmissionState state;
-    private List<Run> runs;
+    private List <Run> runs;
     private Date date;
+    private Long score;
 
-    public Submission() {}
+    public Submission() {
+    }
 
-    public Submission(Long problemId, Long userId, Language language, List<SourceFile> sources, String mainSource) {
+    public Submission(Long problemId, Long userId, Language language, List <SourceFile> sources, String mainSource) {
         this.problemId = problemId;
         this.language = language;
         this.sources = sources;
         this.state = SubmissionState.Waiting;
         this.mainSource = mainSource;
         this.date = new Date(); // current date and time
-        this.runs = new ArrayList<>();
+        this.runs = new ArrayList <>();
         this.userId = userId;
+    }
+
+    public static Submission constructSubmissionFrom(SubmissionRequest submissionRequest) {
+        return new Submission(
+                submissionRequest.getProblemId(),
+                submissionRequest.getUserId(),
+                submissionRequest.getLanguage(),
+                submissionRequest.getSources(),
+                submissionRequest.getMainSource()
+        );
+    }
+
+    public Long getScore() {
+        return score;
+    }
+
+    public void setScore(Long score) {
+        this.score = score;
     }
 
     public Long getUserId() {
@@ -40,10 +60,6 @@ public class Submission {
         this.userId = userId;
     }
 
-    public void setMainSource(String mainSource) {
-        this.mainSource = mainSource;
-    }
-
     public Date getDate() {
         return date;
     }
@@ -52,11 +68,11 @@ public class Submission {
         this.date = date;
     }
 
-    public List<Run> getRuns() {
+    public List <Run> getRuns() {
         return runs;
     }
 
-    public void setRuns(List<Run> runs) {
+    public void setRuns(List <Run> runs) {
         this.runs = runs;
     }
 
@@ -84,11 +100,11 @@ public class Submission {
         this.language = language;
     }
 
-    public List<SourceFile> getSources() {
+    public List <SourceFile> getSources() {
         return sources;
     }
 
-    public void setSources(List<SourceFile> sources) {
+    public void setSources(List <SourceFile> sources) {
         this.sources = sources;
     }
 
@@ -104,26 +120,24 @@ public class Submission {
         return mainSource;
     }
 
-    public static Submission constructSubmissionFrom(SubmissionRequest submissionRequest) {
-        return new Submission(
-                submissionRequest.getProblemId(),
-                submissionRequest.getUserID(),
-                submissionRequest.getLanguage(),
-                submissionRequest.getSources(),
-                submissionRequest.getMainSource()
-        );
+    public void setMainSource(String mainSource) {
+        this.mainSource = mainSource;
     }
+
 
     @Override
     public String toString() {
         return "Submission{" +
                 "id=" + id +
                 ", problemId=" + problemId +
-                ", language='" + language + '\'' +
-                ", sources='" + sources + '\'' +
-                ", state='" + state + '\'' +
+                ", userId=" + userId +
+                ", language=" + language +
+                ", sources=" + sources +
+                ", mainSource='" + mainSource + '\'' +
+                ", state=" + state +
+                ", runs=" + runs +
+                ", date=" + date +
+                ", score=" + score +
                 '}';
     }
-
-
 }

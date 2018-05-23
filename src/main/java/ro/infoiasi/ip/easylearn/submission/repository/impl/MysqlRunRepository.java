@@ -14,10 +14,11 @@ public class MysqlRunRepository implements RunRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    // KEEP IN MIND THAT ID FIELD HAS AUTO_INCREMENT -- YOU DON'T HAVE TO INSERT VALUES INTO IT
     @Override
     public void save(Run run) {
-        String insertQuery = "insert into runs (id, submission_id,memory_bytes,run_time_ms,status) values (?, ?, ?, ?, ?)";
-        jdbcTemplate.update( insertQuery, run.getId(), run.getSubmissionId(), run.getMemoryBytes(),run.getRunTimeMs(),run.getStatus());
+        String insertQuery = "insert into runs (submissionId, memoryBytes, runTimeMs, status) values (?, ?, ?, ?)";
+        jdbcTemplate.update( insertQuery, run.getSubmissionId(), run.getMemoryBytes(),run.getRunTimeMs(),run.getStatus());
     }
 
     @Override

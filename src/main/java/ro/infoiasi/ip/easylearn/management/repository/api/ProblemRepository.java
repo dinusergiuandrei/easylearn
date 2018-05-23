@@ -4,17 +4,14 @@ import java.util.List;
 
 import ro.infoiasi.ip.easylearn.management.model.Problem;
 
-// TODO: rename variables: categoryId, authorId (camel case), zp => what does it mean?
 public interface ProblemRepository {
-    boolean add(Problem P);
-    Long getLastID();
-    
-	Long save(Problem zp);
-	
+    boolean add(Problem problem);
+    Long getLastId();
+	Long save(Problem problem);
 	Problem findById(Long id);
     List<Problem> findAll();
-    List<Problem> findByCategory(long catid);
-    List<Problem> findByAuthor(String authorid);
-    List<Problem> findSolved(int userID);
-    List<Problem> findAttempted(int userID);
+    List<Problem> findByCategory(Long categoryId);
+    List<Problem> findByAuthor(Long authorId);
+    List<Problem> findSolved(int userId);
+    List<Problem> findAttempted(int userId);
 }

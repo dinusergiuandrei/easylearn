@@ -35,13 +35,13 @@ public class CategoryTest {
     @Test
     public void setCategoryId() {
         Category mycategory = new Category();
-        Random rand = new Random();
+        Random random = new Random();
 
-        int id = rand.nextInt(150) + 1;
+        Long id = random.nextLong() + 1;
 
         mycategory.setCategoryId(id);
 
-        final long getId = mycategory.getCategoryId();
+        final Long getId = mycategory.getCategoryId();
 
         Assert.assertEquals("Fields don't match",id, getId);
     }
@@ -51,9 +51,9 @@ public class CategoryTest {
         Category mycategory = new Category();
         String nume = "mediu";
 
-        mycategory.setNume(nume);
+        mycategory.setName(nume);
 
-        final String getnume = mycategory.getNume();
+        final String getnume = mycategory.getName();
 
         Assert.assertEquals("Fields don't match", nume, getnume);
 
@@ -64,11 +64,11 @@ public class CategoryTest {
         Category myCategory = new Category();
         Random rand = new Random();
 
-        int id = rand.nextInt(150) + 1;
+        Long id = rand.nextLong() + 1;
 
         myCategory.setCategoryId(id);
 
-        final long getId = myCategory.getCategoryId();
+        final Long getId = myCategory.getCategoryId();
 
         Assert.assertEquals("Fields don't match", id, getId);
     }
@@ -77,9 +77,9 @@ public class CategoryTest {
     public void getNume(){
         Category mycategory = new Category();
 
-        mycategory.setNume("mediu");
+        mycategory.setName("mediu");
 
-        final String getnume = mycategory.getNume();
+        final String getnume = mycategory.getName();
 
         Assert.assertEquals("Fields don't match", "mediu", getnume);
     }

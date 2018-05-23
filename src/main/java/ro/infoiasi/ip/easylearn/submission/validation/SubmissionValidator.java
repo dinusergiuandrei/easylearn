@@ -3,10 +3,6 @@ package ro.infoiasi.ip.easylearn.submission.validation;
 import com.google.common.base.Strings;
 import org.springframework.stereotype.Component;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionRequest;
-import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
-import ro.infoiasi.ip.easylearn.utils.Language;
-
-import java.util.Arrays;
 
 @Component
 public class SubmissionValidator {
@@ -22,7 +18,7 @@ public class SubmissionValidator {
             throw new IllegalArgumentException("The problem id cannot be null");
         }
         // TODO: also check in the db if exists
-        if (submissionRequest.getUserID() == null) {
+        if (submissionRequest.getUserId() == null) {
             throw new IllegalArgumentException("The user id cannot be null");
         }
 

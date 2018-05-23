@@ -2,7 +2,7 @@ package ro.infoiasi.ip.easylearn.compiler;
 
 public class SourceFile {
     private Long id;
-    private Long submissionID;
+    private Long submissionId;
     private String fileName;
     private String content;
 
@@ -24,12 +24,12 @@ public class SourceFile {
         this.id = id;
     }
 
-    public Long getSubmissionID() {
-        return submissionID;
+    public Long getSubmissionId() {
+        return submissionId;
     }
 
-    public void setSubmissionID(Long submissionID) {
-        this.submissionID = submissionID;
+    public void setSubmissionId(Long submissionId) {
+        this.submissionId = submissionId;
     }
 
     public String getFileName() {

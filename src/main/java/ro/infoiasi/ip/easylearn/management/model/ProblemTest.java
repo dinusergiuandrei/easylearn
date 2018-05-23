@@ -52,4 +52,14 @@ public class ProblemTest {
         String trimmedExpectedOutput = this.expectedOutput.trim();
         return Objects.equals(trimmedExpectedOutput, trimmedRealOutput);
     }
+
+    @Override
+    public String toString() {
+        return "ProblemTest{" +
+                "id=" + id +
+                ", problemId=" + problemId +
+                ", input='" + input + '\'' +
+                ", expectedOutput='" + expectedOutput + '\'' +
+                '}';
+    }
 }

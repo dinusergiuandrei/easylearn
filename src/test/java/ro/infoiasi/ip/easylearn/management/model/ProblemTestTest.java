@@ -41,11 +41,8 @@ public class ProblemTestTest {
     @Test
     public void setId() {
         ProblemTest myTestProblem = new ProblemTest();
-        Random rand = new Random();
 
-        int offset = rand.nextInt(150) + 1;
-
-        long newID = offset + testRepository.getLastID();
+        long newID = testRepository.getLastId() + 1;
         myTestProblem.setId(newID);
 
         long id = myTestProblem.getId();
@@ -54,11 +51,10 @@ public class ProblemTestTest {
     @Test
     public void setProblemId() {
         ProblemTest myTestProblem = new ProblemTest();
-        Random rand = new Random();
 
-        long problemId = rand.nextInt(150) + 1;
+        Long problemId = problemRepository.getLastId() + 1;
         myTestProblem.setProblemId(problemId);
-        long id = myTestProblem.getProblemId();
+        Long id = myTestProblem.getProblemId();
 
         Assert.assertEquals(id, problemId);
     }

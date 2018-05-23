@@ -1,38 +1,38 @@
 package ro.infoiasi.ip.easylearn.management.model;
 
 public class SubmissionTest {
-	private int id;
-	private long submissionID;
-    private long testID;
+	private Long id;
+	private Long submissionId;
+    private Long testId;
     private int runTimeMS;
     private int memoryBytes;
     private String status;
 
     public SubmissionTest() {}
-    
-    public int getId() {
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-    public long getSubmissionID() {
-        return submissionID;
-    }
+	public Long getSubmissionId() {
+		return submissionId;
+	}
 
-    public void setSubmissionID(long submissionID) {
-        this.submissionID = submissionID;
-    }
+	public void setSubmissionId(Long submissionId) {
+		this.submissionId = submissionId;
+	}
 
-    public long getTestID() {
-        return testID;
-    }
+	public Long getTestId() {
+		return testId;
+	}
 
-    public void setTestID(long testID) {
-        this.testID = testID;
-    }
+	public void setTestId(Long testId) {
+		this.testId = testId;
+	}
 
 	public int getRunTimeMS() {
 		return runTimeMS;
@@ -57,7 +57,17 @@ public class SubmissionTest {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-    
-    
+
+	@Override
+	public String toString() {
+		return "SubmissionTest{" +
+				"id=" + id +
+				", submissionId=" + submissionId +
+				", testId=" + testId +
+				", runTimeMS=" + runTimeMS +
+				", memoryBytes=" + memoryBytes +
+				", status='" + status + '\'' +
+				'}';
+	}
 }
 

@@ -34,11 +34,7 @@ public class SubmissionRunner {
     public void run(Long submissionId) throws Exception {
 
         Submission submission = initializeSubmission(submissionId);
-
-        File rootDirectory = generateRootDirectoryForSubmission(submissionId);
-        String rootDirectoryPath = rootDirectory.toString();
-
-//        String rootDirectoryPath = "sandbox/"+submissionId;
+        String rootDirectoryPath = generateRootDirectoryForSubmission(submissionId).toString();
 
         CompilerParameters compilerParameters = new CompilerParameters(
                 submission.getLanguage(),
@@ -65,7 +61,10 @@ public class SubmissionRunner {
                 run.setMemoryBytes(10L); // problem.getMaxMemory();
 
                 RunParameters runParameters = new RunParameters(test.getInput(), run.getRunTimeMs(), TimeUnit.MILLISECONDS);
+                System.out.println("Running...");
+                System.out.println(submission.getMainSource());
                 Output runOutput = compiler.run(submission.getMainSource(), compilerParameters, runParameters);
+                System.out.println("Running complete");
 
                 if ( runWithSuccess(runOutput) && test.isValidOutput(runOutput.getOutput())) {
                     run.setStatus(RunState.Success);

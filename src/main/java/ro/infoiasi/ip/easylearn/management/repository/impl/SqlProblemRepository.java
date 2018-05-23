@@ -17,7 +17,7 @@ public class SqlProblemRepository implements ProblemRepository {
     JdbcTemplate jdbcTemplate;
 
     @Override
-    public Long save(Problem P) {
+    public Long save(Problem problem) {
         return null;
     }
 
@@ -25,7 +25,7 @@ public class SqlProblemRepository implements ProblemRepository {
     public Problem findById(Long id) {
     	try
     	{
-	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme where problemId="+id+"", new BeanPropertyRowMapper<>(Problem.class));
+	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems where id="+id+"", new BeanPropertyRowMapper<>(Problem.class));
 	        if(problems.size()>=1)
 	            return problems.get(0);
 			return null;
@@ -41,7 +41,7 @@ public class SqlProblemRepository implements ProblemRepository {
     public List<Problem> findAll() {
     	try
     	{
-	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme", new BeanPropertyRowMapper<>(Problem.class));
+	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems", new BeanPropertyRowMapper<>(Problem.class));
 	        return problems;
 	    }
     	catch(Exception e)
@@ -52,14 +52,14 @@ public class SqlProblemRepository implements ProblemRepository {
     }
     
     @Override
-    public boolean add(Problem P)
+    public boolean add(Problem problem)
     {
     	try
     	{
         	if(jdbcTemplate == null)
         		System.out.println("NULL TEMPLATE");
         	
-	        jdbcTemplate.update("INSERT INTO probleme VALUES (" + P.toValuesString() + ")");
+	        jdbcTemplate.update("INSERT INTO problems VALUES (" + problem.toValuesString() + ")");
 			return true;
 	    }
     	catch(Exception e)
@@ -70,22 +70,37 @@ public class SqlProblemRepository implements ProblemRepository {
     }
     
     @Override
-    public Long getLastID()
+    public Long getLastId()
     {
     	if(jdbcTemplate == null)
     		System.out.println("NULL TEMPLATE");
     	
-    	Long id = jdbcTemplate.queryForObject("SELECT MAX(problemID) FROM probleme", Long.class);
+    	Long id = jdbcTemplate.queryForObject("SELECT MAX(id) FROM problems", Long.class);
     	
     	return id;
     }
 
     @Override
-    public List<Problem> findByCategory(long catid)
+    public List<Problem> findByCategory(Long categoryId)
     {
     	try
     	{
-	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme where categorie="+catid, new BeanPropertyRowMapper<>(Problem.class));
+	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems where categories="+categoryId, new BeanPropertyRowMapper<>(Problem.class));
+	        return problems;
+	    }
+    	catch(Exception e)
+    	{
+    		System.out.println(e.getMessage());
+    		return null;
+    	}
+    }
+
+	@Override
+    public List<Problem> findByAuthor(Long authorId)
+    {
+    	try
+    	{
+	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems where authorId=" + authorId, new BeanPropertyRowMapper<>(Problem.class));
 	        return problems;
 	    }
     	catch(Exception e)
@@ -95,26 +110,11 @@ public class SqlProblemRepository implements ProblemRepository {
     	}
     }
     
-    @Override
-    public List<Problem> findByAuthor(String authorid)
+    public List<Problem> findSolved(int userId)
     {
     	try
     	{
-	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme where authorID=" + authorid, new BeanPropertyRowMapper<>(Problem.class));
-	        return problems;
-	    }
-    	catch(Exception e)
-    	{
-    		System.out.println(e.getMessage());
-    		return null;
-    	}
-    }
-    
-    public List<Problem> findSolved(int userID)
-    {
-    	try
-    	{
-	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme p where (select count(*) from submissions s where s.problemID = p.problemID and s.score = 100 and s.userID = " + Integer.toString(userID) + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
+	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.score = 100 and s.userId = " + Integer.toString(userId) + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
 	        return problems;
 	    }
     	catch(Exception e)
@@ -125,11 +125,11 @@ public class SqlProblemRepository implements ProblemRepository {
     }
     
 
-    public List<Problem> findAttempted(int userID)
+    public List<Problem> findAttempted(int userId)
     {
     	try
     	{
-    		List<Problem> problems= jdbcTemplate.query("SELECT * FROM probleme p where (select count(*) from submissions s where s.problemID = p.problemID and s.userID = " + Integer.toString(userID) + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
+    		List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.userId = " + Integer.toString(userId) + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
 	        return problems;
 	    }
     	catch(Exception e)

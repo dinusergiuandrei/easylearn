@@ -15,7 +15,7 @@ public class SourceFileMapper implements RowMapper<SourceFile> {
 
         source.setId(resultSet.getLong("id"));
 
-        source.setSubmissionID(resultSet.getLong("submissionID"));
+        source.setSubmissionId(resultSet.getLong("submissionID"));
 
         source.setFileName(resultSet.getString("class_name"));
 
