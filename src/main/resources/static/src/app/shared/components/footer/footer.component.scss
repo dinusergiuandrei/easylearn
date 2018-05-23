@@ -1,8 +1,46 @@
-div {
-  background-color: rgb(255, 255, 255);
+@import '../../../../assets/scss/variables/_variables';
+
+
+.footer {
+  display:flex;
+  align-self: flex-end;
+  width: 100%;
+  background-color: white;
+  padding:3%;
 }
 
-div.line {
+.container{
+  margin-left:3%;
+  width:50%;
+&__logo {
+  width:35%;
+}
+}
+
+.containerText{
+  float:right;
+  width:40%;
+}
+
+.text{
+  float:left;
+  margin-left:5%;
+  ul{
+    text-decoration: none;
+  }
+  li{
+    font-size:18px;
+  }
+
+}
+
+.title{
+  font-size:22px;
+  font-weight: 700;
+  color: $color-primary;
+}
+
+.linieoblica {
   display: table-cell;
   content: "";
   margin-left: auto;
@@ -14,40 +52,8 @@ div.line {
   background-color: transparent;
 }
 
-.flex-container {
-  display: flex;
-  justify-content: left;
-}
-
-.flex-container1 {
-  display: flex;
-  width: 33.3%;
-  text-align: left;
-}
-
-.flex-container-row {
-  width: 33.3%;
-  font-size: 15px;
-  flex-direction: row;
-}
-
-.flex-container-column {
-  padding: 15px;
-  width: 33.3%;
-  font-size: 20px;
-  font-weight: bold;
-  flex-direction: column;
-}
-
-p {
-  margin: 2px;
-}
-
-p.copyright {
-  padding-left: 10%;
-}
-
-img {
-  padding-left: 10%;
-  width: 240px;
+.copyright{
+  font-size:12px;
+  font-weight: 700;
+  margin-top:7%;
 }

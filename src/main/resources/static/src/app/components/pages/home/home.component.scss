@@ -5,6 +5,8 @@
         @extend %flex-row;
         justify-content: space-between;
         align-items: center;
+        margin-left:5%;
+        margin-right:2%;
     }
     &-text {
         align-self: center;
@@ -13,6 +15,6 @@
 
 @media (max-width: 575px) {
     .hero {
-        &-header { flex-direction: column; }
+        &-header { float:right; }
     }
 }
