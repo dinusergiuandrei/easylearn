@@ -32,6 +32,7 @@ public class Submission {
         this.date = new Date(); // current date and time
         this.runs = new ArrayList <>();
         this.userId = userId;
+        this.score = 0L;
     }
 
     public static Submission constructSubmissionFrom(SubmissionRequest submissionRequest) {

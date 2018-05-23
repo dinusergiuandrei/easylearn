@@ -19,7 +19,7 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
 
     @Override
     public Long save(Submission submission) {
-        String insertQuery = "insert into submissions values (?, ?, ?, ?, ?, ?, ?)"; // submission ID is auto_increment
+        String insertQuery = "insert into submissions(userId, problemId, mainSource, language, date, state, score) values (?, ?, ?, ?, ?, ?, ?)"; // submission ID is auto_increment
 
         jdbcTemplate.update(insertQuery,
                 submission.getUserId(),
@@ -33,8 +33,8 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
         Long id = jdbcTemplate.queryForObject("select max(id) from submissions;", Long.class);
 
         for (SourceFile source : submission.getSources()) {
-            jdbcTemplate.update("insert into submissions_code values (?,?,?)",
-                    submission.getId(),
+            jdbcTemplate.update("insert into submission_code(submissionId, fileName, sourceCode) values (?,?,?)",
+                    id,
                     source.getFileName(),
                     source.getContent());
         }
