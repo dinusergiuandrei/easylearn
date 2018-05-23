@@ -1,7 +1,7 @@
 // Navigation Variables
 $breakpoint: 799px;
 $nav-height: 70px;
-$nav-background: #ffffff;
+$nav-background: #ffffff00;
 $nav-font-color: #ffffff;
 .navigation {
   height: $nav-height;
@@ -232,3 +232,6 @@ a {
 
 
 
+.onScroll{
+	background: #ffffff;
+}
