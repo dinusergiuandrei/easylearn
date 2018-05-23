@@ -1,60 +1,45 @@
 @import '../../../../assets/scss/variables/_variables';
-
-
 .footer {
-  display:flex;
+  display: flex;
   align-self: flex-end;
   width: 100%;
   background-color: white;
-  padding:3%;
+  padding: 3%;
 }
 
-.container{
-  margin-left:3%;
-  width:50%;
-  padding:0;
-&__logo {
-  width:40%;
-}
-}
-
-.containerText{
-  float:right;
-  width:40%;
+.container {
+  margin-left: 3%;
+  width: 50%;
+  padding: 0;
+  &__logo {
+    width: 40%;
+  }
 }
 
-.text{
-  float:left;
-  margin-left:5%;
-  ul{
+.containerText {
+  float: right;
+  width: 40%;
+}
+
+.text {
+  float: left;
+  margin-left: 5%;
+  ul {
     text-decoration: none;
   }
-  li{
-    font-size:18px;
+  li {
+    font-size: 18px;
   }
-
 }
 
-.title{
-  font-size:22px;
+.title {
+  font-size: 22px;
   font-weight: 700;
   color: $color-primary;
 }
 
-.linieoblica {
-  display: table-cell;
-  content: "";
-  margin-left: auto;
-  margin-right: 650px;
-  border-top: 1px solid rgb(0, 0, 0);
-  width: 250px;
-  transform: rotate(45deg);
-  transform-origin: 0% 0%;
-  background-color: transparent;
-}
-
-.copyright{
-  font-size:12px;
+.copyright {
+  font-size: 12px;
   font-weight: 700;
-  margin-top:7%;
+  margin-top: 7%;
 }

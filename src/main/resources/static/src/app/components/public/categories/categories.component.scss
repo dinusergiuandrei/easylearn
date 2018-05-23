@@ -2,15 +2,28 @@ div {
   background: rgb(255, 255, 255);
 }
 
-.flex-container {
-  display: flex;
+.container {
+  display: inline-block;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 0px 20px;
+  margin: 0px auto;
 }
 
-.flex-container-item {
+.container-fullwidth {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0px auto;
+  width: 100%;
+}
+
+.bigcontainer {
+  padding: 20px 0px;
+}
+
+.container-item {
   padding: 20px;
   font-size: 30px;
 }
