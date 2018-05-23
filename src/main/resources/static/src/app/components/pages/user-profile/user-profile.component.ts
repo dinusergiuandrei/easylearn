@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../user-details';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,19 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
     
-  public user;
+  user: User ={
+  facebook: 'John.Doe',
+  linkedin: 'John.Doe',
+  github: 'John.Doe',
+  name: 'John Doe',
+  email: 'johndoe@easylearn.ro',
+  phone: '0235 / 192.192'
+  };
 
   constructor() { }
 
   ngOnInit() {
-    this.user ={
-        facebook: 'John.Doe',
-        linkedin: 'John.Doe',
-        github: 'John.Doe',
-        name: 'John Doe',
-        email: 'johndoe@easylearn.ro',
-        phone: '0235 / 192.192'
-        };
   }
 
 }
