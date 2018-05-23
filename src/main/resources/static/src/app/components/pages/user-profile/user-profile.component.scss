@@ -1,3 +1,4 @@
+@import '../../../../assets/scss/variables/_variables';
 .page{
     width: 100%;
     background-color: #ffffff;
@@ -7,26 +8,28 @@
     border-top: solid 0.5px #707070;
 }
 .dashboard-container {
+    display:flex;
+    flex-direction:column;
     width: 60%;
-    height: 381.5px;
+    height: 420px;
     background-color: #ffffff;
     border: solid 0.5px #707070;
-    margin-top: 68.5px;
-    margin-bottom: 50px;
     z-index: 1;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
-    .buttons {
-            display: inline;
-            .user-photo {
+    margin-top: 68.5px;
+    margin-bottom: 50px;
+    .line-one {
+         height: 15%;
+        .user-photo {
                 width: 6vw;
                 min-width: 40px;
                 height: 6vw;
                 min-height: 40px;
                 border: solid 1px #707070;
-                margin-left: 4.5%;
+                margin-left: 8.5%;
                 margin-top: -3vw;
                 z-index: 2;
                 background-color: #ffffff;
@@ -40,41 +43,51 @@
                 text-align: center;
                 font-size: 1.3vw;
                 z-index:2;
-                margin-left: 4.5%;
+                margin-left: 8.5%;
                 margin-top: -1vw;
                 float: left;
             }
-            .button-background {
-                width: 17.5%;
-                height: 35px;
-                background-color: #ffffff;
-                border: solid 0.5px #707070;
-                margin-top: 25px;
-            }
-            #edit {
-                margin-left: 22.7%;
-                font-size: 2.5vh;
-            }
-            #delete {
-                margin-right: 8.5%;
-                font-size: 2.5vh;
-                float: right;
-            }
-            .name {
-                width: 20%;
+        
+    }
+    .line-two {
+        display: inline;
+        height:10%;
+        .name {
+                width: 27%;
                 height: 21px;
                 text-align: center;
                 font-size: 2.5vh;
                 margin-top: -1vw;
+                float: left;
             }
+        .buttons {
+            width: 36%;
+            float: right;
+            display: inline;
+            margin-right: 8.5%;
+            button{
+                width: 45%;
+                height: 30px;
+                background-color: #ffffff;
+                border: solid 0.5px #707070;
+            }
+            #edit {
+                float:left;
+            }
+            #delete { 
+                float: right;
+            }
+            
         }
-    .container {    
-            .stats-container-background {
+        
+    }
+    .line-three {
+        .stats-container-background {
                 width: 36%;
                 height: 252.5px;
                 background-color: #ffffff;
                 border: solid 0.5px #707070;
-                margin-top: 43.8px-21px;
+                margin-top: 20px;
                 .input {
                     margin: auto;
                     display: block;
@@ -104,15 +117,11 @@
                 float:right;
                 margin-right: 8.5%;
             }
+        
     }
 }
 
-@media screen and (max-width:650px){
-    .dashboard-container { width: 80%;}
-    #social, #user { flex-direction: column; }
-    
-    
-}
+
 
 
 
