@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 
 import org.springframework.web.bind.annotation.*;
 import ro.infoiasi.ip.easylearn.user.model.User;
+import ro.infoiasi.ip.easylearn.user.model.UserResponse;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
 
 // dependency injection -- submissionService
@@ -37,9 +38,16 @@ public class UserController {
 
     @RequestMapping(path = "/users/register", method = RequestMethod.POST)
     @ResponseBody
-    @ApiOperation(value = "Register the user, returns 'true' if successfull, else if not")
-    public boolean registerUser(@RequestBody User jsonUser) {
-        return userRepository.register(jsonUser);
+    @ApiOperation(value = "Register the user")
+    public String registerUser(@RequestBody User jsonUser) {
+        // this works perfect
+        // if you have time maybe make the same changes I suggested in ProblemController : /problems/add
+        userRepository.register(jsonUser);
+        Long id = userRepository.getLastId();
+        UserResponse userResponse = new UserResponse(id);
+
+        String response = userResponse.getMessage() + "\n" + userResponse.getUri();
+        return response;
     }
 
     @RequestMapping(path = "/users/registerTest", method = RequestMethod.POST)
@@ -91,7 +99,7 @@ public class UserController {
     
     @RequestMapping(path = "/users/delete/userID={userID}", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "Get the user's total score")
+    @ApiOperation(value = "Delete user with this id")
     public boolean deleteUser(@PathVariable Long id)
     {
     	return userRepository.delete(id);

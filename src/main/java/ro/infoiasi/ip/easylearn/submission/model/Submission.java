@@ -18,7 +18,6 @@ public class Submission {
     private SubmissionState state;
     private List <Run> runs;
     private Date date;
-    private Long score;
 
     public Submission() {
     }
@@ -44,13 +43,6 @@ public class Submission {
         );
     }
 
-    public Long getScore() {
-        return score;
-    }
-
-    public void setScore(Long score) {
-        this.score = score;
-    }
 
     public Long getUserId() {
         return userId;
@@ -137,7 +129,6 @@ public class Submission {
                 ", state=" + state +
                 ", runs=" + runs +
                 ", date=" + date +
-                ", score=" + score +
                 '}';
     }
 }

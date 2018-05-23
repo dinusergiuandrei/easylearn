@@ -8,6 +8,7 @@ public class User {
     private String password;
     private String secretPassword;
     private String secretAnswer;
+    private Long score;
 
     public User() {
     }
@@ -68,4 +69,25 @@ public class User {
         this.secretAnswer = secretAnswer;
     }
 
+    public Long getScore() {
+        return score;
+    }
+
+    public void setScore(Long score) {
+        this.score = score;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", secretPassword='" + secretPassword + '\'' +
+                ", secretAnswer='" + secretAnswer + '\'' +
+                ", score=" + score +
+                '}';
+    }
 }

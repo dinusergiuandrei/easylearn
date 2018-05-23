@@ -74,9 +74,9 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public boolean register(User user){
         if(isAvailableEmail(user.getEmail())){
-            String query = "INSERT INTO users (name, firstName, email, password) VALUES (?,?,?,?)";
-            Object[] params = new Object[] {user.getName() , user.getFirstName(), user.getEmail(),user.getPassword() };
-            int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
+            String query = "INSERT INTO users (name, firstName, email, password, secretAnswer, secretPassword) VALUES (?,?,?,?,?,?)";
+            Object[] params = new Object[] {user.getName() , user.getFirstName(), user.getEmail(),user.getPassword(), user.getSecretAnswer(), user.getSecretPassword() };
+            int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
 
             int row = jdbcTemplate.update(query, params, types);
 
@@ -95,11 +95,12 @@ public class SqlUserRepository implements UserRepository {
            return false;
        }
     }
-    
+
+    // know this works fine, dont change
     @Override
     public Long getLastId()
     {
-    	Long id = jdbcTemplate.queryForObject("SELECT MAX(id) + 1 FROM users", Long.class);
+    	Long id = jdbcTemplate.queryForObject("SELECT MAX(id) FROM users", Long.class);
 
         return id;
     }

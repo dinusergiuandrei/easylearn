@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import ro.infoiasi.ip.easylearn.management.model.Problem;
+import ro.infoiasi.ip.easylearn.management.model.ProblemResponse;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
 
 @RestController
@@ -85,11 +86,20 @@ public class ProblemController {
     @RequestMapping(path = "/problems/add", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Adds a new problem to the database")
-    public boolean addProblem(@RequestBody Problem jsonProblem) 
+    public String addProblem(@RequestBody Problem jsonProblem)
     {
-    	//todo: datele vor fi preluate prin json, mai putin id-ul noii probleme => nu tb sa setam id
-    	jsonProblem.setId(problemRepository.getLastId()+1);
-        return problemRepository.add(jsonProblem);
+    	// TODO: make something similar with SubmissionService (you want to decouple classes more)
+        // what I made here works just fine but code readability sucks
+        // when you get input from user you want to save it into the database -- this is the right thing to do
+        // as you have seen in the course from web technologies , the response has the following structure:
+        // message: ...
+        // uri: ...
+        problemRepository.add(jsonProblem);
+        Long id = problemRepository.getLastId();
+        ProblemResponse problemResponse = new ProblemResponse(id);
+
+        String response = problemResponse.getMessage() + "\n" + problemResponse.getUri();
+        return response;
     }
     
     @RequestMapping(path = "/problems/populate", method = RequestMethod.POST)
