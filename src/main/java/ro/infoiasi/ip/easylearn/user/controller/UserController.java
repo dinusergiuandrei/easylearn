@@ -8,6 +8,8 @@ import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.model.UserResponse;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
 
+import java.util.List;
+
 // dependency injection -- submissionService
 // Source: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
 
@@ -22,6 +24,13 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+    @RequestMapping(path = "/users", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "View the information about the users entered in the system")
+    public List<User> users() {
+        return userRepository.findAll();
+    }
+
     @RequestMapping(path = "/users/id={id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "View the user's information")
@@ -32,8 +41,8 @@ public class UserController {
     @RequestMapping(path = "/users/testNumberOfUsers", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "View the number of users")
-    public String getTotalNumberOfUsers() {
-        return userRepository.getLastId() + " users";
+    public Long getTotalNumberOfUsers() {
+        return userRepository.getLastId();
     }
 
     @RequestMapping(path = "/users/register", method = RequestMethod.POST)
@@ -76,7 +85,9 @@ public class UserController {
     public boolean login() {
         return userRepository.login("dan@man.com", "danmanx");
     }
-    
+
+
+    // this shoudn't be here, you can test anything using Swagger
     @RequestMapping(path = "/users/update/email={email},first_name={first_name},last_name={last_name},password={password}", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation(value = "Update user's data, returns 'true' if successfull, else if not")
@@ -89,15 +100,15 @@ public class UserController {
     	return userRepository.updateData(user);
     }
     
-    @RequestMapping(path = "/users/score/userID={userID}", method = RequestMethod.GET)
+    @RequestMapping(path = "/users/score/id={id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Get the user's total score")
-    public int getScore(@PathVariable Long userId)
+    public int getScore(@PathVariable Long id)
     {
-    	return userRepository.getScore(userId);
+    	return userRepository.getScore(id);
     }
     
-    @RequestMapping(path = "/users/delete/userID={userID}", method = RequestMethod.GET)
+    @RequestMapping(path = "/users/delete/id={id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Delete user with this id")
     public boolean deleteUser(@PathVariable Long id)
