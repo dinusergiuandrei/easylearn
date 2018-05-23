@@ -33,7 +33,7 @@ public class SubmissionService {
         Submission submission = Submission.constructSubmissionFrom(submissionRequest);
 
         Long id = submissionRepository.save(submission);
-
+        System.out.println("Submitted submission: " + id);
 
         // Send the id of the submissionRequest to be processed by the execution module.
         jmsTemplate.convertAndSend("submissionQueue", id);
@@ -54,8 +54,8 @@ public class SubmissionService {
 
     public Submission findById(Long id) {
         Submission submission = submissionRepository.findById(id);
-//        List<Run> runs = runRepository.findBySubmissionId(id);
-//        submission.setRuns(runs);
+        List<Run> runs = runRepository.findBySubmissionId(id);
+        submission.setRuns(runs);
 
         return submission;
     }

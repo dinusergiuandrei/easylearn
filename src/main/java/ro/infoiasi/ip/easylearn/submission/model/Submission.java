@@ -29,10 +29,9 @@ public class Submission {
         this.sources = sources;
         this.state = SubmissionState.Waiting;
         this.mainSource = mainSource;
-        this.date = new Date(); // current date and time
+        this.date = new Date();
         this.runs = new ArrayList <>();
         this.userId = userId;
-        this.score = 0L;
     }
 
     public static Submission constructSubmissionFrom(SubmissionRequest submissionRequest) {
