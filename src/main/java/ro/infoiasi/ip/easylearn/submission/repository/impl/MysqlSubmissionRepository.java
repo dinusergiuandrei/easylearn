@@ -60,10 +60,10 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
         return jdbcTemplate.query(mysql, new SubmissionMapper());
     }
 
-    // TODO: logic for changing submission state
     @Override
     public Long update(Submission submission) {
-
-        return null;
+        String updateQuery = "update submissions set state='" + submission.getState() +"'";
+        jdbcTemplate.update(updateQuery);
+        return submission.getId();
     }
 }

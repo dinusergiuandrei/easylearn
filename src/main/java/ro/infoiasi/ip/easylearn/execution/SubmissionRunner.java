@@ -4,7 +4,10 @@ import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 import ro.infoiasi.ip.easylearn.compiler.*;
 import ro.infoiasi.ip.easylearn.compiler.Compiler;
+import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.management.model.ProblemTest;
+import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
+import ro.infoiasi.ip.easylearn.management.repository.api.TestRepository;
 import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
@@ -22,11 +25,15 @@ import java.util.concurrent.TimeUnit;
 public class SubmissionRunner {
     private SubmissionRepository submissionRepository;
     private RunRepository runRepository;
+    private ProblemRepository problemRepository;
+    private TestRepository testRepository;
     private Compiler compiler;
 
-    public SubmissionRunner(SubmissionRepository submissionRepository, RunRepository runRepository) {
+    public SubmissionRunner(SubmissionRepository submissionRepository, RunRepository runRepository, ProblemRepository problemRepository, TestRepository testRepository) {
         this.submissionRepository = submissionRepository;
         this.runRepository = runRepository;
+        this.problemRepository = problemRepository;
+        this.testRepository = testRepository;
         this.compiler = new SecurityManagerCompiler();
     }
 
@@ -34,31 +41,32 @@ public class SubmissionRunner {
     public void run(Long submissionId) throws Exception {
 
         Submission submission = initializeSubmission(submissionId);
-        String rootDirectoryPath = generateRootDirectoryForSubmission(submissionId).toString();
+        File directory = generateRootDirectoryForSubmission(submissionId);
+        String rootDirectoryPath = directory.toString();
 
+        System.out.println(rootDirectoryPath);
         CompilerParameters compilerParameters = new CompilerParameters(
                 submission.getLanguage(),
                 submission.getSources(),
                 rootDirectoryPath
         );
 
-        System.out.println("Compiling...");
+        System.out.println("Compile paramaters: " + compilerParameters);
+
         Output compileOutput = compiler.compile(compilerParameters);
-        System.out.println("Compiling completed.");
+
+        System.out.println("Compile output: " + compileOutput);
 
         if (compiledWithSuccess(compileOutput)) {
-//            Problem problem = ... . findById(submission.getProblemId());
-//            List<ProblemTest> tests = problemTestRepository.findById(submission.getProblemId());
-            ProblemTest problemTest = new ProblemTest(1L, 1L, "", "Hello World!\n");
-            ProblemTest problemTest2 = new ProblemTest(1L, 1L, "", "Hello World not good");
-            List<ProblemTest> tests = Arrays.asList(problemTest, problemTest2);
+            Problem problem = problemRepository.findById(submission.getProblemId());
+            List<ProblemTest> tests = testRepository.findAllForProblem(problem.getId());
 
             for (ProblemTest test : tests) {
                 Run run = new Run();
                 run.setSubmissionId(submissionId);
                 run.setTestId(test.getId());
-                run.setRunTimeMs(10L); // problem.getRuntime();
-                run.setMemoryBytes(10L); // problem.getMaxMemory();
+                run.setRunTimeMs((long) problem.getTimeLimit());
+                run.setMemoryBytes(problem.getMemoryLimit());
 
                 RunParameters runParameters = new RunParameters(test.getInput(), run.getRunTimeMs(), TimeUnit.MILLISECONDS);
                 System.out.println("Running...");
@@ -71,7 +79,7 @@ public class SubmissionRunner {
                 } else {
                     run.setStatus(RunState.Failed);
                 }
-                //runRepository.save(run);
+                runRepository.save(run);
                 submission.getRuns().add(run);
             }
 
@@ -79,7 +87,7 @@ public class SubmissionRunner {
         } else {
             submission.setState(SubmissionState.CompilationFailed);
         }
-        //submissionRepository.update(submission);
+        submissionRepository.update(submission);
     }
 
     private boolean runWithSuccess(Output runOutput) {
