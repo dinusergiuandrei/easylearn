@@ -19,19 +19,19 @@ public class SqlTestRepository implements TestRepository {
     }
 
      @Override
-     public Long getLastID()
+     public Long getLastId()
      {
          if(jdbcTemplate == null)
              System.out.println("NULL TEMPLATE");
 
-         Long id = jdbcTemplate.queryForObject("SELECT MAX(testID) FROM teste", Long.class);
+         Long id = jdbcTemplate.queryForObject("SELECT MAX(id) FROM tests", Long.class);
 
          return id;
      }
 
     @Override
     public ProblemTest findById(Long id) {
-        List<ProblemTest> test= jdbcTemplate.query("SELECT * FROM teste where testID="+id+"", new BeanPropertyRowMapper<>(ProblemTest.class));
+        List<ProblemTest> test= jdbcTemplate.query("SELECT * FROM tests where id="+id+"", new BeanPropertyRowMapper<>(ProblemTest.class));
         if(test.size()>=1){
             return test.get(0);}
         else return null;
@@ -41,7 +41,7 @@ public class SqlTestRepository implements TestRepository {
     public List<ProblemTest> findAll() {
         try
         {
-            List<ProblemTest> teste= jdbcTemplate.query("SELECT * FROM teste", new BeanPropertyRowMapper<>(ProblemTest.class));
+            List<ProblemTest> teste= jdbcTemplate.query("SELECT * FROM tests", new BeanPropertyRowMapper<>(ProblemTest.class));
             return teste;
         }
         catch(Exception e)
@@ -52,10 +52,10 @@ public class SqlTestRepository implements TestRepository {
     }
     
     @Override
-    public List<ProblemTest> findAllForProblem(int problemID) {
+    public List<ProblemTest> findAllForProblem(Long problemId) {
         try
         {
-            List<ProblemTest> teste= jdbcTemplate.query("SELECT * FROM teste WHERE problemID=" + Integer.toString(problemID), new BeanPropertyRowMapper<>(ProblemTest.class));
+            List<ProblemTest> teste= jdbcTemplate.query("SELECT * FROM test WHERE problemId=" + Long.toString(problemId), new BeanPropertyRowMapper<>(ProblemTest.class));
             return teste;
         }
         catch(Exception e)

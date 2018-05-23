@@ -19,12 +19,12 @@ public class SubmissionMapper implements RowMapper <Submission> {
     @Override
     public Submission mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Submission submission = new Submission();
-        submission.setId(resultSet.getLong("submissionID"));
-        submission.setUserId(resultSet.getLong("userID"));
+        submission.setId(resultSet.getLong("id"));
+        submission.setUserId(resultSet.getLong("userId"));
         submission.setProblemId(resultSet.getLong("problemId"));
-        submission.setMainSource(resultSet.getString("main_file"));
-        submission.setLanguage(Language.valueOf(resultSet.getString("lang")));
-        submission.setDate(resultSet.getDate("submitted_at"));
+        submission.setMainSource(resultSet.getString("mainSource"));
+        submission.setLanguage(Language.valueOf(resultSet.getString("language")));
+        submission.setDate(resultSet.getDate("date"));
         submission.setState(SubmissionState.valueOf(resultSet.getString("state")));
 
         return submission;

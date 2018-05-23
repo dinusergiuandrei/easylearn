@@ -1,4 +1,4 @@
-Users(userID number, nume varchar, prenume varchar, email varchar, parola varchar)
+Users(userId number, nume varchar, prenume varchar, email varchar, parola varchar)
 
 Categorii(catID number, nume varchar)
 

@@ -15,82 +15,85 @@ import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
 @Api(value = "users", description = "Operations pertaining to the manipulations of users")
 public class UserController {
 
-    UserRepository u;
+    UserRepository userRepository;
 
-    public UserController(UserRepository u) {
-        this.u = u;
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @RequestMapping(path = "/users/id={id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "View the user's information")
     public User submissions(@PathVariable Long id) {
-        return u.findById(id);
+        return userRepository.findById(id);
     }
 
     @RequestMapping(path = "/users/testNumberOfUsers", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "View the number of users")
     public String getTotalNumberOfUsers() {
-        return u.getLastId() + " users";
+        return userRepository.getLastId() + " users";
     }
 
-    @RequestMapping(path = "/users/register", method = RequestMethod.GET)
+    @RequestMapping(path = "/users/register", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Register the user, returns 'true' if successfull, else if not")
     public boolean registerUser(@RequestBody User jsonUser) {
-        return u.register(jsonUser);
+        return userRepository.register(jsonUser);
     }
 
-    @RequestMapping(path = "/users/registerTest", method = RequestMethod.GET)
+    @RequestMapping(path = "/users/registerTest", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Register the user, returns 'true' if successfull, else if not")
     public boolean registerUser() {
         User user = new User();
-        user.setParola("sa5ke");
-        user.setNume("Ionescu");
-        user.setPrenume("Vlad");
+        user.setPassword("sa5ke");
+        user.setName("Ionescu");
+        user.setFirstName("Vlad");
         user.setEmail("iones_vls@mymail.com");
-        user.setUserID(u.getLastId());
-        return u.register(user);
+        user.setId(userRepository.getLastId());
+        return userRepository.register(user);
     }
 
-    @RequestMapping(path = "/users/login/email={email};password={password}", method = RequestMethod.GET)
+    @RequestMapping(path = "/users/login/email={email};password={password}", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Login using the provided credentials, returns 'true' if successfull, else if not")
     public boolean login(@PathVariable String email, @PathVariable String password) {
-        return u.login(email, password);
+        return userRepository.login(email, password);
     }
 
     @RequestMapping(path = "/users/loginTest", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Login using the provided credentials, returns 'true' if successfull, else if not")
     public boolean login() {
-        return u.login("dan@man.com", "danmanx");
+        return userRepository.login("dan@man.com", "danmanx");
     }
     
-    @RequestMapping(path = "/users/update/email={email},first_name={first_name},last_name={last_name},password={password}", method = RequestMethod.GET)
+    @RequestMapping(path = "/users/update/email={email},first_name={first_name},last_name={last_name},password={password}", method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation(value = "Update user's data, returns 'true' if successfull, else if not")
-    public boolean updateData(@PathVariable String email, @PathVariable String first_name, @PathVariable String last_name, @PathVariable String password) {
-        User usr = new User();
-        usr.setEmail(email); usr.setPrenume(first_name); usr.setNume(last_name); usr.setParola(password); usr.setUserID("-1");
-    	return u.updateData(usr);
+    public boolean updateData(@PathVariable String email, @PathVariable String firstName, @PathVariable String name, @PathVariable String password) {
+        User user = new User();
+        user.setEmail(email);
+        user.setFirstName(firstName);
+        user.setName(name);
+        user.setPassword(password);
+    	return userRepository.updateData(user);
     }
     
     @RequestMapping(path = "/users/score/userID={userID}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Get the user's total score")
-    public int getScore(@PathVariable String userID)
+    public int getScore(@PathVariable Long userId)
     {
-    	return u.getScore(userID);
+    	return userRepository.getScore(userId);
     }
     
     @RequestMapping(path = "/users/delete/userID={userID}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Get the user's total score")
-    public boolean deleteUser(@PathVariable String userID)
+    public boolean deleteUser(@PathVariable Long id)
     {
-    	return u.delete(userID);
+    	return userRepository.delete(id);
     }
 }

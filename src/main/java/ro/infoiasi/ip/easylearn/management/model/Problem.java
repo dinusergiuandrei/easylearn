@@ -1,212 +1,205 @@
 package ro.infoiasi.ip.easylearn.management.model;
 
-//todo: translate in english
-// TODO: why authorId had String type?
 public class Problem {
-
-    private long problemID;
-    private String authorID;
-    private String titlu;
-    private String descriere;
-    private String cerinta;
-    private String date_intrare;
-    private String date_iesire;
-    private String restrictii;
-    private int dificultate;
-    private long categorie;
-    private String tip_date;
-    private String exemplu_intrare;
-    private String exemplu_iesire;
-    private String input_file;
-    private String output_file;
-    private long max_memory;
-    private double max_time;
+    private Long id;
+    private Long userId;
+    private Long categoryId;
+    private String title;
+    private String description;
+    private String requirement;
+    private String input;
+    private String output;
+    private String restrictions;
+    private int difficulty;
+    private String dataType;
+    private String inputExample;
+    private String outputExample;
+    private String inputFile;
+    private String outputFile;
+    private long memoryLimit;
+    private double timeLimit;
 
     public Problem() {};
-    
-    public Problem(long problemID, String authorID, String titlu, String descriere, String cerinta, String date_intrare,
-                   String date_iesire, String restrictii, int dificultate, long categorie, String tip_date,
-                   String exemplu_intrare, String exemplu_iesire, String input_file, String output_file, long max_memory,
-                   double max_time) {
 
-        this.problemID = problemID;
-        this.authorID = authorID;
-        this.titlu = titlu;
-        this.descriere = descriere;
-        this.cerinta = cerinta;
-        this.date_intrare = date_intrare;
-        this.date_iesire = date_iesire;
-        this.restrictii = restrictii;
-        this.dificultate = dificultate;
-        this.categorie = categorie;
-        this.tip_date = tip_date;
-        this.exemplu_intrare = exemplu_intrare;
-        this.exemplu_iesire = exemplu_iesire;
-        this.input_file = input_file;
-        this.output_file = output_file;
-        this.max_memory = max_memory;
-        this.max_time = max_time;
+    public Problem(Long id, Long userId, Long categoryId, String title, String description, String requirement, String input, String output, String restrictions, int difficulty, String dataType, String inputExample, String outputExample, String inputFile, String outputFile, long memoryLimit, double timeLimit) {
+        this.id = id;
+        this.userId = userId;
+        this.categoryId = categoryId;
+        this.title = title;
+        this.description = description;
+        this.requirement = requirement;
+        this.input = input;
+        this.output = output;
+        this.restrictions = restrictions;
+        this.difficulty = difficulty;
+        this.dataType = dataType;
+        this.inputExample = inputExample;
+        this.outputExample = outputExample;
+        this.inputFile = inputFile;
+        this.outputFile = outputFile;
+        this.memoryLimit = memoryLimit;
+        this.timeLimit = timeLimit;
     }
 
-    public long getProblemID() {
-        return problemID;
+    public Long getId() {
+        return id;
     }
 
-    public void setProblemID(long problemID) {
-        this.problemID = problemID;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getAuthorID() {
-        return authorID;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setAuthorID(String authorID) {
-        this.authorID = authorID;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public String getTitlu() {
-        return titlu;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
-    public void setTitlu(String titlu) {
-        this.titlu = titlu;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getDescriere() {
-        return descriere;
+    public String getTitle() {
+        return title;
     }
 
-    public void setDescriere(String descriere) {
-        this.descriere = descriere;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getCerinta() {
-        return cerinta;
+    public String getDescription() {
+        return description;
     }
 
-    public void setCerinta(String cerinta) {
-        this.cerinta = cerinta;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getDate_intrare() {
-        return date_intrare;
+    public String getRequirement() {
+        return requirement;
     }
 
-    public void setDate_intrare(String date_intrare) {
-        this.date_intrare = date_intrare;
+    public void setRequirement(String requirement) {
+        this.requirement = requirement;
     }
 
-    public String getDate_iesire() {
-        return date_iesire;
+    public String getInput() {
+        return input;
     }
 
-    public void setDate_iesire(String date_iesire) {
-        this.date_iesire = date_iesire;
+    public void setInput(String input) {
+        this.input = input;
     }
 
-    public String getRestrictii() {
-        return restrictii;
+    public String getOutput() {
+        return output;
     }
 
-    public void setRestrictii(String restrictii) {
-        this.restrictii = restrictii;
+    public void setOutput(String output) {
+        this.output = output;
     }
 
-    public int getDificultate() {
-        return dificultate;
+    public String getRestrictions() {
+        return restrictions;
     }
 
-    public void setDificultate(int dificultate) {
-        this.dificultate = dificultate;
+    public void setRestrictions(String restrictions) {
+        this.restrictions = restrictions;
     }
 
-    public long getCategorie() {
-        return categorie;
+    public int getDifficulty() {
+        return difficulty;
     }
 
-    public void setCategorie(long categorie) {
-        this.categorie = categorie;
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
-    public String getTip_date() {
-        return tip_date;
+    public String getDataType() {
+        return dataType;
     }
 
-    public void setTip_date(String tip_date) {
-        this.tip_date = tip_date;
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
     }
 
-    public String getExemplu_intrare() {
-        return exemplu_intrare;
+    public String getInputExample() {
+        return inputExample;
     }
 
-    public void setExemplu_intrare(String exemplu_intrare) {
-        this.exemplu_intrare = exemplu_intrare;
+    public void setInputExample(String inputExample) {
+        this.inputExample = inputExample;
     }
 
-    public String getExemplu_iesire() {
-        return exemplu_iesire;
+    public String getOutputExample() {
+        return outputExample;
     }
 
-    public void setExemplu_iesire(String exemplu_iesire) {
-        this.exemplu_iesire = exemplu_iesire;
+    public void setOutputExample(String outputExample) {
+        this.outputExample = outputExample;
     }
 
-    public String getInput_file() {
-        return input_file;
+    public String getInputFile() {
+        return inputFile;
     }
 
-    public void setInput_file(String input_file) {
-        this.input_file = input_file;
+    public void setInputFile(String inputFile) {
+        this.inputFile = inputFile;
     }
 
-    public String getOutput_file() {
-        return output_file;
+    public String getOutputFile() {
+        return outputFile;
     }
 
-    public void setOutput_file(String output_file) {
-        this.output_file = output_file;
+    public void setOutputFile(String outputFile) {
+        this.outputFile = outputFile;
     }
 
-    public long getMax_memory() {
-        return max_memory;
+    public long getMemoryLimit() {
+        return memoryLimit;
     }
 
-    public void setMax_memory(long max_memory) {
-        this.max_memory = max_memory;
+    public void setMemoryLimit(long memoryLimit) {
+        this.memoryLimit = memoryLimit;
     }
 
-    public double getMax_time() {
-        return max_time;
+    public double getTimeLimit() {
+        return timeLimit;
     }
 
-    public void setMax_time(double max_time) {
-        this.max_time = max_time;
+    public void setTimeLimit(double timeLimit) {
+        this.timeLimit = timeLimit;
     }
 
     public String toValuesString()
     {
-    	StringBuilder S = new StringBuilder(1000);
-        
-    	S.append(Long.toString(problemID)); S.append(",");
-    	S.append(authorID); S.append(",");
-    	S.append("'"); S.append(titlu); S.append("'"); S.append(",");
-    	S.append("'"); S.append(descriere); S.append("'"); S.append(",");
-    	S.append("'"); S.append(cerinta); S.append("'"); S.append(",");
-    	S.append("'"); S.append(date_intrare); S.append("'"); S.append(",");
-    	S.append("'"); S.append(date_iesire); S.append("'"); S.append(",");
-    	S.append("'"); S.append(restrictii); S.append("'"); S.append(",");
-    	S.append(Long.toString(dificultate)); S.append(",");
-    	S.append(Long.toString(categorie)); S.append(",");
-    	S.append("'"); S.append(tip_date); S.append("'"); S.append(",");
-    	S.append("'"); S.append(exemplu_intrare); S.append("'"); S.append(",");
-    	S.append("'"); S.append(exemplu_iesire); S.append("'"); S.append(",");
-    	S.append("'"); S.append(input_file); S.append("'"); S.append(",");
-    	S.append("'"); S.append(output_file); S.append("'"); S.append(",");
-    	S.append(Long.toString(max_memory)); S.append(",");
-    	S.append(Double.toString(max_memory));
-    	
-    	return S.toString();
+    	StringBuilder stringBuilder = new StringBuilder(1000);
+
+    	stringBuilder.append(Long.toString(id)); stringBuilder.append(",");
+    	stringBuilder.append(Long.toString(userId)); stringBuilder.append(",");
+        stringBuilder.append(Long.toString(categoryId)); stringBuilder.append(",");
+        stringBuilder.append("'"); stringBuilder.append(title); stringBuilder.append("'"); stringBuilder.append(",");
+        stringBuilder.append("'"); stringBuilder.append(description); stringBuilder.append("'"); stringBuilder.append(",");
+        stringBuilder.append("'"); stringBuilder.append(requirement); stringBuilder.append("'"); stringBuilder.append(",");
+        stringBuilder.append("'"); stringBuilder.append(input); stringBuilder.append("'"); stringBuilder.append(",");
+        stringBuilder.append("'"); stringBuilder.append(output); stringBuilder.append("'"); stringBuilder.append(",");
+        stringBuilder.append("'"); stringBuilder.append(restrictions); stringBuilder.append("'"); stringBuilder.append(",");
+        stringBuilder.append(Long.toString(difficulty)); stringBuilder.append(",");
+    	stringBuilder.append("'"); stringBuilder.append(dataType); stringBuilder.append("'"); stringBuilder.append(",");
+    	stringBuilder.append("'"); stringBuilder.append(inputExample); stringBuilder.append("'"); stringBuilder.append(",");
+    	stringBuilder.append("'"); stringBuilder.append(outputExample); stringBuilder.append("'"); stringBuilder.append(",");
+    	stringBuilder.append("'"); stringBuilder.append(inputFile); stringBuilder.append("'"); stringBuilder.append(",");
+    	stringBuilder.append("'"); stringBuilder.append(outputExample); stringBuilder.append("'"); stringBuilder.append(",");
+    	stringBuilder.append(Long.toString(memoryLimit)); stringBuilder.append(",");
+    	stringBuilder.append(Double.toString(timeLimit));
+
+    	return stringBuilder.toString();
     }
 }
 

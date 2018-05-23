@@ -1,77 +1,67 @@
-<div class="aboutus-body">
-  <div class="aboutus-body-header">
-    <div class="aboutus-body-header-title">
-      Have you heard about easylearn?
-    </div>
-    <div class="aboutus-body-header-subtitle">
-      Meet the people behind the largest IT learning platform and find more about our mission
+<section class="container header">
+  <h1>Have you heard about easylearn?</h1>
+  <h3>Meet the people behind the largest IT learning platform and find more about our mission</h3>
+</section>
+
+<section class="container about">
+  <div class="about-card">
+    <h3>About Easylearn</h3>
+    <p>
+      Easylearn is an education company. But not one in the way you might think. We're committed to building the best learning
+      experience inside and out, making Easylearn the best place for our team to learn, teach, and create the online learning
+      experience of the future. Education is old. The current public school system in the US dates back to the 19th century
+      and wasn't designed to scale the way it has. Lots of companies are working to "disrupt" education by changing the way
+      things work in the classroom and by bringing the classroom online.
+    </p>
+  </div>
+  <div class="about-card">
+    <h3>Our mission</h3>
+    <p>
+      We're not one of those companies. We are rethinking education from the bottom up. The web has rethought nearly everything
+      - commerce, social networking, healthcare, and more. We are building the education the world needs - the first truly
+      net native education. We take more cues from Facebook and Zynga in creating an engaging educational experience than
+      we do from the classroom. Education is broken. Come help us build the education the world deserves.
+    </p>
+  </div>
+</section>
+
+
+
+<section class="container team">
+  <h3>Our team</h3>
+  <div class="aboutus-body-team-members">
+    <div class="aboutus-body-team-members-person" *ngFor="let member of team.members">
+      <img [src]="member.photo" [alt]="member.name">
+      <h5>{{member.name}}</h5>
+      <h6>{{member.role}}</h6>
     </div>
   </div>
-  <div class="aboutus-body-content">
-    <div class="aboutus-body-content-abouteasylearn">
-      <div class="aboutus-body-content-abouteasylearn-title">
-        About Easylearn
-      </div>
-      <div class="aboutus-body-content-abouteasylearn-content">
-        Easylearn is an education company. But not one in the way you might think. We're committed to building the best learning
-        experience inside and out, making Easylearn the best place for our team to learn, teach, and create the online learning
-        experience of the future. Education is old. The current public school system in the US dates back to the 19th century
-        and wasn't designed to scale the way it has. Lots of companies are working to "disrupt" education by changing the
-        way things work in the classroom and by bringing the classroom online.
-      </div>
+</section>
+
+
+<section class="container tech">
+  <h3>Used technologies</h3>
+  <div class="aboutus-body-technologies-content">
+    <div class="aboutus-body-technologies-content-small">
+      <img src="../../../../assets/images/technologies/html.png">
     </div>
-    <div class="aboutus-body-content-ourmission">
-      <div class="aboutus-body-content-ourmission-title">
-        Our mission
-      </div>
-      <div class="aboutus-body-content-ourmission-content">
-        We're not one of those companies. We are rethinking education from the bottom up. The web has rethought nearly everything
-        - commerce, social networking, healthcare, and more. We are building the education the world needs - the first truly
-        net native education. We take more cues from Facebook and Zynga in creating an engaging educational experience than
-        we do from the classroom. Education is broken. Come help us build the education the world deserves.
-      </div>
+    <div class="aboutus-body-technologies-content-small">
+      <img src="../../../../assets/images/technologies/css.png">
     </div>
-  </div>
-  <div class="aboutus-body-team">
-    <div class="aboutus-body-team-title">
-      Our team
+    <div class="aboutus-body-technologies-content-small">
+      <img src="../../../../assets/images/technologies/sass.png">
     </div>
-    <div class="aboutus-body-team-members">
-      <div class="aboutus-body-team-members-person" *ngFor="let member of team.members">
-        <div class="aboutus-body-team-members-person-photo">
-          <img [src]="member.photo">
-        </div>
-        <div class="aboutus-body-team-members-person-name">{{member.name}}</div>
-        <div class="aboutus-body-team-members-person-role">{{member.role}}</div>
-      </div>
+    <div class="aboutus-body-technologies-content-small">
+      <img src="../../../../assets/images/technologies/js.png">
+    </div>
+    <div class="aboutus-body-technologies-content-small">
+      <img src="../../../../assets/images/technologies/angular.png">
+    </div>
+    <div class="aboutus-body-technologies-content-big">
+      <img src="../../../../assets/images/technologies/spring.png">
+    </div>
+    <div class="aboutus-body-technologies-content-small">
+      <img src="../../../../assets/images/technologies/java.png">
     </div>
   </div>
-  <div class="aboutus-body-technologies">
-    <div class="aboutus-body-technologies-title">
-      Used technologies
-    </div>
-    <div class="aboutus-body-technologies-content">
-      <div class="aboutus-body-technologies-content-small">
-        <img src="../../../../assets/images/technologies/html.png">
-      </div>
-      <div class="aboutus-body-technologies-content-small">
-        <img src="../../../../assets/images/technologies/css.png">
-      </div>
-      <div class="aboutus-body-technologies-content-small">
-        <img src="../../../../assets/images/technologies/sass.png">
-      </div>
-      <div class="aboutus-body-technologies-content-small">
-        <img src="../../../../assets/images/technologies/js.png">
-      </div>
-      <div class="aboutus-body-technologies-content-small">
-        <img src="../../../../assets/images/technologies/angular.png">
-      </div>
-      <div class="aboutus-body-technologies-content-big">
-        <img src="../../../../assets/images/technologies/spring.png">
-      </div>
-      <div class="aboutus-body-technologies-content-small">
-        <img src="../../../../assets/images/technologies/java.png">
-      </div>
-    </div>
-  </div>
-</div>
+</section>

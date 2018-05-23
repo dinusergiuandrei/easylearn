@@ -1,72 +1,47 @@
 @import '../../../../assets/scss/variables/_variables';
 
+section {
+  &:nth-child(odd) { background-color: $color-container; }
+}
+
+h3 { font-weight: 300; }
+
+.header {
+  @extend %flex-column;
+  align-items: center;
+  h1, h3 { text-align: center; }
+  h1 { font-weight: bold; }
+  h3 { color: $color-text; }
+}
+
+.about {
+  @extend %flex-row;
+  justify-content: center;
+  &-card {
+    min-width: 250px;
+    max-width: 400px;
+    @extend %flex-column;
+    flex-grow: 1;
+    &:not(:last-of-type) { margin-right: $container-spacing; }
+  }
+}
+
+.team {
+  h4, h6 {}
+}
+
+@media (max-width: 767px) {
+  .about {
+    flex-direction: column;
+    &-card { margin: 0; }
+  }
+}
+
+
 .aboutus-body {
   width: 100%;
   color: $color-text;
   text-align: center;
-  cursor: default;
-  user-select: none;
-  &-header {
-    border-bottom: solid 0.5px #707070;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    &-title {
-      font-weight: bold;
-      font-size: $s36px;
-    }
-    &-subtitle {
-      max-width: 50%;
-      margin: 0 auto;
-      font-weight: lighter;
-      font-size: $s24px;
-    }
-  }
-  &-content {
-    border-bottom: solid 0.5px #707070;
-    padding-top: 80px;
-    padding-bottom: 80px;
-    &-abouteasylearn {
-      overflow: hidden;
-      display: inline-block;
-      width: 30%;
-      min-width: 300px;
-      height: 400px;
-      text-align: left;
-      margin-right: 100px;
-      margin-top: 0px;
-      &-title {
-        font-weight: bold;
-        font-size: $s28px;
-      }
-    }
-    &-ourmission {
-      overflow: hidden;
-      display: inline-block;
-      width: 30%;
-      min-width: 300px;
-      height: 400px;
-      text-align: left;
-      margin-top: 0px;
-      &-title {
-        font-weight: bold;
-        font-size: $s28px;
-      }
-    }
-    @media screen and (max-width: 699px){
-        &-left{
-            width: 90%;
-            height: auto;
-            margin: 0 auto;
-            margin-bottom: 20px;
-        }
-        &-right{
-            min-width: 90%;
-            height: auto;
-            margin: 0 auto;
-            margin-bottom: 20px;
-        }
-    }
-  }
   &-team {
     border-bottom: solid 0.5px #707070;
     padding-top: 80px;
@@ -140,4 +115,3 @@
     }
   }
 }
-

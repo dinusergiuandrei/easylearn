@@ -19,7 +19,7 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
 
     @Override
     public Long save(Submission submission) {
-        String insertQuery = "insert into submissions values (NULL, ?, ?, ?, ?, ?, ?)"; // submission ID is auto_increment
+        String insertQuery = "insert into submissions(userId, problemId, mainSource, language, date, state) values (?, ?, ?, ?, ?, ?)"; // submission ID is auto_increment
 
         jdbcTemplate.update(insertQuery,
                 submission.getUserId(),
@@ -29,30 +29,21 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
                 new SimpleDateFormat("YYYY-MM-dd HH-MM-ss").format(submission.getDate()),
                 submission.getState().toString());
 
-        Long id = jdbcTemplate.queryForObject("select max(submissionID) from submissions;", Long.class);
-
-        if (id == null) id = 0L; // or throw exception ???
-        submission.setId(id);
-
-        // submission.getRuns()); when we save a submission we must not have RUNS
+        Long id = jdbcTemplate.queryForObject("select max(id) from submissions;", Long.class);
 
         for (SourceFile source : submission.getSources()) {
-            jdbcTemplate.update("insert into submissionsCode values (NULL, ?,?,?)",
-                    submission.getId(),
+            jdbcTemplate.update("insert into submission_code(submissionId, fileName, sourceCode) values (?,?,?)",
+                    id,
                     source.getFileName(),
                     source.getContent());
-
-            Long s_id = jdbcTemplate.queryForObject("select max(id) from submissionsCode;", Long.class);
-            if (s_id == null) s_id = 0L; // or throw exception ???
-            source.setId(s_id);
         }
 
-        return submission.getId();
+        return id;
     }
 
     @Override
     public Submission findById(Long id) {
-        String mysql = "SELECT * FROM submissions where submissionID='" + id + "'";
+        String mysql = "SELECT * FROM submissions where id='" + id + "'";
         List<Submission> submission = jdbcTemplate.query(mysql, new SubmissionMapper());
         return submission.get(0);
     }
@@ -69,10 +60,10 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
         return jdbcTemplate.query(mysql, new SubmissionMapper());
     }
 
-    // this is for changing submission state
     @Override
     public Long update(Submission submission) {
-
-        return null;
+        String updateQuery = "update submissions set state='" + submission.getState() +"'";
+        jdbcTemplate.update(updateQuery);
+        return submission.getId();
     }
 }

@@ -20,7 +20,7 @@ public class SqlSubmissionTestRepository implements SubmissionTestRepository {
 
     @Override
     public SubmissionTest findById(Long id) {
-        List<SubmissionTest> test= jdbcTemplate.query("SELECT * FROM submissiontests where id="+id+"", new BeanPropertyRowMapper<>(SubmissionTest.class));
+        List<SubmissionTest> test= jdbcTemplate.query("SELECT * FROM submission_tests where id="+id+"", new BeanPropertyRowMapper<>(SubmissionTest.class));
         if(test.size()>=1){
             return test.get(0);}
         else return null;
@@ -30,7 +30,7 @@ public class SqlSubmissionTestRepository implements SubmissionTestRepository {
     public List<SubmissionTest> findAll() {
         try
         {
-            List<SubmissionTest> teste= jdbcTemplate.query("SELECT * FROM submissiontests", new BeanPropertyRowMapper<>(SubmissionTest.class));
+            List<SubmissionTest> teste= jdbcTemplate.query("SELECT * FROM submission_tests", new BeanPropertyRowMapper<>(SubmissionTest.class));
             return teste;
         }
         catch(Exception e)
@@ -41,12 +41,11 @@ public class SqlSubmissionTestRepository implements SubmissionTestRepository {
     }
     
     @Override
-    public List<SubmissionTest> findAllForSubmission(int submissionID) 
-    {
+    public List<SubmissionTest> findAllForSubmission(int submissionId)  {
         try
         {
-            List<SubmissionTest> teste= jdbcTemplate.query("SELECT * FROM submissiontests WHERE submissionID=" + Integer.toString(submissionID), new BeanPropertyRowMapper<>(SubmissionTest.class));
-            return teste;
+            List<SubmissionTest> tests= jdbcTemplate.query("SELECT * FROM submission_tests WHERE submissionId=" + Integer.toString(submissionId), new BeanPropertyRowMapper<>(SubmissionTest.class));
+            return tests;
         }
         catch(Exception e)
         {
@@ -56,12 +55,12 @@ public class SqlSubmissionTestRepository implements SubmissionTestRepository {
     }
 
     @Override
-    public List<SubmissionTest> findTestsForSubmissionByStatus(int submissionID, String status)
+    public List<SubmissionTest> findTestsForSubmissionByStatus(int submissionId, String status)
     {
         try
         {
-            List<SubmissionTest> teste= jdbcTemplate.query("SELECT * FROM submissiontests WHERE submissionID=" + Integer.toString(submissionID) + " and status='" + status + "'", new BeanPropertyRowMapper<>(SubmissionTest.class));
-            return teste;
+            List<SubmissionTest> tests= jdbcTemplate.query("SELECT * FROM submission_tests WHERE submissionId=" + Integer.toString(submissionId) + " and status='" + status + "'", new BeanPropertyRowMapper<>(SubmissionTest.class));
+            return tests;
         }
         catch(Exception e)
         {

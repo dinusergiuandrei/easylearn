@@ -15,183 +15,183 @@ import static org.junit.Assert.*;
 public class TestProblem {
 
     @Test
-    public void testSetter_setProblemID() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setProblemID(2018);
+    public void testSetter_setProblemId() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setId(2017L);
 
-        final Field field = testProblem.getClass().getDeclaredField("problemID");
+        final Field field = problem.getClass().getDeclaredField("id");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), (long)2018);
+        assertEquals("Fields didn't match", field.get(problem), 2017L);
     }
 
     @Test
-    public void testSetter_setAuthorID() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setAuthorID("testAuthorId");
+    public void testSetter_setUserId() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setUserId(123L);
 
-        final Field field = testProblem.getClass().getDeclaredField("authorID");
+        final Field field = problem.getClass().getDeclaredField("userId");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "testAuthorId");
+        assertEquals("Fields didn't match", field.get(problem), 123L);
     }
 
     @Test
-    public void testSetter_setTitlu() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setTitlu("titluTest");
+    public void testSetter_setTitle() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setTitle("titluTest");
 
-        final Field field = testProblem.getClass().getDeclaredField("titlu");
+        final Field field = problem.getClass().getDeclaredField("title");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "titluTest");
+        assertEquals("Fields didn't match", field.get(problem), "titluTest");
     }
 
     @Test
-    public void testSetter_setDescriere() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setDescriere("This is a description");
+    public void testSetter_setDescription() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setDescription("This is a description");
 
-        final Field field = testProblem.getClass().getDeclaredField("descriere");
+        final Field field = problem.getClass().getDeclaredField("description");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "This is a description");
+        assertEquals("Fields didn't match", field.get(problem), "This is a description");
     }
 
     @Test
-    public void testSetter_setCerinta() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setCerinta("This is a problem you should know how to solve.");
+    public void testSetter_setRequirement() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setRequirement("This is a problem you should know how to solve.");
 
-        final Field field = testProblem.getClass().getDeclaredField("cerinta");
+        final Field field = problem.getClass().getDeclaredField("requirement");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "This is a problem you should know how to solve.");
+        assertEquals("Fields didn't match", field.get(problem), "This is a problem you should know how to solve.");
     }
 
     @Test
-    public void testSetter_setDate_intrare() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setDate_intrare("n m k");
+    public void testSetter_setInput() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setInput("n m k");
 
-        final Field field = testProblem.getClass().getDeclaredField("date_intrare");
+        final Field field = problem.getClass().getDeclaredField("input");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "n m k");
+        assertEquals("Fields didn't match", field.get(problem), "n m k");
     }
 
     @Test
-    public void testSetter_setDate_iesire() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setDate_iesire("123 5");
+    public void testSetter_setOutput() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setOutput("123 5");
 
-        final Field field = testProblem.getClass().getDeclaredField("date_iesire");
+        final Field field = problem.getClass().getDeclaredField("output");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "123 5");
+        assertEquals("Fields didn't match", field.get(problem), "123 5");
     }
 
     @Test
-    public void testSetter_setRestrictii() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setRestrictii("1 < n < 10000\n3 < m < 10000\n1 < k < 100");
+    public void testSetter_setRestrictions() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setRestrictions("1 < n < 10000\n3 < m < 10000\n1 < k < 100");
 
-        final Field field = testProblem.getClass().getDeclaredField("restrictii");
+        final Field field = problem.getClass().getDeclaredField("restrictions");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "1 < n < 10000\n3 < m < 10000\n1 < k < 100");
+        assertEquals("Fields didn't match", field.get(problem), "1 < n < 10000\n3 < m < 10000\n1 < k < 100");
     }
 
     @Test
-    public void testSetter_setDificultate() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setDificultate(6);
+    public void testSetter_setDifficulty() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setDifficulty(6);
 
-        final Field field = testProblem.getClass().getDeclaredField("dificultate");
+        final Field field = problem.getClass().getDeclaredField("difficulty");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), (int)6);
+        assertEquals("Fields didn't match", field.get(problem), (int)6);
     }
 
     @Test
-    public void testSetter_setCategorie() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setCategorie(2);
+    public void testSetter_setCategoryId() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setCategoryId(2L);
 
-        final Field field = testProblem.getClass().getDeclaredField("categorie");
+        final Field field = problem.getClass().getDeclaredField("categoryId");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), (long)2);
+        assertEquals("Fields didn't match", field.get(problem), (long)2);
     }
 
     @Test
-    public void testSetter_setTip_date() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setTip_date("tastatura");
+    public void testSetter_setDataType() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setDataType("tastatura");
 
-        final Field field = testProblem.getClass().getDeclaredField("tip_date");
+        final Field field = problem.getClass().getDeclaredField("dataType");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "tastatura");
+        assertEquals("Fields didn't match", field.get(problem), "tastatura");
     }
 
     @Test
-    public void testSetter_setExemplu_intrare() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setExemplu_intrare("200 38 5");
+    public void testSetter_setInputExample() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setInputExample("200 38 5");
 
-        final Field field = testProblem.getClass().getDeclaredField("exemplu_intrare");
+        final Field field = problem.getClass().getDeclaredField("inputExample");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "200 38 5");
+        assertEquals("Fields didn't match", field.get(problem), "200 38 5");
     }
 
     @Test
-    public void testSetter_setExemplu_iesire() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setExemplu_iesire("26");
+    public void testSetter_setOutputExample() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setOutputExample("26");
 
-        final Field field = testProblem.getClass().getDeclaredField("exemplu_iesire");
+        final Field field = problem.getClass().getDeclaredField("outputExample");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "26");
+        assertEquals("Fields didn't match", field.get(problem), "26");
     }
 
     @Test
-    public void testSetter_setInput_file() throws NoSuchFieldException, IllegalAccessException {
+    public void testSetter_setInputFile() throws NoSuchFieldException, IllegalAccessException {
         final Problem testProblem = new Problem();
-        testProblem.setInput_file("");
+        testProblem.setInputFile("");
 
-        final Field field = testProblem.getClass().getDeclaredField("input_file");
+        final Field field = testProblem.getClass().getDeclaredField("inputFile");
         field.setAccessible(true);
         assertEquals("Fields didn't match", field.get(testProblem), "");
     }
 
     @Test
-    public void testSetter_setOutput_file() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setOutput_file("raspuns.out");
+    public void testSetter_setOutputFile() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setOutputFile("raspuns.out");
 
-        final Field field = testProblem.getClass().getDeclaredField("output_file");
+        final Field field = problem.getClass().getDeclaredField("outputFile");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), "raspuns.out");
+        assertEquals("Fields didn't match", field.get(problem), "raspuns.out");
     }
 
     @Test
-    public void testSetter_setMax_memory() throws NoSuchFieldException, IllegalAccessException {
+    public void testSetter_setMemoryLimit() throws NoSuchFieldException, IllegalAccessException {
         final Problem testProblem = new Problem();
-        testProblem.setMax_memory(20);
+        testProblem.setMemoryLimit(20);
 
-        final Field field = testProblem.getClass().getDeclaredField("max_memory");
+        final Field field = testProblem.getClass().getDeclaredField("memoryLimit");
         field.setAccessible(true);
         assertEquals("Fields didn't match", field.get(testProblem), (long)20);
     }
 
     @Test
-    public void testSetter_setMax_time() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        testProblem.setMax_time(1000);
+    public void testSetter_setTimeLimit() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        problem.setTimeLimit(1000);
 
-        final Field field = testProblem.getClass().getDeclaredField("max_time");
+        final Field field = problem.getClass().getDeclaredField("timeLimit");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testProblem), (double)1000);
+        assertEquals("Fields didn't match", field.get(problem), (double)1000);
     }
 
     @Test
     public void testGetter_getProblemId() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("problemID");
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("id");
         field.setAccessible(true);
-        field.set(testProblem, (long)20);
+        field.set(problem, (long)20);
 
-        final long result = testProblem.getProblemID();
+        final long result = problem.getId();
 
         assertEquals("Field wasn't retrieved properly", result, (long)20);
     }
@@ -199,202 +199,202 @@ public class TestProblem {
 
     @Test
     public void testGetter_getAuthorId() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("authorID");
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("userId");
         field.setAccessible(true);
-        field.set(testProblem, "testAuthorId");
+        field.set(problem, problem.getUserId());
 
-        final String result = testProblem.getAuthorID();
+        final Long authorId = problem.getUserId();
 
-        assertEquals("Field wasn't retrieved properly", result, "testAuthorId");
+        assertEquals("Field wasn't retrieved properly", authorId, problem.getUserId());
     }
 
 
     @Test
-    public void testGetter_getTitlu() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("titlu");
+    public void testGetter_getTitle() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("title");
         field.setAccessible(true);
-        field.set(testProblem, "titluTest");
+        field.set(problem, "titluTest");
 
-        final String result = testProblem.getTitlu();
+        final String title = problem.getTitle();
 
-        assertEquals("Field wasn't retrieved properly", result, "titluTest");
+        assertEquals("Field wasn't retrieved properly", title, "titluTest");
     }
 
     @Test
-    public void testGetter_getDescriere() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("descriere");
+    public void testGetter_getDescription() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("description");
         field.setAccessible(true);
-        field.set(testProblem, "This is a description");
+        field.set(problem, "This is a description");
 
-        final String result = testProblem.getDescriere();
+        final String result = problem.getDescription();
 
         assertEquals("Field wasn't retrieved properly", result, "This is a description");
     }
 
     @Test
-    public void testGetter_getCerinta() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("cerinta");
+    public void testGetter_getRequirement() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("requirement");
         field.setAccessible(true);
-        field.set(testProblem, "Sum up the input numbers.");
+        field.set(problem, "Sum up the input numbers.");
 
-        final String result = testProblem.getCerinta();
+        final String result = problem.getRequirement();
 
         assertEquals("Field wasn't retrieved properly", result, "Sum up the input numbers.");
 
     }
 
     @Test
-    public void testGetter_getDate_Intrare() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("date_intrare");
+    public void testGetter_getInput() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("input");
         field.setAccessible(true);
-        field.set(testProblem, "n m k");
+        field.set(problem, "n m k");
 
-        final String result = testProblem.getDate_intrare();
+        final String result = problem.getInput();
 
         assertEquals("Field wasn't retrieved properly", result, "n m k");
 
     }
 
     @Test
-    public void testGetter_getDate_Iesire() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("date_iesire");
+    public void testGetter_getOutput() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("output");
         field.setAccessible(true);
-        field.set(testProblem, "123 5");
+        field.set(problem, "123 5");
 
-        final String result = testProblem.getDate_iesire();
+        final String result = problem.getOutput();
 
         assertEquals("Field wasn't retrieved properly", result, "123 5");
 
     }
 
     @Test
-    public void testGetter_getRestrictii() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("restrictii");
+    public void testGetter_getRestrictions() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("restrictions");
         field.setAccessible(true);
-        field.set(testProblem, "1 < n <= 200");
+        field.set(problem, "1 < n <= 200");
 
-        final String result = testProblem.getRestrictii();
+        final String result = problem.getRestrictions();
 
         assertEquals("Field wasn't retrieved properly", result, "1 < n <= 200");
 
     }
 
     @Test
-    public void testGetter_getDificultate() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("dificultate");
+    public void testGetter_getDifficulty() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("difficulty");
         field.setAccessible(true);
-        field.set(testProblem, (int)2);
+        field.set(problem, (int)2);
 
-        final int result = testProblem.getDificultate();
+        final int result = problem.getDifficulty();
 
         assertEquals("Field wasn't retrieved properly", result, (int)2);
 
     }
 
     @Test
-    public void testGetter_getCategorie() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("categorie");
+    public void testGetter_getCategoryId() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("categoryId");
         field.setAccessible(true);
-        field.set(testProblem, (long)3);
+        field.set(problem, 3L);
 
-        final long result = testProblem.getCategorie();
+        final long result = problem.getCategoryId();
 
-        assertEquals("Field wasn't retrieved properly", result, (long)3);
+        assertEquals("Field wasn't retrieved properly", result, 3L);
 
     }
 
     @Test
-    public void testGetter_getTip_Date() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("tip_date");
+    public void testGetter_getDataType() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("dataType");
         field.setAccessible(true);
-        field.set(testProblem, "fisier");
+        field.set(problem, "fisier");
 
-        final String result = testProblem.getTip_date();
+        final String result = problem.getDataType();
 
         assertEquals("Field wasn't retrieved properly", result, "fisier");
 
     }
 
     @Test
-    public void testGetter_getExemplu_Intrare() throws NoSuchFieldException, IllegalAccessException {
+    public void testGetter_getInputExample() throws NoSuchFieldException, IllegalAccessException {
         final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("exemplu_intrare");
+        final Field field = testProblem.getClass().getDeclaredField("inputExample");
         field.setAccessible(true);
         field.set(testProblem, "12 5 6 89 5 6 2 3");
 
-        final String result = testProblem.getExemplu_intrare();
+        final String result = testProblem.getInputExample();
 
         assertEquals("Field wasn't retrieved properly", result, "12 5 6 89 5 6 2 3");
     }
 
     @Test
-    public void testGetter_getExemplu_Iesire() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("exemplu_iesire");
+    public void testGetter_getOutputExample() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("outputExample");
         field.setAccessible(true);
-        field.set(testProblem, "2 4 6 8 10 12 14 16 18 20");
+        field.set(problem, "2 4 6 8 10 12 14 16 18 20");
 
-        final String result = testProblem.getExemplu_iesire();
+        final String result = problem.getOutputExample();
 
         assertEquals("Field wasn't retrieved properly", result, "2 4 6 8 10 12 14 16 18 20");
     }
 
     @Test
-    public void testGetter_getInput_File() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("input_file");
+    public void testGetter_getInputFile() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("inputFile");
         field.setAccessible(true);
-        field.set(testProblem, "foxy.in");
+        field.set(problem, "foxy.in");
 
-        final String result = testProblem.getInput_file();
+        final String result = problem.getInputFile();
 
         assertEquals("Field wasn't retrieved properly", result, "foxy.in");
     }
 
     @Test
-    public void testGetter_getOutput_File() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("output_file");
+    public void testGetter_getOutputFile() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("outputFile");
         field.setAccessible(true);
-        field.set(testProblem, "foxy.out");
+        field.set(problem, "foxy.out");
 
-        final String result = testProblem.getOutput_file();
+        final String result = problem.getOutputFile();
 
         assertEquals("Field wasn't retrieved properly", result, "foxy.out");
 
     }
 
     @Test
-    public void testGetter_getMax_Memory() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("max_memory");
+    public void testGetter_getMemoryLimit() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("memoryLimit");
         field.setAccessible(true);
-        field.set(testProblem, (long)23);
+        field.set(problem, (long)23);
 
-        final long result = testProblem.getMax_memory();
+        final long result = problem.getMemoryLimit();
 
         assertEquals("Field wasn't retrieved properly", result, (long)23);
 
     }
 
     @Test
-    public void testGetter_getMax_Time() throws NoSuchFieldException, IllegalAccessException {
-        final Problem testProblem = new Problem();
-        final Field field = testProblem.getClass().getDeclaredField("max_time");
+    public void testGetter_getTimeLimit() throws NoSuchFieldException, IllegalAccessException {
+        final Problem problem = new Problem();
+        final Field field = problem.getClass().getDeclaredField("timeLimit");
         field.setAccessible(true);
-        field.set(testProblem, (double)1000);
+        field.set(problem, (double)1000);
 
-        final double result = testProblem.getMax_time();
+        final double result = problem.getTimeLimit();
 
 //        assertEquals("Field wasn't retrieved properly", result, (double)1000);
         Assert.assertEquals((double)1000, result, 1);

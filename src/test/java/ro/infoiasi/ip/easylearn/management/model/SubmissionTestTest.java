@@ -10,23 +10,23 @@ import static org.junit.Assert.*;
 public class SubmissionTestTest {
 
     @Test
-    public void testSetter_setSubmissionID() throws NoSuchFieldException, IllegalAccessException {
+    public void testSetter_setSubmissionId() throws NoSuchFieldException, IllegalAccessException {
         final SubmissionTest testSubmissionTest = new SubmissionTest();
-        testSubmissionTest.setSubmissionID(123056);
+        testSubmissionTest.setSubmissionId(123056L);
 
-        final Field field = testSubmissionTest.getClass().getDeclaredField("submissionID");
+        final Field field = testSubmissionTest.getClass().getDeclaredField("submissionId");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testSubmissionTest), (long)123056);
+        assertEquals("Fields didn't match", field.get(testSubmissionTest), 123056L);
     }
 
     @Test
-    public void testSetter_setTestID() throws NoSuchFieldException, IllegalAccessException {
+    public void testSetter_setTestId() throws NoSuchFieldException, IllegalAccessException {
         final SubmissionTest testSubmissionTest = new SubmissionTest();
-        testSubmissionTest.setTestID(5642);
+        testSubmissionTest.setId(5643L);
 
-        final Field field = testSubmissionTest.getClass().getDeclaredField("testID");
+        final Field field = testSubmissionTest.getClass().getDeclaredField("id");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(testSubmissionTest), (long)5642);
+        assertEquals("Fields didn't match", field.get(testSubmissionTest), 5643L);
     }
 
 

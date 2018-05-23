@@ -25,8 +25,8 @@ public class SqlUserRepository implements UserRepository {
     public boolean updateData(User user) {
     	try
     	{
-    		String query = "UPDATE users set nume=?, prenume=?, parola=? where email='" + user.getEmail() + "' OR userID='" + user.getUserID() + "'" ;
-            Object[] params = new Object[] {user.getNume() , user.getPrenume(), user.getParola() };
+    		String query = "UPDATE users set name=?, firstName=?, password=? where email='" + user.getEmail() + "' OR id='" + user.getId() + "'" ;
+            Object[] params = new Object[] {user.getName() , user.getFirstName(), user.getPassword() };
             int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
             jdbcTemplate.update(query, params, types);
 
@@ -41,7 +41,7 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public User findById(Long id) {
-        List<User> users= jdbcTemplate.query("SELECT * FROM users where userId='"+id+"'", new BeanPropertyRowMapper<>(User.class));
+        List<User> users= jdbcTemplate.query("SELECT * FROM users where id='"+id+"'", new BeanPropertyRowMapper<>(User.class));
         if(users.size()>=1)
             return users.get(0);
         else return null;
@@ -74,9 +74,9 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public boolean register(User user){
         if(isAvailableEmail(user.getEmail())){
-            String query = "INSERT INTO users (nume, prenume, email, userID, parola) VALUES (?,?,?,?,?)";
-            Object[] params = new Object[] {user.getNume() , user.getPrenume(), user.getEmail(), user.getUserID(), user.getParola() };
-            int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
+            String query = "INSERT INTO users (name, firstName, email, password) VALUES (?,?,?,?)";
+            Object[] params = new Object[] {user.getName() , user.getFirstName(), user.getEmail(),user.getPassword() };
+            int[] types = new int[] { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR };
 
             int row = jdbcTemplate.update(query, params, types);
 
@@ -97,9 +97,9 @@ public class SqlUserRepository implements UserRepository {
     }
     
     @Override
-    public String getLastId()
+    public Long getLastId()
     {
-    	String id = jdbcTemplate.queryForObject("SELECT MAX(userID) + 1 FROM users", String.class);
+    	Long id = jdbcTemplate.queryForObject("SELECT MAX(id) + 1 FROM users", Long.class);
 
         return id;
     }
@@ -107,20 +107,20 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public boolean login(String email, String password)
     {
-    	String query = "SELECT COUNT(*) FROM users WHERE email='" + email + "' AND parola='" + password + "'";
+    	String query = "SELECT COUNT(*) FROM users WHERE email='" + email + "' AND password='" + password + "'";
         int total = jdbcTemplate.queryForObject(query, Integer.class);
         
     	return total==1;
     }
     
     @Override
-    public int getScore(String userID)
+    public int getScore(Long userId)
     {
     	int score=0;
     	
     	try
     	{
-            String query = "select max(score) from submissions group by problemID, userID having userID = '" + userID + "'";
+            String query = "select max(score) from submissions group by problemId, userId having userId = '" + userId + "'";
             List<Integer> score_list = jdbcTemplate.queryForList(query, Integer.class);
             
             for(int i=0;i<score_list.size();i++)
@@ -133,13 +133,13 @@ public class SqlUserRepository implements UserRepository {
 
         return score;
     }
-    
+
     @Override
-    public boolean delete(String userID)
+    public boolean delete(Long id)
     {
     	try
     	{
-            String query = "DELETE FROM USERS where userID='" + userID + "'";
+            String query = "DELETE FROM USERS where id='" + id + "'";
             jdbcTemplate.update(query);
             
             return true;

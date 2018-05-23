@@ -44,7 +44,7 @@ public class SubmissionValidatorTest {
     private SubmissionRequest createSubmission(Long problemId, Long userId, Language language, String mainSource) {
         SubmissionRequest submissionRequest = new SubmissionRequest();
         submissionRequest.setProblemId(problemId);
-        submissionRequest.setUserID(userId);
+        submissionRequest.setUserId(userId);
         submissionRequest.setLanguage(language);
         submissionRequest.setMainSource(mainSource);
 

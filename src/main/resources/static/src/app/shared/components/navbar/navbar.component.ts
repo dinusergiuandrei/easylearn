@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,7 +16,13 @@ export class NavbarComponent implements OnInit {
       path: '../../../../assets/images/easylearn.png'
     };
   }
-
+  
   ngOnInit() {}
-
+  @HostListener("window:scroll", [])
+  onWindowScroll() {
+    const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var x = document.getElementsByClassName('navigation')[0];
+    x.classList.add("onScroll");
+    if(number==0) x.classList.remove("onScroll");
+  }
 }

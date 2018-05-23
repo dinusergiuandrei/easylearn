@@ -21,7 +21,7 @@ public class SqlCategoryRepository implements CategoryRepository {
         if(jdbcTemplate == null)
             System.out.println("NULL TEMPLATE");
 
-        Long id = jdbcTemplate.queryForObject("SELECT MAX(categoryID) FROM categorii", Long.class);
+        Long id = jdbcTemplate.queryForObject("SELECT MAX(id) FROM categories", Long.class);
 
         return id;
     }
@@ -33,7 +33,7 @@ public class SqlCategoryRepository implements CategoryRepository {
 
     @Override
     public Category findById(Long id) {
-        List<Category> categories= jdbcTemplate.query("SELECT * FROM categorii where categoryID="+id+"", new BeanPropertyRowMapper<>(Category.class));
+        List<Category> categories= jdbcTemplate.query("SELECT * FROM categories where id="+id+"", new BeanPropertyRowMapper<>(Category.class));
         if(categories.size()>=1){
             return categories.get(0);}
         else return null;
@@ -43,7 +43,7 @@ public class SqlCategoryRepository implements CategoryRepository {
     public List<Category> findAll() {
         try
         {
-            List<Category> categories= jdbcTemplate.query("SELECT * FROM categorii", new BeanPropertyRowMapper<>(Category.class));
+            List<Category> categories= jdbcTemplate.query("SELECT * FROM categories", new BeanPropertyRowMapper<>(Category.class));
             return categories;
         }
         catch(Exception e)

@@ -14,8 +14,8 @@ public class RunMapper implements RowMapper <Run> {
     public Run mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         Run run = new Run();
         run.setId(resultSet.getLong("id"));
-        run.setSubmissionId(resultSet.getLong("submissionID"));
-        run.setTestId(resultSet.getLong("testID"));
+        run.setSubmissionId(resultSet.getLong("submissionId"));
+        run.setTestId(resultSet.getLong("testId"));
         run.setRunTimeMs(resultSet.getLong("runTimeMS"));
         run.setMemoryBytes(resultSet.getLong("memoryBytes"));
         run.setStatus(RunState.valueOf(resultSet.getString("status")));
