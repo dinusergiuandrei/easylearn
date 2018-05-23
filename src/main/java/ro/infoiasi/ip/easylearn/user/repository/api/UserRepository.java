@@ -5,13 +5,11 @@ import ro.infoiasi.ip.easylearn.user.model.User;
 import java.util.List;
 
 public interface UserRepository {
-    boolean updateData(User user);
+    boolean update(User user);
     User findById(Long id);
+    Long findByEmail(String email);
     List<User> findAll();
-    Integer getTotalUsers();
-    boolean register(User user);
-    Long getLastId();
+    Long register(User user);
     boolean login(String email, String password);
-    int getScore(Long userId);
     boolean delete(Long id);
 }

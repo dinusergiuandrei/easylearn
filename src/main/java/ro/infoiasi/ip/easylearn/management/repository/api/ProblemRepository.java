@@ -12,7 +12,7 @@ public interface ProblemRepository {
     List<Problem> findAll();
     List<Problem> findByCategory(Long categoryId);
     List<Problem> findByAuthor(Long authorId);
-    List<Problem> findSolved(int userId);
-    List<Problem> findAttempted(int userId);
+    List<Problem> findSolved(Long userId);
+    List<Problem> findAttempted(Long userId);
 
 }

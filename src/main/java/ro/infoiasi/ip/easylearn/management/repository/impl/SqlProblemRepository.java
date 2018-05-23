@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
-
+//TODO: IMPLEMENT THIS
 @Repository
 public class SqlProblemRepository implements ProblemRepository {
 
@@ -109,12 +109,12 @@ public class SqlProblemRepository implements ProblemRepository {
     		return null;
     	}
     }
-    
-    public List<Problem> findSolved(int userId)
+
+    public List<Problem> findSolved(Long userId)
     {
     	try
     	{
-	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.score = 100 and s.userId = " + Integer.toString(userId) + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
+	        List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.score = 100 and s.userId = " + userId + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
 	        return problems;
 	    }
     	catch(Exception e)
@@ -125,11 +125,11 @@ public class SqlProblemRepository implements ProblemRepository {
     }
     
 
-    public List<Problem> findAttempted(int userId)
+    public List<Problem> findAttempted(Long userId)
     {
     	try
     	{
-    		List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.userId = " + Integer.toString(userId) + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
+    		List<Problem> problems= jdbcTemplate.query("SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.userId = " + userId + ") > 0", new BeanPropertyRowMapper<>(Problem.class));
 	        return problems;
 	    }
     	catch(Exception e)

@@ -78,9 +78,9 @@ public class ProblemControllerTest {
     public void testGetProblemsByValidCategory() {
         Category category = createAndInsertNewCategory(10L, "hardcore");
 
-        Problem testProblem1 = createTestProblemFor(category.getCategoryId());
-        Problem testProblem2 = createTestProblemFor(category.getCategoryId());
-        Problem testProblem3 = createTestProblemFor(category.getCategoryId());
+        Problem testProblem1 = createTestProblemFor(category.getId());
+        Problem testProblem2 = createTestProblemFor(category.getId());
+        Problem testProblem3 = createTestProblemFor(category.getId());
 
         String expectedString = testProblem1.toValuesString() + testProblem2.toValuesString() + testProblem3.toValuesString();
 
@@ -88,7 +88,7 @@ public class ProblemControllerTest {
         insertProblemInDB(testProblem2);
         insertProblemInDB(testProblem3);
 
-        List<Problem> methodResult = problemControllerToTest.getProblemsByCategory(category.getCategoryId());
+        List<Problem> methodResult = problemControllerToTest.getProblemsByCategory(category.getId());
 
         String actualString = "";
         for(Problem problem : methodResult){
@@ -106,7 +106,7 @@ public class ProblemControllerTest {
     public void testGetProblemsByInvalidCategory() {
         Category category = new Category(10L,"hardcore");
 
-        List<Problem> methodResult = problemControllerToTest.getProblemsByCategory(category.getCategoryId());
+        List<Problem> methodResult = problemControllerToTest.getProblemsByCategory(category.getId());
         int actualSize = -1;
         if(methodResult == null){
             actualSize = 0;
@@ -265,7 +265,7 @@ public class ProblemControllerTest {
         Category category = new Category(categoryID, categoryName);
 
         String catQuery = "INSERT INTO categories(id, name) VALUES(?,?)";
-        Object catParams = new Object[]{category.getCategoryId(), category.getName()};
+        Object catParams = new Object[]{category.getId(), category.getName()};
         int[] catTypes = new int[]{Types.INTEGER, Types.VARCHAR};
 
         int catRow = jdbcTemplate.update(catQuery, catParams, catTypes);

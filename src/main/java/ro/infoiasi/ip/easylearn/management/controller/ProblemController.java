@@ -15,8 +15,10 @@ import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.management.model.ProblemResponse;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
 
+import static org.springframework.web.bind.annotation.RequestMethod.*;
+
 @RestController
-@Api(value = "problems", description = "Operations pertaining to the manipulations of problems")
+@Api(description = "Operations pertaining to the manipulations of problems")
 public class ProblemController {
 
 	ProblemRepository problemRepository;
@@ -26,83 +28,63 @@ public class ProblemController {
         this.problemRepository = problemRepository;
     }
 
-    @RequestMapping(path = "/problems/all", method = RequestMethod.GET)
+    @RequestMapping(path = "/problems", method = GET)
     @ResponseBody
-    @ApiOperation(value = "Returns all the problems in the database")
+    @ApiOperation(value = "View all problems")
     public List<Problem> getAllProblems() {
-    	List<Problem> problems = problemRepository.findAll();
-    	
-        return problems;
+    	return problemRepository.findAll();
     }
 
-    @RequestMapping(path = "/problems/id={id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/problems/{id}", method = GET)
     @ResponseBody
     @ApiOperation(value = "Returns the problem with the specified id")
     public Problem getProblemById(@PathVariable Long id) {
     	Problem problem = problemRepository.findById(id);
     	
     	if (problem==null)
+    	    // TODO: throw exeption
     		problem = new Problem();
     	
         return problem;
     }
     
-    @RequestMapping(path = "/problems/cat={cat_id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/problems/category/{id}", method = GET)
     @ResponseBody
     @ApiOperation(value = "Returns all the problems in the provided category")
-    public List<Problem> getProblemsByCategory(@PathVariable long cat_id) {
-    	List<Problem> problems = problemRepository.findByCategory(cat_id);
-    	
-        return problems;
+    public List<Problem> getProblemsByCategory(@PathVariable Long categoryId) {
+    	return problemRepository.findByCategory(categoryId);
     }
     
-    @RequestMapping(path = "/problems/author={author_id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/problems/author/{id}", method = GET)
     @ResponseBody
     @ApiOperation(value = "Returns all the problems posted by the author identified by the provided userID")
     public List<Problem> getProblemsByAuthor(@PathVariable Long authorId) {
-    	List<Problem> problems = problemRepository.findByAuthor(authorId);
-    	
-        return problems;
+    	return problemRepository.findByAuthor(authorId);
     }
     
-    @RequestMapping(path = "/problems/solved/user={user_id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/problems/solved/{userId}", method = GET)
     @ResponseBody
     @ApiOperation(value = "Returns all problems solved by the user identified by the provided userID")
-    public List<Problem> getSolvedProblems(@PathVariable int user_id) {
-    	List<Problem> problems = problemRepository.findSolved(user_id);
-    	
-        return problems;
+    public List<Problem> getSolvedProblems(@PathVariable Long userId) {
+    	return problemRepository.findSolved(userId);
     }
     
-    @RequestMapping(path = "/problems/attempted/user={user_id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/problems/attempted/{userId}", method = GET)
     @ResponseBody
     @ApiOperation(value = "Returns all problems attempted by the user identified by the provided userID (at least one submission)")
-    public List<Problem> getAttemptedProblems(@PathVariable int user_id) {
-    	List<Problem> problems = problemRepository.findAttempted(user_id);
-    	
-        return problems;
+    public List<Problem> getAttemptedProblems(@PathVariable Long userId) {
+    	return  problemRepository.findAttempted(userId);
     }
     
-    @RequestMapping(path = "/problems/add", method = RequestMethod.POST)
+    @RequestMapping(path = "/problems", method = POST)
     @ResponseBody
-    @ApiOperation(value = "Adds a new problem to the database")
-    public String addProblem(@RequestBody Problem jsonProblem)
-    {
-    	// TODO: make something similar with SubmissionService (you want to decouple classes more)
-        // what I made here works just fine but code readability sucks
-        // when you get input from user you want to save it into the database -- this is the right thing to do
-        // as you have seen in the course from web technologies , the response has the following structure:
-        // message: ...
-        // uri: ...
-        problemRepository.add(jsonProblem);
-        Long id = problemRepository.getLastId();
-        ProblemResponse problemResponse = new ProblemResponse(id);
-
-        String response = problemResponse.getMessage() + "\n" + problemResponse.getUri();
-        return response;
+    @ApiOperation(value = "Adds a new problem")
+    public ProblemResponse addProblem(@RequestBody Problem problem){
+        Long id = problemRepository.save(problem);
+        return new ProblemResponse(id);
     }
     
-    @RequestMapping(path = "/problems/populate", method = RequestMethod.POST)
+    @RequestMapping(path = "/problems/populate", method = POST)
     @ResponseBody
     @ApiOperation(value = "Test method for inserting a dummy problem")
     public boolean populateTable() 
@@ -126,7 +108,7 @@ public class ProblemController {
                 "tastatura",
                 "3 5 4 2 5", 
                 "110", 
-                "", 
+                "",         
                 "", 
                 1L,
                 1L);

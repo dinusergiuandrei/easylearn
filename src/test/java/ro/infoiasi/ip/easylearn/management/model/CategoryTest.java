@@ -14,8 +14,6 @@ import ro.infoiasi.ip.easylearn.management.repository.api.CategoryRepository;
 import javax.transaction.Transactional;
 import java.util.Random;
 
-import static org.junit.Assert.*;
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
@@ -39,9 +37,9 @@ public class CategoryTest {
 
         Long id = random.nextLong() + 1;
 
-        mycategory.setCategoryId(id);
+        mycategory.setId(id);
 
-        final Long getId = mycategory.getCategoryId();
+        final Long getId = mycategory.getId();
 
         Assert.assertEquals("Fields don't match",id, getId);
     }
@@ -66,9 +64,9 @@ public class CategoryTest {
 
         Long id = rand.nextLong() + 1;
 
-        myCategory.setCategoryId(id);
+        myCategory.setId(id);
 
-        final Long getId = myCategory.getCategoryId();
+        final Long getId = myCategory.getId();
 
         Assert.assertEquals("Fields don't match", id, getId);
     }

@@ -55,7 +55,7 @@ CREATE TABLE users (
 CREATE TABLE problems(
     id int AUTO_INCREMENT PRIMARY KEY,
     userId int NOT NULL,
-    categoryId int NOT NULL,
+    id int NOT NULL,
     title varchar(100) NOT NULL,
     description varchar(200) NOT NULL,
     requirement varchar(1000) NOT NULL,
@@ -116,7 +116,7 @@ COMMIT;
 
 ALTER TABLE problems
 ADD CONSTRAINT fk_user_problem FOREIGN KEY (userId) REFERENCES users(id),
-ADD CONSTRAINT fk_category FOREIGN KEY (categoryId) REFERENCES categories(id)
+ADD CONSTRAINT fk_category FOREIGN KEY (id) REFERENCES categories(id)
 ON DELETE CASCADE;
 COMMIT;
 

@@ -6,7 +6,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -16,8 +15,6 @@ import ro.infoiasi.ip.easylearn.management.repository.api.CategoryRepository;
 import javax.transaction.Transactional;
 
 import java.sql.Types;
-
-import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,16 +34,16 @@ public class SqlCategoryRepositoryTest {
     public void findById() {
         Category myCategory = new Category(10L, "medium");
         String query = "INSERT INTO categories(id, name) values(?,?);";
-        Object[] params = new Object[]{myCategory.getCategoryId(),myCategory.getName()};
+        Object[] params = new Object[]{myCategory.getId(),myCategory.getName()};
         int[] types = new int[]{Types.INTEGER, Types.VARCHAR};
         int row = jdbcTemplate.update(query, params, types);
 
 
-        Category fingCategory = categoryRepository.findById(myCategory.getCategoryId());
+        Category fingCategory = categoryRepository.findById(myCategory.getId());
 
         Assert.assertEquals("Fields don't match",
-                myCategory.getCategoryId() + myCategory.getName(),
-                fingCategory.getCategoryId() + fingCategory.getName());
+                myCategory.getId() + myCategory.getName(),
+                fingCategory.getId() + fingCategory.getName());
 
     }
 

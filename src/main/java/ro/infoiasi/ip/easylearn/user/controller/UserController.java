@@ -4,18 +4,22 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.web.bind.annotation.*;
+import ro.infoiasi.ip.easylearn.user.exception.LoginFailedException;
+import ro.infoiasi.ip.easylearn.user.exception.UserDataCouldNotBeDeletedException;
+import ro.infoiasi.ip.easylearn.user.exception.UserDataCouldNotBeUpdatedException;
+import ro.infoiasi.ip.easylearn.user.exception.UserNotFoundException;
 import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.model.UserResponse;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-// dependency injection -- submissionService
-// Source: https://springframework.guru/spring-boot-restful-api-documentation-with-swagger-2/
-
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RestController
-@Api(value = "users", description = "Operations pertaining to the manipulations of users")
+@Api(description = "Operations pertaining to the manipulations of users")
 public class UserController {
 
     UserRepository userRepository;
@@ -24,95 +28,69 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @RequestMapping(path = "/users", method = RequestMethod.GET)
+    @RequestMapping(path = "/users", method = GET)
     @ResponseBody
-    @ApiOperation(value = "View the information about the users entered in the system")
+    @ApiOperation(value = "View the information about all the users entered in the system")
     public List<User> users() {
         return userRepository.findAll();
     }
 
-    @RequestMapping(path = "/users/id={id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/users", method = POST)
+    @ResponseBody
+    @ApiOperation(value = "Registers the user")
+    public UserResponse register(@RequestBody User user) {
+        userRepository.register(user);
+        Long id = userRepository.findByEmail(user.getEmail());
+
+        return new UserResponse(id);
+    }
+
+    @RequestMapping(path = "/users/{id}", method = GET)
     @ResponseBody
     @ApiOperation(value = "View the user's information")
-    public User submissions(@PathVariable Long id) {
-        return userRepository.findById(id);
+    public User user(@PathVariable Long id) throws UserNotFoundException {
+        User user = userRepository.findById(id);
+
+        if(user == null){
+            throw new UserNotFoundException();
+        } else{
+            return user;
+        }
     }
 
-    @RequestMapping(path = "/users/testNumberOfUsers", method = RequestMethod.GET)
+    @RequestMapping(path = "/users/{id}", method = PUT)
     @ResponseBody
-    @ApiOperation(value = "View the number of users")
-    public Long getTotalNumberOfUsers() {
-        return userRepository.getLastId();
+    @ApiOperation(value = "Update user's data")
+    public void update(@RequestBody User user) {
+        boolean updated = userRepository.update(user);
+        if (!updated) {
+            throw new UserDataCouldNotBeUpdatedException();
+        }
     }
 
-    @RequestMapping(path = "/users/register", method = RequestMethod.POST)
+    @RequestMapping(path = "/user/{id}", method = DELETE)
     @ResponseBody
-    @ApiOperation(value = "Register the user")
-    public String registerUser(@RequestBody User jsonUser) {
-        // this works perfect
-        // if you have time maybe make the same changes I suggested in ProblemController : /problems/add
-        userRepository.register(jsonUser);
-        Long id = userRepository.getLastId();
-        UserResponse userResponse = new UserResponse(id);
-
-        String response = userResponse.getMessage() + "\n" + userResponse.getUri();
-        return response;
+    @ApiOperation(value = "Delete a user")
+    public void delete(@RequestParam Long id) {
+        boolean deleted = userRepository.delete(id);
+        if(!deleted){
+            throw new UserDataCouldNotBeDeletedException();
+        }
     }
 
-    @RequestMapping(path = "/users/registerTest", method = RequestMethod.POST)
+    @RequestMapping(path = "/login", method = POST)
     @ResponseBody
-    @ApiOperation(value = "Register the user, returns 'true' if successfull, else if not")
-    public boolean registerUser() {
-        User user = new User();
-        user.setPassword("sa5ke");
-        user.setName("Ionescu");
-        user.setFirstName("Vlad");
-        user.setEmail("iones_vls@mymail.com");
-        user.setId(userRepository.getLastId());
-        return userRepository.register(user);
+    @ApiOperation(value = "Logins a user")
+    public void login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
+        boolean loggedIn =  userRepository.login(email, password);
+
+        if(loggedIn){
+            //TODO: create session and obtain id
+            // sessionRepository etc
+            response.addCookie(new Cookie("sid", "session-id"));
+        } else{
+            throw new LoginFailedException();
+        }
     }
 
-    @RequestMapping(path = "/users/login/email={email};password={password}", method = RequestMethod.POST)
-    @ResponseBody
-    @ApiOperation(value = "Login using the provided credentials, returns 'true' if successfull, else if not")
-    public boolean login(@PathVariable String email, @PathVariable String password) {
-        return userRepository.login(email, password);
-    }
-
-    @RequestMapping(path = "/users/loginTest", method = RequestMethod.GET)
-    @ResponseBody
-    @ApiOperation(value = "Login using the provided credentials, returns 'true' if successfull, else if not")
-    public boolean login() {
-        return userRepository.login("dan@man.com", "danmanx");
-    }
-
-
-    // this shoudn't be here, you can test anything using Swagger
-    @RequestMapping(path = "/users/update/email={email},first_name={first_name},last_name={last_name},password={password}", method = RequestMethod.PUT)
-    @ResponseBody
-    @ApiOperation(value = "Update user's data, returns 'true' if successfull, else if not")
-    public boolean updateData(@PathVariable String email, @PathVariable String firstName, @PathVariable String name, @PathVariable String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setFirstName(firstName);
-        user.setName(name);
-        user.setPassword(password);
-    	return userRepository.updateData(user);
-    }
-    
-    @RequestMapping(path = "/users/score/id={id}", method = RequestMethod.GET)
-    @ResponseBody
-    @ApiOperation(value = "Get the user's total score")
-    public int getScore(@PathVariable Long id)
-    {
-    	return userRepository.getScore(id);
-    }
-    
-    @RequestMapping(path = "/users/delete/id={id}", method = RequestMethod.GET)
-    @ResponseBody
-    @ApiOperation(value = "Delete user with this id")
-    public boolean deleteUser(@PathVariable Long id)
-    {
-    	return userRepository.delete(id);
-    }
 }

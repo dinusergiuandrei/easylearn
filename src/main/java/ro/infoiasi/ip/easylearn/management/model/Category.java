@@ -2,22 +2,22 @@ package ro.infoiasi.ip.easylearn.management.model;
 
 public class Category {
 
-    private Long categoryId;
+    private Long id;
     private String name;
 
     public Category() {};
 
-    public Category(Long categoryId, String name) {
-        this.categoryId = categoryId;
+    public Category(Long id, String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public Long getId() {
+        return id;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -31,7 +31,7 @@ public class Category {
     @Override
     public String toString() {
         return "Category{" +
-                "categoryId=" + categoryId +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
     }
