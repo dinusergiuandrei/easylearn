@@ -8,6 +8,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProblemsCategoryComponent implements OnInit {
 
+  public p;
   public title;
   public content;
 
