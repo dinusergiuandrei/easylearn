@@ -16,12 +16,12 @@ public class Problem {
     private String outputExample;
     private String inputFile;
     private String outputFile;
-    private long memoryLimit;
-    private double timeLimit;
+    private Long memoryLimit;
+    private Long timeLimit;
 
     public Problem() {};
 
-    public Problem(Long id, Long userId, Long categoryId, String title, String description, String requirement, String input, String output, String restrictions, int difficulty, String dataType, String inputExample, String outputExample, String inputFile, String outputFile, long memoryLimit, double timeLimit) {
+    public Problem(Long id, Long userId, Long categoryId, String title, String description, String requirement, String input, String output, String restrictions, int difficulty, String dataType, String inputExample, String outputExample, String inputFile, String outputFile, long memoryLimit, Long timeLimit) {
         this.id = id;
         this.userId = userId;
         this.categoryId = categoryId;
@@ -169,11 +169,11 @@ public class Problem {
         this.memoryLimit = memoryLimit;
     }
 
-    public double getTimeLimit() {
+    public Long getTimeLimit() {
         return timeLimit;
     }
 
-    public void setTimeLimit(double timeLimit) {
+    public void setTimeLimit(Long timeLimit) {
         this.timeLimit = timeLimit;
     }
 

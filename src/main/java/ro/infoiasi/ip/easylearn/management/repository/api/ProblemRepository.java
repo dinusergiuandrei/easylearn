@@ -5,8 +5,6 @@ import java.util.List;
 import ro.infoiasi.ip.easylearn.management.model.Problem;
 
 public interface ProblemRepository {
-    boolean add(Problem problem);
-    Long getLastId();
 	Long save(Problem problem);
 	Problem findById(Long id);
     List<Problem> findAll();

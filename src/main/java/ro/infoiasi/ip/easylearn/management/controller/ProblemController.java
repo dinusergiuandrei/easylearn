@@ -87,14 +87,12 @@ public class ProblemController {
     @RequestMapping(path = "/problems/populate", method = POST)
     @ResponseBody
     @ApiOperation(value = "Test method for inserting a dummy problem")
-    public boolean populateTable() 
+    public Long populateTable()
     {
-    	System.out.println("New ID: " + Long.toString(problemRepository.getLastId()+1));
-    	
     	//problema de test
     	//datele vor fi preluate prin json
     	Problem problem = new Problem(
-    	        problemRepository.getLastId() + 1L,
+    	        null,
                 1L,
     			1L,
     			"Camioane", "Problema Camioane",
@@ -113,6 +111,6 @@ public class ProblemController {
                 1L,
                 1L);
     	
-        return problemRepository.add(problem);
+        return problemRepository.save(problem);
     }
 }

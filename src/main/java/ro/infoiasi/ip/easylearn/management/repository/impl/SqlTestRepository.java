@@ -55,8 +55,8 @@ public class SqlTestRepository implements TestRepository {
     public List<ProblemTest> findAllForProblem(Long problemId) {
         try
         {
-            List<ProblemTest> teste= jdbcTemplate.query("SELECT * FROM tests WHERE problemId=" + Long.toString(problemId), new BeanPropertyRowMapper<>(ProblemTest.class));
-            return teste;
+            List<ProblemTest> tests= jdbcTemplate.query("SELECT * FROM tests WHERE problemId=" + Long.toString(problemId), new BeanPropertyRowMapper<>(ProblemTest.class));
+            return tests;
         }
         catch(Exception e)
         {
