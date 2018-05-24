@@ -30,7 +30,8 @@ import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { SolutionsComponent } from './components/public/solutions/solutions.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 import { CategoriesComponent } from './components/public/categories/categories.component';
-import {ProblemtestComponent} from './components/public/problemtest/problemtest.component'
+import {ProblemtestComponent} from './components/public/problemtest/problemtest.component';
+import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import {ProblemtestComponent} from './components/public/problemtest/problemtest.
     ProblemComponent,
     SolutionsComponent,
     UserProfileComponent,
-    ProblemtestComponent
+    ProblemtestComponent,
+    ProblemsCategoryComponent
 
   ],
   imports: [

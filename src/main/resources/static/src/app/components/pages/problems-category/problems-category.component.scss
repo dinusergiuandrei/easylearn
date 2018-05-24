@@ -1,0 +1,91 @@
+@import '../../../../assets/scss/variables/_variables';
+.problems-category-body {
+  width: 80%;
+  margin: 0 auto;
+  &-content {
+    padding-bottom: 20px;
+    &-problems {
+      width: 70%;
+      display: inline-block;
+      vertical-align: top;
+      &-container {
+        background-color: rgba(255, 255, 255, 0.5);
+        border: solid 0.5px #a0a0a071;
+        padding: 10px;
+        min-height: 130px;
+        margin-bottom: 10px;
+        &-text {
+          width: 80%;
+          display: inline-block;
+          padding-bottom: 10px;
+          text-align: justify;
+          vertical-align: top;
+        }
+        &-details {
+          width: 20%;
+          padding-left: 10px;
+          display: inline-block;
+          min-width: 110px;
+          &-button {
+            width: 90%;
+            border: 1px solid black;
+            text-align: center;
+          }
+        }
+      }
+    }
+    &-filter {
+      vertical-align: top;
+      display: inline-block;
+      padding-left: 50px;
+      width: 30%;
+    }
+  }
+}
+
+@media (max-width: 1020px) {
+  .problems-category-body {
+    &-content {
+      &-problems {
+        &-container {
+          &-text {
+            width: 100%;
+          }
+          &-details {}
+        }
+      }
+      &-filter {}
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .problems-category-body {
+    width: 95%;
+    &-content {
+      &-problems {
+        width: 100%;
+        &-container {
+          width: 100%;
+          &-text {}
+          &-details {}
+        }
+      }
+      &-filter {
+        width: 80%;
+        padding: 0px;
+        &-solved {
+          display: inline-block;
+          vertical-align: top;
+          width: 50%;
+        }
+        &-dificulty {
+          display: inline-block;
+          vertical-align: top;
+          width: 50%;
+        }
+      }
+    }
+  }
+}
+

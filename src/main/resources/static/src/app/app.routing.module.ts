@@ -10,6 +10,7 @@ import { Error404Component } from './components/pages/error404/error404.componen
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 import { ProblemComponent } from './components/pages/problem/problem.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'top', component: TopComponent},
   { path: 'about-us', component: AboutUsComponent },
   { path: 'problem', component: ProblemComponent },
+  { path: 'problems-category', component: ProblemsCategoryComponent },
   { path: 'user-profile', component: UserProfileComponent },
   { path: '404', component: Error404Component },
   { path: '**', redirectTo: '/404' },
