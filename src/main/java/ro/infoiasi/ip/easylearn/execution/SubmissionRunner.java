@@ -17,7 +17,6 @@ import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -59,7 +58,7 @@ public class SubmissionRunner {
 
         if (compiledWithSuccess(compileOutput)) {
             Problem problem = problemRepository.findById(submission.getProblemId());
-            List<ProblemTest> tests = testRepository.findAllForProblem(problem.getId());
+            List<ProblemTest> tests = testRepository.findByProblemId(problem.getId());
 
             for (ProblemTest test : tests) {
                 Run run = new Run();

@@ -9,5 +9,5 @@ public interface TestRepository {
     Long save(ProblemTest submission);
     ProblemTest findById(Long id);
     List<ProblemTest> findAll();
-    List<ProblemTest> findAllForProblem(Long problemId);
+    List<ProblemTest> findByProblemId(Long problemId);
 }

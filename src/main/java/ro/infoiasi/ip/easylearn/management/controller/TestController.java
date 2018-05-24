@@ -9,7 +9,6 @@ import ro.infoiasi.ip.easylearn.management.repository.api.TestRepository;
 
 import java.util.List;
 
-// TODO: this works perfect => don't change
 @RestController
 @Api (value="test",description ="Operations pertaining to the manipulations of tests")
 public class TestController {
@@ -17,27 +16,27 @@ public class TestController {
 
     public TestController(TestRepository testRepository){this.testRepository =testRepository;}
 
-    @RequestMapping(path = "/test/id={id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/test/{id}", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "Returns the problem test with the specified id")
-    public ProblemTest tests (@PathVariable Long id)
+    @ApiOperation(value = "View problem test with the specified id")
+    public ProblemTest findById (@PathVariable Long id)
     {
         return testRepository.findById(id);
     }
 
-    @RequestMapping(path = "/test/all", method = RequestMethod.GET)
+    @RequestMapping(path = "/tests", method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "Returns all tests in the database")
+    @ApiOperation(value = "View all tests")
     public List<ProblemTest> allTests (){
         List<ProblemTest> listOfTest= testRepository.findAll();
         return listOfTest;
     }
     
-    @RequestMapping(path = "/problem_id={problemID}/tests", method = RequestMethod.GET)
+    @RequestMapping(path = "/tests/{problemId}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Returns tests for the specified problem")
-    public List<ProblemTest> allTestsForProblem (@PathVariable Long problemID){
-        List<ProblemTest> tests = testRepository.findAllForProblem(problemID);
+    public List<ProblemTest> findProblemTests(@PathVariable Long problemID){
+        List<ProblemTest> tests = testRepository.findByProblemId(problemID);
         return tests;
     }
 }
