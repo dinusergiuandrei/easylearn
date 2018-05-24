@@ -1,89 +1,23 @@
 <div class="problems-category-body">
-  <h1>Category Title</h1>
+  <h1>{{title}}</h1>
   <div class="problems-category-body-content">
     <div class="problems-category-body-content-problems">
-      <div class="problems-category-body-content-problems-container">
+      <div class="problems-category-body-content-problems-container" *ngFor="let problem of content.problems | paginate: { itemsPerPage: 5, currentPage: p }">
         <div class="problems-category-body-content-problems-container-text">
-          <h4>Problem title</h4>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi expedita, ea placeat dolores harum fugiat eveniet necessitatibus
-          minima veniam aliquid reiciendis nobis ipsa non enim repellat perferendis sunt consectetur soluta!
+          <h4>{{problem.title}}</h4>
+          {{problem.statement}}
         </div>
         <div class="problems-category-body-content-problems-container-details">
           <h6>Time limit</h6>
-          0.2 seconds
+          {{problem.time}}
           <h6>Memory limit</h6>
-          32 mb
+          {{problem.memory}}
           <div class="problems-category-body-content-problems-container-details-button">
-            Solved
-          </div>
-        </div>
-      </div>
-      <div class="problems-category-body-content-problems-container">
-        <div class="problems-category-body-content-problems-container-text">
-          <h4>Problem title</h4>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi expedita, ea placeat dolores harum fugiat eveniet necessitatibus
-          minima veniam aliquid reiciendis nobis ipsa non enim repellat perferendis sunt consectetur soluta!
-        </div>
-        <div class="problems-category-body-content-problems-container-details">
-          <h6>Time limit</h6>
-          0.2 seconds
-          <h6>Memory limit</h6>
-          32 mb
-          <div class="problems-category-body-content-problems-container-details-button">
-            Solved
-          </div>
-        </div>
-      </div>
-      <div class="problems-category-body-content-problems-container">
-        <div class="problems-category-body-content-problems-container-text">
-          <h4>Problem title</h4>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi expedita, ea placeat dolores harum fugiat eveniet necessitatibus
-          minima veniam aliquid reiciendis nobis ipsa non enim repellat perferendis sunt consectetur soluta!
-        </div>
-        <div class="problems-category-body-content-problems-container-details">
-          <h6>Time limit</h6>
-          0.2 seconds
-          <h6>Memory limit</h6>
-          32 mb
-          <div class="problems-category-body-content-problems-container-details-button">
-            Solved
-          </div>
-        </div>
-      </div>
-      <div class="problems-category-body-content-problems-container">
-        <div class="problems-category-body-content-problems-container-text">
-          <h4>Problem title</h4>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi expedita, ea placeat dolores harum fugiat eveniet necessitatibus
-          minima veniam aliquid reiciendis nobis ipsa non enim repellat perferendis sunt consectetur soluta!
-        </div>
-        <div class="problems-category-body-content-problems-container-details">
-          <h6>Time limit</h6>
-          0.2 seconds
-          <h6>Memory limit</h6>
-          32 mb
-          <div class="problems-category-body-content-problems-container-details-button">
-            Solved
-          </div>
-        </div>
-      </div>
-      <div class="problems-category-body-content-problems-container">
-        <div class="problems-category-body-content-problems-container-text">
-          <h4>Problem title</h4>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sequi expedita, ea placeat dolores harum fugiat eveniet necessitatibus
-          minima veniam aliquid reiciendis nobis ipsa non enim repellat perferendis sunt consectetur soluta!
-        </div>
-        <div class="problems-category-body-content-problems-container-details">
-          <h6>Time limit</h6>
-          0.2 seconds
-          <h6>Memory limit</h6>
-          32 mb
-          <div class="problems-category-body-content-problems-container-details-button">
-            Solved
+            {{problem.solved}}
           </div>
         </div>
       </div>
     </div>
-
 
 
 
@@ -104,5 +38,7 @@
         <mat-radio-button value="hard">Hard</mat-radio-button>
       </mat-radio-group>
     </div>
+
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
 

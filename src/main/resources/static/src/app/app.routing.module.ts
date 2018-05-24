@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'top', component: TopComponent},
   { path: 'about-us', component: AboutUsComponent },
   { path: 'problem', component: ProblemComponent },
-  { path: 'problems-category', component: ProblemsCategoryComponent },
+  { path: 'problems-category/:id', component: ProblemsCategoryComponent },
   { path: 'user-profile', component: UserProfileComponent },
   { path: '404', component: Error404Component },
   { path: '**', redirectTo: '/404' },

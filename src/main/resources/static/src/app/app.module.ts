@@ -7,6 +7,7 @@ import { MaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 
+
 // Services
 import { LoadingScreenService } from './services/loading-screen.service';
 
@@ -27,10 +28,11 @@ import { LatestComponent} from './components/public/latest/latest.component';
 import { YourlatestComponent } from './components/public/yourlatest/yourlatest.component';
 import { ProblemComponent } from './components/pages/problem/problem.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { SolutionsComponent } from './components/public/solutions/solutions.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 import { CategoriesComponent } from './components/public/categories/categories.component';
-import {ProblemtestComponent} from './components/public/problemtest/problemtest.component';
+import { ProblemtestComponent } from './components/public/problemtest/problemtest.component';
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 
 
@@ -67,6 +69,7 @@ import { ProblemsCategoryComponent } from './components/pages/problems-category/
     MaterialModule,
     BrowserAnimationsModule,
     MonacoEditorModule.forRoot(),
+    NgxPaginationModule,
   ],
   providers: [
     LoadingScreenService,
