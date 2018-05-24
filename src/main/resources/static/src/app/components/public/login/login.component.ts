@@ -18,30 +18,32 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private notification: NotificationService
+     private notification: NotificationService
   ) { }
 
   login() {
-    this.auth.login(this.user.value).subscribe(
-      res => {
-        this.notification.push({
-          message: 'You logged in successfully',
-          type: 'success'
-        });
-        res.username = this.user.value.username;
-        this.auth.setSession(res);
+   this.auth.login(this.user.value).subscribe(
+     res => {
+       console.log('pula');
+       this.notification.push({
+         message: 'You logged in successfully',
+         type: 'success'
+       });
+       res.username = this.user.value.username;
+        // this.auth.setSession(res);
         this.router.navigate([
-          `/${res.data.UserPermission.permission}/profile`
-        ]);
-      },
-      err => {
-        const message = err.error.response;
-        this.notification.push({
-          message: 'Login Failed! Check again your email or password.',
-          type: 'error'
-        });
-      }
-    );
+         `/${res.data.UserPermission.permission}/profile`
+       ]);
+     },
+     err => {
+       console.log('pula2');
+       const message = err.error.response;
+       this.notification.push({
+         message: 'Login Failed! Check again your email or password.',
+         type: 'error'
+       });
+     }
+   );
   }
 
   ngOnInit() {
