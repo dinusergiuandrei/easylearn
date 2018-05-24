@@ -11,35 +11,27 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class AuthService {
   constructor(private http: HttpClient) {}
-  // private http: HttpClient;
   private api = `${environment.api}/user`;
-  // constructor(private http: HttpClient, private _cookie: CookieService) {
-  //   let u = this._cookie.get('all_user');
-  //   if (u) {
-  //     u = JSON.parse(u);
-  //     this.redirect = u['data'].UserPermission.permission;
-  //   }
-  // }
-  redirect = '';
-
+  
   login(user): Observable<any> {
     return this.http.post(`${environment.api}/login`, {
-      email: user.username,
+      email: user.email,
       password: user.password
     });
   }
 
-  // register(user): Observable<any> {
-  //   return this.http.post(`${this.api}/create`, {
-  //     username: user.username,
-  //     email: user.email,
-  //     password: user.password,
-  //     firstname: user.firstname,
-  //     lastname: user.lastname,
-  //     serial: user.serial,
-  //     access: user.access
-  //   });
-  // }
+  register(user): Observable<any> {
+    return this.http.post(`${environment.api}/users`, {
+      id:0,
+      name: user.firstname,
+      firstName: user.lastname,
+      email: user.email,
+      password: user.password,
+      secretPassword: '',
+      secretAnswer: '',
+      score: 0,
+    });
+  }
 
   // setSession(response) {
   //   this.redirect = response.data.UserPermission.permission;
