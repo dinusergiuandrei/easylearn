@@ -4,10 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 import org.springframework.web.bind.annotation.*;
-import ro.infoiasi.ip.easylearn.user.exception.LoginFailedException;
-import ro.infoiasi.ip.easylearn.user.exception.UserDataCouldNotBeDeletedException;
-import ro.infoiasi.ip.easylearn.user.exception.UserDataCouldNotBeUpdatedException;
-import ro.infoiasi.ip.easylearn.user.exception.UserNotFoundException;
+import ro.infoiasi.ip.easylearn.user.exception.*;
 import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.model.UserResponse;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
@@ -31,7 +28,7 @@ public class UserController {
     @RequestMapping(path = "/users", method = GET)
     @ResponseBody
     @ApiOperation(value = "View the information about all the users entered in the system")
-    public List<User> users() {
+    public List <User> users() {
         return userRepository.findAll();
     }
 
@@ -39,8 +36,11 @@ public class UserController {
     @ResponseBody
     @ApiOperation(value = "Registers the user")
     public UserResponse register(@RequestBody User user) {
-        userRepository.register(user);
-        Long id = userRepository.findByEmail(user.getEmail());
+        Long id = userRepository.register(user);
+
+        if (id == null) {
+            throw new RegistrationFailedException();
+        }
 
         return new UserResponse(id);
     }
@@ -51,9 +51,9 @@ public class UserController {
     public User user(@PathVariable Long id) throws UserNotFoundException {
         User user = userRepository.findById(id);
 
-        if(user == null){
+        if (user == null) {
             throw new UserNotFoundException();
-        } else{
+        } else {
             return user;
         }
     }
@@ -73,7 +73,7 @@ public class UserController {
     @ApiOperation(value = "Delete a user")
     public void delete(@RequestParam Long id) {
         boolean deleted = userRepository.delete(id);
-        if(!deleted){
+        if (!deleted) {
             throw new UserDataCouldNotBeDeletedException();
         }
     }
@@ -82,13 +82,13 @@ public class UserController {
     @ResponseBody
     @ApiOperation(value = "Logins a user")
     public void login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
-        boolean loggedIn =  userRepository.login(email, password);
+        boolean loggedIn = userRepository.login(email, password);
 
-        if(loggedIn){
+        if (loggedIn) {
             //TODO: create session and obtain id
             // sessionRepository etc
             response.addCookie(new Cookie("sid", "session-id"));
-        } else{
+        } else {
             throw new LoginFailedException();
         }
     }

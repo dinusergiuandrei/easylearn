@@ -64,7 +64,7 @@ public class SqlUserRepository implements UserRepository {
     public Long register(User user) {
         if (isAvailableEmail(user.getEmail())) {
             String query = "INSERT INTO users (name, firstName, email, password, secretAnswer, secretPassword) VALUES (?,?,?,?,?,?)";
-            Object[] params = new Object[]{user.getName(), user.getFirstName(), user.getEmail(), Hashing.sha256().hashUnencodedChars(user.getPassword()), user.getSecretAnswer(), user.getSecretPassword()};
+            Object[] params = new Object[]{user.getName(), user.getFirstName(), user.getEmail(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getSecretAnswer(), user.getSecretPassword()};
             int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
 
             jdbcTemplate.update(query, params, types);
@@ -77,23 +77,19 @@ public class SqlUserRepository implements UserRepository {
     }
 
     private boolean isAvailableEmail(String email) {
-        String query = "SELECT * FROM users WHERE email LIKE ?";
-        List <User> users = jdbcTemplate.query(query, new UserMapper(), email);
-
-        return users.isEmpty();
+       return findByEmail(email) == null;
     }
 
+    // works perfect => do not change
     @Override
     public boolean login(String email, String password) {
         String query = "SELECT * FROM users WHERE email=? AND password=?";
-        List<User> users = jdbcTemplate.query(query, new UserMapper(), email, Hashing.sha256().hashUnencodedChars(password));
+        List<User> users = jdbcTemplate.query(query, new UserMapper(), email, Hashing.sha256().hashUnencodedChars(password).toString());
 
-        return users.isEmpty();
+        return users.size() > 0;
     }
 
-
     // TODO: THIS IS TRICKY => WATCH OUT FOR FOREIGN KEY CONSTRAINTS
-    // TODO: trigger to delete from all table where is referenced
     @Override
     public boolean delete(Long id) {
         try {
