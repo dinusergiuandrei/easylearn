@@ -1,0 +1,44 @@
+<div class="problems-category-body">
+  <h1>{{title}}</h1>
+  <div class="problems-category-body-content">
+    <div class="problems-category-body-content-problems">
+      <div class="problems-category-body-content-problems-container" *ngFor="let problem of content.problems | paginate: { itemsPerPage: 5, currentPage: p }">
+        <div class="problems-category-body-content-problems-container-text">
+          <h4>{{problem.title}}</h4>
+          {{problem.statement}}
+        </div>
+        <div class="problems-category-body-content-problems-container-details">
+          <h6>Time limit</h6>
+          {{problem.time}}
+          <h6>Memory limit</h6>
+          {{problem.memory}}
+          <div class="problems-category-body-content-problems-container-details-button">
+            {{problem.solved}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="problems-category-body-content-filter">
+
+      <mat-radio-group class="problems-category-body-content-filter-solved">
+        <h4>Status</h4>
+        <mat-radio-button value="solved">Solved</mat-radio-button>
+        <br>
+        <mat-radio-button value="unsolved">Unsolved</mat-radio-button>
+      </mat-radio-group>
+      <mat-radio-group class="problems-category-body-content-filter-dificulty">
+        <h4>Dificulty</h4>
+        <mat-radio-button value="easy">Easy</mat-radio-button>
+        <br>
+        <mat-radio-button value="medium">Medium</mat-radio-button>
+        <br>
+        <mat-radio-button value="hard">Hard</mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
+
