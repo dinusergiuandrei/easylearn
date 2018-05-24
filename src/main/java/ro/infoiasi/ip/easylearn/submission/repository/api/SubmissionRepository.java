@@ -11,5 +11,5 @@ public interface SubmissionRepository {
     Submission findById(Long id);
     List<Submission> findAll();
     List<Submission> findByState(RunState state);
-    Long update(Submission submission);
+    void update(Submission submission);
 }

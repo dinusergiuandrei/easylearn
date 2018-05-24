@@ -13,6 +13,7 @@ import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 
 @Repository
@@ -29,7 +30,7 @@ public class SqlProblemRepository implements ProblemRepository {
         PreparedStatementCreator psc = new PreparedStatementCreator() {
             public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
                 PreparedStatement ps =
-                        connection.prepareStatement(insertQuery);
+                        connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
                 ps.setLong(1, problem.getUserId());
                 ps.setLong(2, problem.getCategoryId());
                 ps.setString(3, problem.getTitle());

@@ -14,7 +14,6 @@ public class MysqlRunRepository implements RunRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    // KEEP IN MIND THAT ID FIELD HAS AUTO_INCREMENT -- YOU DON'T HAVE TO INSERT VALUES INTO IT
     @Override
     public void save(Run run) {
         String insertQuery = "insert into runs (submissionId, memoryBytes, runTimeMs, status) values (?, ?, ?, ?)";
@@ -23,8 +22,7 @@ public class MysqlRunRepository implements RunRepository {
 
     @Override
     public List <Run> findBySubmissionId(Long submissionId) {
-        String mysql = "SELECT * FROM runs where submissionId='" + submissionId + "'";
-        List <Run> runs = jdbcTemplate.query(mysql, new RunMapper());
-        return runs;
+        String mysql = "SELECT * FROM runs where submissionId=?";
+        return  jdbcTemplate.query(mysql, new RunMapper(), submissionId);
     }
 }
