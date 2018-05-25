@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import {ProblemService} from '../../../services/problem.service'
 @Component({
   selector: 'app-problems-category',
   templateUrl: './problems-category.component.html',
@@ -12,11 +12,13 @@ export class ProblemsCategoryComponent implements OnInit {
   public title;
   public content;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private problem:ProblemService) { 
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.title = params.get('id');
+  
     });
     if (this.title != "algorithms" && this.title != "data_structures" && this.title != "mathematics") {
       this.title = "Wrong";
@@ -24,7 +26,14 @@ export class ProblemsCategoryComponent implements OnInit {
     else {
       this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
     }
-
+    this.problem.request(2) .subscribe(
+      res => {
+        console.log(res);
+      },
+      err => {
+        console.log(err);
+      }
+    )
     this.content = {
       problems: [
         {

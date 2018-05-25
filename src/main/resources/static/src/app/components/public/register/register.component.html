@@ -26,13 +26,6 @@
       E-mail is <strong>required</strong>!
     </mat-error>
   </mat-form-field>
-
-  <!-- Authentication level -->
-  <mat-radio-group class="auth-level" formControlName="access">
-    <mat-radio-button value="student">Student</mat-radio-button>
-    <mat-radio-button value="teacher">Teacher</mat-radio-button>
-  </mat-radio-group>
-
   <!-- Password -->
   <mat-form-field>
     <input type="password" matInput required placeholder="Password" formControlName="password" maxlength="32"/>
@@ -52,6 +45,22 @@
     </mat-error>
     <mat-error *ngIf="user.get('repassword').hasError('required')">
       Retyping password is <strong>required</strong>!
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <select class="dropdown" required>
+      <option value="">Choose a safety question</option>
+      <option value="What was the name of your first pet?">What was the name of your first pet?</option>
+      <option value="What is your favourite color?">What is your favourite color?</option>
+      <option value="In which country you want to retire?">In which country you want to retire?</option>
+      <option value="What's your mom name?">What's your mom name?</option>
+      <option value="What was your favourite place to visit as a child?">What was your favourite place to visit as a child?</option>
+    </select>
+  </mat-form-field>
+  <mat-form-field>
+    <input type="text" matInput required placeholder="Enter a response" formControlName="question">
+    <mat-error *ngIf="user.get('question').hasError('required')">
+      A response is <strong>required</strong>!
     </mat-error>
   </mat-form-field>
 </form>
