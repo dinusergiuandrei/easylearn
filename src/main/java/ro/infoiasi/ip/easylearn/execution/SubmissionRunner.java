@@ -11,6 +11,7 @@ import ro.infoiasi.ip.easylearn.management.repository.api.TestRepository;
 import ro.infoiasi.ip.easylearn.submission.model.Run;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
+import ro.infoiasi.ip.easylearn.submission.repository.api.SourceFilesRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 import ro.infoiasi.ip.easylearn.utils.RunState;
 import ro.infoiasi.ip.easylearn.utils.SubmissionState;
@@ -26,35 +27,29 @@ public class SubmissionRunner {
     private RunRepository runRepository;
     private ProblemRepository problemRepository;
     private TestRepository testRepository;
+    private SourceFilesRepository sourceFilesRepository;
     private Compiler compiler;
 
-    public SubmissionRunner(SubmissionRepository submissionRepository, RunRepository runRepository, ProblemRepository problemRepository, TestRepository testRepository) {
+    public SubmissionRunner(SubmissionRepository submissionRepository, RunRepository runRepository, ProblemRepository problemRepository, TestRepository testRepository, SourceFilesRepository sourceFilesRepository) {
         this.submissionRepository = submissionRepository;
         this.runRepository = runRepository;
         this.problemRepository = problemRepository;
         this.testRepository = testRepository;
+        this.sourceFilesRepository = sourceFilesRepository;
         this.compiler = new SecurityManagerCompiler();
     }
 
     @JmsListener(destination = "submissionQueue", containerFactory = "jmsListenerContainerFactory")
     public void run(Long submissionId) throws Exception {
-
         Submission submission = initializeSubmission(submissionId);
-        File directory = generateRootDirectoryForSubmission(submissionId);
-        String rootDirectoryPath = directory.toString();
 
-        System.out.println(rootDirectoryPath);
         CompilerParameters compilerParameters = new CompilerParameters(
                 submission.getLanguage(),
                 submission.getSources(),
-                rootDirectoryPath
+                "sandbox/" + submissionId
         );
 
-        System.out.println("Compile paramaters: " + compilerParameters);
-
         Output compileOutput = compiler.compile(compilerParameters);
-
-        System.out.println("Compile output: " + compileOutput);
 
         if (compiledWithSuccess(compileOutput)) {
             Problem problem = problemRepository.findById(submission.getProblemId());
@@ -79,7 +74,6 @@ public class SubmissionRunner {
                     run.setStatus(RunState.Failed);
                 }
                 runRepository.save(run);
-                submission.getRuns().add(run);
             }
 
             submission.setState(SubmissionState.Completed);
@@ -100,6 +94,7 @@ public class SubmissionRunner {
     private Submission initializeSubmission(Long submissionId) {
         System.out.println("Running submission with id: " + submissionId);
         Submission submission = submissionRepository.findById(submissionId);
+        submission.setSources(sourceFilesRepository.findBySubmissionId(submissionId));
         submission.setState(SubmissionState.Running);
         System.out.println("Running submission: " + submission);
         return submission;

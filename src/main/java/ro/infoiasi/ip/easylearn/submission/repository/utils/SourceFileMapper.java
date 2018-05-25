@@ -12,13 +12,9 @@ public class SourceFileMapper implements RowMapper<SourceFile> {
     @Override
     public SourceFile mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         SourceFile source = new SourceFile();
-
         source.setId(resultSet.getLong("id"));
-
         source.setSubmissionId(resultSet.getLong("submissionId"));
-
         source.setFileName(resultSet.getString("fileName"));
-
         source.setContent(resultSet.getString("sourceCode"));
 
         return source;
