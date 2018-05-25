@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   login() {
    this.auth.login(this.user.value).subscribe(
      res => {
-       console.log('pula');
+       console.log('ok');
+       console.log(res);
        this.notification.push({
          message: 'You logged in successfully',
          type: 'success'
@@ -36,7 +37,8 @@ export class LoginComponent implements OnInit {
        ]);
      },
      err => {
-       console.log('pula2');
+       console.log('wrong');
+       console.log(err);
        const message = err.error.response;
        this.notification.push({
          message: 'Login Failed! Check again your email or password.',
