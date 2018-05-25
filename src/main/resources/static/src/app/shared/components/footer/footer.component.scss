@@ -38,6 +38,16 @@
   color: $color-primary;
 }
 
+.link{
+  text-decoration:none;
+  color: $color-primary;
+}
+
+.link:hover{
+  transition: all 0.5s ease-out;
+  opacity:0.6;
+}
+
 .copyright {
   font-size: 12px;
   font-weight: 700;
