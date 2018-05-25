@@ -16,6 +16,4 @@ export class ProblemService {
   request(id): Observable<any> {
     return this.http.get(`${environment.api}/problems/category/`+ id);
   }
-
-
 }
