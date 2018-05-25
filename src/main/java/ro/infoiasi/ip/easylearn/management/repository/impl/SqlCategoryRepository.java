@@ -10,16 +10,16 @@ import ro.infoiasi.ip.easylearn.management.repository.utils.CategoryMapper;
 
 import java.util.List;
 
+// this is now correctly implemented => do not change
 @Repository
 public class SqlCategoryRepository implements CategoryRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    // ok, do not change
     @Override
     public Category findById(Long id) {
-        String query = "SELECT * FROM categories where id=" + id + "";
-        List <Category> categories = jdbcTemplate.query(query, new CategoryMapper());
+        String query = "SELECT * FROM categories where id=?";
+        List <Category> categories = jdbcTemplate.query(query, new CategoryMapper(), id);
 
         if (categories.size() > 0) {
             return categories.get(0);
@@ -28,7 +28,6 @@ public class SqlCategoryRepository implements CategoryRepository {
         }
     }
 
-    // ok, do not change
     @Override
     public List <Category> findAll() {
         String query = "SELECT * FROM categories";
