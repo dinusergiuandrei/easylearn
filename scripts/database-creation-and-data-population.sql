@@ -6,7 +6,6 @@ ALTER TABLE runs DROP FOREIGN KEY fk_submission;
 ALTER TABLE runs DROP FOREIGN KEY fk_test;
 ALTER TABLE problems DROP FOREIGN KEY fk_user_problem;
 ALTER TABLE problems DROP FOREIGN KEY fk_category;
-ALTER TABLE submission_tests DROP FOREIGN KEY fk_submission_test;
 ALTER TABLE submission_code DROP FOREIGN KEY fk_submission_code;
 ALTER TABLE tests DROP FOREIGN KEY fk_problem_test;
 
@@ -17,7 +16,6 @@ DROP TABLE IF EXISTS problems;
 DROP TABLE IF EXISTS submissions;
 DROP TABLE IF EXISTS runs;
 DROP TABLE IF EXISTS submission_code;
-DROP TABLE IF EXISTS submission_tests;
 DROP TABLE IF EXISTS tests;
 
 
@@ -84,14 +82,6 @@ CREATE TABLE submission_code (
     sourceCode varchar(2000) NOT NULL
 );
 
-CREATE TABLE submission_tests (
-    id int AUTO_INCREMENT PRIMARY KEY,
-    submissionId int NOT NULL,
-    testId int NOT NULL,
-    runTimeMs int NOT NULL,
-    memoryBytes int NOT NULL,
-    status varchar(20)
-);
 
 CREATE TABLE tests(
     id int AUTO_INCREMENT PRIMARY KEY,
@@ -103,21 +93,18 @@ CREATE TABLE tests(
 -- ADD CONSTRAINTS
 
 ALTER TABLE submissions
-ADD CONSTRAINT fk_user FOREIGN KEY (userId) REFERENCES users(id),
-ADD CONSTRAINT fk_problem FOREIGN KEY (problemId) REFERENCES problems(id)
-ON DELETE CASCADE;
+ADD CONSTRAINT fk_user FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+ADD CONSTRAINT fk_problem FOREIGN KEY (problemId) REFERENCES problems(id) ON DELETE CASCADE;
 COMMIT;
 
 ALTER TABLE runs
-ADD CONSTRAINT fk_submission FOREIGN KEY (submissionId) REFERENCES submissions(id),
-ADD CONSTRAINT fk_test FOREIGN KEY (testId) REFERENCES tests(id)
-ON DELETE CASCADE;
+ADD CONSTRAINT fk_submission FOREIGN KEY (submissionId) REFERENCES submissions(id) ON DELETE CASCADE,
+ADD CONSTRAINT fk_test FOREIGN KEY (testId) REFERENCES tests(id) ON DELETE CASCADE;
 COMMIT;
 
 ALTER TABLE problems
-ADD CONSTRAINT fk_user_problem FOREIGN KEY (userId) REFERENCES users(id),
-ADD CONSTRAINT fk_category FOREIGN KEY (id) REFERENCES categories(id)
-ON DELETE CASCADE;
+ADD CONSTRAINT fk_user_problem FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE,
+ADD CONSTRAINT fk_category FOREIGN KEY (id) REFERENCES categories(id) ON DELETE CASCADE;
 COMMIT;
 
 ALTER TABLE submission_code
@@ -125,13 +112,7 @@ ADD CONSTRAINT fk_submission_code FOREIGN KEY (submissionId) REFERENCES submissi
 ON DELETE CASCADE;
 COMMIT;
 
-ALTER TABLE submission_tests
-ADD CONSTRAINT fk_submission_test FOREIGN KEY (submissionId) REFERENCES submissions(id)
-ON DELETE CASCADE;
-COMMIT;
-
 ALTER TABLE tests
-ADD CONSTRAINT fk_problem_test FOREIGN KEY (problemId) REFERENCES problems(id)
-ON DELETE CASCADE;
+ADD CONSTRAINT fk_problem_test FOREIGN KEY (problemId) REFERENCES problems(id) ON DELETE CASCADE;
 COMMIT;
 
