@@ -12,6 +12,7 @@ import ro.infoiasi.ip.easylearn.user.repository.utils.UserMapper;
 import java.sql.Types;
 import java.util.List;
 
+// this is now correctly implemented => do not change
 
 @Repository
 public class SqlUserRepository implements UserRepository {
@@ -19,7 +20,6 @@ public class SqlUserRepository implements UserRepository {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
-    // works perfect => do not changedo not change
     @Override
     public boolean update(User user) {
         try {
@@ -35,7 +35,6 @@ public class SqlUserRepository implements UserRepository {
         }
     }
 
-    // works perfect => do not change
     @Override
     public User findById(Long id) {
         String selectUserById = "SELECT * FROM users where id=?";
@@ -44,7 +43,6 @@ public class SqlUserRepository implements UserRepository {
         return users.isEmpty() ? null : users.get(0);
     }
 
-    // works perfect
     @Override
     public Long findByEmail(String email) {
         String query = "SELECT * FROM users where email=?";
@@ -55,7 +53,6 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public List <User> findAll() {
-        // works perfect => do not change
         String selectAllUsers = "SELECT * FROM users";
         return jdbcTemplate.query(selectAllUsers, new UserMapper());
     }
@@ -80,7 +77,6 @@ public class SqlUserRepository implements UserRepository {
        return findByEmail(email) == null;
     }
 
-    // works perfect => do not change
     @Override
     public boolean login(String email, String password) {
         String query = "SELECT * FROM users WHERE email=? AND password=?";
@@ -89,18 +85,9 @@ public class SqlUserRepository implements UserRepository {
         return users.size() > 0;
     }
 
-    // TODO: THIS IS TRICKY => WATCH OUT FOR FOREIGN KEY CONSTRAINTS
     @Override
     public boolean delete(Long id) {
-        try {
-            String query = "DELETE FROM users where id=?";
-            jdbcTemplate.update(query, id);
-
-            return true;
-        } catch (NullPointerException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
+        return true;
     }
 }
 

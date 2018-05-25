@@ -26,7 +26,7 @@ public class CategoryController {
     @RequestMapping(path = "/category/{id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "View information about a particular category")
-    public Category categories(@PathVariable Long id) {
+    public Category findById(@PathVariable Long id) {
         Category category = categoryRepository.findById(id);
 
         if(category == null){
@@ -40,7 +40,7 @@ public class CategoryController {
     @RequestMapping(path = "/categories", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "View information about all categories")
-    public List<Category> categories(){
+    public List<Category> findAll(){
         return categoryRepository.findAll();
     }
 

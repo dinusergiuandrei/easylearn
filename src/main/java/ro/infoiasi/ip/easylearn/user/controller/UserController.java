@@ -27,7 +27,7 @@ public class UserController {
 
     @RequestMapping(path = "/users", method = GET)
     @ResponseBody
-    @ApiOperation(value = "View the information about all the users entered in the system")
+    @ApiOperation(value = "View the information about all the users")
     public List <User> users() {
         return userRepository.findAll();
     }
@@ -47,7 +47,7 @@ public class UserController {
 
     @RequestMapping(path = "/users/{id}", method = GET)
     @ResponseBody
-    @ApiOperation(value = "View the user's information")
+    @ApiOperation(value = "View information about a particular user")
     public User user(@PathVariable Long id) throws UserNotFoundException {
         User user = userRepository.findById(id);
 
@@ -74,7 +74,7 @@ public class UserController {
     public void delete(@RequestParam Long id) {
         boolean deleted = userRepository.delete(id);
         if (!deleted) {
-            throw new UserDataCouldNotBeDeletedException();
+            throw new UserDataCouldNotBeUpdatedException();
         }
     }
 

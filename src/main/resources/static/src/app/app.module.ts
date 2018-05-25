@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoadingScreenService } from './services/loading-screen.service';
 import { AuthService } from './services/auth.service';
 import { NotificationService } from './services/notification.service';
+import { ProblemService} from './services/problem.service'
+
 // Components
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';

@@ -32,19 +32,4 @@ export class AuthService {
       score: 0,
     });
   }
-
-  // setSession(response) {
-  //   this.redirect = response.data.UserPermission.permission;
-  //   this._cookie.set('logged', 'true');
-  //   this._cookie.set('session', response.token);
-  //   this._cookie.set('user', response.username);
-  //   this._cookie.set('all_user', JSON.stringify(response));
-  // }
-
-  // destroySession() {
-  //   this._cookie.delete('logged');
-  //   this._cookie.delete('session');
-  //   this._cookie.delete('user');
-  //   this._cookie.delete('all_user');
-  // }
 }
