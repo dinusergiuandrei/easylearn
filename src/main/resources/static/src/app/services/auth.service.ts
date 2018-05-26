@@ -15,12 +15,9 @@ export class AuthService {
   private api = `${environment.api}/user`;
 
   login(user): Observable<any> {
-    let url = `${environment.api}/login?email=` + user.email + '&password=' + user.password;
 
-    return this.http.get(url, { observe: 'response', withCredentials: true })
+    return this.http.post(environment.api + '/login', {email : user.email, password:user.password}, { observe: 'response', withCredentials: true })
            .map((res: any) => {
-                    console.log(res);
-                    console.log(res.headers.get('Set-Cookie'));
                     return res;
                 });
             }
