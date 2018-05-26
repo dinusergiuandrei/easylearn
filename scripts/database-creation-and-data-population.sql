@@ -44,7 +44,7 @@ CREATE TABLE users (
   firstName varchar(100) NOT NULL,
   email varchar(100) NOT NULL,
   password varchar(200) NOT NULL,
-  secretPassword varchar(200) NOT NULL,
+  secretQuestion varchar(200) NOT NULL,
   secretAnswer varchar(200) NOT NULL,
   score int
 );

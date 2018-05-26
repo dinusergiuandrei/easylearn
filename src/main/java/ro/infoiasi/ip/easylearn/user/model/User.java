@@ -6,7 +6,7 @@ public class User {
     private String firstName;
     private String email;
     private String password;
-    private String secretPassword;
+    private String secretQuestion;
     private String secretAnswer;
     private Long score;
 
@@ -53,13 +53,6 @@ public class User {
         this.password = password;
     }
 
-    public String getSecretPassword() {
-        return secretPassword;
-    }
-
-    public void setSecretPassword(String secretPassword) {
-        this.secretPassword = secretPassword;
-    }
 
     public String getSecretAnswer() {
         return secretAnswer;
@@ -77,6 +70,14 @@ public class User {
         this.score = score;
     }
 
+    public String getSecretQuestion() {
+        return secretQuestion;
+    }
+
+    public void setSecretQuestion(String secretQuestion) {
+        this.secretQuestion = secretQuestion;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -85,7 +86,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", secretPassword='" + secretPassword + '\'' +
+                ", secretQuestion='" + secretQuestion + '\'' +
                 ", secretAnswer='" + secretAnswer + '\'' +
                 ", score=" + score +
                 '}';

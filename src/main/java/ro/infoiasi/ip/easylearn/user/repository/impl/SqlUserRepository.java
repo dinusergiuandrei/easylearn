@@ -60,8 +60,8 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public Long register(User user) {
         if (isAvailableEmail(user.getEmail())) {
-            String query = "INSERT INTO users (name, firstName, email, password, secretAnswer, secretPassword) VALUES (?,?,?,?,?,?)";
-            Object[] params = new Object[]{user.getName(), user.getFirstName(), user.getEmail(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getSecretAnswer(), user.getSecretPassword()};
+            String query = "INSERT INTO users (name, firstName, email, password, secretAnswer, secretQuestion) VALUES (?,?,?,?,?,?)";
+            Object[] params = new Object[]{user.getName(), user.getFirstName(), user.getEmail(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getSecretAnswer(), user.getSecretQuestion()};
             int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
 
             jdbcTemplate.update(query, params, types);
