@@ -7,7 +7,6 @@ import { MaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
-
 import { HttpClientModule } from '@angular/common/http';
 
 // Services

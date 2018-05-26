@@ -7,7 +7,7 @@ import { Chart } from 'chart.js';
   styleUrls: ['./user-dashboard.component.scss']
 })
 export class UserDashboardComponent implements OnInit {
-private user;
+public user;
 chartOptions = {
     responsive: true,
     legend: {
