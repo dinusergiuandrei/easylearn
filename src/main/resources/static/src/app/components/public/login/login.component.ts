@@ -30,11 +30,11 @@ export class LoginComponent implements OnInit {
          message: 'You logged in successfully',
          type: 'success'
        });
-       res.username = this.user.value.username;
+      //  res.username = this.user.value.username;
         // this.auth.setSession(res);
-        this.router.navigate([
-         `/${res.data.UserPermission.permission}/profile`
-       ]);
+      //   this.router.navigate([
+      //    `/${res.data.UserPermission.permission}/profile`
+      //  ]);
      },
      err => {
        console.log('wrong');
