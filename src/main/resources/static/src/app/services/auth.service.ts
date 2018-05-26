@@ -30,8 +30,8 @@ export class AuthService {
       firstName: user.lastname,
       email: user.email,
       password: user.password,
-      secretPassword: '',
-      secretAnswer: '',
+      secretQuestion: user.question,
+      secretAnswer: user.answer,
       score: 0,
     });
   }

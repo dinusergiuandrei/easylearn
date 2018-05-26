@@ -48,7 +48,7 @@
     </mat-error>
   </mat-form-field>
   <mat-form-field>
-    <select class="dropdown" required>
+    <select class="dropdown" required formControlName="question">
       <option value="">Choose a safety question</option>
       <option value="What was the name of your first pet?">What was the name of your first pet?</option>
       <option value="What is your favourite color?">What is your favourite color?</option>
@@ -58,8 +58,8 @@
     </select>
   </mat-form-field>
   <mat-form-field>
-    <input type="text" matInput required placeholder="Enter a response" formControlName="question">
-    <mat-error *ngIf="user.get('question').hasError('required')">
+    <input type="text" matInput required placeholder="Enter a response" formControlName="answer">
+    <mat-error *ngIf="user.get('answer').hasError('required')">
       A response is <strong>required</strong>!
     </mat-error>
   </mat-form-field>

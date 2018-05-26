@@ -67,6 +67,21 @@ export class RegisterComponent implements OnInit {
           Validators.minLength(6),
           Validators.maxLength(32)
         ])
+      ],
+      question: [
+        Validators.compose([
+          Validators.required,
+          ]
+        )
+      ],
+
+      answer: [
+        '',
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(6),
+          ]
+        )
       ]
     });
   }
