@@ -87,7 +87,8 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public boolean delete(Long id) {
-        return true;
+        String query = "DELETE FROM users WHERE id?";
+        return jdbcTemplate.update(query, id) > 0;
     }
 }
 

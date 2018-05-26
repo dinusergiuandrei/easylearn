@@ -8,6 +8,7 @@ import ro.infoiasi.ip.easylearn.user.exception.*;
 import ro.infoiasi.ip.easylearn.user.model.LoginRequest;
 import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.model.UserResponse;
+import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
 
 import javax.servlet.http.Cookie;
@@ -20,10 +21,12 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @Api(description = "Operations pertaining to the manipulations of users")
 public class UserController {
 
-    UserRepository userRepository;
+    private UserRepository userRepository;
+    private SessionRepository sessionRepository;
 
-    public UserController(UserRepository userRepository) {
+    public UserController(UserRepository userRepository, SessionRepository sessionRepository) {
         this.userRepository = userRepository;
+        this.sessionRepository = sessionRepository;
     }
 
     @RequestMapping(path = "/users", method = GET)
@@ -60,7 +63,6 @@ public class UserController {
     }
 
     @RequestMapping(path = "/users/{id}", method = PUT)
-    @ResponseBody
     @ApiOperation(value = "Update user's data")
     public void update(@RequestBody User user) {
         boolean updated = userRepository.update(user);
@@ -70,7 +72,6 @@ public class UserController {
     }
 
     @RequestMapping(path = "/user/{id}", method = DELETE)
-    @ResponseBody
     @ApiOperation(value = "Delete a user")
     public void delete(@RequestParam Long id) {
         boolean deleted = userRepository.delete(id);
@@ -80,22 +81,20 @@ public class UserController {
     }
 
     @RequestMapping(path = "/login", method = POST)
-    @ResponseBody
     @ApiOperation(value = "Logins a user")
     public void login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         boolean loggedIn = userRepository.login(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (loggedIn) {
-            //TODO: create session and obtain id
-            // sessionRepository etc
-            response.addCookie(new Cookie("sid", "session-id"));
+            String sid = sessionRepository.create();
+            response.addCookie(new Cookie("sid", sid));
         } else {
             throw new LoginFailedException();
         }
     }
 
 
-    @RequestMapping(path = "/login", method = GET)
+    @RequestMapping(path = "/login", method = OPTIONS)
     @ResponseBody
     @ApiOperation(value = "Logins a user")
     public void loginOptions(HttpServletResponse response) {
@@ -105,18 +104,20 @@ public class UserController {
     }
 
 
-    @RequestMapping(path = "/login?email={email}&password={password}", method = GET)
-    @ResponseBody
+    @RequestMapping(path = "/login", method = GET)
     @ApiOperation(value = "Logins a user")
-    public void login2(@PathVariable String email, @PathVariable String password, HttpServletResponse response) {
-        boolean loggedIn = userRepository.login(email, password);
-
-        if (loggedIn) {
-            //TODO: create session and obtain id
-            // sessionRepository etc
-            response.addCookie(new Cookie("sid", "session-id"));
-        } else {
-            throw new LoginFailedException();
-        }
+    public void login2(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
+       login(new LoginRequest(email, password), response);
     }
+
+   @RequestMapping(path = "/logout", method = GET)
+    @ApiOperation(value = "Logs out a user")
+    public void logout(@RequestParam String sid, HttpServletResponse response) {
+       System.out.println(sid);
+       sessionRepository.destroy(sid);
+       Cookie cookie = new Cookie("sid", sid);
+       cookie.setMaxAge(0);
+       response.addCookie(cookie);
+    }
+
 }
