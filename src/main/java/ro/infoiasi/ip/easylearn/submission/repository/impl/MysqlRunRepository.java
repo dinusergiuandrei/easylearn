@@ -16,8 +16,8 @@ public class MysqlRunRepository implements RunRepository {
 
     @Override
     public void save(Run run) {
-        String insertQuery = "insert into runs (submissionId, memoryBytes, runTimeMs, status) values (?, ?, ?, ?)";
-        jdbcTemplate.update( insertQuery, run.getSubmissionId(), run.getMemoryBytes(),run.getRunTimeMs(),run.getStatus());
+        String insertQuery = "insert into runs (submissionId, testId, memoryBytes, runTimeMs, status) values (?, ?, ?, ?, ?)";
+        jdbcTemplate.update( insertQuery, run.getSubmissionId(), run.getTestId(), run.getMemoryBytes(),run.getRunTimeMs(),run.getStatus().toString());
     }
 
     @Override

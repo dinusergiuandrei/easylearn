@@ -1,0 +1,70 @@
+.add-problem-wrapper {
+    background: white;
+    padding: 15px;
+
+    .form-content {
+        padding: 25px 0;
+        display: flex;
+        margin: 0 -5px;
+    }
+
+    h1 {
+        margin-bottom: 25px;
+    }
+
+    .info-section {
+        padding: 25px;
+        border: 1px solid black;
+        position: relative;
+        margin-bottom: 25px;
+        align-self: baseline;
+        margin: 0 5px;
+
+        .form-control-grid {
+            display: flex;
+
+            .form-control {
+                margin: 0 5px;
+            }
+        }
+    
+        .info-section-title {
+            padding: 5px;
+            background: white;
+            position: absolute;
+            top: -19px;
+            left: 6px;
+        }
+
+        .form-control {
+            label {
+                display: block;
+            }
+
+            input, textarea {
+                padding: 15px 25px;
+                display: block;
+                width: 100%;
+                margin-bottom: 25px;
+                font-size: 16px;
+            }
+
+            textarea {
+                resize: none;
+                height: 200px;
+            }
+        }
+    }
+}
+
+button {
+    background: white;
+    display: block;
+    width: 250px;
+    height: 100px;
+    line-height: 100px;
+    text-transform: uppercase;
+    color: black;
+    border: 1px solid black;
+    margin: 0 auto;
+}

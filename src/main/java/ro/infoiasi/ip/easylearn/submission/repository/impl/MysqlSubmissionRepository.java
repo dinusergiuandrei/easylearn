@@ -50,10 +50,7 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
         jdbcTemplate.update(psc, keyHolder);
 
         Long id = keyHolder.getKey().longValue();
-        for (SourceFile source : submission.getSources()) {
-            String insertFile = "insert into submission_code(submissionId, fileName, sourceCode) values (?,?,?)";
-            jdbcTemplate.update(insertFile, id, source.getFileName(), source.getContent());
-        }
+
 
         return id;
     }
@@ -80,6 +77,6 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
     @Override
     public void update(Submission submission) {
         String updateQuery = "update submissions set userId=?, problemId=?, mainSource=?, language=?, date=?, state=? where id=?";
-        jdbcTemplate.update(updateQuery, submission.getUserId(), submission.getProblemId(), submission.getMainSource(), submission.getLanguage(), submission.getDate(), submission.getState(), submission.getId());
+        jdbcTemplate.update(updateQuery, submission.getUserId(), submission.getProblemId(), submission.getMainSource(), submission.getLanguage().toString(), submission.getDate(), submission.getState().toString(), submission.getId());
     }
 }
