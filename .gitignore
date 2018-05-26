@@ -62,3 +62,5 @@ nbdist/
 bin/main/static/
 
 .metadata
+
+sandbox
