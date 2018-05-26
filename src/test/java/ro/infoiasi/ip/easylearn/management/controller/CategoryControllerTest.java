@@ -24,4 +24,8 @@ import java.util.Random;
 @Rollback(true)
 public class CategoryControllerTest {
 
+    @Test
+    public void testNothing() {
+
+    }
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 
 import org.springframework.web.bind.annotation.*;
 import ro.infoiasi.ip.easylearn.user.exception.*;
+import ro.infoiasi.ip.easylearn.user.model.LoginRequest;
 import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.model.UserResponse;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
@@ -81,8 +82,8 @@ public class UserController {
     @RequestMapping(path = "/login", method = POST)
     @ResponseBody
     @ApiOperation(value = "Logins a user")
-    public void login(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
-        boolean loggedIn = userRepository.login(email, password);
+    public void login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
+        boolean loggedIn = userRepository.login(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (loggedIn) {
             //TODO: create session and obtain id

@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import ro.infoiasi.ip.easylearn.management.model.Problem;
+import ro.infoiasi.ip.easylearn.management.model.ProblemResponse;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
 
 import javax.transaction.Transactional;
@@ -31,7 +32,7 @@ public class ProblemControllerTest {
     private ProblemRepository problemRepository;
 
     @Autowired
-    private ProblemController problemControllerToTest = new ProblemController(problemRepository);
+    private ProblemController problemController = new ProblemController(problemRepository);
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -47,7 +48,7 @@ public class ProblemControllerTest {
 
         insertProblemInDB(problem);
 
-        Problem problemGotById = problemControllerToTest.getProblemById(problem.getId());
+        Problem problemGotById = problemController.getProblemById(problem.getId());
 
         Assert.assertEquals(problem.toValuesString(),problemGotById.toValuesString());
     }
@@ -58,12 +59,8 @@ public class ProblemControllerTest {
      */
     @Test
     public void testGetProblemByInvalidId(){
-        Random rand = new Random();
-
-        long newId = problemRepository.getLastId();
-
-        Problem expected = problemControllerToTest.getProblemById(newId);
-        Problem actual = problemRepository.findById(newId);
+        Problem expected = problemController.getProblemById(1L);
+        Problem actual = problemRepository.findById(1L);
 
         Assert.assertNotEquals(expected, actual);
     }
@@ -88,7 +85,7 @@ public class ProblemControllerTest {
         insertProblemInDB(testProblem2);
         insertProblemInDB(testProblem3);
 
-        List<Problem> methodResult = problemControllerToTest.getProblemsByCategory(category.getId());
+        List<Problem> methodResult = problemController.getProblemsByCategory(category.getId());
 
         String actualString = "";
         for(Problem problem : methodResult){
@@ -106,7 +103,7 @@ public class ProblemControllerTest {
     public void testGetProblemsByInvalidCategory() {
         Category category = new Category(10L,"hardcore");
 
-        List<Problem> methodResult = problemControllerToTest.getProblemsByCategory(category.getId());
+        List<Problem> methodResult = problemController.getProblemsByCategory(category.getId());
         int actualSize = -1;
         if(methodResult == null){
             actualSize = 0;
@@ -133,7 +130,7 @@ public class ProblemControllerTest {
         insertProblemInDB(testProblem2);
         insertProblemInDB(testProblem3);
 
-        List<Problem> problems = problemControllerToTest.getProblemsByAuthor(userId);
+        List<Problem> problems = problemController.getProblemsByAuthor(userId);
         String actualResult = "";
         for(Problem problem : problems){
             actualResult = problem.toValuesString();
@@ -145,7 +142,7 @@ public class ProblemControllerTest {
     @Test
     public void testGetProblemsByInvalidAuthor() {
         Long invalidAuthorId = 0L;
-        List<Problem> methodResult = problemControllerToTest.getProblemsByAuthor(invalidAuthorId);
+        List<Problem> methodResult = problemController.getProblemsByAuthor(invalidAuthorId);
         int actualSize = -1;
         if (methodResult == null){
             actualSize = 0;
@@ -164,9 +161,10 @@ public class ProblemControllerTest {
     @Test
     public void test_addProblem() {
         Problem problem = createTestProblemFor();
-        problemControllerToTest.addProblem(problem);
+        ProblemResponse problemResponse = problemController.addProblem(problem);
 
-        Problem actualProblem = problemControllerToTest.getProblemById(problem.getId());
+        Problem actualProblem = problemController.getProblemById(problemResponse.getId());
+        problem.setId(problemResponse.getId());
 
         Assert.assertEquals(problem.toValuesString(), actualProblem.toValuesString());
     }
@@ -175,7 +173,7 @@ public class ProblemControllerTest {
 
     private Problem createTestProblemFor(Long authorId){
         return new Problem(
-                problemRepository.getLastId()+1,
+                1L,
                 authorId,
                 1L,
                 "Eureni2",
@@ -195,12 +193,12 @@ public class ProblemControllerTest {
                 "eureni.in",
                 "eureni.out",
                 1,
-                1);
+                1L);
     }
 
     private Problem createTestProblemFor(long categoryId){
         return new Problem(
-                problemRepository.getLastId()+1,
+                1L,
                 1L,
                 1L,
                 "Eureni2",
@@ -220,13 +218,13 @@ public class ProblemControllerTest {
                 "eureni.in",
                 "eureni.out",
                 1,
-                1);
+                1L);
     }
 
 
     private Problem createTestProblemFor(){
         return new Problem(
-                problemRepository.getLastId()+1,
+                1L,
                 1L,
                 1L,
                 "Eureni2",
@@ -246,7 +244,7 @@ public class ProblemControllerTest {
                 "eureni.in",
                 "eureni.out",
                 1,
-                1);
+                1L);
     }
 
     private void insertProblemInDB(Problem problem){

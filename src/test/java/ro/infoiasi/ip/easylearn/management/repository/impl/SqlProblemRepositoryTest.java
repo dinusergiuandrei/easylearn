@@ -32,7 +32,7 @@ public class SqlProblemRepositoryTest {
     @Ignore
     @Test
     public void findById() {
-        Problem myProblem = new Problem(problemRepository.getLastId()+1,
+        Problem myProblem = new Problem(1L,
                 1L,
                 1L,
                 "Eureni",
@@ -53,7 +53,7 @@ public class SqlProblemRepositoryTest {
                 "eureni.in",
                 "eureni.out",
                 1,
-                1);
+                1L);
 
         String query = "INSERT INTO problems (id, userId, categoryId, title, description, requirement, input, output, restrictions, difficulty, dataType, inputExample, outputExample, inputFile, outputFile, memoryLimit, timeLimit) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         Object[] params = new Object[] {myProblem.getId(), myProblem.getUserId(), myProblem.getCategoryId(), myProblem.getTitle(), myProblem.getDescription(), myProblem.getRequirement(), myProblem.getInput(),

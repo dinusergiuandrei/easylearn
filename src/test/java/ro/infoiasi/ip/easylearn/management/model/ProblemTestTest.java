@@ -39,27 +39,6 @@ public class ProblemTestTest {
 
 
     @Test
-    public void setId() {
-        ProblemTest myTestProblem = new ProblemTest();
-
-        long newID = testRepository.getLastId() + 1;
-        myTestProblem.setId(newID);
-
-        long id = myTestProblem.getId();
-        Assert.assertEquals(id, newID);
-    }
-    @Test
-    public void setProblemId() {
-        ProblemTest myTestProblem = new ProblemTest();
-
-        Long problemId = problemRepository.getLastId() + 1;
-        myTestProblem.setProblemId(problemId);
-        Long id = myTestProblem.getProblemId();
-
-        Assert.assertEquals(id, problemId);
-    }
-
-    @Test
     public void setInput() {
         ProblemTest myTestProblem = new ProblemTest();
 
