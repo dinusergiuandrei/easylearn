@@ -1,8 +1,16 @@
 package ro.infoiasi.ip.easylearn.user.model;
+
 public class LoginRequest {
     private String email;
+    private String password;
 
     public LoginRequest() {
+    }
+
+    public LoginRequest(String email, String password) {
+
+        this.email = email;
+        this.password = password;
     }
 
     public String getEmail() {
@@ -20,12 +28,4 @@ public class LoginRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public LoginRequest(String email, String password) {
-
-        this.email = email;
-        this.password = password;
-    }
-
-    private String password;
 }

@@ -15,16 +15,16 @@ export class AuthService {
   private api = `${environment.api}/user`;
 
   login(user): Observable<any> {
-    return this.http.get(
-                `${environment.api}/login?email=` + user.email + '&password=' + user.password,
-               { observe: 'response', withCredentials: true }
-             )
-      .map((res: any) => {
-          console.log(res);
-          console.log(res.headers.get('Set-Cookie'));
-          return res;
-      });
-  }
+    let url = `${environment.api}/login?email=` + user.email + '&password=' + user.password;
+
+    return this.http.get(url, { observe: 'response', withCredentials: true })
+           .map((res: any) => {
+                    console.log(res);
+                    console.log(res.headers.get('Set-Cookie'));
+                    return res;
+                });
+            }
+
 
   register(user): Observable<any> {
     return this.http.post(`${environment.api}/users`, {
