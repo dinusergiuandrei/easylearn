@@ -40,7 +40,7 @@ public class TestControllerTest {
     public void tests() {
 
         Problem myProblem = new Problem(
-                problemRepository.getLastId()+1,
+                1L,
                 1L,
                 1L,
                 "Eureni",
@@ -61,7 +61,7 @@ public class TestControllerTest {
                 "eureni.in",
                 "eureni.out",
                 1,
-                1);
+                1L);
 
     }
 }

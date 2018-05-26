@@ -7,9 +7,13 @@ import { MaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 
+import { HttpClientModule } from '@angular/common/http';
 
 // Services
 import { LoadingScreenService } from './services/loading-screen.service';
+import { AuthService } from './services/auth.service';
+import { NotificationService } from './services/notification.service';
+import { ProblemService} from './services/problem.service'
 
 // Components
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
@@ -34,6 +38,7 @@ import { UserProfileComponent } from './components/pages/user-profile/user-profi
 import { CategoriesComponent } from './components/public/categories/categories.component';
 import { ProblemtestComponent } from './components/public/problemtest/problemtest.component';
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
+import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 
 
 @NgModule({
@@ -58,7 +63,8 @@ import { ProblemsCategoryComponent } from './components/pages/problems-category/
     SolutionsComponent,
     UserProfileComponent,
     ProblemtestComponent,
-    ProblemsCategoryComponent
+    ProblemsCategoryComponent,
+    AddProblemComponent,
 
   ],
   imports: [
@@ -70,6 +76,7 @@ import { ProblemsCategoryComponent } from './components/pages/problems-category/
     BrowserAnimationsModule,
     MonacoEditorModule.forRoot(),
     NgxPaginationModule,
+    HttpClientModule,
   ],
   providers: [
     LoadingScreenService,

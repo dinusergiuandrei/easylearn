@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import {ProblemService} from '../../../services/problem.service'
+import { ProblemModel } from '../../../shared';
 
 @Component({
   selector: 'app-problems-category',
@@ -8,193 +10,36 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProblemsCategoryComponent implements OnInit {
 
+  public p;
   public title;
   public content;
+  public problems: Array<ProblemModel>;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private problemService:ProblemService, private router:Router) { 
+  }
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
       this.title = params.get('id');
+  
     });
     if (this.title != "algorithms" && this.title != "data_structures" && this.title != "mathematics") {
-      this.title = "Wrong";
+      this.router.navigate(['/error404'])
     }
     else {
       this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
     }
-
-    this.content = {
-      problems: [
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.2 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "312321312mb",
-          time: "0.2231 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.221321432 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.123122 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.212312 seconds",
-          solved: "Solved"
-        },
-        {
-          title: "Easy C++",
-          statement: "Să se scrie o funcție C++ care să determine prima și ultima cifră a unui număr natural transmis ca parametru. Funcția va întoarce rezultatele prin intermediul unor parametri de ieşire.",
-          memory: "32mb",
-          time: "0.21231 seconds",
-          solved: "Solved"
-        }
-      ]
-    }
+    this.problemService.getProblems(1).subscribe((res: any) => {
+        this.problems = res;
+      },
+      err => {
+        console.log(err);
+      }
+    )
   }
+
+  public getProblemPage(problemId: number): void {
+    this.router.navigate(['/problem/' + problemId]);
+  }
+
 }

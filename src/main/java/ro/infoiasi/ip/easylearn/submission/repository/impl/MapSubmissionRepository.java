@@ -48,7 +48,7 @@ public class MapSubmissionRepository implements SubmissionRepository{
     }
 
     @Override
-    public Long update(Submission submission) {
-        return null;
+    public void update(Submission submission) {
+
     }
 }

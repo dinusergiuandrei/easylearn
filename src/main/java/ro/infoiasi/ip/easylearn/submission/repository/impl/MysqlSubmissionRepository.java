@@ -2,6 +2,9 @@ package ro.infoiasi.ip.easylearn.submission.repository.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
@@ -9,8 +12,14 @@ import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.utils.SubmissionMapper;
 import ro.infoiasi.ip.easylearn.utils.RunState;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static ro.infoiasi.ip.easylearn.utils.Language.Java;
 
 @Repository
 public class MysqlSubmissionRepository implements SubmissionRepository {
@@ -19,51 +28,55 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
 
     @Override
     public Long save(Submission submission) {
-        String insertQuery = "insert into submissions(userId, problemId, mainSource, language, date, state) values (?, ?, ?, ?, ?, ?)"; // submission ID is auto_increment
+        String insertQuery = "insert into submissions(userId, problemId, mainSource, language, date, state) values (?, ?, ?, ?, ?, ?)";
 
-        jdbcTemplate.update(insertQuery,
-                submission.getUserId(),
-                submission.getProblemId(),
-                submission.getMainSource(),
-                submission.getLanguage().toString(),
-                new SimpleDateFormat("YYYY-MM-dd HH-MM-ss").format(submission.getDate()),
-                submission.getState().toString());
+        PreparedStatementCreator psc = new PreparedStatementCreator() {
+            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+                PreparedStatement ps =
+                        connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS);
+                ps.setLong(1, submission.getUserId());
+                ps.setLong(2, submission.getProblemId());
+                ps.setString(3, submission.getMainSource());
+                ps.setString(4, submission.getLanguage().toString());
+                ps.setDate(5, new java.sql.Date(submission.getDate().getTime()));
+                ps.setString(6, submission.getState().toString());
 
-        Long id = jdbcTemplate.queryForObject("select max(id) from submissions;", Long.class);
+                return ps;
+            }
+        };
 
-        for (SourceFile source : submission.getSources()) {
-            jdbcTemplate.update("insert into submission_code(submissionId, fileName, sourceCode) values (?,?,?)",
-                    id,
-                    source.getFileName(),
-                    source.getContent());
-        }
+        // obtain last generated id
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(psc, keyHolder);
+
+        Long id = keyHolder.getKey().longValue();
+
 
         return id;
     }
 
     @Override
     public Submission findById(Long id) {
-        String mysql = "SELECT * FROM submissions where id='" + id + "'";
-        List<Submission> submission = jdbcTemplate.query(mysql, new SubmissionMapper());
+        String findById = "SELECT * FROM submissions where id=?";
+        List <Submission> submission = jdbcTemplate.query(findById, new SubmissionMapper(), id);
         return submission.get(0);
     }
 
     @Override
-    public List<Submission> findAll() {
-        String mysql = "SELECT * FROM submissions";
-        return jdbcTemplate.query(mysql, new SubmissionMapper());
+    public List <Submission> findAll() {
+        String findAll = "SELECT * FROM submissions";
+        return jdbcTemplate.query(findAll, new SubmissionMapper());
     }
 
     @Override
-    public List<Submission> findByState(RunState state) {
-        String mysql = "SELECT * FROM submissions where state='" + state.toString() + "'";
-        return jdbcTemplate.query(mysql, new SubmissionMapper());
+    public List <Submission> findByState(RunState state) {
+        String findByState = "SELECT * FROM submissions where state=?";
+        return jdbcTemplate.query(findByState, new SubmissionMapper(), state.toString());
     }
 
     @Override
-    public Long update(Submission submission) {
-        String updateQuery = "update submissions set state='" + submission.getState() +"'";
-        jdbcTemplate.update(updateQuery);
-        return submission.getId();
+    public void update(Submission submission) {
+        String updateQuery = "update submissions set userId=?, problemId=?, mainSource=?, language=?, date=?, state=? where id=?";
+        jdbcTemplate.update(updateQuery, submission.getUserId(), submission.getProblemId(), submission.getMainSource(), submission.getLanguage().toString(), submission.getDate(), submission.getState().toString(), submission.getId());
     }
 }

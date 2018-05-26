@@ -177,11 +177,11 @@ public class TestProblem {
     @Test
     public void testSetter_setTimeLimit() throws NoSuchFieldException, IllegalAccessException {
         final Problem problem = new Problem();
-        problem.setTimeLimit(1000);
+        problem.setTimeLimit(1000L);
 
         final Field field = problem.getClass().getDeclaredField("timeLimit");
         field.setAccessible(true);
-        assertEquals("Fields didn't match", field.get(problem), (double)1000);
+        assertEquals("Fields didn't match", field.get(problem), 1000L);
     }
 
     @Test
@@ -392,11 +392,11 @@ public class TestProblem {
         final Problem problem = new Problem();
         final Field field = problem.getClass().getDeclaredField("timeLimit");
         field.setAccessible(true);
-        field.set(problem, (double)1000);
+        field.set(problem, 1000L);
 
         final double result = problem.getTimeLimit();
 
 //        assertEquals("Field wasn't retrieved properly", result, (double)1000);
-        Assert.assertEquals((double)1000, result, 1);
+        Assert.assertEquals(1000, result, 1);
     }
 }

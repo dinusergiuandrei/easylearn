@@ -11,6 +11,7 @@ import { AboutUsComponent } from './components/pages/about-us/about-us.component
 import { ProblemComponent } from './components/pages/problem/problem.component';
 import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
+import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
   { path: 'problem', component: ProblemComponent },
   { path: 'problems-category/:id', component: ProblemsCategoryComponent },
   { path: 'user-profile', component: UserProfileComponent },
+  { path: 'add-problem', component: AddProblemComponent },
   { path: '404', component: Error404Component },
   { path: '**', redirectTo: '/404' },
 ];

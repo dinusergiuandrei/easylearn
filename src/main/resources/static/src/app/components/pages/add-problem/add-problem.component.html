@@ -1,0 +1,57 @@
+<div class="add-problem-wrapper">
+    <h1>Add a new problem</h1>
+
+    <div class="form-content">
+        <div class="info-section">
+            <div class="info-section-title">General info</div>
+        
+            <div class="form-control">
+                <label>Author: </label>
+                <input type="text" [(ngModel)]="author" class="input" >
+            </div>
+            
+            <div class="form-control">
+                <label>Category: </label>
+                <input type="text" [(ngModel)]="category" class="input" >
+            </div>
+
+            <div class="form-control">
+                <label>Restrictions: </label>
+                <textarea [(ngModel)]="restrictions"></textarea>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-section-title">Problem details</div>
+        
+            <div class="form-control-grid">
+                    <div class="form-control">
+                        <label>Problem description: </label>
+                        <textarea [(ngModel)]="description"></textarea>
+                    </div>
+                
+                    <div class="form-control">
+                        <label>Problem input: </label>
+                        <textarea [(ngModel)]="input"></textarea>
+                    </div>
+                
+                    <div class="form-control">
+                        <label>Problem output: </label>
+                        <textarea [(ngModel)]="output"></textarea>
+                    </div>
+                
+                    <div class="form-control">
+                        <label>Problem input example: </label>
+                        <textarea [(ngModel)]="inputExample"></textarea>
+                    </div>
+                
+                    <div class="form-control">
+                        <label>Problem output example: </label>
+                        <textarea [(ngModel)]="outputExample"></textarea>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <button id="submit" class="button-background" (click)="onClickSubmit()">Add problem</button>
+</div>
