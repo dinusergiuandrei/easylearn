@@ -5,22 +5,20 @@
       <div class="problems-category-body-content-problems-container" *ngFor="let problem of problems | paginate: { itemsPerPage: 5, currentPage: p }">
         <div class="problems-category-body-content-problems-container-text">
           <h4>{{problem.title}}</h4>
-          {{problem.statement}}
+          {{problem.requirement}}
         </div>
         <div class="problems-category-body-content-problems-container-details">
           <h6>Time limit</h6>
-          {{problem.time}}
+          {{problem.timeLimit}} seconds
           <h6>Memory limit</h6>
-          {{problem.memory}}
+          {{problem.memoryLimit}} mb
           <div class="problems-category-body-content-problems-container-details-button">
-            {{problem.solved}}
+            <a [routerLink]="['/problem']" [queryParams]="{problemId: problem.id}">
+              Solve
+            </a>
           </div>
         </div>
-        <div>
-          <a [routerLink]="['/problem']" [queryParams]="{problemId: problem.id}">
-            Resolve
-          </a>
-        </div>
+
       </div>
     </div>
 

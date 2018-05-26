@@ -13,6 +13,7 @@ export class ProblemsCategoryComponent implements OnInit {
   public p;
   public title;
   public content;
+  public categoryID;
   public problems: Array<ProblemModel>;
 
   constructor(private route: ActivatedRoute, private problemService:ProblemService, private router:Router) { 
@@ -27,9 +28,21 @@ export class ProblemsCategoryComponent implements OnInit {
       this.router.navigate(['/error404'])
     }
     else {
+      if(this.title == "algorithms")
+      {
+        this.categoryID = "2";
+      }
+      if(this.title == "data_structures")
+      {
+        this.categoryID = "3";
+      }
+      if(this.title == "mathematics")
+      {
+        this.categoryID = "1";
+      }
       this.title = this.title.charAt(0).toUpperCase() + this.title.slice(1);
     }
-    this.problemService.getProblems(1).subscribe((res: any) => {
+    this.problemService.getProblems(this.categoryID).subscribe((res: any) => {
         this.problems = res;
       },
       err => {
