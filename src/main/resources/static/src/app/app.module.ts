@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { MaterialModule } from './modules/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -39,6 +40,7 @@ import { CategoriesComponent } from './components/public/categories/categories.c
 import { ProblemtestComponent } from './components/public/problemtest/problemtest.component';
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
+import { UserDashboardComponent } from './components/pages/user-dashboard/user-dashboard.component';
 
 
 @NgModule({
@@ -65,6 +67,7 @@ import { AddProblemComponent } from './components/pages/add-problem/add-problem.
     ProblemtestComponent,
     ProblemsCategoryComponent,
     AddProblemComponent,
+    UserDashboardComponent,
 
   ],
   imports: [
@@ -77,6 +80,7 @@ import { AddProblemComponent } from './components/pages/add-problem/add-problem.
     MonacoEditorModule.forRoot(),
     NgxPaginationModule,
     HttpClientModule,
+    ChartsModule
   ],
   providers: [
     LoadingScreenService,

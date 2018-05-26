@@ -32,7 +32,7 @@
                 border-radius: 1000px;
                 float: left;
             }
-            .account {
+            .dashboard {
                 background-color: #ffffff;
                 height: 40px;
                 width: 100px;;
@@ -55,78 +55,65 @@
                 text-align: center;
                 float: left;
             }
-        .buttons {
-            width: 36%;
-            float: right;
-            display: inline;
-            margin-right: 8.5%;
-            button{
-                width: 45%;
-                height: 30px;
-                background-color: #ffffff;
-                border: solid 0.5px #707070;
-            }
-            #edit {
-                float:left;
-            }
-            #delete { 
-                float: right;
-            }
-            
-        }
         
     }
     .line-three {
-        display: inline-block;
+        display: inline;
         .stats-container {
-                width: 36%;
-                height: 270px;
+                display: flex;
+                flex-direction: column;
+                width: 40%;
+                height: 200px;
                 background-color: #ffffff;
                 border: solid 0.5px #707070;
                 margin-top: 20px;
-                .input {
-                    margin: auto;
-                    display: block;
-                    width: 85%;
-                    height: 40px;
-                    padding: 5px;
-                }
-                .fields {
-                    margin-left: 8%;
-                    margin-top: 15px;
-                    height: 20px;
-                }
                 .container-names {
                     width: 60px;
                     height: 35px;
                     background-color: #ffffff;
-                    margin-left: 5%;
-                    margin-top: -14px;
+                    margin-left: 10%;
+                    margin-top: -12px;
                     margin-bottom: -15px;
                     text-align: center;
                 }
+                .content{
+                    display: flex;
+                    flex-direction: row;
+                    .text{
+                        margin-left: 10%;
+                        margin-right: 10%;
+                    }
+                    .values{
+                        
+                    }
+                }
             }
-            #social {
-                float:left;
-                margin-left: 8.5%;
+        #chart{
+            float:left;
+            canvas {
+                margin-top: 5%;
+                height: 200px;
+                margin-left: auto;
+                margin-right: auto;
             }
-            #user {
-                float:right;
-                margin-right: 8.5%;
-            }
+            
+        }
+        #stats{
+            float:right;
+            margin-right: 8.5%;
+            
+        }
         
     }
 }
-
-
 @media screen and (max-width:450px){
     .line-one { margin-bottom: -20%;}
     .line-two { margin-bottom: -20%; display: block;}
     .name {width: 100%;};
     .buttons { width: 100%;}
     .dashboard-container { width: 90%; height: 900px;}
-    #social {width: 80%; margin-left: auto;margin-right: auto;}
-    #user {width: 80%; margin-left: auto;margin-right: auto;}
+    #chart {width: 80%; margin-left: auto;margin-right: auto;}
+    #stats {width: 80%; margin-left: auto;margin-right: auto;}
     .buttons { margin-left: auto;margin-right: auto; width: 80%; }
     
 }

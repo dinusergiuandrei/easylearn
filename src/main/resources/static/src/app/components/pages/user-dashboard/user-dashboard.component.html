@@ -1,0 +1,44 @@
+<div class="page">
+    <div class="dashboard-container">
+        <div class="line-one">
+            <img class="user-photo" src="../../../../assets/images/user_default.png">
+            <div class="dashboard"><b>Dashboard</b></div>
+        </div>
+        <div class="line-two">
+            <div class="name"><b>{{user.name}}</b></div>
+        </div>
+        <div class="line-three">   
+
+            <div sclass="stats-container" id="chart">
+                <canvas
+                        baseChart
+                        [chartType]="'pie'"
+                        [datasets]="chartData"
+                        [labels]="chartLabels"
+                        [colors]="chartColors"
+                        [options]="chartOptions">
+                </canvas>
+            </div>
+            
+            <div class="stats-container" id="stats">
+                <div class="container-names">Stats</div>
+                <div class="content">
+                    <div class="text">
+                        <p>Tried problems:</p>
+                        <p>Solved problems:</p>
+                        <p>Added problems:</p>
+                        <p>Latest tried problem:</p>
+                        <p>Preffered language:</p>
+                    </div>
+                    <div class="values">
+                        <p>20</p>
+                        <p>15</p>
+                        <p>4</p>
+                        <p>Problema 1</p>
+                        <p>Java</p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
