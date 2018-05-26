@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {UserService} from '../../../services/user-account.service';
+import { UserModel } from '../../../shared';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,19 +10,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
     
-  public user;
+  public users: Array<UserModel>;
+  public userid;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute, private UserService:UserService, private router:Router) { }
 
   ngOnInit() {
-    this.user ={
-        facebook: 'John.Doe',
-        linkedin: 'John.Doe',
-        github: 'John.Doe',
-        name: 'John Doe',
-        email: 'johndoe@easylearn.ro',
-        phone: '0235 / 192.192'
-        };
-  }
+
+    this.route.paramMap.subscribe(params => {
+      this.userid = params.get('id');
+  
+    });
+    this.UserService.getUser(this.userid).subscribe((res: any) => {
+      this.users = res;
+      console.log(this.users);
+    },
+    err => {
+      console.log(err);
+    })}
+
+
+
+ 
 
 }

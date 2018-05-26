@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'problem', component: ProblemComponent },
   { path: 'problems-category/:id', component: ProblemsCategoryComponent },
-  { path: 'user-profile', component: UserProfileComponent },
+  { path: 'user-profile/:id', component: UserProfileComponent },
   { path: 'user-dashboard', component: UserDashboardComponent },
   { path: 'add-problem', component: AddProblemComponent },
   { path: '404', component: Error404Component },

@@ -47,7 +47,6 @@
     .line-two {
         height:10%;
         margin-top: -10px;
-        display: inline;
         width: 100%;
         .name {
                 width: 27%;
@@ -58,19 +57,16 @@
         .buttons {
             width: 36%;
             float: right;
-            display: inline;
             margin-right: 8.5%;
-            button{
-                width: 45%;
-                height: 30px;
-                background-color: #ffffff;
-                border: solid 0.5px #707070;
-            }
             #edit {
                 float:left;
+                width:40%;
+                padding:2%;
             }
             #delete { 
                 float: right;
+                width:45%;
+                padding:2%;
             }
             
         }
