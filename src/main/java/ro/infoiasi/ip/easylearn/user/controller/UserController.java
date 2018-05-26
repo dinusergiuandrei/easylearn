@@ -86,13 +86,16 @@ public class UserController {
         boolean loggedIn = userRepository.login(loginRequest.getEmail(), loginRequest.getPassword());
 
         if (loggedIn) {
-            String sid = sessionRepository.create();
+            String sid = sessionRepository.create(userRepository.findByEmail(loginRequest.getEmail()));
             Cookie cookie = new Cookie("sid",sid);
             cookie.setPath("/");
             response.addCookie(cookie);
+            System.out.println(sessionRepository.getUserID(sid));
         } else {
             throw new LoginFailedException();
         }
+
+
     }
 
 
