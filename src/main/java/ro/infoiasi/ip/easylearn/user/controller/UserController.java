@@ -94,4 +94,29 @@ public class UserController {
         }
     }
 
+
+    @RequestMapping(path = "/login", method = GET)
+    @ResponseBody
+    @ApiOperation(value = "Logins a user")
+    public void loginOptions(HttpServletResponse response) {
+        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Methods", "*");
+        response.addHeader("Access-Control-Allow-Headers", "content-type");
+    }
+
+
+    @RequestMapping(path = "/login?email={email}&password={password}", method = GET)
+    @ResponseBody
+    @ApiOperation(value = "Logins a user")
+    public void login2(@PathVariable String email, @PathVariable String password, HttpServletResponse response) {
+        boolean loggedIn = userRepository.login(email, password);
+
+        if (loggedIn) {
+            //TODO: create session and obtain id
+            // sessionRepository etc
+            response.addCookie(new Cookie("sid", "session-id"));
+        } else {
+            throw new LoginFailedException();
+        }
+    }
 }
