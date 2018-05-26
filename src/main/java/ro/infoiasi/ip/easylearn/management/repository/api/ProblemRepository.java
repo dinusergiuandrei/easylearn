@@ -12,5 +12,5 @@ public interface ProblemRepository {
     List<Problem> findByAuthor(Long authorId);
     List<Problem> findSolved(Long userId);
     List<Problem> findAttempted(Long userId);
-
+    List<Problem> getRandom();
 }

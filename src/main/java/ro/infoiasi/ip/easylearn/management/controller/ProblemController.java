@@ -2,12 +2,7 @@ package ro.infoiasi.ip.easylearn.management.controller;
 
 import java.util.List;
 
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,7 +44,7 @@ public class ProblemController {
         return problem;
     }
 
-    @RequestMapping(path = "/problems/category/{id}", method = GET)
+    @RequestMapping(path = "/problems/category/{categoryId}", method = GET)
     @ResponseBody
     @ApiOperation(value = "Returns all the problems in the provided category")
     public List <Problem> getProblemsByCategory(@PathVariable Long categoryId) {

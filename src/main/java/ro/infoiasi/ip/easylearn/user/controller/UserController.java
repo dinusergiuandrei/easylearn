@@ -87,28 +87,33 @@ public class UserController {
 
         if (loggedIn) {
             String sid = sessionRepository.create();
-            response.addCookie(new Cookie("sid", sid));
+            Cookie cookie = new Cookie("sid",sid);
+            cookie.setPath("/");
+            response.addCookie(cookie);
         } else {
             throw new LoginFailedException();
         }
     }
 
 
-    @RequestMapping(path = "/login", method = OPTIONS)
-    @ResponseBody
-    @ApiOperation(value = "Logins a user")
-    public void loginOptions(HttpServletResponse response) {
-        response.addHeader("Access-Control-Allow-Origin", "*");
-        response.addHeader("Access-Control-Allow-Methods", "*");
-        response.addHeader("Access-Control-Allow-Headers", "content-type");
-    }
+//    @RequestMapping(path = "/login", method = OPTIONS)
+//    @ResponseBody
+//    @ApiOperation(value = "Logins a user")
+//    public void loginOptions(HttpServletResponse response) {
+//        response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
+//        response.addHeader("Access-Control-Allow-Methods", "*");
+//        response.addHeader("Access-Control-Allow-Headers", "content-type");
+//        response.addHeader("Access-Control-Allow-Credentials", "true");
+//    }
 
 
-    @RequestMapping(path = "/login", method = GET)
-    @ApiOperation(value = "Logins a user")
-    public void login2(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
-       login(new LoginRequest(email, password), response);
-    }
+    //@RequestMapping(path = "/login", method = GET)
+    //@ApiOperation(value = "Logins a user")
+//    public void login2(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
+//        System.out.println(email+" "+password);
+//        loginOptions(response);
+//        login(new LoginRequest(email, password), response);
+//    }
 
    @RequestMapping(path = "/logout", method = GET)
     @ApiOperation(value = "Logs out a user")
@@ -119,5 +124,4 @@ public class UserController {
        cookie.setMaxAge(0);
        response.addCookie(cookie);
     }
-
 }

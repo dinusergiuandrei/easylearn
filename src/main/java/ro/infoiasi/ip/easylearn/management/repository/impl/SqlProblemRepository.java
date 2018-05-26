@@ -84,9 +84,21 @@ public class SqlProblemRepository implements ProblemRepository {
     @Override
     public List <Problem> findByCategory(Long categoryId) {
         try {
-            String findByCategory = "SELECT * FROM problems where categories=?";
+            String findByCategory = "SELECT * FROM problems where categoryId=?";
             return jdbcTemplate.query(findByCategory, rowMapper, categoryId);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public List<Problem> getRandom() {
+        try{
+            String query = "SELECT * FROM problems ORDER BY RAND() LIMIT 5";
+            return jdbcTemplate.query(query, rowMapper);
+        }catch (Exception e)
+        {
             System.out.println(e.getMessage());
             return null;
         }
@@ -106,7 +118,7 @@ public class SqlProblemRepository implements ProblemRepository {
     // TODO there is no score field in submissions ==> check users
     public List <Problem> findSolved(Long userId) {
         try {
-            String findSolved = "SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and .score = 100 and s.userId = ?) > 0";
+            String findSolved = "SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.score = 100 and s.userId = ?) > 0";
             return jdbcTemplate.query(findSolved, rowMapper);
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -116,7 +128,8 @@ public class SqlProblemRepository implements ProblemRepository {
 
     public List <Problem> findAttempted(Long userId) {
         try {
-            return  jdbcTemplate.query("SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.userId = " + userId + ") > 0", new BeanPropertyRowMapper <>(Problem.class));
+            return  jdbcTemplate.query(
+                    "SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.userId = " + userId + ") > 0", new BeanPropertyRowMapper <>(Problem.class));
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
