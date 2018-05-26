@@ -10,8 +10,10 @@ import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.model.UserResponse;
 import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
+import ro.infoiasi.ip.easylearn.utils.CookieManager;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
@@ -32,7 +34,7 @@ public class UserController {
     @RequestMapping(path = "/users", method = GET)
     @ResponseBody
     @ApiOperation(value = "View the information about all the users")
-    public List <User> users() {
+    public List<User> users() {
         return userRepository.findAll();
     }
 
@@ -62,9 +64,11 @@ public class UserController {
         }
     }
 
-    @RequestMapping(path = "/users/{id}", method = PUT)
-    @ApiOperation(value = "Update user's data")
-    public void update(@RequestBody User user) {
+    @RequestMapping(path = "/users", method = PUT)
+    @ApiOperation(value = "Update current user's data")
+    public void update(@RequestBody User user, HttpServletRequest request) {
+        Long uid = MustBeLoggedIn(request);
+        user.setId(uid);
         boolean updated = userRepository.update(user);
         if (!updated) {
             throw new UserDataCouldNotBeUpdatedException();
@@ -87,15 +91,26 @@ public class UserController {
 
         if (loggedIn) {
             String sid = sessionRepository.create(userRepository.findByEmail(loginRequest.getEmail()));
-            Cookie cookie = new Cookie("sid",sid);
+            Cookie cookie = new Cookie("sid", sid);
             cookie.setPath("/");
             response.addCookie(cookie);
-            System.out.println(sessionRepository.getUserID(sid));
         } else {
             throw new LoginFailedException();
         }
+    }
 
+    @RequestMapping(path = "/profile", method = GET)
+    @ApiOperation(value = "Get current user info")
+    public User profile(HttpServletRequest request) {
+        Long uid = MustBeLoggedIn(request);
+        return userRepository.findById(uid);
+    }
 
+    public Long MustBeLoggedIn(HttpServletRequest request) {
+        Cookie cookie = CookieManager.getCookie(request.getCookies(), "sid");
+        if (cookie != null && sessionRepository.isActive(cookie.getValue()))
+            return sessionRepository.getUserID(cookie.getValue());
+        else throw new NotLoggedInException();
     }
 
 
@@ -118,13 +133,13 @@ public class UserController {
 //        login(new LoginRequest(email, password), response);
 //    }
 
-   @RequestMapping(path = "/logout", method = GET)
+    @RequestMapping(path = "/logout", method = GET)
     @ApiOperation(value = "Logs out a user")
     public void logout(@RequestParam String sid, HttpServletResponse response) {
-       System.out.println(sid);
-       sessionRepository.destroy(sid);
-       Cookie cookie = new Cookie("sid", sid);
-       cookie.setMaxAge(0);
-       response.addCookie(cookie);
+        System.out.println(sid);
+        sessionRepository.destroy(sid);
+        Cookie cookie = new Cookie("sid", sid);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
     }
 }

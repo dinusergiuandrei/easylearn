@@ -24,7 +24,7 @@ public class SqlUserRepository implements UserRepository {
     public boolean update(User user) {
         try {
             String query = "UPDATE users set name=?, firstName=?, password=?, email=? where id=?";
-            Object[] params = new Object[]{user.getName(), user.getFirstName(), user.getPassword(), user.getEmail(), user.getId()};
+            Object[] params = new Object[]{user.getName(), user.getFirstName(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getEmail(), user.getId()};
             int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
             jdbcTemplate.update(query, params, types);
 
@@ -87,7 +87,7 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public boolean delete(Long id) {
-        String query = "DELETE FROM users WHERE id?";
+        String query = "DELETE FROM users WHERE id=?";
         return jdbcTemplate.update(query, id) > 0;
     }
 }
