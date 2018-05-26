@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/Observable/of';
+import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -17,6 +18,10 @@ export class AuthService {
     return this.http.post(`${environment.api}/login`, {
       email: user.email,
       password: user.password
+    }, {observe: 'response', withCredentials: true}).map((res: any) => {
+      console.log(res);
+      console.log(res.headers.get('Set-Cookie'));
+      return res;
     });
   }
 

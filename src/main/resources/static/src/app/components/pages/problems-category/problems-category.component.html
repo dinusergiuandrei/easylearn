@@ -1,8 +1,8 @@
 <div class="problems-category-body">
   <h1>{{title}}</h1>
   <div class="problems-category-body-content">
-    <div class="problems-category-body-content-problems">
-      <div class="problems-category-body-content-problems-container" *ngFor="let problem of content.problems | paginate: { itemsPerPage: 5, currentPage: p }">
+    <div class="problems-category-body-content-problems" *ngIf="problems != null || problems != undefined">
+      <div class="problems-category-body-content-problems-container" *ngFor="let problem of problems | paginate: { itemsPerPage: 5, currentPage: p }">
         <div class="problems-category-body-content-problems-container-text">
           <h4>{{problem.title}}</h4>
           {{problem.statement}}
@@ -15,6 +15,11 @@
           <div class="problems-category-body-content-problems-container-details-button">
             {{problem.solved}}
           </div>
+        </div>
+        <div>
+          <a [routerLink]="['/problem']" [queryParams]="{problemId: problem.id}">
+            Resolve
+          </a>
         </div>
       </div>
     </div>
@@ -41,4 +46,3 @@
 
     <pagination-controls (pageChange)="p = $event"></pagination-controls>
   </div>
-
