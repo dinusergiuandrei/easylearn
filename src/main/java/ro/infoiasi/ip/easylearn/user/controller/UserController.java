@@ -11,6 +11,7 @@ import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.model.UserResponse;
 import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
+import ro.infoiasi.ip.easylearn.user.validation.UserValidator;
 import ro.infoiasi.ip.easylearn.utils.ConsoleLogger;
 import ro.infoiasi.ip.easylearn.utils.CookieManager;
 
@@ -27,10 +28,12 @@ public class UserController {
 
     private UserRepository userRepository;
     private SessionRepository sessionRepository;
+    private UserValidator userValidator;
 
-    public UserController(UserRepository userRepository, SessionRepository sessionRepository) {
+    public UserController(UserRepository userRepository, SessionRepository sessionRepository, UserValidator userValidator) {
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
+        this.userValidator = userValidator;
     }
 
     @RequestMapping(path = "/users", method = GET)
@@ -45,6 +48,9 @@ public class UserController {
     @ResponseBody
     @ApiOperation(value = "Registers the user")
     public UserResponse register(@RequestBody User user) {
+        if (!userValidator.validateUserRegister(user))
+            throw new RegistrationFailedException();
+
         Long id = userRepository.register(user);
 
         ConsoleLogger.Log("Register: " + user);
@@ -72,6 +78,9 @@ public class UserController {
     @RequestMapping(path = "/users", method = PUT)
     @ApiOperation(value = "Update current user's data")
     public void update(@RequestBody User user, HttpServletRequest request) {
+        if (!userValidator.validateUserUpdate(user))
+            throw new UserDataCouldNotBeUpdatedException();
+
         Long uid = MustBeLoggedIn(request);
         user.setId(uid);
 
@@ -146,7 +155,7 @@ public class UserController {
         response.addCookie(cookie);
     }
 
-    @RequestMapping(path = "/forgot", method= POST)
+    @RequestMapping(path = "/forgot", method = POST)
     @ResponseBody
     @ApiOperation(value = "Reset user password")
     public String forgot(@RequestBody ForgotUser forgotUser, HttpServletRequest request) {
@@ -154,9 +163,9 @@ public class UserController {
         forgotUser.setId(uid);
         String newPassword = userRepository.forgot(forgotUser);
 
-        ConsoleLogger.Log(forgotUser.toString() +"  New: "+newPassword);
+        ConsoleLogger.Log(forgotUser.toString() + "  New: " + newPassword);
 
-        if(newPassword == null)
+        if (newPassword == null)
             throw new UserDataCouldNotBeUpdatedException();
         return newPassword;
     }

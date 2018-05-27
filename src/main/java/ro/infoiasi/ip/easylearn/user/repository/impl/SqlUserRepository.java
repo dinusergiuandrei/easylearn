@@ -24,16 +24,6 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public boolean update(User user) {
-        String pattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        if (user.getName().length() < 3 || user.getName() == null)
-            return false;
-        if (user.getFirstName().length() < 3 || user.getFirstName() == null)
-            return false;
-        if ((!user.getEmail().matches(pattern)) || user.getEmail() == null)
-            return false;
-
-        System.out.println(user.getPassword());
-
         if (user.getPassword() == null) {
             try {
                 String query = "UPDATE users set name=?, firstName=?, email=? where id=?";
@@ -86,19 +76,6 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public Long register(User user) {
-        String pattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        if (user.getName().length() < 3 || user.getName() == null)
-            return null;
-        if (user.getFirstName().length() < 3 || user.getFirstName() == null)
-            return null;
-        if ((!user.getEmail().matches(pattern)) || user.getEmail() == null)
-            return null;
-        if (user.getPassword().length() < 4 || user.getPassword() == null)
-            return null;
-        if (user.getSecretAnswer().length() < 4 || user.getSecretAnswer() == null)
-            return null;
-        if (user.getSecretQuestion().length() < 4 || user.getSecretQuestion() == null)
-            return null;
         if (isAvailableEmail(user.getEmail())) {
             String query = "INSERT INTO users (name, firstName, email, password, secretAnswer, secretQuestion) VALUES (?,?,?,?,?,?)";
             Object[] params = new Object[]{user.getName(), user.getFirstName(), user.getEmail(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getSecretAnswer(), user.getSecretQuestion()};
