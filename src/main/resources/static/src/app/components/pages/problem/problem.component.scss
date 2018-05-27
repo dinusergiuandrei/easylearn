@@ -2,37 +2,20 @@
     margin: 0 50px;
     padding-top: 50px;
 
-    .grid {
-        display: flex;
-
-        .col-1 {
-            padding-right: 25px;
-        }
-
-        .col-2 {
-            width: 35%;
-            display: flex;
-
-            .submit-button{
-                
-            }
-        }
+    h1 {
+        padding: 0 15px;
     }
 
     .problem-details {
-        .row {
-            height: 50px;
+        h3 {
+            float: left;
+            line-height: 50px;
+            margin: 0;
+        }
 
-            h3 {
-                float: left;
-                line-height: 50px;
-                margin: 0;
-            }
-    
-            span {
-                float: right;
-                line-height: 50px;
-            }
+        span {
+            float: right;
+            line-height: 50px;
         }
     }
 
@@ -42,8 +25,14 @@
         margin-bottom: 50px;
     }
 
-    .editor {
-        margin-bottom: 50px;
+    .code-editor {
+        .editor {
+            margin-bottom: 50px;
+        }
+
+        select {
+            margin-bottom: 15px;
+        }
     }
 
     .editor-container {

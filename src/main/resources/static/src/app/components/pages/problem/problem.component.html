@@ -1,8 +1,8 @@
 <div class="problem-wrapper">
     <h1>{{ this.title }}</h1>
 
-    <div class="grid">
-        <div class="col-1">
+    <div class="row">
+        <div class="col-md-8">
             <div class="problem-description">
                 <h3>Problem Demands</h3>
                 <p>
@@ -25,10 +25,18 @@
                 </p>
             </div>
 
-            <ngx-monaco-editor class="editor" [options]="editorOptions" [(ngModel)]="submitRequestModel.mainSource"></ngx-monaco-editor>
+            <div class="code-editor">
+                <select>
+                    <option value="Python">Python</option>
+                    <option value="C++">C++</option>
+                    <option value="Java">Java</option>
+                </select>
+
+                <ngx-monaco-editor class="editor" [options]="editorOptions" [(ngModel)]="submitRequestModel.mainSource"></ngx-monaco-editor>
+            </div>
         </div>
 
-        <div class="col-2">
+        <div class="col-md-4">
             <div class="problem-details">
                 <div class="row">
                     <h3>Author: </h3> <span>{{ author }}</span>
