@@ -21,8 +21,8 @@ export class NavbarComponent implements OnInit {
   @HostListener("window:scroll", [])
   onWindowScroll() {
     const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    var x = document.getElementsByClassName('navbar')[0];
-    x.classList.add("on-scroll");
-    if(number==0) x.classList.remove("on-scroll");
+    var x = document.getElementsByClassName('navigation')[0];
+    x.classList.add("onScroll");
+    if(number==0) x.classList.remove("onScroll");
   }
 }
