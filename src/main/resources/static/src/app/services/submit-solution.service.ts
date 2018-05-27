@@ -18,4 +18,9 @@ export class SubmitSolutionService {
   public submitSolution(submitRequest: SubmissionRequestModel): Observable<any>{
     return this.http.post(this.api + '/submit', submitRequest);
   }
+
+  public getSubmision(submissionID: number): Observable<any>{
+    return this.http.get(this.api + '/submission/' + submissionID);
+  }
 }
+

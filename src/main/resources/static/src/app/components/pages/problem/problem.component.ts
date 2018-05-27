@@ -1,6 +1,6 @@
 import { OnInit } from '@angular/core';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SubmitSolutionService, ProblemService } from '../../../services';
 import { SubmissionRequestModel, ProblemModel, SourceModel } from '../../../shared';
 
@@ -26,8 +26,9 @@ export class ProblemComponent implements OnInit {
     public problemId: number;
 
     public responseText;
+    public submisionText;
 
-    constructor(private submitService: SubmitSolutionService, private problemService: ProblemService, private route: ActivatedRoute) {
+    constructor(private submitService: SubmitSolutionService, private problemService: ProblemService, private route: ActivatedRoute, private router: Router) {
         this.title = 'Problem title';
         this.author = 'Robert Maftei';
         this.difficulty = 'Easy';
@@ -43,12 +44,17 @@ export class ProblemComponent implements OnInit {
         console.log(this.submitRequestModel);
     }
     public e;
-    public sourceFile : SourceModel;
+    public sourceFile: SourceModel;
     public strUser;
     public ngOnInit(): void {
         this.problemService.getProblem(this.problemId).subscribe((result: ProblemModel) => {
             this.problemModel = result;
-        });
+        },
+            err => {
+                this.router.navigate(['/error404'])
+            });
+
+
         this.responseText = 'If you choose to code in java, you must have the main class.';
     }
 
@@ -58,32 +64,35 @@ export class ProblemComponent implements OnInit {
         this.strUser = this.e.options[this.e.selectedIndex].value;
         console.log(this.e);
         this.submitRequestModel.language = this.strUser;
-        if(this.sourceFile.content == null)
-        {
+        if (this.sourceFile.content == null) {
             this.sourceFile.content = '';
         }
 
-        if(this.strUser == 'Java')
-        {
+        if (this.strUser == 'Java') {
             this.submitRequestModel.mainSource = 'main.java';
             this.sourceFile.fileName = this.submitRequestModel.mainSource;
         }
-        else if(this.strUser == 'Cpp')
-        {
-            this.submitRequestModel.mainSource = 'main.cpp';   
+        else if (this.strUser == 'Cpp') {
+            this.submitRequestModel.mainSource = 'main.cpp';
             this.sourceFile.fileName = this.submitRequestModel.mainSource;
         }
-        else if(this.strUser == 'Python')
-        {
-            this.submitRequestModel.mainSource = 'main.py'; 
+        else if (this.strUser == 'Python') {
+            this.submitRequestModel.mainSource = 'main.py';
             this.sourceFile.fileName = this.submitRequestModel.mainSource;
         }
-        
+
+        var submissionID;
+
         console.log(this.sourceFile);
         this.submitRequestModel.sources.push(this.sourceFile);
 
         this.submitService.submitSolution(this.submitRequestModel).subscribe(res => {
             console.log(res);
         });
+
+        this.submitService.getSubmision(submissionID).subscribe(res => {
+            console.log(res);
+        });
+
     }
 }

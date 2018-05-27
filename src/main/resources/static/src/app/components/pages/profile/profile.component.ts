@@ -25,6 +25,7 @@ export class ProfileComponent implements OnInit {
       this.user = res;
     },
       err => {
+        this.router.navigate(['/error404'])
       })
   }
 
