@@ -3,7 +3,7 @@ import { SourceModel } from './source-model';
 export class SubmissionRequestModel{
 
     public language: string;
-    public main: string;
+    public mainSource: string;
     public problemId: number;
     public sources: Array<SourceModel>;
     public userId: number;

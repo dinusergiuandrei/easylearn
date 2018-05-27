@@ -8,11 +8,11 @@
     </div>
     <div class="line-two">
       <div class="name">
-          <b>{{newName}} {{newFirstName}}</b>
+        <b>{{newName}} {{newFirstName}}</b>
       </div>
       <div class="buttons">
-        <input type="submit" id="edit" class="button" value="Edit Profile" (click) = "editClick()">
-        <input type="submit" id="delete" class="button" value="Delete Account" (click) = "deleteClick()">
+        <input type="submit" id="edit" class="button" value="Edit Profile" (click)="editClick()">
+        <input type="submit" id="delete" class="button" value="Delete Account" (click)="deleteClick()">
       </div>
     </div>
     <div class="line-three">
@@ -23,7 +23,7 @@
         <div class="fields">New password</div>
         <input type="text" name="newpass" [(ngModel)]="this.newpass" class="input">
         <div class="fields">Repeat new password</div>
-        <input type="text" name="repnewpass" [(ngModel)]="this.repnewpass" class="input">
+        <input type="text" name="repnewpass" [(ngModel)]="this.renewpass" class="input">
       </div>
 
       <div class="stats-container" id="user">
@@ -36,5 +36,9 @@
         <input type="text" name="phone" class="input" [(ngModel)]="this.eMail">
       </div>
     </div>
+    <h4>
+      {{responseText}}
+    </h4>
   </div>
 </div>
+

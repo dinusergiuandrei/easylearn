@@ -14,6 +14,9 @@ export class ProfileComponent implements OnInit {
   public firstName: string;
   public lastName: string;
   public eMail: string;
+  public newpass: string;
+  public renewpass: string;
+  public responseText: string;
 
   constructor(private route: ActivatedRoute, private UserService: UserService, private router: Router) { }
 
@@ -35,7 +38,16 @@ export class ProfileComponent implements OnInit {
     if (this.eMail != null) {
       this.user.email = this.eMail;
     }
-    this.UserService.updateUser(this.user).subscribe((res: any) => { 
+
+    if (this.newpass != this.renewpass && this.newpass !=null)
+      this.responseText = 'The passwords are not the same!';
+      console.log(this.newpass+' '+this.renewpass)
+    else {
+      this.responseText = 'Succes!';
+      this.user.password = this.newpass;
+    }
+
+    this.UserService.updateUser(this.user).subscribe((res: any) => {
     },
       err => {
         console.log(err);
