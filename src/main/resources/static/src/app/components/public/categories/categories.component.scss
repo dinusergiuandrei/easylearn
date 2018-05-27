@@ -2,15 +2,16 @@ div {
   background: rgb(255, 255, 255);
 }
 
-.container {
+.container1 {
   display: inline-block;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin: 0px auto;
+  margin-left: 50px;
+  margin-right: 50px;
 }
 
-.container-fullwidth {
+.container-fullwidth1 {
   display: inline-block;
   align-items: center;
   justify-content: center;
@@ -19,11 +20,11 @@ div {
   width: 100%;
 }
 
-.bigcontainer {
+.bigcontainer1 {
   padding: 20px 0px;
 }
 
-.container-item {
+.container-item1 {
   padding: 20px;
   font-size: 30px;
 }
