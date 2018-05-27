@@ -13,6 +13,7 @@ import { ProfileComponent } from './components/pages/profile/profile.component';
 import { UserDashboardComponent } from './components/pages/user-dashboard/user-dashboard.component';
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
+import { NotallowedComponent } from './components/pages/notallowed/notallowed.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,9 @@ const routes: Routes = [
   { path: 'user-dashboard', component: UserDashboardComponent },
   { path: 'add-problem', component: AddProblemComponent },
   { path: '404', component: Error404Component },
+  { path: 'notallowed', component: NotallowedComponent},
   { path: '**', redirectTo: '/404' }
+
   
 ];
 

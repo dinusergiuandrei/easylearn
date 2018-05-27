@@ -42,6 +42,7 @@ import { ProblemtestComponent } from './components/public/problemtest/problemtes
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 import { UserDashboardComponent } from './components/pages/user-dashboard/user-dashboard.component';
+import { NotallowedComponent } from './components/pages/notallowed/notallowed.component';
 // import { NotificationsComponent } from './shared/components/notifications/notifications.component';
 
 
@@ -70,7 +71,7 @@ import { UserDashboardComponent } from './components/pages/user-dashboard/user-d
     ProblemsCategoryComponent,
     AddProblemComponent,
     UserDashboardComponent,
-
+    NotallowedComponent
   ],
   imports: [
     BrowserModule,
