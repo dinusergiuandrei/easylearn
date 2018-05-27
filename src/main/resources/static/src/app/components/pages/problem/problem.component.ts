@@ -3,7 +3,6 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubmitSolutionService, ProblemService } from '../../../services';
 import { SubmissionRequestModel, ProblemModel, SourceModel } from '../../../shared';
-
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
@@ -53,7 +52,6 @@ export class ProblemComponent implements OnInit {
             err => {
                 this.router.navigate(['/error404'])
             });
-
 
         this.responseText = 'If you choose to code in java, you must have the main class.';
     }

@@ -25,7 +25,7 @@ export class ProfileComponent implements OnInit {
       this.user = res;
     },
       err => {
-        this.router.navigate(['/error404'])
+        this.router.navigate(['/notallowed'])
       })
   }
 
