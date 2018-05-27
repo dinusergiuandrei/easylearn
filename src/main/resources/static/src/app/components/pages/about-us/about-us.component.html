@@ -1,11 +1,11 @@
 <section class="container header">
   <h1>Have you heard about easylearn?</h1>
-  <h3>Meet the people behind the largest IT learning platform and find more about our mission</h3>
+  <h3 class="subtle">Meet the people behind the largest IT learning platform and find more about our mission</h3>
 </section>
 
 <section class="container about">
   <div class="about-card">
-    <h3>About Easylearn</h3>
+    <h2 class="subtle">About Easylearn</h2>
     <p>
       Easylearn is an education company. But not one in the way you might think. We're committed to building the best learning
       experience inside and out, making Easylearn the best place for our team to learn, teach, and create the online learning
@@ -15,7 +15,7 @@
     </p>
   </div>
   <div class="about-card">
-    <h3>Our mission</h3>
+    <h2 class="subtle">Our mission</h2>
     <p>
       We're not one of those companies. We are rethinking education from the bottom up. The web has rethought nearly everything
       - commerce, social networking, healthcare, and more. We are building the education the world needs - the first truly
@@ -25,43 +25,20 @@
   </div>
 </section>
 
-
-
 <section class="container team">
-  <h3>Our team</h3>
-  <div class="aboutus-body-team-members">
-    <div class="aboutus-body-team-members-person" *ngFor="let member of team.members">
-      <img [src]="member.photo" [alt]="member.name">
+  <h2 class="title">Our team</h2>
+  <div class="team-wrapper">
+    <div class="team-member" *ngFor="let member of team">
+      <img src="{{member.photo === null ? '../../../../assets/images/user_default.png' : member.photo}}" alt="{{member.name}}" />
       <h5>{{member.name}}</h5>
       <h6>{{member.role}}</h6>
     </div>
   </div>
 </section>
 
-
 <section class="container tech">
-  <h3>Used technologies</h3>
-  <div class="aboutus-body-technologies-content">
-    <div class="aboutus-body-technologies-content-small">
-      <img src="../../../../assets/images/technologies/html.png">
-    </div>
-    <div class="aboutus-body-technologies-content-small">
-      <img src="../../../../assets/images/technologies/css.png">
-    </div>
-    <div class="aboutus-body-technologies-content-small">
-      <img src="../../../../assets/images/technologies/sass.png">
-    </div>
-    <div class="aboutus-body-technologies-content-small">
-      <img src="../../../../assets/images/technologies/js.png">
-    </div>
-    <div class="aboutus-body-technologies-content-small">
-      <img src="../../../../assets/images/technologies/angular.png">
-    </div>
-    <div class="aboutus-body-technologies-content-big">
-      <img src="../../../../assets/images/technologies/spring.png">
-    </div>
-    <div class="aboutus-body-technologies-content-small">
-      <img src="../../../../assets/images/technologies/java.png">
-    </div>
+  <h2 class="title">Used technologies</h2>
+  <div class="tech-wrapper">
+    <img class="tech-photo" src="../../../../assets/images/technologies/{{tech}}.png" alt="{{tech}}" *ngFor="let tech of techs" />
   </div>
 </section>

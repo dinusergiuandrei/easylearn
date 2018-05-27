@@ -5,3 +5,7 @@
 @media (max-width: 575px) {
     .container { padding: $container-spacing; }
 }
+
+@media (max-width: 767px) {
+    .container { padding: $container-spacing-max; }
+}

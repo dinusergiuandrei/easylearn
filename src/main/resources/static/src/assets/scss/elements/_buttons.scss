@@ -1,0 +1,73 @@
+button, a[type=button] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &:focus { outline: none; }
+}
+
+.btn {
+    padding: 8px 10px;
+    min-width: 140px;
+    min-height: 36px;
+    font-weight: 500;
+    font-size: $s14px;
+    font-family: inherit;
+    line-height: inherit;
+    text-align: center;
+    white-space: nowrap;
+    color: $color-container;
+    cursor: pointer;
+    border: none !important;
+    border-radius: $border-button;
+    vertical-align: middle;
+    text-transform: capitalize;
+    transition: $transition-general;
+    user-select: none;
+
+    // Button actions
+    &:hover {
+        color: $color-container;
+        opacity: .85;
+    }
+    &:active {
+        color: $color-container;
+        opacity: .7;
+    }
+    &:disabled {
+        background: $color-grey-gradient;
+        cursor: default;
+    }
+
+    // Button colors
+    &-red { background: $color-red-gradient; }
+    &-orange { background: $color-orange-gradient; }
+    &-blue { background: $color-blue-gradient; }
+    &-green { background: $color-green-gradient; }
+    &-grey { background: $color-grey-gradient; }
+
+    // Button sizes
+    &-full {
+        width: 100%;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    &-md {
+        min-width: 110px;
+        .lnr { font-size: $s16px; }
+    }
+    &-sm {
+        padding: 4px;
+        min-width: 80px;
+        font-size: $s12px;
+    }
+}
+
+.close {
+    padding: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    .far {
+        font-size: $s18px;
+        color: $color-text;
+    }
+}
