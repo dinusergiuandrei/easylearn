@@ -17,6 +17,8 @@ import { AuthService } from './services/auth.service';
 // import { NotificationService } from './services/notification.service';
 import { ProblemService} from './services/problem.service'
 
+import { CookieService } from 'ngx-cookie-service';
+
 // Components
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
@@ -94,7 +96,8 @@ import { LogoutComponent } from './components/pages/logout/logout.component'
   ],
   providers: [
     LoadingScreenService,
-    FormBuilder
+    FormBuilder,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
