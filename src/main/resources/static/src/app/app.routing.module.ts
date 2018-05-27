@@ -15,6 +15,7 @@ import { ProblemsCategoryComponent } from './components/pages/problems-category/
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 import { NotallowedComponent } from './components/pages/notallowed/notallowed.component';
 import { SubmissionsComponent } from './components/pages/submissions/submissions.component';
+import { LogoutComponent } from './components/pages/logout/logout.component';
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
   { path: '404', component: Error404Component },
   { path: 'notallowed', component: NotallowedComponent},
   { path: 'submissions', component: SubmissionsComponent},
+  { path: 'logout', component: LogoutComponent},
   { path: '**', redirectTo: '/404' }
 
   
