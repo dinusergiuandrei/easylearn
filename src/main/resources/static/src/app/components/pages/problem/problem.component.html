@@ -1,5 +1,5 @@
 <div class="problem-wrapper">
-    <h1>{{ this.title }}</h1>
+  <h1>{{ this.title }}</h1>
 
     <div class="row">
         <div class="col-md-8">
@@ -9,47 +9,49 @@
                     {{problemModel?.requirement}}
                 </p>
 
-                <h3>Input data</h3>
-                <p>
-                    {{problemModel?.input}}
-                </p>
-                
-                <h3>Output data</h3>
-                <p>
-                    {{problemModel?.output}}
-                </p>
-                
-                <h3>Restrictions and Clarifications</h3>
-                <p>
-                    {{problemModel?.restrictions}}
-                </p>
-            </div>
+        <h3>Input data</h3>
+        <p>
+          {{problemModel?.input}}
+        </p>
 
-            <div class="code-editor">
-                <select>
-                    <option value="Python">Python</option>
-                    <option value="C++">C++</option>
-                    <option value="Java">Java</option>
-                </select>
+        <h3>Output data</h3>
+        <p>
+          {{problemModel?.output}}
+        </p>
 
-                <ngx-monaco-editor class="editor" [options]="editorOptions" [(ngModel)]="submitRequestModel.mainSource"></ngx-monaco-editor>
-            </div>
-        </div>
+        <h3>Restrictions and Clarifications</h3>
+        <p>
+          {{problemModel?.restrictions}}
+        </p>
+      </div>
 
-        <div class="col-md-4">
-            <div class="problem-details">
-                <div class="row">
-                    <h3>Author: </h3> <span>{{ author }}</span>
-                </div>
-                <div class="row">
-                    <h3>Difficulty: </h3> <span>{{ difficulty }}</span>
-                </div>
-            </div>
-            <div>
-                <button class="submit-button" (click)="submitSolution()">
-                    Submit
-                </button>
-            </div>
-        </div>
+      <ngx-monaco-editor class="editor" [options]="editorOptions" [(ngModel)]="submitRequestModel.mainSource"></ngx-monaco-editor>
     </div>
+
+    <div class="col-md-4">
+      <div class="problem-details">
+        <div class="row">
+          <h3>Author: </h3>
+          <span>{{ author }}</span>
+        </div>
+        <div class="row">
+          <h3>Difficulty: </h3>
+          <span>{{ difficulty }}</span>
+        </div>
+      </div>
+      <div>
+        <button class="submit-button" (click)="submitSolution()">
+          Submit
+        </button>
+      </div>
+      <div>
+        <select id="languageSelector">
+          <option value="Java">Java</option>
+          <option value="C++">C++</option>
+          <option value="Python">Python</option>
+        </select>
+      </div>
+    </div>
+  </div>
 </div>
+

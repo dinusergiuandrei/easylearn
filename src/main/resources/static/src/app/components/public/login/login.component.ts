@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingScreenService } from '../../../services/loading-screen.service';
 import { AuthService } from '../../../services/auth.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-login',
@@ -18,11 +20,14 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
+    private route: ActivatedRoute,
+    private location: Location
   ) { }
 
   login() {
     this.auth.login(this.user.value).subscribe(
       res => {
+        location.reload();
         this.router.navigate(['/profile']);
         this.responseText = 'Succes!';
       },

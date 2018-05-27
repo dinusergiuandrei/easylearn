@@ -1,5 +1,5 @@
 <nav class="navbar sticky-top navbar-expand-lg">
-  <a class="navbar-brand" [routerLink]="['']" >
+  <a class="navbar-brand" [routerLink]="['']">
     <img src="../../../../assets/images/easylearn.png" alt="LOGO">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
@@ -11,8 +11,11 @@
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
       <!-- add content if needed -->
     </ul>
-    <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['register']" >Sign Up</button>
-    <button class="btn btn-success my-2 my-sm-0"[routerLink]="['login']" >Sign In</button>
-    
+
+    <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['register']">{{firstButton}}</button>
+    <button class="btn btn-success my-2 my-sm-0" [routerLink]="['login']">{{secondButton}}</button>
+
+
   </div>
-</nav> 
+</nav>
+
