@@ -5,11 +5,14 @@ import io.swagger.annotations.ApiOperation;
 
 import org.springframework.web.bind.annotation.*;
 import ro.infoiasi.ip.easylearn.user.exception.*;
+import ro.infoiasi.ip.easylearn.user.model.ForgotUser;
 import ro.infoiasi.ip.easylearn.user.model.LoginRequest;
 import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.model.UserResponse;
 import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
+import ro.infoiasi.ip.easylearn.user.validation.UserValidator;
+import ro.infoiasi.ip.easylearn.utils.ConsoleLogger;
 import ro.infoiasi.ip.easylearn.utils.CookieManager;
 
 import javax.servlet.http.Cookie;
@@ -25,16 +28,19 @@ public class UserController {
 
     private UserRepository userRepository;
     private SessionRepository sessionRepository;
+    private UserValidator userValidator;
 
-    public UserController(UserRepository userRepository, SessionRepository sessionRepository) {
+    public UserController(UserRepository userRepository, SessionRepository sessionRepository, UserValidator userValidator) {
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
+        this.userValidator = userValidator;
     }
 
     @RequestMapping(path = "/users", method = GET)
     @ResponseBody
     @ApiOperation(value = "View the information about all the users")
     public List<User> users() {
+        ConsoleLogger.Log("Get all users");
         return userRepository.findAll();
     }
 
@@ -42,6 +48,11 @@ public class UserController {
     @ResponseBody
     @ApiOperation(value = "Registers the user")
     public UserResponse register(@RequestBody User user) {
+        ConsoleLogger.Log("Register: " + user);
+
+        if (!userValidator.validateUserRegister(user))
+            throw new RegistrationFailedException();
+
         Long id = userRepository.register(user);
 
         if (id == null) {
@@ -56,7 +67,7 @@ public class UserController {
     @ApiOperation(value = "View information about a particular user")
     public User user(@PathVariable Long id) throws UserNotFoundException {
         User user = userRepository.findById(id);
-
+        ConsoleLogger.Log("Get user info ID: " + id);
         if (user == null) {
             throw new UserNotFoundException();
         } else {
@@ -67,9 +78,16 @@ public class UserController {
     @RequestMapping(path = "/users", method = PUT)
     @ApiOperation(value = "Update current user's data")
     public void update(@RequestBody User user, HttpServletRequest request) {
+        if (!userValidator.validateUserUpdate(user))
+            throw new UserDataCouldNotBeUpdatedException();
+
         Long uid = MustBeLoggedIn(request);
         user.setId(uid);
+
         boolean updated = userRepository.update(user);
+
+        ConsoleLogger.Log("Update: " + user + " | Status: " + updated);
+
         if (!updated) {
             throw new UserDataCouldNotBeUpdatedException();
         }
@@ -79,7 +97,11 @@ public class UserController {
     @ApiOperation(value = "Delete current user")
     public void delete(HttpServletRequest request) {
         Long uid = MustBeLoggedIn(request);
+        ConsoleLogger.Log("Delete user UID: " + uid);
         boolean deleted = userRepository.delete(uid);
+
+        //Todo: destroy session
+
         if (!deleted) {
             throw new UserDataCouldNotBeUpdatedException();
         }
@@ -89,6 +111,8 @@ public class UserController {
     @ApiOperation(value = "Logins a user")
     public void login(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
         boolean loggedIn = userRepository.login(loginRequest.getEmail(), loginRequest.getPassword());
+
+        ConsoleLogger.Log(loginRequest + " | " + loggedIn);
 
         if (loggedIn) {
             String sid = sessionRepository.create(userRepository.findByEmail(loginRequest.getEmail()));
@@ -105,6 +129,7 @@ public class UserController {
     @ApiOperation(value = "Get current user info")
     public User profile(HttpServletRequest request) {
         Long uid = MustBeLoggedIn(request);
+        ConsoleLogger.Log("Profile UID: " + uid);
         return userRepository.findById(uid);
     }
 
@@ -120,6 +145,7 @@ public class UserController {
     @ApiOperation(value = "Logs out current user")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = CookieManager.getCookie(request.getCookies(), "sid");
+        ConsoleLogger.Log("Logout SID: " + cookie.getValue());
 
         if (cookie == null) return;
         sessionRepository.destroy(cookie.getValue());
@@ -128,4 +154,20 @@ public class UserController {
         _cookie.setPath("/");
         response.addCookie(cookie);
     }
+
+    @RequestMapping(path = "/forgot", method = POST)
+    @ResponseBody
+    @ApiOperation(value = "Reset user password")
+    public String forgot(@RequestBody ForgotUser forgotUser, HttpServletRequest request) {
+        Long uid = MustBeLoggedIn(request);
+        forgotUser.setId(uid);
+        String newPassword = userRepository.forgot(forgotUser);
+
+        ConsoleLogger.Log(forgotUser.toString() + "  New: " + newPassword);
+
+        if (newPassword == null)
+            throw new UserDataCouldNotBeUpdatedException();
+        return newPassword;
+    }
+
 }
