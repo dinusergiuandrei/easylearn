@@ -1,13 +1,11 @@
 export class UserModel {
-
     public email: string;
     public firstName: string;
-    public id: 0;
+    public id: number;
     public name: string;
     public password: string;
-    public score: 0;
+    public score: number;
     public secretAnswer: string;
     public secretQuestion: string;
-
 
 }

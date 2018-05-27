@@ -1,0 +1,40 @@
+<div class="page">
+  <div class="dashboard-container">
+    <div class="line-one">
+      <img class="user-photo" src="../../../../assets/images/user_default.png">
+      <div class="account">
+        <b>My Account</b>
+      </div>
+    </div>
+    <div class="line-two">
+      <div class="name">
+          <b>{{newName}} {{newFirstName}}</b>
+      </div>
+      <div class="buttons">
+        <input type="submit" id="edit" class="button" value="Edit Profile" (click) = "editClick()">
+        <input type="submit" id="delete" class="button" value="Delete Account" (click) = "deleteClick()">
+      </div>
+    </div>
+    <div class="line-three">
+      <div class="stats-container" id="social">
+        <div class="container-names">Social</div>
+        <div class="fields">Current password</div>
+        <input type="text" name="current" [(ngModel)]="this.password" class="input">
+        <div class="fields">New password</div>
+        <input type="text" name="newpass" [(ngModel)]="this.newpass" class="input">
+        <div class="fields">Repeat new password</div>
+        <input type="text" name="repnewpass" [(ngModel)]="this.repnewpass" class="input">
+      </div>
+
+      <div class="stats-container" id="user">
+        <div class="container-names">User</div>
+        <div class="fields">Last name</div>
+        <input type="text" name="name" class="input" maxlength="20" [(ngModel)]="this.lastName">
+        <div class="fields">First name</div>
+        <input type="text" name="email" class="input" [(ngModel)]="this.firstName">
+        <div class="fields">E-mail</div>
+        <input type="text" name="phone" class="input" [(ngModel)]="this.eMail">
+      </div>
+    </div>
+  </div>
+</div>

@@ -9,7 +9,7 @@ import { TopComponent } from './components/pages/top/top.component';
 import { Error404Component } from './components/pages/error404/error404.component';
 import { AboutUsComponent } from './components/pages/about-us/about-us.component';
 import { ProblemComponent } from './components/pages/problem/problem.component';
-import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 import { UserDashboardComponent } from './components/pages/user-dashboard/user-dashboard.component';
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'problem', component: ProblemComponent },
   { path: 'problems-category/:id', component: ProblemsCategoryComponent },
-  { path: 'user-profile/:id', component: UserProfileComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: 'user-dashboard', component: UserDashboardComponent },
   { path: 'add-problem', component: AddProblemComponent },
   { path: '404', component: Error404Component },

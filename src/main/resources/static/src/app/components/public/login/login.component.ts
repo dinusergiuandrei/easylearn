@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingScreenService } from '../../../services/loading-screen.service';
 import { AuthService } from '../../../services/auth.service';
-import { NotificationService } from '../../../services/notification.service';
+// import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     private auth: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-     private notification: NotificationService
+    // private notification: NotificationService
   ) { }
 
   login() {
@@ -26,10 +26,10 @@ export class LoginComponent implements OnInit {
      res => {
        console.log('ok');
        console.log(res);
-       this.notification.push({
-         message: 'You logged in successfully',
-         type: 'success'
-       });
+      //  this.notification.push({
+      //    message: 'You logged in successfully',
+      //    type: 'success'
+      //  });
       //  res.username = this.user.value.username;
         // this.auth.setSession(res);
       //   this.router.navigate([
@@ -40,10 +40,10 @@ export class LoginComponent implements OnInit {
        console.log('wrong');
        console.log(err);
        const message = err.error.response;
-       this.notification.push({
-         message: 'Login Failed! Check again your email or password.',
-         type: 'error'
-       });
+      //  this.notification.push({
+      //    message: 'Login Failed! Check again your email or password.',
+      //    type: 'error'
+      //  });
      }
    );
   }

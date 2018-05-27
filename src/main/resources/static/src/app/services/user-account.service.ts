@@ -13,17 +13,29 @@ import { UserModel } from '../shared';
 })
 export class UserService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
   private api = `${environment.api}`;
 
-  public getUser(userId: number): Observable<any> {
-    return this.http.get(this.api + '/users/'+ userId).map((result: Array<UserModel>) => {
+  public getUser(): Observable<any> {
+    return this.http.get(this.api + '/profile').map((result: UserModel) => {
       return result;
     });
   }
 
- 
-    
+  public updateUser(user: UserModel): Observable<any> {
+    return this.http.put(this.api + '/users', user).map((result: UserModel) => {
+      return result;
+    });
   }
+
+  public deleteUser(): Observable<any> {
+    return this.http.delete(this.api + '/user').map((result: UserModel) => {
+      return result;
+    });
+  }
+
+
+
+}
 
 

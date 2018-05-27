@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 // Services
 import { LoadingScreenService } from './services/loading-screen.service';
 import { AuthService } from './services/auth.service';
-import { NotificationService } from './services/notification.service';
+// import { NotificationService } from './services/notification.service';
 import { ProblemService} from './services/problem.service'
 
 // Components
@@ -34,12 +34,13 @@ import { ProblemComponent } from './components/pages/problem/problem.component';
 import { MonacoEditorModule } from 'ngx-monaco-editor';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SolutionsComponent } from './components/public/solutions/solutions.component';
-import { UserProfileComponent } from './components/pages/user-profile/user-profile.component';
+import { ProfileComponent } from './components/pages/profile/profile.component';
 import { CategoriesComponent } from './components/public/categories/categories.component';
 import { ProblemtestComponent } from './components/public/problemtest/problemtest.component';
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 import { UserDashboardComponent } from './components/pages/user-dashboard/user-dashboard.component';
+// import { NotificationsComponent } from './shared/components/notifications/notifications.component';
 
 
 @NgModule({
@@ -62,7 +63,7 @@ import { UserDashboardComponent } from './components/pages/user-dashboard/user-d
     YourlatestComponent,
     ProblemComponent,
     SolutionsComponent,
-    UserProfileComponent,
+    ProfileComponent,
     ProblemtestComponent,
     ProblemsCategoryComponent,
     AddProblemComponent,
