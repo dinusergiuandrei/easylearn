@@ -45,6 +45,7 @@ import { UserDashboardComponent } from './components/pages/user-dashboard/user-d
 import { NotallowedComponent } from './components/pages/notallowed/notallowed.component';
 import { SubmissionsComponent } from './components/pages/submissions/submissions.component';
 import { TestsComponent } from './components/pages/tests/tests.component'
+import { RunsComponent } from './components/pages/runs/runs.component';
 // import { NotificationsComponent } from './shared/components/notifications/notifications.component';
 
 
@@ -75,7 +76,8 @@ import { TestsComponent } from './components/pages/tests/tests.component'
     UserDashboardComponent,
     NotallowedComponent,
     SubmissionsComponent,
-    TestsComponent
+    TestsComponent,
+    RunsComponent
   ],
   imports: [
     BrowserModule,

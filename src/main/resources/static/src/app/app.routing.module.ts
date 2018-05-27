@@ -16,6 +16,8 @@ import { AddProblemComponent } from './components/pages/add-problem/add-problem.
 import { NotallowedComponent } from './components/pages/notallowed/notallowed.component';
 import { SubmissionsComponent } from './components/pages/submissions/submissions.component';
 import { TestsComponent } from './components/pages/tests/tests.component';
+import { RunsComponent } from './components/pages/runs/runs.component';
+
 
 
 const routes: Routes = [
@@ -37,6 +39,7 @@ const routes: Routes = [
   { path: 'notallowed', component: NotallowedComponent},
   { path: 'submissions', component: SubmissionsComponent},
   { path: 'tests', component: TestsComponent},
+  { path: 'runs', component: RunsComponent},
   { path: '**', redirectTo: '/404' }
 
   
