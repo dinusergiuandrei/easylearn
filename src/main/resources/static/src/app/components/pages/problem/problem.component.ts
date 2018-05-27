@@ -94,9 +94,10 @@ export class ProblemComponent implements OnInit {
         var submissionID;
         this.submitRequestModel.sources.push(this.sourceFile);
 
-        // this.submitService.submitSolution(this.submitRequestModel).subscribe(res => {
-        //     console.log(res);
-        // });
+        this.submitService.submitSolution(this.submitRequestModel).subscribe(res => {
+            console.log(res);
+            console.log(this.submitRequestModel);
+        });
 
         // this.submitService.getSubmision(submissionID).subscribe(res => {
         //     console.log(res);

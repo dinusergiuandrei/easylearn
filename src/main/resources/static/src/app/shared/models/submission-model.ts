@@ -3,7 +3,7 @@ import { RunModel } from './runs-model';
 
 export class SubmissionModel {
 
-
+    public compileOut: string;
     public date: string;
     public id: number;
     public language: string;

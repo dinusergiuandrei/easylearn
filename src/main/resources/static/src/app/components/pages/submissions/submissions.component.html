@@ -1,6 +1,7 @@
 <table>
 <div *ngFor="let submission of submissions;">
     <tr style="border: 1px solid black;">
+        <td style="border: 1px solid black;">{{submission.compileOut}}</td>
         <td style="border: 1px solid black;">{{submission.id}}</td>
         <td style="border: 1px solid black;">{{submission.date}}</td>
         <td style="border: 1px solid black;">{{submission.state}}</td>
