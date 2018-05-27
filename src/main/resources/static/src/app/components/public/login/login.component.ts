@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LoadingScreenService } from '../../../services/loading-screen.service';
 import { AuthService } from '../../../services/auth.service';
-// import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -13,39 +12,24 @@ import { AuthService } from '../../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   user: FormGroup;
+  public responseText = '';
 
   constructor(
     private auth: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
-    // private notification: NotificationService
   ) { }
 
   login() {
-   this.auth.login(this.user.value).subscribe(
-     res => {
-       console.log('ok');
-       console.log(res);
-      //  this.notification.push({
-      //    message: 'You logged in successfully',
-      //    type: 'success'
-      //  });
-      //  res.username = this.user.value.username;
-        // this.auth.setSession(res);
-      //   this.router.navigate([
-      //    `/${res.data.UserPermission.permission}/profile`
-      //  ]);
-     },
-     err => {
-       console.log('wrong');
-       console.log(err);
-       const message = err.error.response;
-      //  this.notification.push({
-      //    message: 'Login Failed! Check again your email or password.',
-      //    type: 'error'
-      //  });
-     }
-   );
+    this.auth.login(this.user.value).subscribe(
+      res => {
+        this.router.navigate(['/profile']);
+        this.responseText = 'Succes!';
+      },
+      err => {
+        this.responseText = 'Wrong username and/or password.';
+      }
+    );
   }
 
   ngOnInit() {

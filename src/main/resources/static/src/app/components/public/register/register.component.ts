@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingScreenService } from '../../../services/loading-screen.service';
 import { AuthService } from '../../../services/auth.service';
+
+import { FormControl } from '@angular/forms';
+
 // import { NotificationService } from '../../../services/notification.service';
 
 @Component({
@@ -13,6 +16,9 @@ import { AuthService } from '../../../services/auth.service';
 export class RegisterComponent implements OnInit {
 
   user: FormGroup;
+  public responseText = '';
+
+  question = new FormControl('', [Validators.required]);
 
   constructor(
     private auth: AuthService,
@@ -25,22 +31,16 @@ export class RegisterComponent implements OnInit {
   register() {
     this.auth.register(this.user.value).subscribe(
       res => {
-        // this.notification.push({
-        //   message: 'You registered successfully',
-        //   type: 'success'
-        // });
         this.router.navigate(['/login']);
       },
       err => {
-        // this.notification.push({
-        //   message: 'Registration failed. Please check your details',
-        //   type: 'error'
-        // });
+        this.responseText = 'Something went wrong. Please check your credentials';
       }
     );
   }
 
   ngOnInit() {
+
     this.user = this.formBuilder.group({
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
@@ -70,8 +70,8 @@ export class RegisterComponent implements OnInit {
       ],
       question: [
         Validators.compose([
-          Validators.required,
-          ]
+          Validators.required
+        ]
         )
       ],
 
@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
         Validators.compose([
           Validators.required,
           Validators.minLength(6),
-          ]
+        ]
         )
       ]
     });

@@ -4,7 +4,8 @@
   <mat-form-field>
     <input type="text" matInput required placeholder="First Name" formControlName="firstname">
     <mat-error *ngIf="user.get('firstname').hasError('required')">
-      First Name is <strong>required</strong>!
+      First Name is
+      <strong>required</strong>!
     </mat-error>
   </mat-form-field>
 
@@ -12,7 +13,8 @@
   <mat-form-field>
     <input type="text" matInput required placeholder="Last Name" formControlName="lastname">
     <mat-error *ngIf="user.get('lastname').hasError('required')">
-      Last Name is <strong>required</strong>!
+      Last Name is
+      <strong>required</strong>!
     </mat-error>
   </mat-form-field>
 
@@ -23,46 +25,56 @@
       Type a valid e-mail address!
     </mat-error>
     <mat-error *ngIf="user.get('email').hasError('required')">
-      E-mail is <strong>required</strong>!
+      E-mail is
+      <strong>required</strong>!
     </mat-error>
   </mat-form-field>
   <!-- Password -->
   <mat-form-field>
-    <input type="password" matInput required placeholder="Password" formControlName="password" maxlength="32"/>
+    <input type="password" matInput required placeholder="Password" formControlName="password" maxlength="32" />
     <mat-error *ngIf="user.get('password').hasError('minlength') || user.get('password').hasError('maxlength') ">
       Your password should be between 6 and 32 characters!
     </mat-error>
     <mat-error *ngIf="user.get('password').hasError('required')">
-      Password is <strong>required</strong>!
+      Password is
+      <strong>required</strong>!
     </mat-error>
   </mat-form-field>
 
   <!-- Confirm password -->
   <mat-form-field>
-    <input type="password" matInput required placeholder="Re-enter password" formControlName="repassword" maxlength="32"/>
+    <input type="password" matInput required placeholder="Re-enter password" formControlName="repassword" maxlength="32" />
     <mat-error *ngIf="user.get('password').value !== user.get('repassword').value">
       Passwords don't match!
     </mat-error>
     <mat-error *ngIf="user.get('repassword').hasError('required')">
-      Retyping password is <strong>required</strong>!
+      Retyping password is
+      <strong>required</strong>!
     </mat-error>
   </mat-form-field>
+
   <mat-form-field>
-    <select class="dropdown" required formControlName="question">
-      <option value="">Choose a safety question</option>
-      <option value="What was the name of your first pet?">What was the name of your first pet?</option>
-      <option value="What is your favourite color?">What is your favourite color?</option>
-      <option value="In which country you want to retire?">In which country you want to retire?</option>
-      <option value="What's your mom name?">What's your mom name?</option>
-      <option value="What was your favourite place to visit as a child?">What was your favourite place to visit as a child?</option>
-    </select>
+    <mat-select placeholder="Choose a safety question" formControlName="question" required>
+      <mat-option value="What was the name of your first pet?">What was the name of your first pet?</mat-option>
+      <mat-option value="What is your favourite color?">What is your favourite color?</mat-option>
+      <mat-option value="In which country you want to retire?">In which country you want to retire?</mat-option>
+      <mat-option value="What's your mom name?">What's your mom name?</mat-option>
+      <mat-option value="What was your favourite place to visit as a child?">What was your favourite place to visit as a child?</mat-option>
+    </mat-select>
+    <mat-error *ngIf="question.hasError('required')">
+      Security question is
+      <strong>required</strong>!
+    </mat-error>
   </mat-form-field>
   <mat-form-field>
     <input type="text" matInput required placeholder="Enter a response" formControlName="answer">
     <mat-error *ngIf="user.get('answer').hasError('required')">
-      A response is <strong>required</strong>!
+      A response is
+      <strong>required</strong>!
     </mat-error>
   </mat-form-field>
 </form>
 
+<h6><span style='color: red;'>{{responseText}}</span></h6>
 <button class="btn btn-blue btn-full" (click)="register()" [disabled]="!user.valid">Sign up</button>
+

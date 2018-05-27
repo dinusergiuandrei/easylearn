@@ -4,6 +4,8 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing.module';
 import { MaterialModule } from './modules/material.module';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule, FormBuilder, FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
@@ -76,11 +78,14 @@ import { UserDashboardComponent } from './components/pages/user-dashboard/user-d
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
+    MatFormFieldModule,
+    MatInputModule,
     BrowserAnimationsModule,
     MonacoEditorModule.forRoot(),
     NgxPaginationModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    MatSelectModule
   ],
   providers: [
     LoadingScreenService,
