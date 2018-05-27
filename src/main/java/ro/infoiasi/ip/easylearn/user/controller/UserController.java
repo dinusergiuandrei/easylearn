@@ -101,6 +101,7 @@ public class UserController {
     }
 
     @RequestMapping(path = "/profile", method = GET)
+    @ResponseBody
     @ApiOperation(value = "Get current user info")
     public User profile(HttpServletRequest request) {
         Long uid = MustBeLoggedIn(request);
@@ -114,25 +115,6 @@ public class UserController {
         else throw new NotLoggedInException();
     }
 
-
-//    @RequestMapping(path = "/login", method = OPTIONS)
-//    @ResponseBody
-//    @ApiOperation(value = "Logins a user")
-//    public void loginOptions(HttpServletResponse response) {
-//        response.addHeader("Access-Control-Allow-Origin", "http://localhost:4200");
-//        response.addHeader("Access-Control-Allow-Methods", "*");
-//        response.addHeader("Access-Control-Allow-Headers", "content-type");
-//        response.addHeader("Access-Control-Allow-Credentials", "true");
-//    }
-
-
-    //@RequestMapping(path = "/login", method = GET)
-    //@ApiOperation(value = "Logins a user")
-//    public void login2(@RequestParam String email, @RequestParam String password, HttpServletResponse response) {
-//        System.out.println(email+" "+password);
-//        loginOptions(response);
-//        login(new LoginRequest(email, password), response);
-//    }
 
     @RequestMapping(path = "/logout", method = GET)
     @ApiOperation(value = "Logs out current user")

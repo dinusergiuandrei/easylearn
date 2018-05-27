@@ -23,7 +23,7 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public boolean update(User user) {
 
-        String pattern = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        String pattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         if (user.getName().length() < 3 || user.getName() == null)
             return false;
         if (user.getFirstName().length() < 3 || user.getFirstName() == null)
@@ -69,7 +69,7 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public Long register(User user) {
-        String pattern = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        String pattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
         if (user.getName().length() < 3 || user.getName() == null)
             return null;
         if (user.getFirstName().length() < 3 || user.getFirstName() == null)

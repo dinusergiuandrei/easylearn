@@ -49,10 +49,7 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(psc, keyHolder);
 
-        Long id = keyHolder.getKey().longValue();
-
-
-        return id;
+        return keyHolder.getKey().longValue();
     }
 
     @Override
