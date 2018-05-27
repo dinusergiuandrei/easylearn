@@ -1,65 +1,50 @@
 @import '../../../../assets/scss/variables/_variables';
-.footer {
-  display: flex;
-  align-self: flex-end;
-  width: 100%;
-  background-color: white;
-  padding: 3%;
+
+footer {
+  padding: $container-spacing $container-spacing-max;
+  @extend %flex-row;
+  justify-content: space-between;
+  background-color: $color-container;
+  border-top: 5px solid $color-primary;
 }
 
-.container {
-  margin-left: 3%;
-  width: 50%;
-  padding: 0;
-  &__logo {
-    width: 40%;
+.identity {
+  @extend %flex-column;
+  justify-content: space-between;
+  p { margin: 0; }
+}
+
+.pages {
+  h5 {
+    margin-top: 0;
+    a { color: $color-secondary; }
+  }
+  h6 {
+    font-weight: 300;
+    a { color: $color-text; }
+  }
+  a:hover { color: $color-primary-hover !important; }
+  &:not(:last-of-type) { margin-right: $container-spacing; }
+  &-wrapper { @extend %flex-row; }
+}
+
+@media (max-width: 767px) {
+  footer {
+    padding-left: $container-spacing; 
+    padding-right: $container-spacing; 
+  }
+  .pages {
+    &:not(:last-of-type) { margin-right: $container-spacing-min; }
   }
 }
 
-.containerText {
-  float: right;
-  width: 40%;
-}
-
-.text {
-  float: left;
-  margin-left: 5%;
-  ul {
-    text-decoration: none;
+@media (max-width: 575px) {
+  footer, .pages-wrapper { flex-direction: column; }
+  .identity {
+    margin-bottom: $container-spacing;
+    p { margin-top: $container-spacing-min; }
   }
-  li {
-    font-size: 18px;
+  .pages {
+    &:not(:last-of-type) { margin: 0 0 $container-spacing; }
   }
-}
-
-.title {
-  font-size: 22px;
-  font-weight: 700;
-  color: $color-primary;
-}
-
-.link{
-  text-decoration:none;
-  color: $color-primary;
-}
-
-.link:hover{
-  transition: all 0.5s ease-out;
-  opacity:0.6;
-}
-
-.copyright {
-  font-size: 12px;
-  font-weight: 700;
-  margin-top: 7%;
-}
-
-.sub-link{
-  text-decoration:none;
-  color: black;
-}
-
-.sub-link:hover{
-  transition: all 0.5s ease-out;
-  opacity:0.6;
 }

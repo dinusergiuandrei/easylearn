@@ -1,33 +1,29 @@
+<footer>
+  <div class="identity">
+    <a [routerLink]="['']"><img class="logo" src="../../../../assets/images/easylearn.png" /></a>
+    <p>Made in Iasi &copy; 2018 easylearn</p>
+  </div>
 
-  <div class="footer">
-    <div class="container">
-      <img class ="container__logo" src="../../../../assets/images/easylearn.png">
-      <div class="copyright">&copy; Made in Iasi @ 2018</div>
+  <div class="pages-wrapper">
+    <div class="pages">
+      <h5>Categories</h5>
+      <h6>
+        <a [routerLink]="['/problems-category/algorithms']">Algorithms</a>
+      </h6>
+      <h6>
+        <a [routerLink]="['/problems-category/data_structures']">Data Structures</a>
+      </h6>
+      <h6>
+        <a [routerLink]="['/problems-category/mathematics']">Mathematics</a>
+      </h6>
     </div>
-    <div class="containerText">
-        <div class="text">
-          <ul>
-            <li class="title">Something</li>
-            <li>Else</li>
-            <li>New</li>
-            <li>Cool</li>
-          </ul>
-        </div>
-        <div class="text">
-          <ul>
-            <li class="title">Categories</li>
-            <li><a class="sub-link" [routerLink]="['/problems-category/algorithms']">Algorithms</a></li>
-            <li><a class="sub-link" [routerLink]="['/problems-category/data_structures']">Data Structures</a></li>
-            <li><a class="sub-link" [routerLink]="['/problems-category/mathematics']">Mathematics</a></li>
-          </ul>
-        </div>
-        <div class="text">
-          <ul>
-            <li class="title"><a class="link" [routerLink]="['/about-us']">About Us</a></li>
-            <li>Who made it?</li>
-            <li>Why we made this?</li>
-            <li>Used technologies</li>
-          </ul>
-        </div>
+    <div class="pages">
+      <h5>
+        <a [routerLink]="['/about-us']">About Us</a>
+      </h5>
+      <h6>Why we made this?</h6>
+      <h6>Who made it?</h6>
+      <h6>Used technologies</h6>
     </div>
   </div>
+</footer>

@@ -1,0 +1,7 @@
+@import '../assets/scss/variables/_variables';
+
+app {
+    &-root:host {
+        @extend %flex-column;
+    }
+}
