@@ -48,12 +48,12 @@ public class UserController {
     @ResponseBody
     @ApiOperation(value = "Registers the user")
     public UserResponse register(@RequestBody User user) {
+        ConsoleLogger.Log("Register: " + user);
+
         if (!userValidator.validateUserRegister(user))
             throw new RegistrationFailedException();
 
         Long id = userRepository.register(user);
-
-        ConsoleLogger.Log("Register: " + user);
 
         if (id == null) {
             throw new RegistrationFailedException();
