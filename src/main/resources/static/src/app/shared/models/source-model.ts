@@ -4,4 +4,12 @@ export class SourceModel
     fileName: string;
     id: number;
     submissionId: number;
+
+    constructor()
+    {
+        this.content = null;
+        this.fileName = "main";
+        this.id = 0;
+        this.submissionId = 0;
+    }
 }

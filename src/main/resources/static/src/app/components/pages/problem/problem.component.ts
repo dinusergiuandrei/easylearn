@@ -4,6 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 import { SubmitSolutionService, ProblemService } from '../../../services';
 import { SubmissionRequestModel, ProblemModel, SourceModel} from '../../../shared';
 
+import { FormGroup, FormBuilder } from '@angular/forms';
+
 @Component({
     selector: 'app-problem',
     styleUrls: ['./problem.component.scss'],
@@ -31,13 +33,16 @@ export class ProblemComponent implements OnInit {
         this.route.queryParams.subscribe(params => {this.problemId = params['problemId']});
 
         this.submitRequestModel = new SubmissionRequestModel();
-        this.submitRequestModel.mainSource = 'function x() {\nconsole.log("Hello world!");\n}';
+        this.submitRequestModel.main = "main.class";
         this.submitRequestModel.problemId = this.problemId;
-        this.submitRequestModel.language = 'Java';
+        this.submitRequestModel.language = 'java';
         this.submitRequestModel.userId = 1;
         this.submitRequestModel.sources = new Array<SourceModel>();
-    }
 
+        console.log(this.submitRequestModel);
+    }
+    public e;
+    public strUser;
     public ngOnInit(): void {
         this.problemService.getProblem(this.problemId).subscribe((result: ProblemModel) => {
             this.problemModel = result;
@@ -45,8 +50,10 @@ export class ProblemComponent implements OnInit {
     }
 
     public submitSolution(): void{
-        this.submitService.submitSolution(this.submitRequestModel).subscribe(res => {
-            console.log(res);
-        });
+        this.strUser = this.e.options[this.e.selectedIndex].value;
+        this.e  = document.getElementById("languageSelector");
+    //    this.submitService.submitSolution(this.submitRequestModel).subscribe(res => {
+    //         console.log(res);
+    //     }); 
     }
 }

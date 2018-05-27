@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login']);
       },
       err => {
-        this.responseText = 'Something went wrong. Please check your credentials';
+        this.responseText = 'Something went wrong. Please check your credentials and refresh the page.';
       }
     );
   }
