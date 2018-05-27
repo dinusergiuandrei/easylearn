@@ -14,6 +14,7 @@ import { UserDashboardComponent } from './components/pages/user-dashboard/user-d
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 import { NotallowedComponent } from './components/pages/notallowed/notallowed.component';
+import { SubmissionsComponent } from './components/pages/submissions/submissions.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'add-problem', component: AddProblemComponent },
   { path: '404', component: Error404Component },
   { path: 'notallowed', component: NotallowedComponent},
+  { path: 'submissions', component: SubmissionsComponent},
   { path: '**', redirectTo: '/404' }
 
   
