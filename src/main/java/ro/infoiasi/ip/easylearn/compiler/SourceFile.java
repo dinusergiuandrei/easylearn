@@ -50,11 +50,12 @@ public class SourceFile {
 
     @Override
     public String toString() {
-        return "SourceFile{" +
-                "id=" + id +
-                ", submissionId=" + submissionId +
-                ", fileName='" + fileName + '\'' +
-                ", content='" + content + '\'' +
-                '}';
+//        return "SourceFile{" +
+//                "id=" + id +
+//                ", submissionId=" + submissionId +
+//                ", fileName='" + fileName + '\'' +
+//                ", content='" + content + '\'' +
+//                '}';
+    return "";
     }
 }

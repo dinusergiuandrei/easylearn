@@ -55,25 +55,33 @@ public class MysqlSubmissionRepository implements SubmissionRepository {
     @Override
     public Submission findById(Long id) {
         String findById = "SELECT * FROM submissions where id=?";
-        List <Submission> submission = jdbcTemplate.query(findById, new SubmissionMapper(), id);
+        List<Submission> submission = jdbcTemplate.query(findById, new SubmissionMapper(), id);
         return submission.get(0);
     }
 
     @Override
-    public List <Submission> findAll() {
+    public List<Submission> findAll() {
         String findAll = "SELECT * FROM submissions";
         return jdbcTemplate.query(findAll, new SubmissionMapper());
     }
 
     @Override
-    public List <Submission> findByState(RunState state) {
+    public List<Submission> findByState(RunState state) {
         String findByState = "SELECT * FROM submissions where state=?";
         return jdbcTemplate.query(findByState, new SubmissionMapper(), state.toString());
     }
 
     @Override
     public void update(Submission submission) {
-        String updateQuery = "update submissions set userId=?, problemId=?, mainSource=?, language=?, date=?, state=? where id=?";
-        jdbcTemplate.update(updateQuery, submission.getUserId(), submission.getProblemId(), submission.getMainSource(), submission.getLanguage().toString(), submission.getDate(), submission.getState().toString(), submission.getId());
+        String updateQuery = "update submissions set userId=?, problemId=?, mainSource=?, language=?, date=?, state=?, compileOut=? where id=?";
+        jdbcTemplate.update(updateQuery, submission.getUserId(), submission.getProblemId(), submission.getMainSource(), submission.getLanguage().toString(), submission.getDate(), submission.getState().toString(), submission.getCompileOut(), submission.getId());
     }
+
+    @Override
+    public List<Submission> findByProblem(Long problemID, Long uid) {
+        String findById = "SELECT * FROM submissions WHERE userId=? AND problemId=? ORDER BY id DESC";
+        return jdbcTemplate.query(findById, new SubmissionMapper(), uid, problemID);
+    }
+
+
 }

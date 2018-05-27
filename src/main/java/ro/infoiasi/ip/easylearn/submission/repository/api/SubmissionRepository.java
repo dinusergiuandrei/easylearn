@@ -12,4 +12,5 @@ public interface SubmissionRepository {
     List<Submission> findAll();
     List<Submission> findByState(RunState state);
     void update(Submission submission);
+    List<Submission> findByProblem(Long problemID, Long uid);
 }

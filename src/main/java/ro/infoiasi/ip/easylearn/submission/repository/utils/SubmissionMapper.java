@@ -26,7 +26,7 @@ public class SubmissionMapper implements RowMapper <Submission> {
         submission.setLanguage(Language.valueOf(resultSet.getString("language")));
         submission.setDate(resultSet.getDate("date"));
         submission.setState(SubmissionState.valueOf(resultSet.getString("state")));
-
+        submission.setCompileOut(resultSet.getString("compileOut"));
         return submission;
     }
 }

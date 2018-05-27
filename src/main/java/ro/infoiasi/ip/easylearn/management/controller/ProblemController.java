@@ -10,6 +10,9 @@ import ro.infoiasi.ip.easylearn.management.exception.ProblemNotFoundException;
 import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.management.model.ProblemResponse;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
+import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
+
+import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -18,10 +21,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class ProblemController {
 
     ProblemRepository problemRepository;
+    SessionRepository sessionRepository;
 
-
-    public ProblemController(ProblemRepository problemRepository) {
+    public ProblemController(ProblemRepository problemRepository, SessionRepository sessionRepository) {
         this.problemRepository = problemRepository;
+        this.sessionRepository = sessionRepository;
     }
 
     @RequestMapping(path = "/problems", method = GET)
@@ -34,7 +38,8 @@ public class ProblemController {
     @RequestMapping(path = "/problems/{id}", method = GET)
     @ResponseBody
     @ApiOperation(value = "Returns the problem with the specified id")
-    public Problem getProblemById(@PathVariable Long id) {
+    public Problem getProblemById(@PathVariable Long id, HttpServletRequest request) {
+        Long uid = sessionRepository.MustBeLoggedIn(request);
         Problem problem = problemRepository.findById(id);
 
         if (problem == null) {

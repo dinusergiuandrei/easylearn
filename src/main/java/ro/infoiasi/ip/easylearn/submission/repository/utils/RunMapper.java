@@ -19,7 +19,7 @@ public class RunMapper implements RowMapper <Run> {
         run.setRunTimeMs(resultSet.getLong("runTimeMS"));
         run.setMemoryBytes(resultSet.getLong("memoryBytes"));
         run.setStatus(RunState.valueOf(resultSet.getString("status")));
-
+        run.setOutput(resultSet.getString("output"));
         return run;
     }
 }
