@@ -34,14 +34,14 @@
     }
     &-content {
         @extend %flex-column;
-        padding: $container-padding;
+        padding: $container-spacing;
     }
     ::ng-deep &-form {
         @extend %flex-column;
     }
     &-text {
-        margin-left: $container-padding;
-        padding-left: $container-padding;
+        margin-left: $container-spacing;
+        padding-left: $container-spacing;
         display: flex;
         flex-grow: .2;
         align-self: center;

@@ -1,0 +1,13 @@
+@import '../../../../../assets/scss/variables/_variables';
+
+.auth-level {
+    margin-left: 10px;
+    @extend %flex-column;
+}
+
+.dropdown {
+    padding: 10px;
+    margin-right: 15px;
+    color: #9fa1a3;
+    width: 70%;
+}

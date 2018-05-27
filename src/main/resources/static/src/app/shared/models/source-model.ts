@@ -1,14 +1,12 @@
-export class SourceModel
-{
+export class SourceModel {
     content: string;
     fileName: string;
     id: number;
     submissionId: number;
 
-    constructor()
-    {
+    constructor() {
         this.content = null;
-        this.fileName = "main";
+        this.fileName = 'main';
         this.id = 0;
         this.submissionId = 0;
     }

@@ -9,7 +9,6 @@ export class NotallowedComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }

@@ -8,7 +8,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 })
 export class SolutionsComponent implements OnInit {
 
-  displayedColumns = ['id', 'problems', 'description', 'category', 'timelimit', 'memorylimit','score'];
+  displayedColumns = ['id', 'problems', 'description', 'category', 'timelimit', 'memorylimit', 'score'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -37,7 +37,7 @@ return {
     category: CATEGORY[Math.round(Math.random() * (CATEGORY.length - 1))],
     timelimit: Math.round(Math.random()).toFixed(1).toString() + ' seconds',
     memorylimit: Math.round(Math.random() * 32).toString() + ' MB',
-    score:Math.round(Math.random() * 100).toString()
+    score: Math.round(Math.random() * 100).toString()
   };
 }
 
@@ -48,10 +48,10 @@ const DESCRIPTION = ['Să se scrie o funcție C++ care să determine prima și u
  'Să se scrie o funcție C++ care să returneze suma factorialelor cifrelor unui număr natural transmis ca parametru.',
  'Să se scrie o funcție C++ care să returneze oglinditul unui număr natural transmis ca parametru.'];
 const PROBLEMS = ['sumaMinMax', 'Dublare1	', 'Element_SA	', 'Suma cifrelor	', 'FactorialF	', 'Mutare1	',
-  'Palindrom_Ciclic', 'Multiplu	']
+  'Palindrom_Ciclic', 'Multiplu	'];
 
-const CATEGORY =['Algorithms','Data Sturucture','Matemathics'];
-const AUTHOR=['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
+const CATEGORY = ['Algorithms', 'Data Sturucture', 'Matemathics'];
+const AUTHOR = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
 'Charlotte', 'Theodore', 'Isla', 'Oliver', 'Isabella', 'Jasper',
 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'];
 
@@ -62,7 +62,7 @@ export interface UserData {
   category: string;
   timelimit: string;
  memorylimit: string;
- score:string;
+ score: string;
 }
 
 

@@ -1,20 +1,22 @@
 @import '../../../../assets/scss/variables/_variables';
 
-.hero {
-    &-header {
-        @extend %flex-row;
-        justify-content: space-between;
-        align-items: center;
-        margin-left:5%;
-        margin-right:2%;
-    }
+.header {
+    @extend %flex-row;
+    justify-content: space-between;
+    align-items: center;
     &-text {
         align-self: center;
     }
 }
 
 @media (max-width: 575px) {
-    .hero {
-        &-header { float:right; }
+    .header { flex-direction: column; }
+}
+
+::ng-deep app {
+    &-categories {
+        .container {
+            background-color: $color-container;
+        }
     }
 }

@@ -8,7 +8,6 @@ h1, h2, h3, h4, h5, p {
     font-weight: normal;
     text-align: left;
     color: $color-secondary;
-    cursor: default;
     user-select: none;
 }
 
@@ -30,10 +29,26 @@ p {
     color: $color-text;
 }
 
-a:hover { text-decoration: none; }
+a {
+    color: $color-primary;
+    transition: $transition-general;
+    text-decoration: none;
+    &:hover { color: $color-primary-hover; }
+}
 
 hr {
     margin: 1rem 0;
     border: 0;
     border-top: 1px solid $color-divider;
+}
+
+.subtle { font-weight: 300; }
+
+.title {
+    margin-bottom: $container-spacing-max;
+    @extend .subtle;
+}
+
+@media (max-width: 575px) {
+    .title { margin-bottom: $container-spacing; }
 }

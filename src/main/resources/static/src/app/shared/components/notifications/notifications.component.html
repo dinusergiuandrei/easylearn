@@ -1,0 +1,6 @@
+<div class="alert {{n.notification.type}}" *ngIf="n.notification">
+    <p>{{n.notification.message}}</p>
+    <button type="button" class="close" (click)="n.remove()">
+        <i class="material-icons">cancel</i>
+    </button>
+</div>

@@ -1,6 +1,7 @@
 // Spacing, Paddings & Margins
-$container-spacing: 60px;
-$container-padding: 30px;
+$container-spacing-min: 15px;
+$container-spacing: 2*$container-spacing-min;
+$container-spacing-max: 2*$container-spacing;
 
 // Text sizes
 $s36px: 2.25rem;
@@ -13,6 +14,9 @@ $s16px: 1rem;
 $s14px: .875rem;
 $s13px: .8125rem;
 $s12px: .75rem;
+
+// Logo
+$logo-size: 140px;
 
 // Transitions
 $transition-general: ease .15s all;

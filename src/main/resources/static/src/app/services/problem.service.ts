@@ -16,7 +16,7 @@ export class ProblemService {
   private api = `${environment.api}`;
 
   public getProblems(categoryId: number): Observable<any> {
-    return this.http.get(this.api + '/problems/category/'+ categoryId).map((result: Array<ProblemModel>) => {
+    return this.http.get(this.api + '/problems/category/' + categoryId).map((result: Array<ProblemModel>) => {
       return result;
     });
   }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingScreenService } from '../../../services/loading-screen.service';
-import { AuthService } from '../../../services/auth.service';
+import { LoadingScreenService } from '../../../../services/loading-screen.service';
+import { AuthService } from '../../../../services/auth.service';
 
 import { FormControl } from '@angular/forms';
 

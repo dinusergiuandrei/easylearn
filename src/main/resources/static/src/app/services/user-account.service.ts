@@ -7,7 +7,6 @@ import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { UserModel } from '../shared';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -34,8 +33,4 @@ export class UserService {
     });
   }
 
-
-
 }
-
-

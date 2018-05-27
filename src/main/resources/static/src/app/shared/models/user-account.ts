@@ -7,5 +7,4 @@ export class UserModel {
     public score: number;
     public secretAnswer: string;
     public secretQuestion: string;
-
 }

@@ -17,14 +17,14 @@ export class AddProblemComponent {
     category: string;
 
     constructor(private problemService: ProblemService) {
-        this.author = "";
-        this.description = "";
-        this.input = "";
-        this.output = "";
-        this.inputExample = "";
-        this.outputExample = "";
-        this.restrictions = "";
-        this.category = "";
+        this.author = '';
+        this.description = '';
+        this.input = '';
+        this.output = '';
+        this.inputExample = '';
+        this.outputExample = '';
+        this.restrictions = '';
+        this.category = '';
     }
 
     onClickSubmit() {

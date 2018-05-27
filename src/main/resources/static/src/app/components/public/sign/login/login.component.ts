@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LoadingScreenService } from '../../../services/loading-screen.service';
-import { AuthService } from '../../../services/auth.service';
+import { LoadingScreenService } from '../../../../services/loading-screen.service';
+import { AuthService } from '../../../../services/auth.service';
 import { Location } from '@angular/common';
-
 
 @Component({
   selector: 'app-login',

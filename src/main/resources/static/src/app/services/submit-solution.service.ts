@@ -11,16 +11,15 @@ import { SubmissionRequestModel } from '../shared';
 })
 export class SubmitSolutionService {
 
-  private api: string = `${environment.api}`;
+  private api = `${environment.api}`;
 
   constructor(private http: HttpClient) { }
 
-  public submitSolution(submitRequest: SubmissionRequestModel): Observable<any>{
+  public submitSolution(submitRequest: SubmissionRequestModel): Observable<any> {
     return this.http.post(this.api + '/submit', submitRequest);
   }
 
-  public getSubmision(submissionID: number): Observable<any>{
+  public getSubmision(submissionID: number): Observable<any> {
     return this.http.get(this.api + '/submission/' + submissionID);
   }
 }
-

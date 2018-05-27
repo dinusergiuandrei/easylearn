@@ -7,7 +7,9 @@ import { NotificationService } from '../../../services/notification.service';
   styleUrls: ['./notifications.component.scss']
 })
 export class NotificationsComponent implements OnInit {
+
   constructor(public n: NotificationService) {}
 
   ngOnInit() {}
+
 }

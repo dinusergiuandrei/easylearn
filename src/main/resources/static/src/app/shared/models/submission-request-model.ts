@@ -1,6 +1,6 @@
 import { SourceModel } from './source-model';
 
-export class SubmissionRequestModel{
+export class SubmissionRequestModel {
 
     public language: string;
     public mainSource: string;
