@@ -22,6 +22,16 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public boolean update(User user) {
+
+        String pattern = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        if (user.getName().length() < 3 || user.getName() == null)
+            return false;
+        if (user.getFirstName().length() < 3 || user.getFirstName() == null)
+            return false;
+        if ((!user.getEmail().matches(pattern)) || user.getEmail() == null)
+            return false;
+        if (user.getPassword().length() < 4 || user.getPassword() == null)
+            return false;
         try {
             String query = "UPDATE users set name=?, firstName=?, password=?, email=? where id=?";
             Object[] params = new Object[]{user.getName(), user.getFirstName(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getEmail(), user.getId()};
@@ -38,7 +48,7 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public User findById(Long id) {
         String selectUserById = "SELECT * FROM users where id=?";
-        List <User> users = jdbcTemplate.query(selectUserById, new UserMapper(), id);
+        List<User> users = jdbcTemplate.query(selectUserById, new UserMapper(), id);
 
         return users.isEmpty() ? null : users.get(0);
     }
@@ -46,19 +56,32 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public Long findByEmail(String email) {
         String query = "SELECT * FROM users where email=?";
-        List <User> users = jdbcTemplate.query(query, new UserMapper(), email);
+        List<User> users = jdbcTemplate.query(query, new UserMapper(), email);
 
         return users.isEmpty() ? null : users.get(0).getId();
     }
 
     @Override
-    public List <User> findAll() {
+    public List<User> findAll() {
         String selectAllUsers = "SELECT * FROM users";
         return jdbcTemplate.query(selectAllUsers, new UserMapper());
     }
 
     @Override
     public Long register(User user) {
+        String pattern = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$";
+        if (user.getName().length() < 3 || user.getName() == null)
+            return null;
+        if (user.getFirstName().length() < 3 || user.getFirstName() == null)
+            return null;
+        if ((!user.getEmail().matches(pattern)) || user.getEmail() == null)
+            return null;
+        if (user.getPassword().length() < 4 || user.getPassword() == null)
+            return null;
+        if (user.getSecretAnswer().length() < 4 || user.getSecretAnswer() == null)
+            return null;
+        if (user.getSecretQuestion().length() < 4 || user.getSecretQuestion() == null)
+            return null;
         if (isAvailableEmail(user.getEmail())) {
             String query = "INSERT INTO users (name, firstName, email, password, secretAnswer, secretQuestion) VALUES (?,?,?,?,?,?)";
             Object[] params = new Object[]{user.getName(), user.getFirstName(), user.getEmail(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getSecretAnswer(), user.getSecretQuestion()};
@@ -67,14 +90,13 @@ public class SqlUserRepository implements UserRepository {
             jdbcTemplate.update(query, params, types);
 
             return findByEmail(user.getEmail());
-        }
-        else{
+        } else {
             return null;
         }
     }
 
     private boolean isAvailableEmail(String email) {
-       return findByEmail(email) == null;
+        return findByEmail(email) == null;
     }
 
     @Override
