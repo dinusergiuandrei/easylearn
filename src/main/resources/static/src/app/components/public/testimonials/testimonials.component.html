@@ -1,37 +1,36 @@
-
-  <div class="testimonials-container" >
-      <div  class="testimonials-slides-display_on  ">
-          <img class ="testimonials-slides-user-container animated fadeIn" src="../../../../assets/images/user_default.png"  alt="Paris">
-          <div>
-            <h2 class="testimonials-slides-name animated fadeIn">User</h2> 
-            <p class="testimonials-slides-text_box animated fadeIn">“I am impressed with it.“</p></div>
-        </div>
-
-         <ul>
-          <li *ngFor="let person of items"> 
-            <div class="testimonials-slides-display_off  ">
-            <img class ="testimonials-slides-user-container animated fadeIn" src='{{ person.photo }}' alt="photo">
-            <div><h2 class="testimonials-slides-name animated fadeIn ">{{person.name}}</h2> 
-              <p class="testimonials-slides-text_box  animated fadeIn">{{person.despre}}</p></div>
-            </div>
-          </li>
-         </ul>
-    
-      
-      <a class="testimonials-slides-prev" (click)="plusSlides(-1)">&#10094;</a>
-      <a class="testimonials-slides-next" (click)="plusSlides(1)">&#10095;</a>
-      
-      
-      <div class="testimonials-slides-dot_container">
-       <ul>
-          <span class="testimonials-slides-dot" (click)="currentSlide(0)"></span>  
-             <li *ngFor="let person of items"> 
-               <span class="testimonials-slides-dot" (click)="currentSlide(person.slidenumber)"></span>  
-            </li>
-        </ul>
-     </div>
-  
+<div class="testimonials-container">
+  <div class="testimonials-slides-display_on fade">
+    <img class="testimonials-slides-user-container fade" src="../../../../assets/images/user_default.png" alt="User">
+    <div>
+      <h2 class="testimonials-slides-name">User</h2>
+      <p class="testimonials-slides-text_box">“I am impressed with it.“</p>
     </div>
+  </div>
+
+  <ul>
+    <li *ngFor="let person of items">
+      <div class="testimonials-slides-display_off fade">
+        <img class="testimonials-slides-user-container fade" src="{{person.photo === null ? '../../../../assets/images/user_default.png' : person.photo }}" alt="{{person.name}}">
+        <div>
+          <h2 class="testimonials-slides-name fade ">{{person.name}}</h2>
+          <p class="testimonials-slides-text_box fade ">{{person.despre}}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
 
 
-    
+  <a class="testimonials-slides-prev" (click)="plusSlides(-1)">&#10094;</a>
+  <a class="testimonials-slides-next" (click)="plusSlides(1)">&#10095;</a>
+
+
+  <div class="testimonials-slides-dot_container">
+    <ul>
+      <span class="testimonials-slides-dot" (click)="currentSlide(0)"></span>
+      <li *ngFor="let person of items">
+        <span class="testimonials-slides-dot" (click)="currentSlide(person.slidenumber)"></span>
+      </li>
+    </ul>
+  </div>
+
+</div>

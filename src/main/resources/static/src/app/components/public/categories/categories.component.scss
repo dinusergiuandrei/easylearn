@@ -1,47 +1,19 @@
 @import '../../../../assets/scss/variables/_variables';
-div {
-  background: rgb(255, 255, 255);
+
+.categories {
+  @extend %flex-row;
+  justify-content: space-between;
 }
 
-.container1 {
-  display: inline-block;
+.category {
+  @extend %flex-column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin-left: 50px;
-  margin-right: 50px;
-  padding-top: 20px;
-}
-
-.container-fullwidth1 {
-  display: inline-block;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 0px auto;
-  width: 100%;
-}
-
-.bigcontainer1 {
-  padding: 20px 0px;
-}
-
-.container-item1 {
-  padding: 20px;
-  font-size: 30px;
-}
-
-img {
-  height: 64px;
-}
-
-h2 {
-  margin-left: 15%;
-}
-
-.container1:hover {
-  transition: all 0.5s ease-out;
-  opacity: 0.6;
-  cursor: pointer;
-  color: $color-primary;
+  &:hover {
+    transition: $transition-general;
+    cursor: pointer;
+    img { opacity: .7; }
+    h4 { color: $color-primary-hover; }
+  }
+  img, h4 { transition: $transition-general; }
+  img { height: 50px; }
 }
