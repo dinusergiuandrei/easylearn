@@ -36,7 +36,12 @@ const routes: Routes = [
   { path: '404', component: Error404Component },
   { path: 'notallowed', component: NotallowedComponent},
   { path: 'submissions', component: SubmissionsComponent},
+<<<<<<< HEAD
   { path: 'logout', component: LogoutComponent},
+=======
+  { path: 'tests', component: TestsComponent},
+  { path: 'runs', component: RunsComponent},
+>>>>>>> origin/master
   { path: '**', redirectTo: '/404' }
 
   
