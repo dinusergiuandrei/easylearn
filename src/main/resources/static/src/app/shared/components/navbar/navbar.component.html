@@ -1,14 +1,18 @@
-<section class="navigation" id="navv">
-        <div class="nav-container">
-          <div class="brand">
-            <a [routerLink]="['']"><img src="{{logo.path}}" alt="{{logo.name}}"></a>
-          </div>
-          <nav>
-            <div class="nav-mobile"><a id="nav-toggle" [routerLink]="['']"><span></span></a></div>
-            <div class="nav__buttons">
-            <a [routerLink]="['register']">Sign Up</a>
-            <a [routerLink]="['login']" class="fancy-button bg-gradient1"><span>Sign In</span></a>
-            </div>
-          </nav>
-        </div>
-      </section>
+<nav class="navbar sticky-top navbar-expand-lg">
+    <a class="navbar-brand" [routerLink]="['']" >
+      <img src="../../../../assets/images/easylearn.png" alt="LOGO">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
+      aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+      <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+        <!-- add content if needed -->
+      </ul>
+      <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['register']" >Sign Up</button>
+      <button class="btn btn-success my-2 my-sm-0"[routerLink]="['login']" >Sign In</button>
+      
+    </div>
+</nav>
