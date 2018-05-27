@@ -1,5 +1,6 @@
 package ro.infoiasi.ip.easylearn.user.repository.api;
 
+import ro.infoiasi.ip.easylearn.user.model.ForgotUser;
 import ro.infoiasi.ip.easylearn.user.model.User;
 
 import java.util.List;
@@ -12,4 +13,5 @@ public interface UserRepository {
     Long register(User user);
     boolean login(String email, String password);
     boolean delete(Long id);
+    String forgot(ForgotUser forgotUser);
 }

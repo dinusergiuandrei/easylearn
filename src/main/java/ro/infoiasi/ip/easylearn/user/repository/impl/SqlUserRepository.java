@@ -5,9 +5,11 @@ import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import ro.infoiasi.ip.easylearn.user.model.ForgotUser;
 import ro.infoiasi.ip.easylearn.user.model.User;
 import ro.infoiasi.ip.easylearn.user.repository.api.UserRepository;
 import ro.infoiasi.ip.easylearn.user.repository.utils.UserMapper;
+import ro.infoiasi.ip.easylearn.utils.RandomString;
 
 import java.sql.Types;
 import java.util.List;
@@ -22,26 +24,41 @@ public class SqlUserRepository implements UserRepository {
 
     @Override
     public boolean update(User user) {
-
         String pattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        if (user.getName() == null || user.getName().length() < 3)
+        if (user.getName().length() < 3 || user.getName() == null)
             return false;
-        if (user.getFirstName() == null || user.getFirstName().length() < 3)
+        if (user.getFirstName().length() < 3 || user.getFirstName() == null)
             return false;
-        if (user.getEmail() == null || (!user.getEmail().matches(pattern)))
+        if ((!user.getEmail().matches(pattern)) || user.getEmail() == null)
             return false;
-        if (user.getPassword() == null || user.getPassword().length() < 4)
-            return false;
-        try {
-            String query = "UPDATE users set name=?, firstName=?, password=?, email=? where id=?";
-            Object[] params = new Object[]{user.getName(), user.getFirstName(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getEmail(), user.getId()};
-            int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
-            jdbcTemplate.update(query, params, types);
 
-            return true;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            return false;
+        System.out.println(user.getPassword());
+
+        if (user.getPassword() == null) {
+            try {
+                String query = "UPDATE users set name=?, firstName=?, email=? where id=?";
+                Object[] params = new Object[]{user.getName(), user.getFirstName(), user.getEmail(), user.getId()};
+                int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+                jdbcTemplate.update(query, params, types);
+
+                return true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
+        } else {
+            if (user.getPassword().length() < 4) return false;
+            try {
+                String query = "UPDATE users set name=?, firstName=?, password=?, email=? where id=?";
+                Object[] params = new Object[]{user.getName(), user.getFirstName(), Hashing.sha256().hashUnencodedChars(user.getPassword()).toString(), user.getEmail(), user.getId()};
+                int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+                jdbcTemplate.update(query, params, types);
+
+                return true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
         }
     }
 
@@ -70,17 +87,17 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public Long register(User user) {
         String pattern = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$";
-        if (user.getName() == null || user.getName().length() < 3)
+        if (user.getName().length() < 3 || user.getName() == null)
             return null;
-        if (user.getFirstName() == null || user.getFirstName().length() < 3)
+        if (user.getFirstName().length() < 3 || user.getFirstName() == null)
             return null;
-        if (user.getEmail() == null || (!user.getEmail().matches(pattern)))
+        if ((!user.getEmail().matches(pattern)) || user.getEmail() == null)
             return null;
-        if (user.getPassword() == null || user.getPassword().length() < 4)
+        if (user.getPassword().length() < 4 || user.getPassword() == null)
             return null;
-        if (user.getSecretAnswer() == null || user.getSecretAnswer().length() < 4)
+        if (user.getSecretAnswer().length() < 4 || user.getSecretAnswer() == null)
             return null;
-        if (user.getSecretQuestion() == null || user.getSecretQuestion().length() < 4)
+        if (user.getSecretQuestion().length() < 4 || user.getSecretQuestion() == null)
             return null;
         if (isAvailableEmail(user.getEmail())) {
             String query = "INSERT INTO users (name, firstName, email, password, secretAnswer, secretQuestion) VALUES (?,?,?,?,?,?)";
@@ -111,6 +128,20 @@ public class SqlUserRepository implements UserRepository {
     public boolean delete(Long id) {
         String query = "DELETE FROM users WHERE id=?";
         return jdbcTemplate.update(query, id) > 0;
+    }
+
+    @Override
+    public String forgot(ForgotUser forgotUser) {
+        String newPassword = RandomString.RandomStr(8);
+        String query = "UPDATE users SET password=? WHERE id=? AND secretQuestion=? AND secretAnswer=? AND email=?";
+
+        Object[] params = new Object[]{Hashing.sha256().hashUnencodedChars(newPassword).toString(), forgotUser.getId(), forgotUser.getSecretQuestion(), forgotUser.getSecretAnswer(), forgotUser.getEmail()};
+        int[] types = new int[]{Types.VARCHAR, Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
+
+        Integer affectedRows = jdbcTemplate.update(query, params, types);
+        if (affectedRows == 0)
+            return null;
+        else return newPassword;
     }
 }
 
