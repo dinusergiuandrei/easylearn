@@ -10,7 +10,7 @@ export class SubmissionRequestModel{
 
     constructor() {
         this.language = null;
-        this.main = null;
+        this.mainSource = null;
         this.problemId = null;
         this.sources = null;
         this.userId = null;

@@ -41,8 +41,10 @@ export class ProfileComponent implements OnInit {
     }
 
     if (this.newpass != this.renewpass && this.newpass !=null)
+    {
       this.responseText = 'The passwords are not the same!';
       console.log(this.newpass+' '+this.renewpass)
+    }
     else {
       this.responseText = 'Succes!';
       this.user.password = this.newpass;
