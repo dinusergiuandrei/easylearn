@@ -153,6 +153,9 @@ public class UserController {
         Long uid = MustBeLoggedIn(request);
         forgotUser.setId(uid);
         String newPassword = userRepository.forgot(forgotUser);
+
+        ConsoleLogger.Log(forgotUser.toString() +"  New: "+newPassword);
+
         if(newPassword == null)
             throw new UserDataCouldNotBeUpdatedException();
         return newPassword;

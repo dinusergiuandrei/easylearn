@@ -40,4 +40,10 @@ public class ForgotUser {
     public void setSecretQuestion(String secretQuestion) {
         this.secretQuestion = secretQuestion;
     }
+
+    @Override
+    public String toString() {
+        return "Forgot: "+
+                id +" | "+email+" | "+" | "+secretQuestion+" | "+secretAnswer;
+    }
 }
