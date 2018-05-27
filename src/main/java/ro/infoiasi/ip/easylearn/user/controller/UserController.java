@@ -75,10 +75,11 @@ public class UserController {
         }
     }
 
-    @RequestMapping(path = "/user/{id}", method = DELETE)
-    @ApiOperation(value = "Delete a user")
-    public void delete(@RequestParam Long id) {
-        boolean deleted = userRepository.delete(id);
+    @RequestMapping(path = "/user", method = DELETE)
+    @ApiOperation(value = "Delete current user")
+    public void delete(HttpServletRequest request) {
+        Long uid = MustBeLoggedIn(request);
+        boolean deleted = userRepository.delete(uid);
         if (!deleted) {
             throw new UserDataCouldNotBeUpdatedException();
         }
@@ -134,12 +135,15 @@ public class UserController {
 //    }
 
     @RequestMapping(path = "/logout", method = GET)
-    @ApiOperation(value = "Logs out a user")
-    public void logout(@RequestParam String sid, HttpServletResponse response) {
-        System.out.println(sid);
-        sessionRepository.destroy(sid);
-        Cookie cookie = new Cookie("sid", sid);
-        cookie.setMaxAge(0);
+    @ApiOperation(value = "Logs out current user")
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        Cookie cookie = CookieManager.getCookie(request.getCookies(), "sid");
+
+        if (cookie == null) return;
+        sessionRepository.destroy(cookie.getValue());
+        Cookie _cookie = new Cookie("sid", cookie.getValue());
+        _cookie.setMaxAge(0);
+        _cookie.setPath("/");
         response.addCookie(cookie);
     }
 }
