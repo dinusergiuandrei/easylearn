@@ -44,8 +44,7 @@ import { AddProblemComponent } from './components/pages/add-problem/add-problem.
 import { UserDashboardComponent } from './components/pages/user-dashboard/user-dashboard.component';
 import { NotallowedComponent } from './components/pages/notallowed/notallowed.component';
 import { SubmissionsComponent } from './components/pages/submissions/submissions.component';
-import { TestsComponent } from './components/pages/tests/tests.component'
-import { RunsComponent } from './components/pages/runs/runs.component';
+import { LogoutComponent } from './components/pages/logout/logout.component'
 // import { NotificationsComponent } from './shared/components/notifications/notifications.component';
 
 
@@ -76,9 +75,8 @@ import { RunsComponent } from './components/pages/runs/runs.component';
     UserDashboardComponent,
     NotallowedComponent,
     SubmissionsComponent,
-    TestsComponent,
-    RunsComponent
-  ],
+    LogoutComponent
+   ],
   imports: [
     BrowserModule,
     AppRoutingModule,

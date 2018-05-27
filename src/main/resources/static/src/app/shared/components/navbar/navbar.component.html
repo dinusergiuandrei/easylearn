@@ -12,10 +12,12 @@
       <!-- add content if needed -->
     </ul>
 
-    <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['register']">{{firstButton}}</button>
-    <button class="btn btn-success my-2 my-sm-0" [routerLink]="['login']">{{secondButton}}</button>
-
-
+    <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="[link]">{{firstButton}}</button>
+    <button class="btn btn-success my-2 my-sm-0" [routerLink]="[link2]">{{secondButton}}</button>
+    
+      <!-- <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['profile']" ng-if="ifLogged()">My Account</button>
+      <button class="btn btn-success my-2 my-sm-0" [routerLink]="['logout']" ng-if="ifLogged()">Logout</button>
+      <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['register']" ng-if="!ifLogged()">Sign Up</button>
+      <button class="btn btn-success my-2 my-sm-0" [routerLink]="['login']" ng-if="!ifLogged()">Sign In</button> -->
   </div>
 </nav>
-
