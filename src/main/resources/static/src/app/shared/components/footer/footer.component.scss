@@ -53,3 +53,13 @@
   font-weight: 700;
   margin-top: 7%;
 }
+
+.sub-link{
+  text-decoration:none;
+  color: black;
+}
+
+.sub-link:hover{
+  transition: all 0.5s ease-out;
+  opacity:0.6;
+}
