@@ -1,54 +1,62 @@
 <div class="problem-wrapper">
   <h1>{{ this.title }}</h1>
 
-  <div class="row">
-    <div class="col-md-8">
-      <div class="problem-description">
-        <h3>Problem Demands</h3>
-        <p>
-          {{problemModel?.requirement}}
-        </p>
+  <div class="problem__container">
+    <div class="problem-description">
+      <h3>Problem Demands</h3>
+      <p>
+        {{problemModel?.requirement}}
+      </p>
 
-        <h3>Input data</h3>
-        <p>
-          {{problemModel?.input}}
-        </p>
+      <h3>Input data</h3>
+      <p>
+        {{problemModel?.input}}
+      </p>
 
-        <h3>Output data</h3>
-        <p>
-          {{problemModel?.output}}
-        </p>
+      <h3>Output data</h3>
+      <p>
+        {{problemModel?.output}}
+      </p>
 
-        <h3>Restrictions and Clarifications</h3>
-        <p>
-          {{problemModel?.restrictions}}
-        </p>
+      <h3>Restrictions and Clarifications</h3>
+      <p>
+        {{problemModel?.restrictions}}
+      </p>
+      <div class="problem-editor">
+        <ngx-monaco-editor class="editor" [options]="editorOptions" [(ngModel)]="sourceFile.content"></ngx-monaco-editor>
+
       </div>
-
-      <ngx-monaco-editor class="editor" [options]="editorOptions" [(ngModel)]="sourceFile.content"></ngx-monaco-editor>
     </div>
-
-    <div class="col-md-4">
-      <div class="problem-details">
-        <div class="row">
-          <h3>Author: </h3>
-          <span>{{ author }}</span>
-        </div>
-        <div class="row">
-          <h3>Difficulty: </h3>
-          <span>{{ difficulty }}</span>
-        </div>
+    <div class="problem-details">
+      <div class="problem-bg">
+        <h5>Author: </h5>
+        <span>{{ author }}</span>
       </div>
       <div>
-        <button class="submit-button" (click)="submitSolution()">
-          Submit
-        </button>
+        <h5>Difficulty: </h5>
+        <span>{{ difficulty }}</span>
       </div>
+      <div *ngFor="let test of testModel">
+        <h5>Input:</h5>
+        <span>{{test.input}}</span>
+      </div>
+      <div *ngFor="let test of testModel">
+        <h5>Expected output:</h5>
+        <span>{{test.expectedOutput}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="problem-container">
+    <div class="problem-submit">
+      <button class="submit-button btn btn-green btn-md" (click)="submitSolution()">
+        Submit
+      </button>
       <a [routerLink]="['/submissions']" [queryParams]="{problemId: problemId}">
         Go to your submissions
       </a>
       <div>
-        <select id="languageSelector">
+        <label>Language: </label>
+        <select class="dropdown" id="languageSelector">
           <option value="Java">Java</option>
           <option value="Cpp">C++</option>
           <option value="Python">Python</option>
@@ -56,9 +64,5 @@
       </div>
     </div>
   </div>
-</div>
-
-<div *ngFor="let test of testModel">
-  Expected ouput: {{test.expectedOutput}}  | Input: {{test.input}}
 </div>
 

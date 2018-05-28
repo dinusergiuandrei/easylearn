@@ -1,45 +1,115 @@
 .problem-wrapper {
-    margin: 0 50px;
-    padding-top: 50px;
+  margin: 0 50px;
+  padding-top: 50px;
 
-    h1 {
-        padding: 0 15px;
+  h1 {
+    padding: 0 15px;
+  }
+
+  .problem__container {
+    display: flex;
+    //margin: 0 -15px;
+    margin-bottom: 15px;
+  }
+
+  .problem-submit {
+    padding: 15px;
+    flex: 0 1 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    background-color: #fff;
+  }
+
+  .problem-editor {
+    border: 1px solid gainsboro;
+    padding: 2px;
+    max-width: 100%;
+  }
+
+  .problem-details {
+    flex: 0 1 39%;
+    margin-left: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 15px;
+    h5 {
+      float: left;
+      line-height: 50px;
+      margin: 0;
     }
 
-    .problem-details {
-        h3 {
-            float: left;
-            line-height: 50px;
-            margin: 0;
-        }
+    span {
+      float: right;
+      line-height: 50px;
+    }
+  }
 
-        span {
-            float: right;
-            line-height: 50px;
-        }
+  .problem-description {
+    flex: 0 1 59%;
+    padding: 15px;
+    background-color: #fff;
+  }
+
+  .code-editor {
+    .editor {
+      margin-bottom: 50px;
     }
 
-    .problem-description {
-        border: 1px solid gray;
-        padding: 25px;
-        margin-bottom: 50px;
+    select {
+      margin-bottom: 15px;
     }
+  }
 
-    .code-editor {
-        .editor {
-            margin-bottom: 50px;
-        }
-
-        select {
-            margin-bottom: 15px;
-        }
-    }
+  .editor-container {
+    height: 450px;
 
     .editor-container {
-        height: 450px;
-
-        .editor-container {
-            height: 450px;
-        }
+      height: 450px;
     }
+  }
+
+  .dropdown {
+    padding: 8px 10px;
+  }
+
+  @media only screen and (max-width: 1000px) {
+    .problem
+    {
+      &__container
+      {
+        flex-wrap: wrap;
+      }
+      &-description
+      {
+        flex-basis: 100%;
+      }
+      &-details
+      {
+        flex-basis: 100%;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 756px) {
+    .problem
+    {
+      &-submit
+      {
+        flex-direction: column;
+        justify-content: center;
+        & > *
+        {
+          margin-bottom: 8px;
+        }
+
+        & > a
+        {
+          text-align: right;
+        }
+      }
+    }
+  }
+
 }
