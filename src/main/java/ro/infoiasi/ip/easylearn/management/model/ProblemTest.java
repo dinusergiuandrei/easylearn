@@ -47,10 +47,10 @@ public class ProblemTest {
         this.expectedOutput = expectedOutput;
     }
 
-    public Boolean isValidOutput(String realOutput){
-        String trimmedRealOutput = realOutput.trim();
+    public Boolean isValidOutput(String actualOutput){
         String trimmedExpectedOutput = this.expectedOutput.trim();
-        return Objects.equals(trimmedExpectedOutput, trimmedRealOutput);
+        String trimmedRealOutput = actualOutput.trim();
+        return trimmedExpectedOutput.equals(trimmedRealOutput);
     }
 
     @Override

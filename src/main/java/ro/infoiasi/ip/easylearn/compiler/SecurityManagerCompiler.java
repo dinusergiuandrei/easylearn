@@ -51,11 +51,12 @@ public class SecurityManagerCompiler extends Compiler {
 
     @Override
     public Output run(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
+
         Output output;
 
-        //output = runWithProcessCall(mainSource, compilerParameters, runParameters);
+        output = runWithProcessCall(mainSource, compilerParameters, runParameters);
 
-        output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
+//        output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
 
         return output;
     }
@@ -108,7 +109,7 @@ public class SecurityManagerCompiler extends Compiler {
         );
 
         RunParameters containerRunParameters =
-                new RunParameters("", runParameters.getTimeout(), runParameters.getTimeUnit());
+                new RunParameters(runParameters.getKeyboardInput(), runParameters.getTimeout(), runParameters.getTimeUnit());
 
         Output defaultCompilerOutput = defaultCompiler.compile(containerCompilerParameters);
 

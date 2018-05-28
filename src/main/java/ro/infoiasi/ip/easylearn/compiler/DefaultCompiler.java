@@ -10,13 +10,11 @@ import static ro.infoiasi.ip.easylearn.utils.ProcessManager.runCommand;
 /**
  * This type of compiler will take no regard towards security.
  */
-public class DefaultCompiler extends Compiler{
+public class DefaultCompiler extends Compiler {
 
     @Override
     public Output compile(CompilerParameters parameters) throws Exception {
-
         createDirectory(parameters.getRootDirectoryPath());
-
         addSourcesToDirectory(parameters.getSourceCodes(), parameters.getRootDirectoryPath());
 
         String command = parameters
@@ -29,32 +27,26 @@ public class DefaultCompiler extends Compiler{
         if (command == null || command.length() == 0) {
             return Output.getSuccessOutput();
         }
-        Process process = runCommand(command);
 
+        Process process = runCommand(command);
         return getProcessOutput(process);
     }
 
-    public Output run(String command, String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception{
-
+    public Output run(String command, String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
+        System.out.println("Using the following run params: " + runParameters);
         Process process = runCommand(command);
-
         addKeyboardInput(process, runParameters.getKeyboardInput());
 
-        Output output = getProcessOutput(process, runParameters.getTimeout(), runParameters.getTimeUnit());
-
-        return output;
+        return getProcessOutput(process, runParameters.getTimeout(), runParameters.getTimeUnit());
     }
 
     @Override
     public Output run(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
-
+        System.out.println("Using run params: " + runParameters);
         String command = compilerParameters
                 .getLanguage()
                 .getCommandBuilder()
-                .buildRunCommand(
-                        compilerParameters.getRootDirectoryPath(),
-                        mainSource
-                );
+                .buildRunCommand(compilerParameters.getRootDirectoryPath(), mainSource);
 
         return run(command, mainSource, compilerParameters, runParameters);
     }

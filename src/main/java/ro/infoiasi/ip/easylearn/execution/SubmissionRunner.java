@@ -54,35 +54,29 @@ public class SubmissionRunner {
         Output compileOutput = compiler.compile(compilerParameters);
         submission.setCompileOut(compileOutput.toString());
 
+        System.out.println("Compiling submiossion: " + submission);
         if (compiledWithSuccess(compileOutput)) {
+            System.out.println("Running the tests for submission: " + submission);
             Problem problem = problemRepository.findById(submission.getProblemId());
-            List<ProblemTest> tests = testRepository.findByProblemId(problem.getId());
+            List <ProblemTest> tests = testRepository.findByProblemId(problem.getId());
 
             for (ProblemTest test : tests) {
-                Run run = new Run();
-                run.setSubmissionId(submissionId);
-                run.setTestId(test.getId());
-                run.setRunTimeMs((long) problem.getTimeLimit());
-                run.setMemoryBytes(problem.getMemoryLimit());
+                System.out.println("Running test: " + test);
+                Run run = createRun(submissionId, problem, test);
 
                 RunParameters runParameters = new RunParameters(test.getInput(), run.getRunTimeMs(), TimeUnit.MILLISECONDS);
-                System.out.println("Running...");
-                System.out.println(submission.getMainSource());
                 Output runOutput = compiler.run(submission.getMainSource(), compilerParameters, runParameters);
-                System.out.println("Running complete");
+                System.out.println("Ran test: " + test);
 
-                /* we have to display just the output value to compare with tests expectedOutput
-                Hello World!
-                Exit value: 0 -- not ok
-                 */
                 run.setOutput(runOutput.getOutput());
-                System.out.println(runOutput);
+
                 if (runWithSuccess(runOutput) && test.isValidOutput(runOutput.getOutput())) {
                     run.setStatus(RunState.Success);
                 } else {
                     run.setStatus(RunState.Failed);
                     submission.setState(SubmissionState.Failed);
                 }
+
                 runRepository.save(run);
             }
 
@@ -92,7 +86,17 @@ public class SubmissionRunner {
         } else {
             submission.setState(CompilationFailed);
         }
+        System.out.println("Finished running submission: " + submission);
         submissionRepository.update(submission);
+    }
+
+    private Run createRun(Long submissionId, Problem problem, ProblemTest test) {
+        Run run = new Run();
+        run.setSubmissionId(submissionId);
+        run.setTestId(test.getId());
+        run.setRunTimeMs(problem.getTimeLimit());
+        run.setMemoryBytes(problem.getMemoryLimit());
+        return run;
     }
 
     private boolean runWithSuccess(Output runOutput) {

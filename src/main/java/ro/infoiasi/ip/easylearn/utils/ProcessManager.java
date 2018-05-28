@@ -25,9 +25,14 @@ public abstract class ProcessManager {
 
     public static void addKeyboardInput(Process process, String input) throws IOException {
         if (input != null && input.length() > 0) {
+            System.out.println("Providing the input of the test to the run: " + input);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
             writer.write(input);
+            writer.newLine();
             writer.flush();
+            System.out.println("Provided the input.");
+        } else {
+            System.out.println("There is no input to provide for this test: " + input);
         }
     }
 
