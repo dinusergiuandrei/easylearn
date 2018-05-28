@@ -115,11 +115,11 @@ public class SqlProblemRepository implements ProblemRepository {
         }
     }
 
-    // TODO there is no score field in submissions ==> check users
+    //there is no score field in submissions ==> check users
     public List <Problem> findSolved(Long userId) {
         try {
-            String findSolved = "SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.score = 100 and s.userId = ?) > 0";
-            return jdbcTemplate.query(findSolved, rowMapper);
+            String findSolved = "SELECT * FROM problems p where (select count(*) from submissions s, users u where s.problemId = p.id and u.score = 100 and s.userId = ?) > 0";
+            return jdbcTemplate.query(findSolved, rowMapper, userId);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
@@ -129,7 +129,7 @@ public class SqlProblemRepository implements ProblemRepository {
     public List <Problem> findAttempted(Long userId) {
         try {
             return  jdbcTemplate.query(
-                    "SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.userId = " + userId + ") > 0", new BeanPropertyRowMapper <>(Problem.class));
+                    "SELECT * FROM problems p where (select count(*) from submissions s where s.problemId = p.id and s.userId = ?) > 0", rowMapper, userId);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             return null;
