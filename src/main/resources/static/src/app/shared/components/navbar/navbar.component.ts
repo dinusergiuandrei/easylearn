@@ -15,8 +15,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   logged = '';
   firstButton = '';
   secondButton = '';
-
   private isLogged;
+
   public link;
   public link2;
 

@@ -23,7 +23,8 @@ export class SubmitSolutionService {
     return this.http.get(this.api + '/submission/' + submissionID);
   }
 
-  public getSubmissionsByProblem(problemID: number): Observable<any>{
+  public getSubmissionsByProblem(problemID: number): Observable<any> {
     return this.http.get(this.api + '/submissions/problem/' + problemID);
   }
+
 }

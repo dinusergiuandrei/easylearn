@@ -48,6 +48,7 @@ import { UserDashboardComponent } from './components/pages/user-dashboard/user-d
 import { NotificationsComponent } from './shared/components/notifications/notifications.component';
 import { SubmissionsComponent } from './components/pages/submissions/submissions.component';
 import { LogoutComponent } from './components/pages/logout/logout.component';
+import { RunsComponent } from './components/pages/runs/runs.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { LogoutComponent } from './components/pages/logout/logout.component';
     UserDashboardComponent,
     NotificationsComponent,
     SubmissionsComponent,
-    LogoutComponent
+    LogoutComponent,
+    RunsComponent
   ],
   imports: [
     BrowserModule,
