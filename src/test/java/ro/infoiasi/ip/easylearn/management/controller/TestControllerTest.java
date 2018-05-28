@@ -12,6 +12,7 @@ import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.management.model.ProblemTest;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
 import ro.infoiasi.ip.easylearn.management.repository.api.TestRepository;
+import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
 
 import javax.transaction.Transactional;
 
@@ -23,7 +24,7 @@ import java.sql.Types;
 @Rollback(true)
 
 public class TestControllerTest {
-
+    private SessionRepository sessionRepository;
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -31,7 +32,7 @@ public class TestControllerTest {
     private TestRepository testRepository;
 
     @Autowired
-    private TestController testController = new TestController(testRepository);
+    private TestController testController = new TestController(testRepository, sessionRepository);
 
     @Autowired
     private ProblemRepository problemRepository;

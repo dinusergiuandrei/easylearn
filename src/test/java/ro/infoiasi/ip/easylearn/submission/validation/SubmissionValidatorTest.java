@@ -36,7 +36,7 @@ public class SubmissionValidatorTest {
     }
 
     @Test
-    public void givenARightSubmission_validate_works(){
+    public void givenARightSubmission_validate_works() {
         SubmissionRequest submissionRequest = createSubmission(1L, 1L, Language.Java, "main");
         submissionValidator.validate(submissionRequest);
     }

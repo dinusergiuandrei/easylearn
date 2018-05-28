@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ro.infoiasi.ip.easylearn.management.controller.TestController;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
 import ro.infoiasi.ip.easylearn.management.repository.api.TestRepository;
+import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
 
 import javax.transaction.Transactional;
 import java.sql.Types;
@@ -24,6 +25,7 @@ import static org.junit.Assert.*;
 @Rollback(true)
 
 public class ProblemTestTest {
+    private SessionRepository sessionRepository;
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -35,7 +37,7 @@ public class ProblemTestTest {
     private ProblemRepository problemRepository;
 
     @Autowired
-    private TestController testController = new TestController(testRepository);
+    private TestController testController = new TestController(testRepository, sessionRepository);
 
 
     @Test
