@@ -11,38 +11,43 @@ import { UserService } from '../../../services/user-account.service';
 export class NavbarComponent implements OnInit {
 
   logo: { name: string; path: string; };
-  logged = "";
+  logged = '';
   firstButton = '';
   secondButton = '';
 
+  // tslint:disable-next-line:no-shadowed-variable
   constructor(private UserService: UserService) {
     this.logo = {
       name: 'easylearn',
       path: '../../../../assets/images/easylearn.png'
-
     };
   }
+
   ngOnInit() {
     this.UserService.getUser().subscribe((res: any) => {
       this.firstButton = 'User profile';
       this.secondButton = 'Log out';
     },
       err => {
-        this.firstButton = 'Sing up';
-        this.secondButton = 'Sing in';
-      })
+        this.firstButton = 'Sign up';
+        this.secondButton = 'Sign in';
+      });
   }
 
+  // tslint:disable-next-line:use-life-cycle-interface
   ngOnDestroy() {
     this.firstButton = '';
     this.secondButton = '';
   }
-  @HostListener("window:scroll", [])
+
+  @HostListener('window:scroll', [])
   onWindowScroll() {
     const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    var x = document.getElementsByClassName('navbar')[0];
-    x.classList.add("on-scroll");
-    if (number == 0) x.classList.remove("on-scroll");
+    const x = document.getElementsByClassName('navbar')[0];
+    x.classList.add('on-scroll');
+    if (number === 0) {
+      x.classList.remove('on-scroll');
+    }
   }
 
 }

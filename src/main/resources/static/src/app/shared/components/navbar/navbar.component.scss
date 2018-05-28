@@ -1,37 +1,25 @@
-.navbar{
-	background: #ffffff00;
+@import '../../../../assets/scss/variables/_variables';
+
+nav {
+	padding: $container-spacing-min $container-spacing-max;
+	@extend %flex-row;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.navbar-brand{
-	img{
-			width: 170px;
+@media (max-width: 767px) {
+	nav {
+		padding-left: $container-spacing;
+		padding-right: $container-spacing;
 	}
-	margin-left: 0.5%;
 }
+
+
+
+
+
+
 
 .on-scroll{
-	background: #ffffff;
-}
-
-.btn{
-	margin-right: 0.5%;
-	&-success{
-			background:rgb(6, 168, 159);
-			border-color: rgb(6, 168, 159);
-	}
-	
-	&-success:hover{
-			background: rgb(41, 38, 99);
-			border-color: rgb(41, 38, 99);
-	}
-	&-outline-success{
-		color: rgb(6, 168, 159);
-		border-color: rgb(6, 168, 159);
-}
-
-&-outline-success:hover{
-		background:rgb(6, 168, 159);
-		border-color: rgb(6, 168, 159);
-		color: #ffffff;
-}
+	background-color: $color-container;
 }

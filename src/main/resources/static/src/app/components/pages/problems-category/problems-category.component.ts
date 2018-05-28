@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProblemService } from '../../../services/problem.service'
+import { ProblemService } from '../../../services/problem.service';
 import { ProblemModel } from '../../../shared';
 
 @Component({

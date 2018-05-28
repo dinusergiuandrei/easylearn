@@ -33,13 +33,13 @@ export class ProfileComponent implements OnInit {
   }
 
   public editClick(): void {
-    if (this.firstName != null) {
+    if (this.firstName !== null) {
       this.user.firstName = this.firstName;
     }
-    if (this.lastName != null) {
+    if (this.lastName !== null) {
       this.user.name = this.lastName;
     }
-    if (this.eMail != null) {
+    if (this.eMail !== null) {
       this.user.email = this.eMail;
     }
 

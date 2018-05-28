@@ -59,8 +59,8 @@ export class TestimonialsComponent implements OnInit {
     if (n > el.length - 1) {
       this.slideIndex = 0;
     } else if (n < 0) {
-        this.slideIndex = el.length - 1;
-      }
+      this.slideIndex = el.length - 1;
+    }
 
     el[this.slideIndex].className = 'testimonials-slides-display_on';
   }

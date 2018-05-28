@@ -49,8 +49,7 @@ const DESCRIPTION = ['Să se scrie o funcție C++ care să determine prima și u
   'Se dă un şir cu n elemente, numere naturale. Să se afişeze elementele şirului pentru care suma cifrelor este divizibilă cu 3.',
   'Să se scrie o funcție C++ care să returneze suma factorialelor cifrelor unui număr natural transmis ca parametru.',
   'Să se scrie o funcție C++ care să returneze oglinditul unui număr natural transmis ca parametru.'];
-const PROBLEMS = ['sumaMinMax', 'Dublare1	', 'Element_SA	', 'Suma cifrelor	', 'FactorialF	', 'Mutare1	',
-  'Palindrom_Ciclic', 'Multiplu	'];
+const PROBLEMS = ['sumaMinMax', 'Dublare1', 'Element_SA', 'Suma cifrelor', 'FactorialF', 'Mutare1', 'Palindrom_Ciclic', 'Multiplu'];
 
 const CATEGORY = ['Algorithms', 'Data Sturucture', 'Matemathics'];
 const AUTHOR = ['Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack',
