@@ -69,13 +69,12 @@ public class SubmissionRunner {
                 Output runOutput = compiler.run(submission.getMainSource(), compilerParameters, runParameters);
                 System.out.println("Running complete");
 
-                System.out.println(runOutput.getOutput());
-                System.out.println(runOutput.toString());
-                System.out.println(test.getExpectedOutput());
-                System.out.println(test.isValidOutput(runOutput.getOutput()));
-
-                run.setOutput(runOutput.toString());
-                System.out.println("##"+run.getOutput().length());
+                /* we have to display just the output value to compare with tests expectedOutput
+                Hello World!
+                Exit value: 0 -- not ok
+                 */
+                run.setOutput(runOutput.getOutput());
+                System.out.println(runOutput);
                 if (runWithSuccess(runOutput) && test.isValidOutput(runOutput.getOutput())) {
                     run.setStatus(RunState.Success);
                 } else {

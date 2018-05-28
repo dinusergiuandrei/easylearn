@@ -57,10 +57,10 @@ public class SubmissionRequest {
     public String toString() {
         return "SubmissionRequest{" +
                 "problemId=" + problemId +
-                "userId=" + userId +
-                "mainSource=" + mainSource +
-                ", language='" + language + '\'' +
-                ", sources='" + sources + '\'' +
+                ", userId=" + userId +
+                ", language=" + language +
+                ", mainSource='" + mainSource + '\'' +
+                ", sources=" + sources +
                 '}';
     }
 }
