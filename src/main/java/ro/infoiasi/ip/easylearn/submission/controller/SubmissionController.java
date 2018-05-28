@@ -54,12 +54,12 @@ public class SubmissionController {
         return submissionService.submit(submissionRequest);
     }
 
-    @RequestMapping(path = "/submissions/problem/{problemID}", method = RequestMethod.GET)
+    @RequestMapping(path = "/submissions/problem/{id}", method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "View the information about all submissions for a problem for current user")
-    public List<Submission> submissionsByProblem(@PathVariable Long problemID, HttpServletRequest request) {
+    public List<Submission> submissionsByProblem(@PathVariable Long id, HttpServletRequest request) {
         Long uid = sessionRepository.MustBeLoggedIn(request);
-        return submissionService.getSubmissionsByProblem(problemID, uid);
+        return submissionService.getSubmissionsByProblem(id, uid);
     }
 
 
