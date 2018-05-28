@@ -124,8 +124,8 @@ public class SecurityManagerCompiler extends Compiler {
         }
 
         //return collectOutput(outputDirectoryPath);
-        //return Output.getOutputFromMessage(defaultCompilerOutput.getOutput());
-        return defaultCompilerOutput;
+        return Output.getOutputFromMessage(defaultCompilerOutput.getOutput());
+        //return defaultCompilerOutput;
     }
 
     private Output collectOutput(String outputDirectoryPath) throws IOException {

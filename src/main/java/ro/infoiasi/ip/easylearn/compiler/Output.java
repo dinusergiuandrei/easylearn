@@ -1,4 +1,5 @@
 package ro.infoiasi.ip.easylearn.compiler;
+
 public class Output {
     private String error;
 
@@ -6,8 +7,8 @@ public class Output {
 
     private Integer exitValue;
 
-    public static Output getSuccessOutput(){
-        Output output  = new Output();
+    public static Output getSuccessOutput() {
+        Output output = new Output();
         output.setExitValue(0);
         return output;
     }
@@ -26,31 +27,49 @@ public class Output {
         return stringBuilder.toString();
     }
 
-    public static Output getOutputFromMessage(String message){
+    public static Output getOutputFromMessage(String message) {
         String errorTag = "Run error: ";
         String exitValueTag = "Exit value: ";
-        if(message.startsWith(exitValueTag)){
+        if (message.startsWith(exitValueTag)) {
             Output output = new Output();
-            Integer exitValue = Integer.parseInt(message.substring(12).trim());
+            Integer exitValue = Integer.parseInt(message.substring(exitValueTag.length()).trim());
             output.setExitValue(exitValue);
+            output.setOutput("");
+            output.setError("");
             return output;
         }
-        if(message.startsWith(errorTag)){
+        if (message.startsWith(errorTag)) {
             Output output = new Output();
             Integer errorStartIndex = message.indexOf(errorTag);
+
+            String errorMessage;
             Integer exitValueIndex = message.indexOf(exitValueTag);
-            String errorMessage =  message.substring(errorStartIndex + errorTag.length(), exitValueIndex).trim();
-            Integer exitValue = Integer.parseInt(message.substring(exitValueIndex + exitValueTag.length()).trim());
+
+            if (exitValueIndex >= 0) {
+                Integer exitValue = Integer.parseInt(message.substring(exitValueIndex + exitValueTag.length()).trim());
+                output.setExitValue(exitValue);
+                errorMessage = message.substring(errorStartIndex + errorTag.length(), exitValueIndex).trim();
+            } else {
+                errorMessage = message.substring(errorStartIndex + errorTag.length()).trim();
+            }
+
             output.setError(errorMessage);
-            output.setExitValue(exitValue);
+            output.setOutput("");
             return output;
         }
         Output output = new Output();
+        String outputMessage;
         Integer exitValueIndex = message.indexOf(exitValueTag);
-        String outputMessage = message.substring(0, exitValueIndex).trim();
-        Integer exitValue = Integer.parseInt(message.substring(exitValueIndex + exitValueTag.length()).trim());
+        if (exitValueIndex >= 0) {
+            Integer exitValue = Integer.parseInt(message.substring(exitValueIndex + exitValueTag.length()).trim());
+            output.setExitValue(exitValue);
+            outputMessage = message.substring(0, exitValueIndex).trim();
+        } else {
+            outputMessage = message.trim();
+            output.setExitValue(0);
+        }
         output.setOutput(outputMessage);
-        output.setExitValue(exitValue);
+        output.setError("");
         return output;
     }
 
