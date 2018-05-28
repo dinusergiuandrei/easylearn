@@ -55,11 +55,11 @@ public class SecurityManagerCompiler extends Compiler {
 
         Output output;
 
-        //output = runWithProcessCall(mainSource, compilerParameters, runParameters);
+        output = runWithProcessCall(mainSource, compilerParameters, runParameters);
 
-        output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
+//        output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
 
-        String rootPath = getCurrentWorkingDirectory() + "/" + compilerParameters.getRootDirectoryPath();
+//        String rootPath = getCurrentWorkingDirectory() + "/" + compilerParameters.getRootDirectoryPath();
         //FileManager.removeDirectory(rootPath);
 
         return output;
@@ -123,7 +123,7 @@ public class SecurityManagerCompiler extends Compiler {
         );
 
         RunParameters containerRunParameters =
-                new RunParameters("", runParameters.getTimeout(), runParameters.getTimeUnit());
+                new RunParameters(runParameters.getKeyboardInput(), runParameters.getTimeout(), runParameters.getTimeUnit());
 
         Output defaultCompilerOutput = defaultCompiler.compile(containerCompilerParameters);
 
@@ -145,9 +145,9 @@ public class SecurityManagerCompiler extends Compiler {
         }
 
 
-        return collectOutput(outputDirectoryPath);
-        //return defaultCompilerOutput;
-        //return Output.getOutputFromMessage(defaultCompilerOutput.toString());
+//        return collectOutput(outputDirectoryPath);
+//        return defaultCompilerOutput;
+        return Output.getOutputFromMessage(defaultCompilerOutput.toString());
     }
 
     private void writeToPolicyFile(String policyFilePath, List<Permission> permissions){
