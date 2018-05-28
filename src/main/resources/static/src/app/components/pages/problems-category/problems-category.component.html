@@ -12,10 +12,10 @@
           {{problem.timeLimit}} seconds
           <h6>Memory limit</h6>
           {{problem.memoryLimit}} mb
-          <div class="problems-category-body-content-problems-container-details-button">
-            <a [routerLink]="['/problem']" [queryParams]="{problemId: problem.id}">
+          <div class="">
+            <button class="btn btn-blue btn-md" [routerLink]="['/problem']" [queryParams]="{problemId: problem.id}">
               Solve
-            </a>
+            </button>
           </div>
         </div>
 

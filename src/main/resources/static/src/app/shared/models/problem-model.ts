@@ -1,4 +1,4 @@
-export class ProblemModel {
+export class  ProblemModel {
     public categoryId: number;
     public dataType: string;
     public description: string;

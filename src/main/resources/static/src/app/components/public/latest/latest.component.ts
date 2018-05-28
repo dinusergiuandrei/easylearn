@@ -1,5 +1,8 @@
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ProblemService} from '../../../services/problem.service';
+import {ProblemModel} from '../../../shared';
 
 @Component({
   selector: 'app-latest',
@@ -7,21 +10,28 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./latest.component.scss']
 })
 export class LatestComponent implements OnInit {
-  displayedColumns = ['id', 'problems', 'description', 'category', 'timelimit', 'memorylimit', 'author'];
+  displayedColumns = ['id', 'category', 'description', 'timelimit', 'memorylimit', 'userId'];
   dataSource: MatTableDataSource<UserData>;
+  dataSource2: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor() {
-    const users: UserData[] = [];
-    for (let i = 1; i <= 100; i++) { users.push(createNewUser(i)); }
+  public categoryID = 2;
+  public problems;
 
-    this.dataSource = new MatTableDataSource(users);
-    console.log(this.dataSource);
+  constructor(private problemService: ProblemService) {
   }
 
   ngOnInit() {
+    this.problemService.getProblems(this.categoryID).subscribe((res: any) => {
+        this.problems = res;
+        this.dataSource = new MatTableDataSource(res);
+      },
+      err => {
+        console.log(err);
+      }
+    );
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
