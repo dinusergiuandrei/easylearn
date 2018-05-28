@@ -54,9 +54,9 @@ public class SecurityManagerCompiler extends Compiler {
 
         Output output;
 
-        output = runWithProcessCall(mainSource, compilerParameters, runParameters);
+        //output = runWithProcessCall(mainSource, compilerParameters, runParameters);
 
-//        output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
+        output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
 
         return output;
     }
