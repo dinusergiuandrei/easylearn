@@ -55,9 +55,12 @@ public class SecurityManagerCompiler extends Compiler {
 
         Output output;
 
-        //output = runWithProcessCall(mainSource, compilerParameters, runParameters);
+        output = runWithProcessCall(mainSource, compilerParameters, runParameters);
 
-        output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
+//        output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
+
+//        String rootPath = getCurrentWorkingDirectory() + "/" + compilerParameters.getRootDirectoryPath();
+        //FileManager.removeDirectory(rootPath);
 
         return output;
     }
@@ -120,7 +123,7 @@ public class SecurityManagerCompiler extends Compiler {
         );
 
         RunParameters containerRunParameters =
-                new RunParameters("", runParameters.getTimeout(), runParameters.getTimeUnit());
+                new RunParameters(runParameters.getKeyboardInput(), runParameters.getTimeout(), runParameters.getTimeUnit());
 
         Output defaultCompilerOutput = defaultCompiler.compile(containerCompilerParameters);
 
@@ -141,9 +144,10 @@ public class SecurityManagerCompiler extends Compiler {
             System.out.println(defaultCompilerOutput.getError());
         }
 
-        return collectOutput(outputDirectoryPath);
-        //return defaultCompilerOutput;
-        //return Output.getOutputFromMessage(defaultCompilerOutput.toString());
+
+//        return collectOutput(outputDirectoryPath);
+//        return defaultCompilerOutput;
+        return Output.getOutputFromMessage(defaultCompilerOutput.toString());
     }
 
     private void writeToPolicyFile(String policyFilePath, List<Permission> permissions){
@@ -167,6 +171,13 @@ public class SecurityManagerCompiler extends Compiler {
 
         output.setOutput(outputString);
         output.setError(errorString);
+
+        if(errorString.trim().length() > 0){
+            output.setExitValue(-1);
+        }
+        else {
+            output.setExitValue(0);
+        }
 
         return output;
     }

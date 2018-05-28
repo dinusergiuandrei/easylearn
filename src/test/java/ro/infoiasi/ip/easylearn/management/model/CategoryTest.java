@@ -16,22 +16,9 @@ import java.util.Random;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
-@Rollback(true)
-
 public class CategoryTest {
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private CategoryController categoryController = new CategoryController(categoryRepository);
-
     @Test
-    public void setCategoryId() {
+    public void testSetter_setCategoryId() {
         Category mycategory = new Category();
         Random random = new Random();
 
@@ -45,7 +32,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void setNume() {
+    public void testSetter_setName() {
         Category mycategory = new Category();
         String nume = "mediu";
 
@@ -58,7 +45,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void getCategoryId(){
+    public void testGetter_getCategoryId(){
         Category myCategory = new Category();
         Random rand = new Random();
 
@@ -72,7 +59,7 @@ public class CategoryTest {
     }
 
     @Test
-    public void getNume(){
+    public void testGetter_getNume(){
         Category mycategory = new Category();
 
         mycategory.setName("mediu");
