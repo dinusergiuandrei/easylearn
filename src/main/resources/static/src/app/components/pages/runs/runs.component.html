@@ -1,1 +1,18 @@
-<p>runs works</p>
+<table>
+  <thead>
+  <td>Id</td>
+  <td>Submission</td>
+  <td>Test</td>
+  <td>Run time</td>
+  <td>Used memory</td>
+  <td>Status</td>
+  </thead>
+  <tr style="border: 1px solid black;" *ngFor="let run of runs;">
+    <td style="border: 1px solid black;">{{run.id}}</td>
+    <td style="border: 1px solid black;">{{run.submissionId}}</td>
+    <td style="border: 1px solid black;">{{run.testId}}</td>
+    <td style="border: 1px solid black;">{{run.runTimeMs}}</td>
+    <td style="border: 1px solid black;">{{run.memoryBytes}}</td>
+    <td style="border: 1px solid black;">{{run.status}}</td>
+  </tr>
+</table>

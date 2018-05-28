@@ -1,5 +1,5 @@
 import { SourceModel } from './source-model';
-import { RunModel } from './runs-model';
+import { RunModel } from './run-model';
 
 export class SubmissionModel {
 

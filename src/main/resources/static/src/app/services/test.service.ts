@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { ProblemModel } from '../shared';
-import { RunModel } from '../shared/models/runs-model';
+import { RunModel } from '../shared/models/run-model';
 
 @Injectable({
   providedIn: 'root'

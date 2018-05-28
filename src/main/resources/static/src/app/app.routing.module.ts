@@ -15,6 +15,7 @@ import { UserDashboardComponent } from './components/pages/user-dashboard/user-d
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 import { SubmissionsComponent } from './components/pages/submissions/submissions.component';
+import { RunsComponent } from './components/pages/runs/runs.component';
 import { LogoutComponent } from './components/pages/logout/logout.component';
 
 
@@ -36,6 +37,7 @@ const routes: Routes = [
   { path: '403', component: Error403Component},
   { path: '404', component: Error404Component },
   { path: 'submissions', component: SubmissionsComponent},
+  { path: 'runs', component: RunsComponent},
   { path: 'logout', component: LogoutComponent},
   { path: '**', redirectTo: '/404' }
 ];
