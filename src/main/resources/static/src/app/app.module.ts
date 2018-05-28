@@ -21,7 +21,8 @@ import { ProblemService } from './services/problem.service';
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
-import { Error404Component } from './components/pages/error404/error404.component';
+import { Error403Component } from './components/pages/errors/error403/error403.component';
+import { Error404Component } from './components/pages/errors/error404/error404.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { LoginComponent } from './components/public/sign/login/login.component';
 import { ForgotComponent } from './components/public/sign/forgot/forgot.component';
@@ -42,7 +43,6 @@ import { ProblemtestComponent } from './components/public/problemtest/problemtes
 import { ProblemsCategoryComponent } from './components/pages/problems-category/problems-category.component';
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 import { UserDashboardComponent } from './components/pages/user-dashboard/user-dashboard.component';
-import { NotallowedComponent } from './components/pages/notallowed/notallowed.component';
 import { NotificationsComponent } from './shared/components/notifications/notifications.component';
 
 @NgModule({
@@ -59,6 +59,7 @@ import { NotificationsComponent } from './shared/components/notifications/notifi
     RegisterComponent,
     SignComponent,
     TopComponent,
+    Error403Component,
     Error404Component,
     TestimonialsComponent,
     LatestComponent,
@@ -70,7 +71,6 @@ import { NotificationsComponent } from './shared/components/notifications/notifi
     ProblemsCategoryComponent,
     AddProblemComponent,
     UserDashboardComponent,
-    NotallowedComponent,
     NotificationsComponent
   ],
   imports: [
