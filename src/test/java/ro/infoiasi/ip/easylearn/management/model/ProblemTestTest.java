@@ -19,32 +19,11 @@ import java.util.Random;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@Transactional
-@Rollback(true)
-
 public class ProblemTestTest {
-    private SessionRepository sessionRepository;
-
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    private TestRepository testRepository;
-
-    @Autowired
-    private ProblemRepository problemRepository;
-
-    @Autowired
-    private TestController testController = new TestController(testRepository, sessionRepository);
-
 
     @Test
-    public void setInput() {
+    public void testSetter_setInput() {
         ProblemTest myTestProblem = new ProblemTest();
-
-
         String input = "String Random pentru test";
         myTestProblem.setInput(input);
 
@@ -54,65 +33,54 @@ public class ProblemTestTest {
     }
 
     @Test
-    public void setExpectedOutput() {
+    public void testSetter_setExpectedOutput() {
         ProblemTest myTestProblem = new ProblemTest();
         String exoutput = "Expected Output123";
         myTestProblem.setExpectedOutput(exoutput);
 
         String output = myTestProblem.getExpectedOutput();
-
         Assert.assertEquals(exoutput, output);
     }
 
     @Test
-    public void getId(){
+    public void testGetter_getId(){
         ProblemTest myProBlemTest = new ProblemTest();
         Random rand = new Random();
-
         long id = rand.nextInt(150) + 1;
 
         myProBlemTest.setId(id);
-
         final long getid = myProBlemTest.getId();
-
         Assert.assertEquals(id, getid);
     }
 
     @Test
-    public void getProblemID(){
+    public void testGetter_getProblemID(){
         ProblemTest myProBlemTest = new ProblemTest();
         Random rand = new Random();
-
         long id = rand.nextInt(150) + 1;
 
         myProBlemTest.setProblemId(id);
-
         final long getid = myProBlemTest.getProblemId();
-
         Assert.assertEquals(id, getid);
     }
 
     @Test
-    public void getInput(){
+    public void testGetter_getInput(){
         ProblemTest myProBlemTest = new ProblemTest();
         String input = "Input0123";
-
         myProBlemTest.setInput(input);
 
         final String getinput = myProBlemTest.getInput();
-
         Assert.assertEquals(input, getinput);
     }
 
     @Test
-    public void getExpectedOutput(){
+    public void testGetter_getExpectedOutput(){
         ProblemTest myProBlemTest = new ProblemTest();
         String output = "Expected Output1230";
-
         myProBlemTest.setExpectedOutput(output);
 
         final String getoutput = myProBlemTest.getExpectedOutput();
-
         Assert.assertEquals(output, getoutput);
     }
 }

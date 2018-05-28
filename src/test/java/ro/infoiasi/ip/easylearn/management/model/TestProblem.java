@@ -10,8 +10,6 @@ import java.lang.reflect.Field;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class TestProblem {
 
     @Test
