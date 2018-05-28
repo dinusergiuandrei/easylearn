@@ -1,10 +1,20 @@
 <table>
-<div *ngFor="let submission of submissions;">
-    <tr style="border: 1px solid black;">
-        <td style="border: 1px solid black;">{{submission.compileOut}}</td>
+  <thead>
+    <td>Id</td>
+    <td>Problem</td>
+    <td>User</td>
+    <td>Language</td>
+    <td>Date</td>
+    <td>State</td>
+    <td>View more info</td>
+  </thead>
+    <tr style="border: 1px solid black;" *ngFor="let submission of submissions;">
         <td style="border: 1px solid black;">{{submission.id}}</td>
+        <td style="border: 1px solid black;">{{submission.problemId}}</td>
+        <td style="border: 1px solid black;">{{submission.userId}}</td>
+        <td style="border: 1px solid black;">{{submission.language}}</td>
         <td style="border: 1px solid black;">{{submission.date}}</td>
         <td style="border: 1px solid black;">{{submission.state}}</td>
+        <td style="border: 1px solid black;">URL that takes you to a page with more info for this specific submission</td>
     </tr>
-</div>
 </table>

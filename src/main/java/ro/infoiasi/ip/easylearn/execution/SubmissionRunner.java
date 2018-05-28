@@ -2,8 +2,8 @@ package ro.infoiasi.ip.easylearn.execution;
 
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
-import ro.infoiasi.ip.easylearn.compiler.*;
 import ro.infoiasi.ip.easylearn.compiler.Compiler;
+import ro.infoiasi.ip.easylearn.compiler.*;
 import ro.infoiasi.ip.easylearn.management.model.Problem;
 import ro.infoiasi.ip.easylearn.management.model.ProblemTest;
 import ro.infoiasi.ip.easylearn.management.repository.api.ProblemRepository;
@@ -20,6 +20,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static ro.infoiasi.ip.easylearn.utils.SubmissionState.*;
 
 @Component
 public class SubmissionRunner {
@@ -79,13 +81,16 @@ public class SubmissionRunner {
                     run.setStatus(RunState.Success);
                 } else {
                     run.setStatus(RunState.Failed);
+                    submission.setState(SubmissionState.Failed);
                 }
                 runRepository.save(run);
             }
 
-            submission.setState(SubmissionState.Completed);
+            if (submission.getState() != SubmissionState.Failed) {
+                submission.setState(SubmissionState.Passed);
+            }
         } else {
-            submission.setState(SubmissionState.CompilationFailed);
+            submission.setState(CompilationFailed);
         }
         submissionRepository.update(submission);
     }
@@ -102,7 +107,7 @@ public class SubmissionRunner {
         System.out.println("Running submission with id: " + submissionId);
         Submission submission = submissionRepository.findById(submissionId);
         submission.setSources(sourceFilesRepository.findBySubmissionId(submissionId));
-        submission.setState(SubmissionState.Running);
+        submission.setState(Running);
         System.out.println("Running submission: " + submission);
         return submission;
     }

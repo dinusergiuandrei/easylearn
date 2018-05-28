@@ -7,6 +7,7 @@ public enum SubmissionState {
     Running("Running"),
     CompilationFailed("CompilationFailed"),
     Failed("Failed"),
+    Passed("Passed"),
     Completed("Completed");
 
     String value;
