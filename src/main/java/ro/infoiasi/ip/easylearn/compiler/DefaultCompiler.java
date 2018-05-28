@@ -32,7 +32,7 @@ public class DefaultCompiler extends Compiler {
         return getProcessOutput(process);
     }
 
-    public Output run(String command, String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
+    public Output run(String command, RunParameters runParameters) throws Exception {
         System.out.println("Using the following run params: " + runParameters);
         Process process = runCommand(command);
         addKeyboardInput(process, runParameters.getKeyboardInput());
@@ -48,7 +48,7 @@ public class DefaultCompiler extends Compiler {
                 .getCommandBuilder()
                 .buildRunCommand(compilerParameters.getRootDirectoryPath(), mainSource);
 
-        return run(command, mainSource, compilerParameters, runParameters);
+        return run(command, runParameters);
     }
 
     @Override

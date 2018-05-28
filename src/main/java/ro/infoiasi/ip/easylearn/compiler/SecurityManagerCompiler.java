@@ -2,6 +2,7 @@ package ro.infoiasi.ip.easylearn.compiler;
 
 import ro.infoiasi.ip.easylearn.utils.FileManager;
 import ro.infoiasi.ip.easylearn.utils.Language;
+import ro.infoiasi.ip.easylearn.utils.Permission;
 
 import java.io.*;
 import java.util.LinkedList;
@@ -25,20 +26,20 @@ public class SecurityManagerCompiler extends Compiler {
     private String sourceDirectoryAbsolutePath;
 
     @Override
-    public Output compile(CompilerParameters parameters) throws Exception {
+    public Output compile(CompilerParameters compilerParameters) throws Exception {
 
-        sourceDirectoryAbsolutePath = parameters.getRootDirectoryPath() + getFilePathSeparator() + sourceDirectoryName;
+        sourceDirectoryAbsolutePath = compilerParameters.getRootDirectoryPath() + getFilePathSeparator() + sourceDirectoryName;
 
-        createDirectory(parameters.getRootDirectoryPath());
+        createDirectory(compilerParameters.getRootDirectoryPath());
         createDirectory(sourceDirectoryAbsolutePath);
 
-        addSourcesToDirectory(parameters.getSourceCodes(), sourceDirectoryAbsolutePath);
+        addSourcesToDirectory(compilerParameters.getSourceCodes(), sourceDirectoryAbsolutePath);
 
-        String command = parameters
+        String command = compilerParameters
                 .getLanguage()
                 .getCommandBuilder()
                 .buildCompileCommand(
-                        parameters.getSourceCodes(),
+                        compilerParameters.getSourceCodes(),
                         sourceDirectoryAbsolutePath);
 
         if (command == null || command.length() == 0) {
@@ -79,12 +80,23 @@ public class SecurityManagerCompiler extends Compiler {
     }
 
     private Output runWithIntermediateProgram(String mainSource, CompilerParameters compilerParameters, RunParameters runParameters) throws Exception {
-        String outputDirectoryPath = getCurrentWorkingDirectory() + "/" + compilerParameters.getRootDirectoryPath() + getFilePathSeparator() + "output";
+        String rootPath = getCurrentWorkingDirectory() + "/" + compilerParameters.getRootDirectoryPath();
+        rootPath = rootPath.replace("\\", "/");
+
+        String outputDirectoryPath = rootPath + "/" + "output";
         outputDirectoryPath = outputDirectoryPath.replace("\\", "/");
         createDirectory(outputDirectoryPath);
 
         createFile(outputDirectoryPath+"/output");
         createFile(outputDirectoryPath+"/error");
+
+        String policyFilePath = rootPath + "/" + "p.policy";
+        List<Permission> permissions = compilerParameters.getPermissions();
+        permissions.add(new Permission("java.io.FilePermission", "\""+rootPath+"/Main"+"\"", "\"execute\""));
+        permissions.add(new Permission("java.io.FilePermission", "\"<<ALL FILES>>\"", "\"execute\""));
+        permissions.add(new Permission("java.io.FilePermission", "\""+outputDirectoryPath+"/output\"", "\"write\""));
+        permissions.add(new Permission("java.io.FilePermission", "\""+outputDirectoryPath+"/error\"", "\"write\""));
+        writeToPolicyFile(policyFilePath, permissions);
 
         String command = compilerParameters
                 .getLanguage()
@@ -95,7 +107,6 @@ public class SecurityManagerCompiler extends Compiler {
                 );
 
         String cleanCommand;
-        //cleanCommand = "Start.exe " + command.replace("\\", "/"); //for sand box ie
         cleanCommand = command.replace("\\", "/");
 
         List<SourceFile> containerSourceFiles = buildSourceFiles(cleanCommand, runParameters.getKeyboardInput(),
@@ -109,7 +120,7 @@ public class SecurityManagerCompiler extends Compiler {
         );
 
         RunParameters containerRunParameters =
-                new RunParameters(runParameters.getKeyboardInput(), runParameters.getTimeout(), runParameters.getTimeUnit());
+                new RunParameters("", runParameters.getTimeout(), runParameters.getTimeUnit());
 
         Output defaultCompilerOutput = defaultCompiler.compile(containerCompilerParameters);
 
@@ -117,15 +128,32 @@ public class SecurityManagerCompiler extends Compiler {
             System.out.println(defaultCompilerOutput.getError());
         }
 
-        defaultCompilerOutput = defaultCompiler.run(cleanCommand, "Main.java", containerCompilerParameters, containerRunParameters);
+        String securityRunCommand
+                = Language.Java.getCommandBuilder()
+                .buildRunCommand(
+                        rootPath,
+                        "Main.java",
+                        policyFilePath
+                        );
+        defaultCompilerOutput = defaultCompiler.run(securityRunCommand, containerRunParameters);
 
         if (defaultCompilerOutput.getExitValue() != 0) {
             System.out.println(defaultCompilerOutput.getError());
         }
 
-        //return collectOutput(outputDirectoryPath);
-        return Output.getOutputFromMessage(defaultCompilerOutput.getOutput());
+        return collectOutput(outputDirectoryPath);
         //return defaultCompilerOutput;
+        //return Output.getOutputFromMessage(defaultCompilerOutput.toString());
+    }
+
+    private void writeToPolicyFile(String policyFilePath, List<Permission> permissions){
+        StringBuilder policyFileBuilder = new StringBuilder();
+        policyFileBuilder.append("grant {\n");
+        for (Permission permission : permissions) {
+            policyFileBuilder.append(permission.getPermissionLine());
+        }
+        policyFileBuilder.append("};");
+        writeTextToFile(policyFileBuilder.toString(), policyFilePath);
     }
 
     private Output collectOutput(String outputDirectoryPath) throws IOException {
@@ -174,9 +202,6 @@ public class SecurityManagerCompiler extends Compiler {
                 "import java.util.concurrent.TimeUnit;\n\n" +
                 "public class Main {\n" +
                 "   public static void main(String args[]) throws Exception {\n" +
-                "     //SecurityManager securityManager = new SecurityManager();" +
-                "     //securityManager.checkExec(\"<<ALL FILES>>\");\n" +
-                "     //System.setSecurityManager(new SecurityManager());\n" +
                 "     Process process = Runtime.getRuntime().exec(\"" + command + "\");\n" +
                 "     addKeyboardInput(process, \"" + input + "\");\n" +
                 "     Output output = getProcessOutput(process, " + timeout + "L,  TimeUnit.MILLISECONDS );\n" +

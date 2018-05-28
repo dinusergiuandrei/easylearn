@@ -58,7 +58,7 @@ public class CompilerTest {
 
         setUpCppHelloWorld();
 		
-		setUpcppWritingToDisk();
+		setUpCppWritingToDisk();
 
         setUpPythonHelloWorld();
 
@@ -263,7 +263,7 @@ public class CompilerTest {
         );
 
     }
-	private void setUpcppWritingToDisk() throws IOException {
+	private void setUpCppWritingToDisk() throws IOException {
         String rootDirectoryPath = "sandbox/7";
 
         SourceFile writingToDiskSourceFile = new SourceFile (

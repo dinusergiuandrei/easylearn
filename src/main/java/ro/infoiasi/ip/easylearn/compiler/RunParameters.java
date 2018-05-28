@@ -1,5 +1,9 @@
 package ro.infoiasi.ip.easylearn.compiler;
 
+import ro.infoiasi.ip.easylearn.utils.Permission;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class RunParameters {

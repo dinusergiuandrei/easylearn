@@ -32,11 +32,11 @@ public abstract class FileManager {
 
     public static void addSourcesToDirectory(Collection<SourceFile> sources, String rootDirectory){
         for (SourceFile sourceFile : sources) {
-            addSourceToFile(sourceFile.getContent(), rootDirectory + getFilePathSeparator() + sourceFile.getFileName());
+            writeTextToFile(sourceFile.getContent(), rootDirectory + getFilePathSeparator() + sourceFile.getFileName());
         }
     }
 
-    public static void addSourceToFile(String source, String filename) {
+    public static void writeTextToFile(String source, String filename) {
         try {
             PrintWriter writer = new PrintWriter(filename);
             writer.write(source);

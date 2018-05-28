@@ -7,7 +7,7 @@ import java.util.List;
 import static ro.infoiasi.ip.easylearn.utils.FileManager.getFilePathSeparator;
 import static ro.infoiasi.ip.easylearn.utils.ProcessManager.removePathEnd;
 
-public class CppCommandBuilder implements CommandBuilder {
+public class CppCommandBuilder extends CommandBuilder {
     @Override
     public String buildCompileCommand(List<SourceFile> sources, String rootDirectoryPath) {
         StringBuilder commandBuilder = new StringBuilder();

@@ -4,8 +4,12 @@ import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 
 import java.util.List;
 
-public interface CommandBuilder {
-    String buildCompileCommand(List<SourceFile> sources, String rootDirectoryPath);
+public abstract class CommandBuilder {
+    abstract public String buildCompileCommand(List<SourceFile> sources, String rootDirectoryPath);
 
-    String buildRunCommand(String rootDirectoryPath, String mainSource);
+    abstract public String buildRunCommand(String rootDirectoryPath, String mainSource);
+
+    public String buildRunCommand(String rootDirectoryPath, String mainSource, String policyFilePath){
+        return "";
+    };
 }

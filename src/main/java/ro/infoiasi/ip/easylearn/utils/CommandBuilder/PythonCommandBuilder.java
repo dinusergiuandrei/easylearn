@@ -7,7 +7,7 @@ import java.util.List;
 import static ro.infoiasi.ip.easylearn.utils.FileManager.getCurrentWorkingDirectory;
 import static ro.infoiasi.ip.easylearn.utils.FileManager.getFilePathSeparator;
 
-public class PythonCommandBuilder implements CommandBuilder {
+public class PythonCommandBuilder extends CommandBuilder {
     @Override
     public String buildCompileCommand(List<SourceFile> sources, String rootDirectoryPath) {
         return "";

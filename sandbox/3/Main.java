@@ -15,8 +15,6 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
    public static void main(String args[]) throws Exception {
-     //SecurityManager securityManager = new SecurityManager();     //securityManager.checkExec("<<ALL FILES>>");
-     //System.setSecurityManager(new SecurityManager());
      Process process = Runtime.getRuntime().exec("java -cp E:/Projects/easylearn/sandbox/3/sources Main");
      addKeyboardInput(process, "");
      Output output = getProcessOutput(process, 10L,  TimeUnit.MILLISECONDS );
