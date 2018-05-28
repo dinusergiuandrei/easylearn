@@ -5,6 +5,8 @@ public class ProblemResponse {
     private String uri;
     private Long id;
 
+    public ProblemResponse(){}
+
     public ProblemResponse(Long id) {
         this.message = "Processed problem with id: " + id;
         this.uri = "http://localhost:8100/problems/" + id;
