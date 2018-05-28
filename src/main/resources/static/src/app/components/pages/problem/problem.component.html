@@ -37,12 +37,8 @@
         <span>{{ difficulty }}</span>
       </div>
       <div *ngFor="let test of testModel">
-        <h5>Input:</h5>
-        <span>{{test.input}}</span>
-      </div>
-      <div *ngFor="let test of testModel">
-        <h5>Expected output:</h5>
-        <span>{{test.expectedOutput}}</span>
+        <h5>Input/Output</h5>
+        <span>{{test.input}} | {{test.expectedOutput}}</span>
       </div>
     </div>
   </div>
