@@ -11,8 +11,8 @@
         <b>{{newName}} {{newFirstName}}</b>
       </div>
       <div class="buttons">
-        <input type="submit" id="edit" class="button" value="Edit Profile" (click)="editClick()">
-        <input type="submit" id="delete" class="button" value="Delete Account" (click)="deleteClick()">
+        <input type="submit" id="edit" class="btn btn-blue" value="Edit Profile" (click)="editClick()">
+        <input type="submit" id="delete" class="btn btn-red" value="Delete Account" (click)="deleteClick()">
       </div>
     </div>
     <div class="line-three">
@@ -36,7 +36,7 @@
         <input type="text" name="phone" class="input" [(ngModel)]="this.eMail">
       </div>
     </div>
-    <h4>
+    <h4 style="text-align: center">
       {{responseText}}
     </h4>
   </div>
