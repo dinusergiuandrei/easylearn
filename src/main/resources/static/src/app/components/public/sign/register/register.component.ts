@@ -79,7 +79,7 @@ export class RegisterComponent implements OnInit {
         '',
         Validators.compose([
           Validators.required,
-          Validators.minLength(6),
+          Validators.minLength(3),
         ]
         )
       ]

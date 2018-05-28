@@ -51,4 +51,9 @@ public class MapSubmissionRepository implements SubmissionRepository{
     public void update(Submission submission) {
 
     }
+
+    @Override
+    public List<Submission> findByProblem(Long problemID, Long uid) {
+        return null;
+    }
 }

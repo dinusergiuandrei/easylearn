@@ -3,8 +3,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubmitSolutionService, ProblemService } from '../../../services';
 import { SubmissionRequestModel, ProblemModel, SourceModel } from '../../../shared';
-
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { TestService } from '../../../services/test.service';
+import { TestModel } from '../../../shared/models/tests-model';
 
 @Component({
     selector: 'app-problem',
@@ -32,7 +33,8 @@ export class ProblemComponent implements OnInit {
         private submitService: SubmitSolutionService,
         private problemService: ProblemService,
         private route: ActivatedRoute,
-        private router: Router) {
+        private router: Router,
+        private testService: TestService) {
         this.title = 'Problem title';
         this.author = 'Robert Maftei';
         this.difficulty = 'Easy';
@@ -45,10 +47,10 @@ export class ProblemComponent implements OnInit {
         this.submitRequestModel.userId = 1;
         this.submitRequestModel.sources = new Array<SourceModel>();
         this.sourceFile = new SourceModel;
-        console.log(this.submitRequestModel);
     }
     public e;
     public sourceFile: SourceModel;
+    public testModel: Array<TestModel>;
     public strUser;
     public ngOnInit(): void {
         this.problemService.getProblem(this.problemId).subscribe((result: ProblemModel) => {
@@ -58,15 +60,20 @@ export class ProblemComponent implements OnInit {
                 this.router.navigate(['/error404']);
             });
 
-
         this.responseText = 'If you choose to code in java, you must have the main class.';
+        this.testService.getTests(this.problemId).subscribe((result: Array<TestModel>) => {
+            this.testModel = result;
+            console.log(result);
+        },
+            err => {
+                this.router.navigate(['/error404']);
+            });
     }
 
     public submitSolution(): void {
 
         this.e = document.getElementById('languageSelector');
         this.strUser = this.e.options[this.e.selectedIndex].value;
-        console.log(this.e);
         this.submitRequestModel.language = this.strUser;
         if (this.sourceFile.content == null) {
             this.sourceFile.content = '';
@@ -85,16 +92,15 @@ export class ProblemComponent implements OnInit {
 
         let submissionID;
 
-        console.log(this.sourceFile);
         this.submitRequestModel.sources.push(this.sourceFile);
 
         this.submitService.submitSolution(this.submitRequestModel).subscribe(res => {
             console.log(res);
+            console.log(this.submitRequestModel);
         });
 
-        this.submitService.getSubmision(submissionID).subscribe(res => {
-            console.log(res);
-        });
-
+        // this.submitService.getSubmision(submissionID).subscribe(res => {
+        //     console.log(res);
+        // });
     }
 }

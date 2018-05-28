@@ -1,13 +1,13 @@
 <div class="problem-wrapper">
   <h1>{{ this.title }}</h1>
 
-    <div class="row">
-        <div class="col-md-8">
-            <div class="problem-description">
-                <h3>Problem Demands</h3>
-                <p>
-                    {{problemModel?.requirement}}
-                </p>
+  <div class="row">
+    <div class="col-md-8">
+      <div class="problem-description">
+        <h3>Problem Demands</h3>
+        <p>
+          {{problemModel?.requirement}}
+        </p>
 
         <h3>Input data</h3>
         <p>
@@ -44,7 +44,9 @@
           Submit
         </button>
       </div>
-      {{responseText}}
+      <a [routerLink]="['/submissions']" [queryParams]="{problemId: problemId}">
+        Go to your submissions
+      </a>
       <div>
         <select id="languageSelector">
           <option value="Java">Java</option>
@@ -54,5 +56,9 @@
       </div>
     </div>
   </div>
+</div>
+
+<div *ngFor="let test of testModel">
+  Expected ouput: {{test.expectedOutput}}  | Input: {{test.input}}
 </div>
 

@@ -1,8 +1,12 @@
 package ro.infoiasi.ip.easylearn.user.repository.impl;
 
 import org.springframework.stereotype.Repository;
+import ro.infoiasi.ip.easylearn.user.exception.NotLoggedInException;
 import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
+import ro.infoiasi.ip.easylearn.utils.CookieManager;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 
 @Repository
@@ -35,5 +39,10 @@ public class BasicSessionRepository implements SessionRepository {
         return sessions.get(sid);
     }
 
-
+    public Long MustBeLoggedIn(HttpServletRequest request) {
+        Cookie cookie = CookieManager.getCookie(request.getCookies(), "sid");
+        if (cookie != null && this.isActive(cookie.getValue()))
+            return this.getUserID(cookie.getValue());
+        else throw new NotLoggedInException();
+    }
 }

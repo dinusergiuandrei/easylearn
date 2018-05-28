@@ -13,23 +13,26 @@ public class Submission {
     private Long problemId;
     private Long userId;
     private Language language;
-    private List <SourceFile> sources;
+    private List<SourceFile> sources;
     private String mainSource;
     private SubmissionState state;
-    private List <Run> runs;
+    private List<Run> runs;
     private Date date;
+    private String compileOut;
 
     public Submission() {
+        sources = new ArrayList<>();
+        runs = new ArrayList<>();
     }
 
-    public Submission(Long problemId, Long userId, Language language, List <SourceFile> sources, String mainSource) {
+    public Submission(Long problemId, Long userId, Language language, List<SourceFile> sources, String mainSource) {
         this.problemId = problemId;
         this.language = language;
         this.sources = sources;
         this.state = SubmissionState.Waiting;
         this.mainSource = mainSource;
         this.date = new Date();
-        this.runs = new ArrayList <>();
+        this.runs = new ArrayList<>();
         this.userId = userId;
     }
 
@@ -43,6 +46,17 @@ public class Submission {
         );
     }
 
+
+    public String getCompileOut() {
+        return compileOut;
+    }
+
+    public void setCompileOut(String compileOut) {
+        if (compileOut != null && compileOut.length() > 450)
+            this.compileOut = compileOut.substring(0,450);
+        else
+            this.compileOut = compileOut;
+    }
 
     public Long getUserId() {
         return userId;
@@ -60,11 +74,11 @@ public class Submission {
         this.date = date;
     }
 
-    public List <Run> getRuns() {
+    public List<Run> getRuns() {
         return runs;
     }
 
-    public void setRuns(List <Run> runs) {
+    public void setRuns(List<Run> runs) {
         this.runs = runs;
     }
 
@@ -92,11 +106,11 @@ public class Submission {
         this.language = language;
     }
 
-    public List <SourceFile> getSources() {
+    public List<SourceFile> getSources() {
         return sources;
     }
 
-    public void setSources(List <SourceFile> sources) {
+    public void setSources(List<SourceFile> sources) {
         this.sources = sources;
     }
 

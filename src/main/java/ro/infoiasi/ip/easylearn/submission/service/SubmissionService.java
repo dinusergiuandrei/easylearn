@@ -12,6 +12,7 @@ import ro.infoiasi.ip.easylearn.submission.repository.api.SourceFilesRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
 import ro.infoiasi.ip.easylearn.submission.validation.SubmissionValidator;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -66,4 +67,9 @@ public class SubmissionService {
 
         return submission;
     }
+    public List<Submission> getSubmissionsByProblem(Long problemID, Long uid)
+    {
+        return submissionRepository.findByProblem(problemID, uid);
+    }
+
 }

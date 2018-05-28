@@ -39,8 +39,9 @@ public class UserController {
     @RequestMapping(path = "/users", method = GET)
     @ResponseBody
     @ApiOperation(value = "View the information about all the users")
-    public List<User> users() {
+    public List<User> users(HttpServletRequest request) {
         ConsoleLogger.Log("Get all users");
+        sessionRepository.MustBeLoggedIn(request);
         return userRepository.findAll();
     }
 
@@ -65,7 +66,8 @@ public class UserController {
     @RequestMapping(path = "/users/{id}", method = GET)
     @ResponseBody
     @ApiOperation(value = "View information about a particular user")
-    public User user(@PathVariable Long id) throws UserNotFoundException {
+    public User user(@PathVariable Long id, HttpServletRequest request) throws UserNotFoundException {
+        sessionRepository.MustBeLoggedIn(request);
         User user = userRepository.findById(id);
         ConsoleLogger.Log("Get user info ID: " + id);
         if (user == null) {
@@ -81,7 +83,7 @@ public class UserController {
         if (!userValidator.validateUserUpdate(user))
             throw new UserDataCouldNotBeUpdatedException();
 
-        Long uid = MustBeLoggedIn(request);
+        Long uid = sessionRepository.MustBeLoggedIn(request);
         user.setId(uid);
 
         boolean updated = userRepository.update(user);
@@ -96,7 +98,7 @@ public class UserController {
     @RequestMapping(path = "/user", method = DELETE)
     @ApiOperation(value = "Delete current user")
     public void delete(HttpServletRequest request) {
-        Long uid = MustBeLoggedIn(request);
+        Long uid = sessionRepository.MustBeLoggedIn(request);
         ConsoleLogger.Log("Delete user UID: " + uid);
         boolean deleted = userRepository.delete(uid);
 
@@ -128,39 +130,33 @@ public class UserController {
     @ResponseBody
     @ApiOperation(value = "Get current user info")
     public User profile(HttpServletRequest request) {
-        Long uid = MustBeLoggedIn(request);
+        Long uid = sessionRepository.MustBeLoggedIn(request);
         ConsoleLogger.Log("Profile UID: " + uid);
         return userRepository.findById(uid);
     }
 
-    public Long MustBeLoggedIn(HttpServletRequest request) {
-        Cookie cookie = CookieManager.getCookie(request.getCookies(), "sid");
-        if (cookie != null && sessionRepository.isActive(cookie.getValue()))
-            return sessionRepository.getUserID(cookie.getValue());
-        else throw new NotLoggedInException();
-    }
-
-
-    @RequestMapping(path = "/logout", method = GET)
+    @RequestMapping(path = "/logout", method = POST)
     @ApiOperation(value = "Logs out current user")
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         Cookie cookie = CookieManager.getCookie(request.getCookies(), "sid");
-        ConsoleLogger.Log("Logout SID: " + cookie.getValue());
-
+        ConsoleLogger.Log("Logout");
         if (cookie == null) return;
+        ConsoleLogger.Log("Logout SID: " + cookie.getValue());
         sessionRepository.destroy(cookie.getValue());
-        Cookie _cookie = new Cookie("sid", cookie.getValue());
-        _cookie.setMaxAge(0);
-        _cookie.setPath("/");
-        response.addCookie(cookie);
+
+
+//        SetMaxAge don't work
+
+//        Cookie _cookie = new Cookie("sid", null);
+//        _cookie.setMaxAge(0);
+//        _cookie.setPath("/");
+//        response.addCookie(cookie);
     }
 
     @RequestMapping(path = "/forgot", method = POST)
     @ResponseBody
     @ApiOperation(value = "Reset user password")
     public String forgot(@RequestBody ForgotUser forgotUser, HttpServletRequest request) {
-        Long uid = MustBeLoggedIn(request);
-        forgotUser.setId(uid);
         String newPassword = userRepository.forgot(forgotUser);
 
         ConsoleLogger.Log(forgotUser.toString() + "  New: " + newPassword);
@@ -169,5 +165,4 @@ public class UserController {
             throw new UserDataCouldNotBeUpdatedException();
         return newPassword;
     }
-
 }

@@ -11,8 +11,20 @@ public class Run {
     private Long runTimeMs;
     private Long memoryBytes;
     private RunState status;
+    private String output;
 
     public Run() {
+    }
+
+    public String getOutput() {
+        return output;
+    }
+
+    public void setOutput(String output) {
+        if (output != null && output.length() > 150)
+            this.output = output.substring(0, 100);
+        else
+            this.output = output;
     }
 
     public Long getId() {

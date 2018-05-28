@@ -7,7 +7,10 @@ import ro.infoiasi.ip.easylearn.submission.model.SubmissionRequest;
 import ro.infoiasi.ip.easylearn.submission.model.SubmissionResponse;
 import ro.infoiasi.ip.easylearn.submission.service.SubmissionService;
 import ro.infoiasi.ip.easylearn.submission.model.Submission;
+import ro.infoiasi.ip.easylearn.user.repository.api.SessionRepository;
+import ro.infoiasi.ip.easylearn.utils.ConsoleLogger;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 // dependency injection -- submissionService
@@ -18,9 +21,10 @@ import java.util.List;
 @Api(value = "submissions", description = "Operations pertaining to the manipulations of submissions")
 public class SubmissionController {
     private SubmissionService submissionService;
+    private SessionRepository sessionRepository;
 
-    public SubmissionController(SubmissionService submissionService) {
-
+    public SubmissionController(SubmissionService submissionService, SessionRepository sessionRepository) {
+        this.sessionRepository = sessionRepository;
         this.submissionService = submissionService;
     }
 
@@ -41,8 +45,22 @@ public class SubmissionController {
     @RequestMapping(path = "/submit", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Send a submission for processing. If the request contains special characters, copy Example Value model in: https://jsoneditoronline.org/, select the key icon to repair the JSON, then paste the result in swagger.")
-    public SubmissionResponse submit(@RequestBody SubmissionRequest submissionRequest) {
+    public SubmissionResponse submit(@RequestBody SubmissionRequest submissionRequest, HttpServletRequest request) {
+        ConsoleLogger.Log("Submit: " + submissionRequest);
+
+        Long uid = sessionRepository.MustBeLoggedIn(request);
+        submissionRequest.setUserId(uid);
+
         return submissionService.submit(submissionRequest);
     }
+
+    @RequestMapping(path = "/submissions/problem/{problemID}", method = RequestMethod.GET)
+    @ResponseBody
+    @ApiOperation(value = "View the information about all submissions for a problem for current user")
+    public List<Submission> submissionsByProblem(@PathVariable Long problemID, HttpServletRequest request) {
+        Long uid = sessionRepository.MustBeLoggedIn(request);
+        return submissionService.getSubmissionsByProblem(problemID, uid);
+    }
+
 
 }

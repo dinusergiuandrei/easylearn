@@ -37,4 +37,9 @@ export class AuthService {
       score: 0,
     });
   }
+
+  logout(): Observable<any> {
+    return this.http.post(`${environment.api}/logout`, {
+    });
+  }
 }

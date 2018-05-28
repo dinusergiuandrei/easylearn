@@ -110,10 +110,10 @@ public class SqlUserRepository implements UserRepository {
     @Override
     public String forgot(ForgotUser forgotUser) {
         String newPassword = RandomString.RandomStr(8);
-        String query = "UPDATE users SET password=? WHERE id=? AND secretQuestion=? AND secretAnswer=? AND email=?";
+        String query = "UPDATE users SET password=? WHERE secretQuestion=? AND secretAnswer=? AND email=?";
 
-        Object[] params = new Object[]{Hashing.sha256().hashUnencodedChars(newPassword).toString(), forgotUser.getId(), forgotUser.getSecretQuestion(), forgotUser.getSecretAnswer(), forgotUser.getEmail()};
-        int[] types = new int[]{Types.VARCHAR, Types.INTEGER, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
+        Object[] params = new Object[]{Hashing.sha256().hashUnencodedChars(newPassword).toString(), forgotUser.getSecretQuestion(), forgotUser.getSecretAnswer(), forgotUser.getEmail()};
+        int[] types = new int[]{Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
 
         Integer affectedRows = jdbcTemplate.update(query, params, types);
         if (affectedRows == 0)

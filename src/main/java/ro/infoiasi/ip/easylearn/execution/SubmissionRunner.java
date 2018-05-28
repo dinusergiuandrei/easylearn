@@ -50,6 +50,7 @@ public class SubmissionRunner {
         );
 
         Output compileOutput = compiler.compile(compilerParameters);
+        submission.setCompileOut(compileOutput.toString());
 
         if (compiledWithSuccess(compileOutput)) {
             Problem problem = problemRepository.findById(submission.getProblemId());
@@ -68,7 +69,14 @@ public class SubmissionRunner {
                 Output runOutput = compiler.run(submission.getMainSource(), compilerParameters, runParameters);
                 System.out.println("Running complete");
 
-                if ( runWithSuccess(runOutput) && test.isValidOutput(runOutput.getOutput())) {
+                System.out.println(runOutput.getOutput());
+                System.out.println(runOutput.toString());
+                System.out.println(test.getExpectedOutput());
+                System.out.println(test.isValidOutput(runOutput.getOutput()));
+
+                run.setOutput(runOutput.toString());
+                System.out.println("##"+run.getOutput().length());
+                if (runWithSuccess(runOutput) && test.isValidOutput(runOutput.getOutput())) {
                     run.setStatus(RunState.Success);
                 } else {
                     run.setStatus(RunState.Failed);

@@ -17,6 +17,8 @@ import { AuthService } from './services/auth.service';
 import { NotificationService } from './services/notification.service';
 import { ProblemService } from './services/problem.service';
 
+import { CookieService } from 'ngx-cookie-service';
+
 // Components
 import { LoadingScreenComponent } from './shared/components/loading-screen/loading-screen.component';
 import { NavbarComponent } from './shared/components/navbar/navbar.component';
@@ -44,6 +46,8 @@ import { ProblemsCategoryComponent } from './components/pages/problems-category/
 import { AddProblemComponent } from './components/pages/add-problem/add-problem.component';
 import { UserDashboardComponent } from './components/pages/user-dashboard/user-dashboard.component';
 import { NotificationsComponent } from './shared/components/notifications/notifications.component';
+import { SubmissionsComponent } from './components/pages/submissions/submissions.component';
+import { LogoutComponent } from './components/pages/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,9 @@ import { NotificationsComponent } from './shared/components/notifications/notifi
     ProblemsCategoryComponent,
     AddProblemComponent,
     UserDashboardComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    SubmissionsComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +96,8 @@ import { NotificationsComponent } from './shared/components/notifications/notifi
   ],
   providers: [
     LoadingScreenService,
-    FormBuilder
+    FormBuilder,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
