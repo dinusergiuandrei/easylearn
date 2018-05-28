@@ -59,6 +59,9 @@ public class SecurityManagerCompiler extends Compiler {
 
         output = runWithIntermediateProgram(mainSource, compilerParameters, runParameters);
 
+        String rootPath = getCurrentWorkingDirectory() + "/" + compilerParameters.getRootDirectoryPath();
+        //FileManager.removeDirectory(rootPath);
+
         return output;
     }
 
@@ -141,6 +144,7 @@ public class SecurityManagerCompiler extends Compiler {
             System.out.println(defaultCompilerOutput.getError());
         }
 
+
         return collectOutput(outputDirectoryPath);
         //return defaultCompilerOutput;
         //return Output.getOutputFromMessage(defaultCompilerOutput.toString());
@@ -167,6 +171,13 @@ public class SecurityManagerCompiler extends Compiler {
 
         output.setOutput(outputString);
         output.setError(errorString);
+
+        if(errorString.trim().length() > 0){
+            output.setExitValue(-1);
+        }
+        else {
+            output.setExitValue(0);
+        }
 
         return output;
     }

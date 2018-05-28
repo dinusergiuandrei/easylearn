@@ -13,6 +13,7 @@ import ro.infoiasi.ip.easylearn.submission.model.Submission;
 import ro.infoiasi.ip.easylearn.submission.repository.api.RunRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SourceFilesRepository;
 import ro.infoiasi.ip.easylearn.submission.repository.api.SubmissionRepository;
+import ro.infoiasi.ip.easylearn.utils.FileManager;
 import ro.infoiasi.ip.easylearn.utils.RunState;
 import ro.infoiasi.ip.easylearn.utils.SubmissionState;
 
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static ro.infoiasi.ip.easylearn.utils.FileManager.removeDirectory;
 import static ro.infoiasi.ip.easylearn.utils.SubmissionState.*;
 
 @Component
@@ -44,12 +46,16 @@ public class SubmissionRunner {
     @JmsListener(destination = "submissionQueue", containerFactory = "jmsListenerContainerFactory")
     public void run(Long submissionId) throws Exception {
         Submission submission = initializeSubmission(submissionId);
+        String rootDirectoryPath = "sandbox/" + submissionId;
 
         CompilerParameters compilerParameters = new CompilerParameters(
                 submission.getLanguage(),
                 submission.getSources(),
-                "sandbox/" + submissionId
+                rootDirectoryPath
         );
+
+        // todo: set up permissions
+        //compilerParameters.getPermissions().add( ... );
 
         Output compileOutput = compiler.compile(compilerParameters);
         submission.setCompileOut(compileOutput.toString());
@@ -88,6 +94,8 @@ public class SubmissionRunner {
         }
         System.out.println("Finished running submission: " + submission);
         submissionRepository.update(submission);
+
+        removeDirectory(rootDirectoryPath);
     }
 
     private Run createRun(Long submissionId, Problem problem, ProblemTest test) {

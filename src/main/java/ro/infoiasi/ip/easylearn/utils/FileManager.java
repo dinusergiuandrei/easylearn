@@ -3,6 +3,9 @@ package ro.infoiasi.ip.easylearn.utils;
 import ro.infoiasi.ip.easylearn.compiler.SourceFile;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.file.Paths;
 import java.util.Collection;
 
 public abstract class FileManager {
@@ -60,6 +63,26 @@ public abstract class FileManager {
             return stringBuilder.toString();
         } finally {
             reader.close();
+        }
+    }
+
+    public static void removeDirectory(String directoryPath)  {
+        File file = new File(directoryPath);
+        if(!file.exists())
+            return;
+        if(file.isFile()){
+            if(!file.delete()){
+                System.err.println("Could not delete file: " + file.getPath());
+            }
+        }
+        else {
+            File[] files = file.listFiles();
+            for (File childFile : files) {
+                removeDirectory(childFile.getAbsolutePath());
+            }
+            if(!file.delete()){
+                System.err.println("Could not delete directory: " + file.getPath());
+            }
         }
     }
 }
