@@ -3,10 +3,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProblemService } from '../../../services/problem.service';
 import { ProblemModel } from '../../../shared';
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
-
-
 @Component({
   selector: 'app-latest',
   templateUrl: './latest.component.html',
