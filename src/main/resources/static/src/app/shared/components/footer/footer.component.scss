@@ -1,7 +1,7 @@
 @import '../../../../assets/scss/variables/_variables';
 
 footer {
-  padding: $container-spacing $container-spacing-max;
+  padding: $container-spacing 2*$container-spacing-max;
   @extend %flex-row;
   justify-content: space-between;
   background-color: $color-container;

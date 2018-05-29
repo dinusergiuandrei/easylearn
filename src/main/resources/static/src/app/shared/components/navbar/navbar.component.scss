@@ -5,6 +5,15 @@ nav {
 	@extend %flex-row;
 	justify-content: space-between;
 	align-items: center;
+	transition: $transition-general;
+}
+
+.nav {
+	&-buttons {
+		@extend %flex-row;
+		.btn:not(:last-child) { margin-right: $container-spacing-min; }
+	}
+	&-collapse { display: none; }
 }
 
 @media (max-width: 767px) {
@@ -12,13 +21,11 @@ nav {
 		padding-left: $container-spacing;
 		padding-right: $container-spacing;
 	}
+	.nav {
+		&-buttons { display: none; }
+		&-collapse { display: block; }
+	}
 }
-
-
-
-
-
-
 
 .on-scroll{
 	background-color: $color-container;

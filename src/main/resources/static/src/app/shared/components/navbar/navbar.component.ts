@@ -64,7 +64,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   onWindowScroll() {
     const number = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-    const x = document.getElementsByClassName('navbar')[0];
+    const x = document.getElementsByTagName('nav')[0];
     x.classList.add('on-scroll');
     if (number === 0) {
       x.classList.remove('on-scroll');

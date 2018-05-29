@@ -2,22 +2,22 @@
   <a [routerLink]="['']">
     <img class="logo" src="{{logo.path}}" alt="{{logo.name}}">
   </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+
+  <mat-menu class="nav-collapse" #menu="matMenu">
+    <button mat-menu-item [routerLink]="[link]">
+      <span>{{firstButton}}</span>
+    </button>
+    <button mat-menu-item [routerLink]="[link2]">
+      <span>{{secondButton}}</span>
+    </button>
+  </mat-menu>
+
+  <button class="nav-collapse" mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
   </button>
 
-  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <!-- add content if needed -->
-    </ul>
-
+  <div class="nav-buttons">
     <button class="btn btn-primary" [routerLink]="[link]">{{firstButton}}</button>
     <button class="btn btn-secondary" [routerLink]="[link2]">{{secondButton}}</button>
-    
-      <!-- <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['profile']" ng-if="ifLogged()">My Account</button>
-      <button class="btn btn-success my-2 my-sm-0" [routerLink]="['logout']" ng-if="ifLogged()">Logout</button>
-      <button class="btn btn-outline-success my-2 my-sm-0" [routerLink]="['register']" ng-if="!ifLogged()">Sign Up</button>
-      <button class="btn btn-success my-2 my-sm-0" [routerLink]="['login']" ng-if="!ifLogged()">Sign In</button> -->
   </div>
 </nav>
