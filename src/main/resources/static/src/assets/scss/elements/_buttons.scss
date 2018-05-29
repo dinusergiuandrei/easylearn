@@ -35,6 +35,24 @@ button, a[type=button] {
         cursor: default;
     }
 
+    // Button styles
+    &-outline {
+        &-primary, &-secondary {
+            background: transparent;
+            border: 1px solid;
+        }
+        &-primary {
+            color: $color-primary;
+            border-color: $color-primary;
+            &:hover { background: $color-primary-gradient; }
+        }
+        &-secondary {
+            color: $color-secondary;
+            border-color: $color-secondary;
+            &:hover { background: $color-secondary-gradient; }
+        }
+    }
+
     // Button colors
     &-primary { background: $color-primary-gradient; }
     &-secondary { background: $color-secondary-gradient; }
