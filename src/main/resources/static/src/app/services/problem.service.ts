@@ -26,5 +26,11 @@ export class ProblemService {
       return result;
     })
   }
+  
+  public getLatest(): Observable<any> {
+    return this.http.get(this.api + '/problems/' ).map((result: ProblemModel) => {
+      return result;
+    })
+  }
 
 }
